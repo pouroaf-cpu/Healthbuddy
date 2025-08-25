@@ -63,14 +63,6 @@ ${email || "[Name]"}
 `;
 
   const letterDiv = document.getElementById("gpLetter");
-  document.getElementById("letterContent").innerText = letter;
-  letterDiv.style.display = "block";
-
-  resultsDiv.scrollIntoView({ behavior: 'smooth' });
-
-  // PDF download
-  document.getElementById("downloadPdf").onclick = () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const text = letter;
-    const split
+  const letterContent = document.getElementById("letterContent");
+  letterContent.innerText = letter;
+  letterDiv.style
