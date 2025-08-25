@@ -1,78 +1,42 @@
-// Handle Health Form
-document.getElementById('healthForm').addEventListener('submit', function(e) {
+document.getElementById("energy").addEventListener("input", function() {
+  document.getElementById("energyVal").textContent = this.value;
+});
+
+document.getElementById("libido").addEventListener("input", function() {
+  document.getElementById("libidoVal").textContent = this.value;
+});
+
+document.getElementById("health-form").addEventListener("submit", function(e) {
   e.preventDefault();
-  calculateResults();
-});
 
-// Handle GP Letter Form
-document.getElementById('gpForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  generateGpLetter();
-});
+  const age = document.getElementById("age").value;
+  const weight = document.getElementById("weight").value;
+  const height = document.getElementById("height").value;
+  const energy = document.getElementById("energy").value;
+  const libido = document.getElementById("libido").value;
+  const sleep = document.getElementById("sleep").value;
+  const exercise = document.getElementById("exercise").value;
 
-// Show GP Form button
-document.getElementById('gpLetterBtn').addEventListener('click', function() {
-  document.getElementById('gp-form-section').classList.remove('hidden');
-});
+  let resultText = `Based on your inputs: Age ${age}, Weight ${weight}kg, Height ${height}cm, 
+  Energy ${energy}/10, Libido ${libido}/10, Sleep ${sleep}, Exercise ${exercise}.`;
 
-// Calculate Health Results
-function calculateResults() {
-  const age = parseInt(document.getElementById('age').value);
-  const weight = parseFloat(document.getElementById('weight').value);
-  const height = parseFloat(document.getElementById('height').value);
-  const energy = parseInt(document.getElementById('energy').value);
-  const libido = parseInt(document.getElementById('libido').value);
-
-  const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
-
-  let message = `Your BMI is ${bmi}. `;
-  if (bmi > 25) {
-    message += "You may be overweight, which can affect hormone health. ";
-  } else if (bmi < 18.5) {
-    message += "You may be underweight, which can also impact hormone balance. ";
+  if (energy < 4 || libido < 4) {
+    resultText += " ⚠️ You may need some help with hormone health. We can draft a letter for your GP.";
   } else {
-    message += "Your BMI is in a healthy range. ";
+    resultText += " ✅ Things look generally balanced, but you may still consider discussing with your GP.";
   }
 
-  if (energy <= 4) message += "Your energy levels seem low. ";
-  if (libido <= 4) message += "Your libido seems below average. ";
+  document.getElementById("form-section").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+  document.getElementById("result-text").textContent = resultText;
+});
 
-  message += "You may need some help with further information. We can draft a letter to your GP for you.";
+document.getElementById("gp-letter-btn").addEventListener("click", function() {
+  document.getElementById("results").classList.add("hidden");
+  document.getElementById("gp-form-section").classList.remove("hidden");
+});
 
-  document.getElementById('results').innerText = message;
-
-  document.getElementById('form-section').classList.add('hidden');
-  document.getElementById('results-section').classList.remove('hidden');
-}
-
-// Generate GP Letter
-function generateGpLetter() {
-  const patientName = document.getElementById('patientName').value;
-  const patientEmail = document.getElementById('patientEmail').value;
-  const gpName = document.getElementById('gpName').value;
-  const gpPractice = document.getElementById('gpPractice').value;
-
-  const letter = `
-    Dear Dr. ${gpName},
-
-    I am writing regarding my patient, ${patientName}, who has used our men's hormone health self-assessment tool.
-    The results suggest that there may be areas requiring further clinical evaluation.
-
-    We recommend considering investigations into:
-    - Hormone balance (including testosterone and related markers)
-    - Metabolic health (BMI, potential obesity-related risks)
-    - Energy and libido concerns that may indicate endocrine or lifestyle factors
-
-    Practice: ${gpPractice}  
-    Patient contact: ${patientEmail}
-
-    Thank you for your attention to this matter.
-
-    Sincerely,  
-    Men's Hormone Health Assessment Service
-  `;
-
-  document.getElementById('gpLetter').innerText = letter.trim();
-  document.getElementById('gp-form-section').classList.add('hidden');
-  document.getElementById('gp-letter-section').classList.remove('hidden');
-}
+document.getElementById("gp-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  alert("📄 GP Letter would be generated as PDF (this is placeholder).");
+});
