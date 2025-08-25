@@ -33,16 +33,13 @@ document.getElementById("healthForm").addEventListener("submit", function(e) {
   if (score >= 4) riskCategory = "High Risk";
   else if (score >= 2) riskCategory = "Moderate Risk";
 
-  // Hide form
   document.getElementById("healthForm").style.display = "none";
 
-  // Display results
   const resultsDiv = document.getElementById("results");
   document.getElementById("riskScore").innerText = `Hormone Health Risk Score: ${riskCategory}`;
   document.getElementById("suggestions").innerHTML = suggestions.map(s => `<li>${s}</li>`).join("");
   resultsDiv.style.display = "block";
 
-  // GP letter
   const letter = `
 Dear Doctor,
 
@@ -68,9 +65,11 @@ ${email || "[Name]"}
 
   resultsDiv.scrollIntoView({ behavior: 'smooth' });
 
-  // PDF download
   document.getElementById("downloadPdf").onclick = () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const text = letter;
-    const split
+    const splitText = doc.splitTextToSize(letter, 180);
+    doc.text(splitText, 15, 20);
+    doc.save("GP_Letter.pdf");
+  };
+});
