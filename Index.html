@@ -2,55 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Men's Hormone Health Checker</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Men's Hormone Health Check</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <header>
     <h1>Men's Hormone Health Checker</h1>
-    <p>Answer a few questions to receive insights and a GP referral letter</p>
+    <p>Answer the questions below to get personalised feedback and a GP letter draft.</p>
   </header>
 
   <main>
-    <form id="health-form">
-      <label>Age: <input type="number" id="age" required /></label>
-      <label>Weight (kg): <input type="number" id="weight" required /></label>
-      <label>Height (cm): <input type="number" id="height" required /></label>
-      <label>Energy levels (1-10): <input type="number" id="energy" min="1" max="10" required /></label>
-      <label>Sex drive (1-10): <input type="number" id="libido" min="1" max="10" required /></label>
-      <label>Frequency of morning erections (per week): <input type="number" id="erections" min="0" max="7" required /></label>
-      <label>Mood stability (1-10): <input type="number" id="mood" min="1" max="10" required /></label>
-      <label>Sleep quality (1-10): <input type="number" id="sleep" min="1" max="10" required /></label>
-      <label>Any history of testicular surgery or trauma? 
-        <select id="surgery">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
-      <label>Do you currently take any medications? 
-        <select id="medications">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
+    <form id="healthForm">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required />
+
+      <label for="weight">Weight (kg):</label>
+      <input type="number" id="weight" name="weight" required />
+
+      <label for="height">Height (cm):</label>
+      <input type="number" id="height" name="height" required />
+
+      <label for="libido">Libido (1=very low, 5=very high):</label>
+      <input type="number" id="libido" name="libido" min="1" max="5" required />
+
+      <label for="mood">Mood Stability (1=poor, 5=excellent):</label>
+      <input type="number" id="mood" name="mood" min="1" max="5" required />
+
+      <label for="energy">Energy Levels (1=very low, 5=very high):</label>
+      <input type="number" id="energy" name="energy" min="1" max="5" required />
+
+      <label for="erections">Morning Erections (per week):</label>
+      <input type="number" id="erections" name="erections" min="0" max="7" required />
+
       <button type="submit">Calculate</button>
     </form>
 
-    <section id="result-container" class="hidden">
-      <div class="result-box">
-        <h2>Results</h2>
-        <p id="results"></p>
-        <button id="generate-letter">Download GP Letter (PDF)</button>
-      </div>
+    <section id="results" class="hidden">
+      <h2>Your Results</h2>
+      <div id="adviceBox"></div>
+      <button id="downloadLetter">Download GP Letter (PDF)</button>
     </section>
   </main>
 
   <footer>
-    <p>Disclaimer: This tool is not a medical diagnosis. Always consult a healthcare professional.</p>
+    <p>&copy; 2025 HealthBuddy. Not a medical service. Always consult a doctor.</p>
   </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script src="script.js"></script>
 </body>
 </html>
