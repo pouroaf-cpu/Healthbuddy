@@ -13,7 +13,7 @@
   </header>
 
   <main>
-    <!-- Form -->
+    <!-- Primary Form -->
     <form id="healthForm">
       <label>Age:
         <input type="number" id="age" required>
@@ -48,22 +48,52 @@
           <option value="yes">Yes</option>
         </select>
       </label>
-
       <button type="submit" class="btn">Calculate</button>
     </form>
 
-    <!-- Results Box -->
+    <!-- Results Section -->
     <section id="resultsBox" class="hidden">
       <h2>Your Results</h2>
       <div id="results"></div>
-      <button id="downloadLetter" class="btn">Download GP Letter (PDF)</button>
+      <button id="requestLetter" class="btn">Request GP Letter</button>
+    </section>
+
+    <!-- Secondary GP Letter Form -->
+    <section id="gpLetterFormContainer" class="hidden">
+      <h2>Request GP Letter</h2>
+      <form id="gpLetterForm">
+        <label>Patient Full Name:
+          <input type="text" id="patientName" required>
+        </label>
+        <label>Patient Email:
+          <input type="email" id="patientEmail" required>
+        </label>
+        <label>GP Name:
+          <input type="text" id="gpName" required>
+        </label>
+        <label>GP Practice / Clinic:
+          <input type="text" id="gpPractice" required>
+        </label>
+        <label>GP Address (optional):
+          <input type="text" id="gpAddress">
+        </label>
+        <label>Additional Notes (optional):
+          <textarea id="patientNotes" rows="3"></textarea>
+        </label>
+        <label>
+          <input type="checkbox" id="consent" required> I consent to share this information with my GP
+        </label>
+        <button type="submit" class="btn">Generate Letter</button>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>Disclaimer: This tool provides general insights only and is not a medical diagnosis.</p>
   </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <!-- jsPDF / html2pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
