@@ -20,11 +20,6 @@ form, .results, .gp-letter {
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
-}
-
-form:hover, .results:hover, .gp-letter:hover {
-  transform: translateY(-2px);
 }
 
 label {
@@ -64,7 +59,6 @@ button {
 
 button:hover {
   background: linear-gradient(135deg, #ff7875, #ff4d4f);
-  box-shadow: 0 4px 12px rgba(255,77,79,0.4);
 }
 
 .results {
@@ -90,9 +84,12 @@ button:hover {
   background: #ecfdf5;
   white-space: pre-wrap;
   font-family: 'Courier New', monospace;
-  font-size: 0.95rem;
-  padding: 25px;
+  font-size: 0.9rem;
+  padding: 20px;
   margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+  word-wrap: break-word;
 }
 
 .gp-letter button {
