@@ -1,91 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Men's Hormone Health Calculator</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Men's Hormone Health Checker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Men's Hormone Health Calculator</h1>
+    <h1>Men's Hormone Health Checker</h1>
+    <p>Answer a few questions to receive insights and a GP referral letter</p>
   </header>
 
-  <!-- Results Panel -->
-  <div class="results" id="results">
-    <h2>Your Results</h2>
-    <p id="riskScore"></p>
-    <h3>Lifestyle Suggestions</h3>
-    <ul id="suggestions"></ul>
+  <main>
+    <form id="health-form">
+      <label>Age: <input type="number" id="age" required /></label>
+      <label>Weight (kg): <input type="number" id="weight" required /></label>
+      <label>Height (cm): <input type="number" id="height" required /></label>
+      <label>Energy levels (1-10): <input type="number" id="energy" min="1" max="10" required /></label>
+      <label>Sex drive (1-10): <input type="number" id="libido" min="1" max="10" required /></label>
+      <label>Frequency of morning erections (per week): <input type="number" id="erections" min="0" max="7" required /></label>
+      <label>Mood stability (1-10): <input type="number" id="mood" min="1" max="10" required /></label>
+      <label>Sleep quality (1-10): <input type="number" id="sleep" min="1" max="10" required /></label>
+      <label>Any history of testicular surgery or trauma? 
+        <select id="surgery">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </label>
+      <label>Do you currently take any medications? 
+        <select id="medications">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </label>
+      <button type="submit">Calculate</button>
+    </form>
 
-    <!-- GP Letter -->
-    <div class="gp-letter" id="gpLetter">
-      <h3>GP Letter</h3>
-      <pre id="letterContent"></pre>
-      <button id="downloadPdf">Download PDF</button>
-    </div>
-  </div>
+    <section id="result-container" class="hidden">
+      <div class="result-box">
+        <h2>Results</h2>
+        <p id="results"></p>
+        <button id="generate-letter">Download GP Letter (PDF)</button>
+      </div>
+    </section>
+  </main>
 
-  <!-- Form -->
-  <form id="healthForm">
-    <label>Age:</label>
-    <input type="number" id="age" required>
+  <footer>
+    <p>Disclaimer: This tool is not a medical diagnosis. Always consult a healthcare professional.</p>
+  </footer>
 
-    <label>Height (cm):</label>
-    <input type="number" id="height" required>
-
-    <label>Weight (kg):</label>
-    <input type="number" id="weight" required>
-
-    <label>Waist Circumference (cm):</label>
-    <input type="number" id="waist" required>
-
-    <label>Average Sleep per Night (hours):</label>
-    <input type="number" id="sleep" required>
-
-    <label>Energy Levels (1 = very low, 5 = very high):</label>
-    <select id="energy">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <label>Libido (1 = very low, 5 = very high):</label>
-    <select id="libido">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <label>Stress Levels (1 = very low, 5 = very high):</label>
-    <select id="stress">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <label>Activity Level (1 = Sedentary, 3 = Moderate, 5 = Very Active):</label>
-    <select id="activity">
-      <option value="1">1 - Sedentary</option>
-      <option value="2">2 - Light</option>
-      <option value="3" selected>3 - Moderate</option>
-      <option value="4">4 - Active</option>
-      <option value="5">5 - Very Active</option>
-    </select>
-
-    <label>Email (optional):</label>
-    <input type="email" id="email">
-
-    <button type="submit">Calculate</button>
-  </form>
-
-  <p class="disclaimer">
-    ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
-  </p>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="gp-letter/letter.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
