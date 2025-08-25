@@ -1,70 +1,93 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  padding: 0;
+  background: #f9fafb;
+  color: #333;
 }
 
 header {
-  background: #006d77;
-  color: #fff;
-  padding: 20px;
+  background: teal;
+  color: white;
+  padding: 1.5rem;
   text-align: center;
 }
 
 main {
   max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: white;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
-  color: #006d77;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+h2 {
+  margin-top: 0;
+  color: teal;
 }
 
 label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
+  display: block;
+  margin: 1rem 0;
 }
 
-input {
-  padding: 8px;
+input, select, textarea, button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  font-size: 1rem;
 }
 
-.btn {
-  background: #83c5be;
+button {
+  background: teal;
+  color: white;
   border: none;
-  padding: 10px;
-  border-radius: 6px;
-  color: #fff;
-  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #006d6d;
+}
+
+/* Modern slider */
+.slider-container {
+  margin: 1.5rem 0;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 6px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #006d77;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: teal;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #009999;
 }
 
 .hidden {
   display: none;
-}
-
-#results, #gpLetter {
-  border-left: 4px solid #e63946;
-  padding: 15px;
-  background: #f1f1f1;
-  margin-top: 15px;
-  border-radius: 8px;
 }
