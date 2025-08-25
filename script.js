@@ -66,3 +66,17 @@ ${email || "[Name]"}
   const letterContent = document.getElementById("letterContent");
   letterContent.innerText = letter;
   letterDiv.style
+letterDiv.style.display = "block";
+
+// Scroll to results
+resultsDiv.scrollIntoView({ behavior: 'smooth' });
+
+// PDF download
+document.getElementById("downloadPdf").onclick = () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.setFontSize(12);
+  const splitText = doc.splitTextToSize(letter, 180);
+  doc.text(splitText, 15, 20);
+  doc.save("GP_Letter.pdf");
+};
