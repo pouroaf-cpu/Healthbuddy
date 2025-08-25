@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Men's Hormone Health Calculator</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Men's Hormone Health Calculator</h1>
+  <header>
+    <h1>Men's Hormone Health Calculator</h1>
+  </header>
 
-  <!-- Results box -->
+  <!-- Results panel -->
   <div class="results" id="results">
     <h2>Your Results</h2>
     <p id="riskScore"></p>
@@ -17,6 +20,7 @@
     <ul id="suggestions"></ul>
   </div>
 
+  <!-- Form -->
   <form id="healthForm" name="healthForm" method="POST" data-netlify="true">
     <input type="hidden" name="form-name" value="healthForm">
 
@@ -72,7 +76,7 @@
   </form>
 
   <!-- GP Letter -->
-  <div class="gp-letter" id="gpLetter" style="display:none;">
+  <div class="gp-letter" id="gpLetter">
     <h3>GP Letter</h3>
     <pre id="letterContent"></pre>
     <button id="downloadPdf">Download PDF</button>
@@ -82,7 +86,7 @@
     ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
   </p>
 
-  <!-- jsPDF -->
+  <!-- jsPDF for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js" defer></script>
 </body>
