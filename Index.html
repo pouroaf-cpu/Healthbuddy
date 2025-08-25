@@ -2,95 +2,173 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HealthBuddy - Hormone Health Check</title>
+  <title>HealthBuddy – Hormone Evaluation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>HealthBuddy Hormone Health Evaluation</h1>
-
-    <!-- Progress Bar -->
-    <div id="progressBar">
+  <div class="form-container">
+    <h1>Free Hormone Evaluation</h1>
+    <div id="progress-bar">
       <div id="progress"></div>
     </div>
 
-    <form id="multiStepForm">
-
+    <form id="evaluationForm">
       <!-- Step 1: Lifestyle -->
       <div class="form-step active">
         <h2>Lifestyle</h2>
-        <label>Age: <input type="number" name="age" required></label>
-        <label>Weight (kg): <input type="number" name="weight" required></label>
-        <label>Height (cm): <input type="number" name="height" required></label>
-        <label>Exercise frequency:
-          <select name="exercise">
-            <option value="rarely">Rarely</option>
-            <option value="1-2">1–2 times/week</option>
-            <option value="3-5">3–5 times/week</option>
-            <option value="daily">Daily</option>
-          </select>
-        </label>
+        <label>Do you smoke?</label>
+        <select name="smoking">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Do you drink alcohol?</label>
+        <select name="alcohol">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Average daily protein intake (grams)</label>
+        <input type="number" name="protein" placeholder="e.g. 120">
+
+        <label>How many caffeinated drinks per day?</label>
+        <input type="number" name="caffeine" placeholder="e.g. 3">
+
         <button type="button" class="next-btn">Next</button>
       </div>
 
       <!-- Step 2: Sleep & Recovery -->
       <div class="form-step">
         <h2>Sleep & Recovery</h2>
-        <label>Average sleep per night (hrs): <input type="number" name="sleep" required></label>
-        <label>Sleep quality (1–10):
-          <input type="range" name="sleepQuality" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-          <output>5</output>/10
-        </label>
-        <label>Recovery after exercise (1–10):
-          <input type="range" name="recovery" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-          <output>5</output>/10
-        </label>
-        <div class="form-navigation">
-          <button type="button" class="prev-btn">Previous</button>
+        <label>Hours of sleep per night</label>
+        <input type="number" name="sleepHours" placeholder="e.g. 7">
+
+        <label>Do you feel rested on waking?</label>
+        <select name="rested">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
           <button type="button" class="next-btn">Next</button>
         </div>
       </div>
 
-      <!-- Step 3: Energy & Libido -->
+      <!-- Step 3: Physical Symptoms -->
       <div class="form-step">
-        <h2>Energy & Libido</h2>
-        <label>Energy levels (1–10):
-          <input type="range" name="energy" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-          <output>5</output>/10
-        </label>
-        <label>Libido levels (1–10):
-          <input type="range" name="libido" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
-          <output>5</output>/10
-        </label>
-        <div class="form-navigation">
-          <button type="button" class="prev-btn">Previous</button>
+        <h2>Physical Symptoms</h2>
+        <label>Do you feel fatigued often?</label>
+        <select name="fatigue">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Difficulty building/maintaining muscle?</label>
+        <select name="muscle">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Have you noticed higher body fat?</label>
+        <select name="bodyFat">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Changes in hair (loss, thinning)?</label>
+        <select name="hair">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
           <button type="button" class="next-btn">Next</button>
         </div>
       </div>
 
-      <!-- Step 4: Sign up -->
+      <!-- Step 4: Mood & Mental Health -->
       <div class="form-step">
-        <h2>Sign up for your free hormone evaluation</h2>
-        <label>Full Name: <input type="text" name="name" required></label>
-        <label>Email: <input type="email" name="email" required></label>
-        <label>Would you like updates? 
-          <select name="updates">
-            <option value="yes">Yes, sign me up</option>
-            <option value="no">No, just send my results</option>
-          </select>
-        </label>
-        <div class="form-navigation">
-          <button type="button" class="prev-btn">Previous</button>
-          <button type="submit">Submit</button>
+        <h2>Mood & Mental Health</h2>
+        <label>How is your overall mood?</label>
+        <select name="mood">
+          <option value="good">Good</option>
+          <option value="low">Low</option>
+        </select>
+
+        <label>How would you rate your stress levels?</label>
+        <select name="stress">
+          <option value="low">Low</option>
+          <option value="moderate">Moderate</option>
+          <option value="high">High</option>
+        </select>
+
+        <label>Do you feel motivated day to day?</label>
+        <select name="motivation">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
         </div>
+      </div>
+
+      <!-- Step 5: Sexual Health -->
+      <div class="form-step">
+        <h2>Sexual Health</h2>
+        <label>Any erectile difficulties?</label>
+        <select name="erectile">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Morning erections present?</label>
+        <select name="morningErections">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Medical / Checkup -->
+      <div class="form-step">
+        <h2>Medical & Checkup</h2>
+        <label>Have you had a recent hormone panel?</label>
+        <select name="hormonePanel">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label>Any current medications/supplements?</label>
+        <textarea name="medications" placeholder="List here..."></textarea>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Final: Signup -->
+      <div class="form-step">
+        <h2>Get Your Results</h2>
+        <p>Enter your details to access your free hormone evaluation report.</p>
+
+        <label>Your Name</label>
+        <input type="text" name="fullName" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <button type="submit">Submit & Get Report</button>
       </div>
     </form>
-
-    <div id="result" class="hidden">
-      <h2>Thank you!</h2>
-      <p>Your information has been submitted. Please check your email for your evaluation.</p>
-    </div>
   </div>
 
   <script src="script.js"></script>
