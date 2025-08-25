@@ -21,8 +21,7 @@ main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-h2 {
-  margin-top: 0;
+h2, h3 {
   color: teal;
 }
 
@@ -61,18 +60,14 @@ button:hover {
 }
 
 .silhouette {
-  width: 220px;
+  width: 150px;
   height: auto;
-  margin-top: 30px;
+  margin-top: 20px;
   flex-shrink: 0;
   opacity: 0.3;
 }
 
 /* Sliders */
-.slider-container {
-  margin: 1rem 0;
-}
-
 .slider-wrapper {
   display: flex;
   align-items: center;
@@ -103,9 +98,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background: #009999;
 }
 
-.hidden {
-  display: none;
-}
+/* Multi-step form */
+.form-step { display: none; }
+.form-step.active { display: block; }
+
+.hidden { display: none; }
 
 /* Responsive */
 @media (max-width: 768px) {
