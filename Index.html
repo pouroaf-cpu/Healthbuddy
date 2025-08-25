@@ -9,6 +9,14 @@
 <body>
   <h1>Men's Hormone Health Calculator</h1>
 
+  <!-- Results box moved directly below header -->
+  <div class="results" id="results">
+    <h2>Your Results</h2>
+    <p id="riskScore"></p>
+    <h3>Lifestyle Suggestions</h3>
+    <ul id="suggestions"></ul>
+  </div>
+
   <form id="healthForm">
     <label>Age:</label>
     <input type="number" id="age" required>
@@ -25,40 +33,8 @@
     <label>Average Sleep per Night (hours):</label>
     <input type="number" id="sleep" required>
 
-    <label>Energy Levels (1 = very low, 5 = very high):</label>
-    <select id="energy">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
+    <label>Energy Lev
 
-    <label>Libido (1 = very low, 5 = very high):</label>
-    <select id="libido">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <label>Stress Levels (1 = very low, 5 = very high):</label>
-    <select id="stress">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-
-    <button type="submit">Calculate</button>
-  </form>
-
-  <div class="results" id="results">
-    <h2>Your Results</h2>
-    <p id="riskScore"></p>
-    <h3>Lifestyle Suggestions</h3>
-    <ul id="suggestions"></ul>
-  </div>
-
-  <p class="disclaimer">
-    ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
-  </p>
 
   <script src="script.js" defer></script>
 </body>
