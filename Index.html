@@ -9,41 +9,49 @@
 <body>
   <header>
     <h1>Men's Hormone Health Checker</h1>
-    <p>Answer a few questions to get insights about your hormone health.</p>
   </header>
 
   <main>
-    <!-- Health Form -->
-    <form id="healthForm">
-      <label>Age: <input type="number" id="age" required></label>
-      <label>Weight (kg): <input type="number" id="weight" required></label>
-      <label>Height (cm): <input type="number" id="height" required></label>
-      <label>Energy Levels (1-10): <input type="number" id="energy" min="1" max="10" required></label>
-      <label>Libido (1-10): <input type="number" id="libido" min="1" max="10" required></label>
-      <label>Sleep Quality (1-10): <input type="number" id="sleep" min="1" max="10" required></label>
-      <button type="submit" class="btn">Calculate</button>
-    </form>
+    <!-- Main Health Form -->
+    <section id="form-section">
+      <h2>Enter Your Health Details</h2>
+      <form id="healthForm">
+        <label>Age: <input type="number" id="age" required></label>
+        <label>Weight (kg): <input type="number" id="weight" required></label>
+        <label>Height (cm): <input type="number" id="height" required></label>
+        <label>Energy Levels (1-10): <input type="number" id="energy" min="1" max="10" required></label>
+        <label>Libido Levels (1-10): <input type="number" id="libido" min="1" max="10" required></label>
+        <button type="submit" class="btn">Calculate</button>
+      </form>
+    </section>
 
-    <!-- Results -->
-    <section id="results" class="hidden">
+    <!-- Results Section -->
+    <section id="results-section" class="hidden">
       <h2>Your Results</h2>
-      <p id="resultsText"></p>
+      <div id="results"></div>
       <button id="gpLetterBtn" class="btn">Request GP Letter</button>
     </section>
 
     <!-- GP Letter Form -->
-    <form id="gpForm" class="hidden">
-      <h2>GP Letter Details</h2>
-      <label>Your Full Name: <input type="text" id="patientName" required></label>
-      <label>Email: <input type="email" id="patientEmail" required></label>
-      <label>GP Name: <input type="text" id="gpName" required></label>
-      <label>Practice Name: <input type="text" id="gpPractice" required></label>
-      <label>Key Concerns (optional): <textarea id="patientConcerns" rows="3"></textarea></label>
-      <button type="submit" class="btn">Generate GP Letter PDF</button>
-    </form>
+    <section id="gp-form-section" class="hidden">
+      <h2>GP Letter Request</h2>
+      <form id="gpForm">
+        <label>Your Full Name: <input type="text" id="patientName" required></label>
+        <label>Your Email: <input type="email" id="patientEmail" required></label>
+        <label>GP's Name: <input type="text" id="gpName" required></label>
+        <label>GP Practice: <input type="text" id="gpPractice" required></label>
+        <button type="submit" class="btn">Generate GP Letter</button>
+      </form>
+    </section>
+
+    <!-- GP Letter Results -->
+    <section id="gp-letter-section" class="hidden">
+      <h2>Draft GP Letter</h2>
+      <div id="gpLetter"></div>
+      <button id="downloadPdfBtn" class="btn">Download as PDF</button>
+    </section>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
