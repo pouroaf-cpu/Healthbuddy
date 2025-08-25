@@ -12,51 +12,69 @@
   </header>
 
   <main>
-    <!-- Main Health Form -->
     <section id="form-section">
-      <h2>Enter Your Health Details</h2>
-      <form id="healthForm">
-        <label>Age: <input type="number" id="age" required></label>
-        <label>Weight (kg): <input type="number" id="weight" required></label>
-        <label>Height (cm): <input type="number" id="height" required></label>
-<label for="energy">At Lunchtime how are you energy levels out of 10</label>
-<input type="range" id="energy" name="energy" min="1" max="10" value="5" oninput="document.getElementById('energyVal').innerText=this.value">/10
-<span id="energyVal">5</span>
+      <h2>Answer the Questions</h2>
+      <form id="health-form">
+        <label>Age:
+          <input type="number" id="age" required>
+        </label>
 
-<label for="libido">Libido Levels:</label>
-<input type="range" id="libido" name="libido" min="1" max="10" value="5" oninput="document.getElementById('libidoVal').innerText=this.value">
-<span id="libidoVal">5</span>/10
-        <button type="submit" class="btn">Calculate</button>
+        <label>Weight (kg):
+          <input type="number" id="weight" required>
+        </label>
+
+        <label>Height (cm):
+          <input type="number" id="height" required>
+        </label>
+
+        <div class="slider-container">
+          <label for="energy">Energy Levels:</label>
+          <div class="slider-wrapper">
+            <input type="range" id="energy" min="0" max="10" value="5">
+            <span id="energyVal">5</span> /10
+          </div>
+        </div>
+
+        <div class="slider-container">
+          <label for="libido">Libido Levels:</label>
+          <div class="slider-wrapper">
+            <input type="range" id="libido" min="0" max="10" value="5">
+            <span id="libidoVal">5</span> /10
+          </div>
+        </div>
+
+        <label>Sleep Quality:
+          <select id="sleep">
+            <option value="good">Good</option>
+            <option value="average">Average</option>
+            <option value="poor">Poor</option>
+          </select>
+        </label>
+
+        <label>Exercise Frequency:
+          <select id="exercise">
+            <option value="none">None</option>
+            <option value="1-2">1-2 times/week</option>
+            <option value="3-5">3-5 times/week</option>
+            <option value="6+">6+ times/week</option>
+          </select>
+        </label>
+
+        <button type="submit">Calculate</button>
       </form>
     </section>
 
-    <!-- Results Section -->
-    <section id="results-section" class="hidden">
+    <section id="results" class="hidden">
       <h2>Your Results</h2>
-      <div id="results"></div>
-      <button id="gpLetterBtn" class="btn">Request GP Letter</button>
+      <p id="result-text"></p>
+      <button id="gp-letter-btn">Request GP Letter</button>
     </section>
 
-    <!-- GP Letter Form -->
     <section id="gp-form-section" class="hidden">
-      <h2>GP Letter Request</h2>
-      <form id="gpForm">
-        <label>Your Full Name: <input type="text" id="patientName" required></label>
-        <label>Your Email: <input type="email" id="patientEmail" required></label>
-        <label>GP's Name: <input type="text" id="gpName" required></label>
-        <label>GP Practice: <input type="text" id="gpPractice" required></label>
-        <button type="submit" class="btn">Generate GP Letter</button>
-      </form>
-    </section>
-
-    <!-- GP Letter Results -->
-    <section id="gp-letter-section" class="hidden">
-      <h2>Draft GP Letter</h2>
-      <div id="gpLetter"></div>
-      <button id="downloadPdfBtn" class="btn">Download as PDF</button>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <h2>GP Letter Details</h2>
+      <form id="gp-form">
+        <label>Full Name:
+          <input type="text" id="patientName" required>
+        </label>
+        <label>Email:
+          <input type="email" id="patientEmail" re
