@@ -1,4 +1,4 @@
-// Update slider values live
+// Sliders live update
 document.getElementById("energy").addEventListener("input", function() {
   document.getElementById("energyVal").textContent = this.value;
 });
@@ -6,28 +6,55 @@ document.getElementById("libido").addEventListener("input", function() {
   document.getElementById("libidoVal").textContent = this.value;
 });
 
-// Calculate results
+// Multi-step form navigation
+const steps = document.querySelectorAll('.form-step');
+let currentStep = 0;
+
+function showStep(index) {
+  steps.forEach((step, i) => {
+    step.classList.toggle('active', i === index);
+  });
+}
+
+document.querySelectorAll('.next-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (currentStep < steps.length - 1) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  });
+});
+
+document.querySelectorAll('.prev-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+});
+
+showStep(currentStep); // initialize
+
+// Calculate results on final submit
 document.getElementById("health-form").addEventListener("submit", function(e) {
   e.preventDefault();
-
-  const age = document.getElementById("age").value;
-  const weight = document.getElementById("weight").value;
-  const height = document.getElementById("height").value;
-  const energy = document.getElementById("energy").value;
-  const libido = document.getElementById("libido").value;
-  const sleep = document.getElementById("sleep").value;
-  const exercise = document.getElementById("exercise").value;
-
-  let resultText = `Based on your inputs: Age ${age}, Weight ${weight}kg, Height ${height}cm, 
-Energy ${energy}/10, Libido ${libido}/10, Sleep ${sleep}, Exercise ${exercise}.`;
-
-  if (energy < 4 || libido < 4) {
-    resultText += " ⚠️ You may need some help with hormone health. We can draft a letter for your GP.";
-  } else {
-    resultText += " ✅ Things look generally balanced, but you may still consider discussing with your GP.";
+  // Collect all form data
+  const formData = new FormData(this);
+  let resultText = "Based on your responses:\n";
+  for (let [key, value] of formData.entries()) {
+    resultText += `${key}: ${value}, `;
   }
 
-  document.getElementById("form-section").classList.add("hidden");
+  const energy = parseInt(formData.get("energy"));
+  const libido = parseInt(formData.get("libido"));
+  if (energy < 4 || libido < 4) {
+    resultText += "⚠️ You may need some help with hormone health. We can draft a letter for your GP.";
+  } else {
+    resultText += "✅ Things look generally balanced, but consider discussing with your GP.";
+  }
+
+  document.getElementById("form-container").classList.add("hidden");
   document.getElementById("results").classList.remove("hidden");
   document.getElementById("result-text").textContent = resultText;
 });
@@ -38,7 +65,7 @@ document.getElementById("gp-letter-btn").addEventListener("click", function() {
   document.getElementById("gp-form-section").classList.remove("hidden");
 });
 
-// Placeholder GP letter submit
+// Placeholder GP letter generation
 document.getElementById("gp-form").addEventListener("submit", function(e) {
   e.preventDefault();
   alert("📄 GP Letter would be generated as PDF (placeholder).");
