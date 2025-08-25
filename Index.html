@@ -9,7 +9,7 @@
 <body>
   <h1>Men's Hormone Health Calculator</h1>
 
-  <!-- Results box moved directly below header -->
+  <!-- Results box below header -->
   <div class="results" id="results">
     <h2>Your Results</h2>
     <p id="riskScore"></p>
@@ -33,10 +33,43 @@
     <label>Average Sleep per Night (hours):</label>
     <input type="number" id="sleep" required>
 
-    <label>Energy Lev
+    <label>Energy Levels (1 = very low, 5 = very high):</label>
+    <select id="energy">
+      <option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option>
+      <option value="5">5</option>
+    </select>
 
+    <label>Libido (1 = very low, 5 = very high):</label>
+    <select id="libido">
+      <option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+
+    <label>Stress Levels (1 = very low, 5 = very high):</label>
+    <select id="stress">
+      <option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+
+    <label>Activity Level (1 = Sedentary, 3 = Moderate, 5 = Very Active):</label>
+    <select id="activity">
+      <option value="1">1 - Sedentary</option>
+      <option value="2">2 - Light</option>
+      <option value="3" selected>3 - Moderate</option>
+      <option value="4">4 - Active</option>
+      <option value="5">5 - Very Active</option>
+    </select>
+
+    <button type="submit">Calculate</button>
+  </form>
+
+  <p class="disclaimer">
+    ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
+  </p>
 
   <script src="script.js" defer></script>
 </body>
 </html>
-
