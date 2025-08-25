@@ -12,7 +12,7 @@
     <h1>Men's Hormone Health Calculator</h1>
   </header>
 
-  <!-- Results panel -->
+  <!-- Results Panel -->
   <div class="results" id="results">
     <h2>Your Results</h2>
     <p id="riskScore"></p>
@@ -21,47 +21,45 @@
   </div>
 
   <!-- Form -->
-  <form id="healthForm" name="healthForm" method="POST" data-netlify="true">
-    <input type="hidden" name="form-name" value="healthForm">
-
+  <form id="healthForm">
     <label>Age:</label>
-    <input type="number" id="age" name="age" required>
+    <input type="number" id="age" required>
 
     <label>Height (cm):</label>
-    <input type="number" id="height" name="height" required>
+    <input type="number" id="height" required>
 
     <label>Weight (kg):</label>
-    <input type="number" id="weight" name="weight" required>
+    <input type="number" id="weight" required>
 
     <label>Waist Circumference (cm):</label>
-    <input type="number" id="waist" name="waist" required>
+    <input type="number" id="waist" required>
 
     <label>Average Sleep per Night (hours):</label>
-    <input type="number" id="sleep" name="sleep" required>
+    <input type="number" id="sleep" required>
 
     <label>Energy Levels (1 = very low, 5 = very high):</label>
-    <select id="energy" name="energy">
+    <select id="energy">
       <option value="1">1</option><option value="2">2</option>
       <option value="3">3</option><option value="4">4</option>
       <option value="5">5</option>
     </select>
 
     <label>Libido (1 = very low, 5 = very high):</label>
-    <select id="libido" name="libido">
+    <select id="libido">
       <option value="1">1</option><option value="2">2</option>
       <option value="3">3</option><option value="4">4</option>
       <option value="5">5</option>
     </select>
 
     <label>Stress Levels (1 = very low, 5 = very high):</label>
-    <select id="stress" name="stress">
+    <select id="stress">
       <option value="1">1</option><option value="2">2</option>
       <option value="3">3</option><option value="4">4</option>
       <option value="5">5</option>
     </select>
 
     <label>Activity Level (1 = Sedentary, 3 = Moderate, 5 = Very Active):</label>
-    <select id="activity" name="activity">
+    <select id="activity">
       <option value="1">1 - Sedentary</option>
       <option value="2">2 - Light</option>
       <option value="3" selected>3 - Moderate</option>
@@ -69,8 +67,8 @@
       <option value="5">5 - Very Active</option>
     </select>
 
-    <label>Email (optional, for report):</label>
-    <input type="email" id="email" name="email">
+    <label>Email (optional):</label>
+    <input type="email" id="email">
 
     <button type="submit">Calculate</button>
   </form>
@@ -86,8 +84,7 @@
     ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
   </p>
 
-  <!-- jsPDF for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
