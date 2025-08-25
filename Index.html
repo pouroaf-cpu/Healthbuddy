@@ -3,97 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Men's Hormone Health Check</title>
+  <title>Men's Hormone Health Checker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Men's Hormone Health Check</h1>
-    <p>Answer a few quick questions to get personalised insights and a GP letter.</p>
+    <h1>Men's Hormone Health Checker</h1>
+    <p>Answer a few questions to get insights about your hormone health.</p>
   </header>
 
   <main>
-    <!-- Primary Form -->
+    <!-- Health Form -->
     <form id="healthForm">
-      <label>Age:
-        <input type="number" id="age" required>
-      </label>
-      <label>Weight (kg):
-        <input type="number" id="weight" required>
-      </label>
-      <label>Height (cm):
-        <input type="number" id="height" required>
-      </label>
-      <label>Energy Levels (1-10):
-        <input type="number" id="energy" min="1" max="10" required>
-      </label>
-      <label>Libido (1-10):
-        <input type="number" id="libido" min="1" max="10" required>
-      </label>
-      <label>Sleep Hours (per night):
-        <input type="number" id="sleep" required>
-      </label>
-      <label>Exercise per Week (hours):
-        <input type="number" id="exercise" required>
-      </label>
-      <label>Recent Mood Changes? 
-        <select id="mood" required>
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
-      <label>Family History of Hormone Issues? 
-        <select id="history" required>
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </label>
+      <label>Age: <input type="number" id="age" required></label>
+      <label>Weight (kg): <input type="number" id="weight" required></label>
+      <label>Height (cm): <input type="number" id="height" required></label>
+      <label>Energy Levels (1-10): <input type="number" id="energy" min="1" max="10" required></label>
+      <label>Libido (1-10): <input type="number" id="libido" min="1" max="10" required></label>
+      <label>Sleep Quality (1-10): <input type="number" id="sleep" min="1" max="10" required></label>
       <button type="submit" class="btn">Calculate</button>
     </form>
 
-    <!-- Results Section -->
-    <section id="resultsBox" class="hidden">
+    <!-- Results -->
+    <section id="results" class="hidden">
       <h2>Your Results</h2>
-      <div id="results"></div>
-      <button id="requestLetter" class="btn">Request GP Letter</button>
+      <p id="resultsText"></p>
+      <button id="gpLetterBtn" class="btn">Request GP Letter</button>
     </section>
 
-    <!-- Secondary GP Letter Form -->
-    <section id="gpLetterFormContainer" class="hidden">
-      <h2>Request GP Letter</h2>
-      <form id="gpLetterForm">
-        <label>Patient Full Name:
-          <input type="text" id="patientName" required>
-        </label>
-        <label>Patient Email:
-          <input type="email" id="patientEmail" required>
-        </label>
-        <label>GP Name:
-          <input type="text" id="gpName" required>
-        </label>
-        <label>GP Practice / Clinic:
-          <input type="text" id="gpPractice" required>
-        </label>
-        <label>GP Address (optional):
-          <input type="text" id="gpAddress">
-        </label>
-        <label>Additional Notes (optional):
-          <textarea id="patientNotes" rows="3"></textarea>
-        </label>
-        <label>
-          <input type="checkbox" id="consent" required> I consent to share this information with my GP
-        </label>
-        <button type="submit" class="btn">Generate Letter</button>
-      </form>
-    </section>
+    <!-- GP Letter Form -->
+    <form id="gpForm" class="hidden">
+      <h2>GP Letter Details</h2>
+      <label>Your Full Name: <input type="text" id="patientName" required></label>
+      <label>Email: <input type="email" id="patientEmail" required></label>
+      <label>GP Name: <input type="text" id="gpName" required></label>
+      <label>Practice Name: <input type="text" id="gpPractice" required></label>
+      <label>Key Concerns (optional): <textarea id="patientConcerns" rows="3"></textarea></label>
+      <button type="submit" class="btn">Generate GP Letter PDF</button>
+    </form>
   </main>
 
-  <footer>
-    <p>Disclaimer: This tool provides general insights only and is not a medical diagnosis.</p>
-  </footer>
-
-  <!-- jsPDF / html2pdf -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
