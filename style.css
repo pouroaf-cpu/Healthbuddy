@@ -1,121 +1,36 @@
+/* Set teal as the main color */
+:root {
+  --main-color: #008080; /* Teal */
+}
+
+/* Apply teal accents */
 body {
-  font-family: 'Inter', sans-serif;
-  background: #f0f2f5;
-  margin: 0;
-  padding: 0;
+  background-color: #f9fafa; /* very light background */
   color: #333;
+  font-family: 'Inter', sans-serif;
 }
 
-header h1 {
-  text-align: center;
-  margin: 40px 0 20px;
-  font-size: 2rem;
-  font-weight: 600;
+/* Add subtle background pattern */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(var(--main-color) 0.5px, transparent 0.5px);
+  background-size: 20px 20px; /* adjust density */
+  opacity: 0.08; /* subtle so it’s not distracting */
+  z-index: -1; /* behind all content */
 }
 
-form, .results, .gp-letter {
-  background: #fff;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px 14px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  font-size: 0.95rem;
-}
-
-input:focus, select:focus {
-  border-color: #ff4d4f;
-  box-shadow: 0 0 0 3px rgba(255,77,79,0.15);
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 20px;
+/* Example teal buttons */
+button, .btn {
+  background-color: var(--main-color);
+  color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
   cursor: pointer;
-  color: #fff;
-  background: linear-gradient(135deg, #ff4d4f, #ff7875);
 }
 
-button:hover {
-  background: linear-gradient(135deg, #ff7875, #ff4d4f);
-}
-
-.results {
-  display: none;
-  border-left: 6px solid #ff4d4f;
-  background: #fff1f0;
-}
-
-.results h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: #c53030;
-}
-
-.results ul {
-  padding-left: 20px;
-  margin-top: 10px;
-}
-
-.gp-letter {
-  display: none;
-  border-left: 6px solid #22c55e;
-  background: #ecfdf5;
-  white-space: pre-wrap;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9rem;
-  padding: 20px;
-  margin-top: 20px;
-  max-height: 400px;
-  overflow-y: auto;
-  word-wrap: break-word;
-}
-
-.gp-letter button {
-  background: #22c55e;
-  margin-top: 15px;
-}
-
-.gp-letter button:hover {
-  background: #16a34a;
-  box-shadow: 0 4px 12px rgba(34,197,94,0.3);
-}
-
-.disclaimer {
-  font-size: 0.8rem;
-  color: #555;
-  margin-top: 30px;
-  text-align: center;
-}
-
-@media (max-width: 600px) {
-  form, .results, .gp-letter {
-    margin: 15px;
-    padding: 20px;
-  }
-
-  header h1 {
-    font-size: 1.6rem;
-  }
+button:hover, .btn:hover {
+  background-color: #006666; /* darker teal on hover */
 }
