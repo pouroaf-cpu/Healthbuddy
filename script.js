@@ -1,3 +1,5 @@
+import { generateLetter } from './gp-letter/letter.js';
+
 document.getElementById("healthForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -40,36 +42,11 @@ document.getElementById("healthForm").addEventListener("submit", function(e) {
   document.getElementById("suggestions").innerHTML = suggestions.map(s => `<li>${s}</li>`).join("");
   resultsDiv.style.display = "block";
 
-  const letter = `
-Dear Doctor,
-
-I am submitting my health information for review. Please consider checking the following:
-
-- BMI: ${bmi.toFixed(1)}
-- Waist Circumference: ${waist} cm
-- Average Sleep: ${sleep} hours/night
-- Energy Level: ${energy}/5
-- Libido: ${libido}/5
-- Stress Level: ${stress}/5
-- Activity Level: ${activity}/5
-
-Based on my self-reported information, I am concerned about my hormone health and would appreciate your guidance on appropriate tests and management options.
-
-Sincerely,
-${email || "[Name]"}
-`;
-
   const letterDiv = document.getElementById("gpLetter");
-  document.getElementById("letterContent").innerText = letter;
+  const letterContent = document.getElementById("letterContent");
+  letterContent.innerText = generateLetter({ bmi, waistRatio, sleep, energy, libido, stress, activity, email });
   letterDiv.style.display = "block";
 
   resultsDiv.scrollIntoView({ behavior: 'smooth' });
-
-  document.getElementById("downloadPdf").onclick = () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const splitText = doc.splitTextToSize(letter, 180);
-    doc.text(splitText, 15, 20);
-    doc.save("GP_Letter.pdf");
-  };
 });
+
