@@ -18,6 +18,13 @@
     <p id="riskScore"></p>
     <h3>Lifestyle Suggestions</h3>
     <ul id="suggestions"></ul>
+
+    <!-- GP Letter -->
+    <div class="gp-letter" id="gpLetter">
+      <h3>GP Letter</h3>
+      <pre id="letterContent"></pre>
+      <button id="downloadPdf">Download PDF</button>
+    </div>
   </div>
 
   <!-- Form -->
@@ -73,18 +80,12 @@
     <button type="submit">Calculate</button>
   </form>
 
-  <!-- GP Letter -->
-  <div class="gp-letter" id="gpLetter">
-    <h3>GP Letter</h3>
-    <pre id="letterContent"></pre>
-    <button id="downloadPdf">Download PDF</button>
-  </div>
-
   <p class="disclaimer">
     ⚠️ Disclaimer: This tool is for educational purposes only and does not provide medical advice.
   </p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="gp-letter/letter.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
