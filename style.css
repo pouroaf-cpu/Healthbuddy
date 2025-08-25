@@ -1,4 +1,3 @@
-/* General */
 body {
   font-family: 'Inter', sans-serif;
   background: #f0f2f5;
@@ -14,9 +13,8 @@ header h1 {
   font-weight: 600;
 }
 
-/* Form and Panels */
 form, .results, .gp-letter {
-  background: #ffffff;
+  background: #fff;
   max-width: 500px;
   margin: 20px auto;
   padding: 30px;
@@ -29,7 +27,6 @@ form:hover, .results:hover, .gp-letter:hover {
   transform: translateY(-2px);
 }
 
-/* Labels and Inputs */
 label {
   display: block;
   margin-top: 15px;
@@ -45,8 +42,6 @@ input, select {
   border: 1px solid #d1d5db;
   background: #f9fafb;
   font-size: 0.95rem;
-  outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus, select:focus {
@@ -54,7 +49,6 @@ input:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(255,77,79,0.15);
 }
 
-/* Buttons */
 button {
   width: 100%;
   padding: 14px;
@@ -66,7 +60,6 @@ button {
   cursor: pointer;
   color: #fff;
   background: linear-gradient(135deg, #ff4d4f, #ff7875);
-  transition: all 0.3s ease;
 }
 
 button:hover {
@@ -74,7 +67,6 @@ button:hover {
   box-shadow: 0 4px 12px rgba(255,77,79,0.4);
 }
 
-/* Results Panel - Red */
 .results {
   display: none;
   border-left: 6px solid #ff4d4f;
@@ -92,13 +84,12 @@ button:hover {
   margin-top: 10px;
 }
 
-/* GP Letter Panel */
 .gp-letter {
   display: none;
   border-left: 6px solid #22c55e;
   background: #ecfdf5;
   white-space: pre-wrap;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Courier New', monospace;
   font-size: 0.95rem;
   padding: 25px;
   margin-top: 20px;
@@ -114,7 +105,6 @@ button:hover {
   box-shadow: 0 4px 12px rgba(34,197,94,0.3);
 }
 
-/* Disclaimer */
 .disclaimer {
   font-size: 0.8rem;
   color: #555;
@@ -122,7 +112,6 @@ button:hover {
   text-align: center;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   form, .results, .gp-letter {
     margin: 15px;
@@ -132,10 +121,4 @@ button:hover {
   header h1 {
     font-size: 1.6rem;
   }
-
-  button {
-    padding: 12px;
-    font-size: 0.95rem;
-  }
 }
-
