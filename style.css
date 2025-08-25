@@ -1,4 +1,10 @@
-/* Base Reset */
+:root {
+  --primary: #008080; /* Teal */
+  --primary-dark: #006666;
+  --light-bg: #f8fdfd;
+  --text: #333;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,13 +13,13 @@
 }
 
 body {
-  background: #f5fafa;
-  color: #333;
+  background: var(--light-bg);
+  color: var(--text);
   line-height: 1.6;
 }
 
 header {
-  background: teal;
+  background: var(--primary);
   color: white;
   text-align: center;
   padding: 2rem 1rem;
@@ -43,7 +49,8 @@ form label {
 }
 
 form input,
-form select {
+form select,
+form textarea {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.3rem;
@@ -53,7 +60,7 @@ form select {
 
 .btn {
   display: inline-block;
-  background: teal;
+  background: var(--primary);
   color: white;
   padding: 0.7rem 1.4rem;
   border: none;
@@ -65,14 +72,14 @@ form select {
 }
 
 .btn:hover {
-  background: #006d6d;
+  background: var(--primary-dark);
 }
 
-#resultsBox {
+#resultsBox, #gpLetterFormContainer {
   margin-top: 2rem;
   padding: 1.5rem;
   background: #fff;
-  border-left: 6px solid red; /* Results border in red */
+  border-left: 6px solid red;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
