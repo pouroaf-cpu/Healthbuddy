@@ -1,90 +1,64 @@
-const steps = document.querySelectorAll('.form-step'); // all step divs
-let currentStep = 0;
+const form = document.getElementById("multiStepForm");
+const formSteps = document.querySelectorAll(".form-step");
+const nextBtns = document.querySelectorAll(".next-btn");
+const prevBtns = document.querySelectorAll(".prev-btn");
+const progress = document.getElementById("progress");
+const result = document.getElementById("result");
 
-function showStep(index) {
-  steps.forEach((step, i) => {
-    step.classList.toggle('active', i === index);
+let formStepIndex = 0;
+
+function updateFormSteps() {
+  formSteps.forEach((step, index) => {
+    step.classList.toggle("active", index === formStepIndex);
   });
+  progress.style.width = ((formStepIndex + 1) / formSteps.length) * 100 + "%";
 }
 
-// Next buttons
-document.querySelectorAll('.next-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep < steps.length - 1) {
-      currentStep++;
-      showStep(currentStep);
+nextBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (formStepIndex < formSteps.length - 1) {
+      formStepIndex++;
+      updateFormSteps();
     }
   });
 });
 
-// Back buttons
-document.querySelectorAll('.prev-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep > 0) {
-      currentStep--;
-      showStep(currentStep);
+prevBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (formStepIndex > 0) {
+      formStepIndex--;
+      updateFormSteps();
     }
   });
 });
 
-// Initialize
-showStep(currentStep);
-const steps = document.querySelectorAll('.form-step');
-const progressBar = document.getElementById('progress-bar');
-let currentStep = 0;
-
-function showStep(index) {
-  steps.forEach((step, i) => {
-    step.classList.toggle('active', i === index);
-  });
-  updateProgressBar();
-}
-
-function updateProgressBar() {
-  const progress = ((currentStep + 1) / steps.length) * 100;
-  progressBar.style.width = progress + "%";
-}
-
-document.querySelectorAll('.next-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep < steps.length - 1) {
-      currentStep++;
-      showStep(currentStep);
-    }
-  });
-});
-
-document.querySelectorAll('.prev-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (currentStep > 0) {
-      currentStep--;
-      showStep(currentStep);
-    }
-  });
-});
-
-showStep(currentStep); // initialize
-document.getElementById("health-form").addEventListener("submit", function(e) {
+form.addEventListener("submit", e => {
   e.preventDefault();
 
-  const formData = new FormData(this);
+  const formData = new FormData(form);
   const data = {};
   formData.forEach((value, key) => {
     data[key] = value;
   });
 
   // Send to Google Sheets
-  fetch("https://script.google.com/macros/s/AKfycbwImTvfVoX_1kC_ODP_eD74wzimAn3l2kHJraky_UKK2rXUftemxMcwUqInr8sd54kt/exec", {
+  fetch("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL", {
     method: "POST",
     body: JSON.stringify(data),
-    headers: {"Content-Type": "application/json"}
+    headers: {
+      "Content-Type": "application/json"
+    }
   })
-  .then(res => res.json())
   .then(res => {
-    console.log(res);
-    // Show results or next step
-    document.getElementById("form-container").classList.add("hidden");
-    document.getElementById("results").classList.remove("hidden");
+    if (res.ok) {
+      form.style.display = "none";
+      result.classList.remove("hidden");
+    } else {
+      alert("Error submitting form");
+    }
   })
   .catch(err => console.error(err));
 });
+
+// Initialize
+updateFormSteps();
