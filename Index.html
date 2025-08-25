@@ -16,58 +16,190 @@
       <!-- Silhouette on the left -->
       <img src="assets/owman.svg" alt="Male silhouette" class="silhouette">
 
-      <!-- Questionnaire Form -->
-      <section id="form-section">
-        <h2>Answer the Questions</h2>
-        <form id="health-form">
-          <label>Age:
-            <input type="number" id="age" required>
-          </label>
+      <!-- Multi-step Questionnaire Form -->
+      <form id="health-form">
 
-          <label>Weight (kg):
-            <input type="number" id="weight" required>
+        <!-- Step 1: Lifestyle -->
+        <div class="form-step active">
+          <h3>Lifestyle</h3>
+          <label>Alcohol consumption:
+            <select name="alcohol" required>
+              <option value="">Select</option>
+              <option value="none">None</option>
+              <option value="occasionally">Occasionally</option>
+              <option value="weekly">Weekly</option>
+              <option value="daily">Daily</option>
+            </select>
           </label>
-
-          <label>Height (cm):
-            <input type="number" id="height" required>
+          <label>Smoking:
+            <select name="smoke" required>
+              <option value="">Select</option>
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+              <option value="occasionally">Occasionally</option>
+            </select>
           </label>
+          <label>Protein servings per day:
+            <select name="protein" required>
+              <option value="">Select</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label>Caffeine intake per day:
+            <select name="caffeine" required>
+              <option value="">Select</option>
+              <option value="none">None</option>
+              <option value="1-2">1–2 cups</option>
+              <option value="3-5">3–5 cups</option>
+              <option value="6+">6+ cups</option>
+            </select>
+          </label>
+          <button type="button" class="next-btn">Next</button>
+        </div>
 
-          <div class="slider-container">
-            <label for="energy">Energy Levels:</label>
+        <!-- Step 2: Sleep & Recovery -->
+        <div class="form-step">
+          <h3>Sleep & Recovery</h3>
+          <label>Average hours of sleep:
+            <select name="sleepHours" required>
+              <option value="">Select</option>
+              <option value="0-4">0–4</option>
+              <option value="5-6">5–6</option>
+              <option value="7-8">7–8</option>
+              <option value="8+">8+</option>
+            </select>
+          </label>
+          <label>Feeling rested in the morning:
+            <select name="rested" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="sometimes">Sometimes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- Step 3: Physical Symptoms -->
+        <div class="form-step">
+          <h3>Physical Symptoms</h3>
+          <label>Frequent fatigue?
+            <select name="fatigue" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>Difficulty gaining/maintaining muscle?
+            <select name="muscle" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>Increased abdominal fat?
+            <select name="fat" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>Hair thinning or loss?
+            <select name="hair" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- Step 4: Mood & Mental Health -->
+        <div class="form-step">
+          <h3>Mood & Mental Health</h3>
+          <label>Overall mood:
+            <select name="mood" required>
+              <option value="">Select</option>
+              <option value="low">Low</option>
+              <option value="moderate">Moderate</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label>Stress frequency:
+            <select name="stress" required>
+              <option value="">Select</option>
+              <option value="rarely">Rarely</option>
+              <option value="sometimes">Sometimes</option>
+              <option value="often">Often</option>
+              <option value="constantly">Constantly</option>
+            </select>
+          </label>
+          <label>Low motivation?
+            <select name="motivation" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- Step 5: Sexual Health -->
+        <div class="form-step">
+          <h3>Sexual Health</h3>
+          <label>Erectile difficulties?
+            <select name="erectile" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>Decrease in morning erections?
+            <select name="morningErection" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+
+        <!-- Step 6: Medical / Checkup -->
+        <div class="form-step">
+          <h3>Medical / Checkup</h3>
+          <label>Recent hormone panel:
+            <select name="panel" required>
+              <option value="">Select</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+          <label>Medications or supplements:
+            <input type="text" name="meds">
+          </label>
+          <label>Energy Levels:
             <div class="slider-wrapper">
               <input type="range" id="energy" min="0" max="10" value="5">
               <span id="energyVal">5</span>/10
             </div>
-          </div>
-
-          <div class="slider-container">
-            <label for="libido">Libido Levels:</label>
+          </label>
+          <label>Libido Levels:
             <div class="slider-wrapper">
               <input type="range" id="libido" min="0" max="10" value="5">
               <span id="libidoVal">5</span>/10
             </div>
-          </div>
-
-          <label>Sleep Quality:
-            <select id="sleep">
-              <option value="good">Good</option>
-              <option value="average">Average</option>
-              <option value="poor">Poor</option>
-            </select>
           </label>
-
-          <label>Exercise Frequency:
-            <select id="exercise">
-              <option value="none">None</option>
-              <option value="1-2">1-2 times/week</option>
-              <option value="3-5">3-5 times/week</option>
-              <option value="6+">6+ times/week</option>
-            </select>
-          </label>
-
+          <button type="button" class="prev-btn">Back</button>
           <button type="submit">Calculate</button>
-        </form>
-      </section>
+        </div>
+
+      </form>
     </div>
 
     <!-- Results Section -->
