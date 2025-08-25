@@ -10,7 +10,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-form, .results {
+form, .results, .gp-letter {
   background: #fff;
   padding: 20px;
   margin: 20px auto;
@@ -64,9 +64,18 @@ button:hover {
   padding-left: 20px;
 }
 
+/* GP letter styling */
+.gp-letter {
+  display: none;
+  border-left: 5px solid #28a745;
+  background: #e6ffe6;
+  white-space: pre-wrap;
+}
+
 .disclaimer {
   font-size: 12px;
   color: #555;
   margin-top: 20px;
   text-align: center;
 }
+
