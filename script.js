@@ -1,11 +1,10 @@
-// Stop form reload and trigger calculation
+// Primary form submission
 document.getElementById("healthForm").addEventListener("submit", function(e) {
   e.preventDefault();
   calculateResults();
 });
 
 function calculateResults() {
-  // Get values
   const age = parseInt(document.getElementById("age").value);
   const weight = parseFloat(document.getElementById("weight").value);
   const height = parseFloat(document.getElementById("height").value);
@@ -16,7 +15,6 @@ function calculateResults() {
   const mood = document.getElementById("mood").value;
   const history = document.getElementById("history").value;
 
-  // BMI calc
   const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
 
   let insights = [];
@@ -28,38 +26,34 @@ function calculateResults() {
   if (mood === "yes") insights.push("Mood changes may relate to hormone health.");
   if (history === "yes") insights.push("Family history may increase risk.");
 
-  // Show results
   document.getElementById("healthForm").classList.add("hidden");
   document.getElementById("resultsBox").classList.remove("hidden");
 
+  const generalMessage = insights.length > 0
+    ? "<p><strong>You may need some help with your hormone health. We can draft a letter to your GP for you.</strong></p>"
+    : "<p><strong>No major concerns detected. Keep up a healthy lifestyle!</strong></p>";
+
   document.getElementById("results").innerHTML = `
+    ${generalMessage}
     <p><strong>Age:</strong> ${age}</p>
     <p><strong>BMI:</strong> ${bmi}</p>
-    <ul>${insights.map(i => `<li>${i}</li>`).join("")}</ul>
+    ${insights.length > 0 ? `<ul>${insights.map(i => `<li>${i}</li>`).join("")}</ul>` : ""}
   `;
 
-  // GP Letter
-  const letter = `
-    Dear GP,<br><br>
-    This letter is regarding a male patient, age ${age}.<br><br>
-    - BMI: ${bmi}<br>
-    ${insights.map(i => "- " + i).join("<br>")}<br><br>
-    We recommend checking testosterone levels, thyroid function, and general metabolic health.<br><br>
-    Kind regards,<br>
-    Men's Hormone Health Checker
-  `;
-
-  document.getElementById("downloadLetter").onclick = function() {
-    generatePDF(letter);
-  };
+  window.userReport = { age, bmi, insights };
 }
 
-function generatePDF(content) {
-  const opt = {
-    margin:       1,
-    filename:     'GP_Letter.pdf',
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
-  html2pdf().from(content).set(opt).save();
-}
+// Show GP letter form
+document.getElementById("requestLetter").addEventListener("click", function() {
+  document.getElementById("gpLetterFormContainer").classList.remove("hidden");
+  this.classList.add("hidden");
+});
+
+// GP letter form submission
+document.getElementById("gpLetterForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const patientName = document.getElementById("patientName").value;
+  const patientEmail = document.getElementById("patientEmail").value;
+  const gpName = document.getElementBy
+
