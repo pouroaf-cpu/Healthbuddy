@@ -64,3 +64,27 @@ document.querySelectorAll('.prev-btn').forEach(btn => {
 });
 
 showStep(currentStep); // initialize
+document.getElementById("health-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  // Send to Google Sheets
+  fetch("https://script.google.com/macros/s/AKfycbwImTvfVoX_1kC_ODP_eD74wzimAn3l2kHJraky_UKK2rXUftemxMcwUqInr8sd54kt/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {"Content-Type": "application/json"}
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    // Show results or next step
+    document.getElementById("form-container").classList.add("hidden");
+    document.getElementById("results").classList.remove("hidden");
+  })
+  .catch(err => console.error(err));
+});
