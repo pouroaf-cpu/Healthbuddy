@@ -1,11 +1,12 @@
+// Update slider values live
 document.getElementById("energy").addEventListener("input", function() {
   document.getElementById("energyVal").textContent = this.value;
 });
-
 document.getElementById("libido").addEventListener("input", function() {
   document.getElementById("libidoVal").textContent = this.value;
 });
 
+// Calculate results
 document.getElementById("health-form").addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -18,7 +19,7 @@ document.getElementById("health-form").addEventListener("submit", function(e) {
   const exercise = document.getElementById("exercise").value;
 
   let resultText = `Based on your inputs: Age ${age}, Weight ${weight}kg, Height ${height}cm, 
-  Energy ${energy}/10, Libido ${libido}/10, Sleep ${sleep}, Exercise ${exercise}.`;
+Energy ${energy}/10, Libido ${libido}/10, Sleep ${sleep}, Exercise ${exercise}.`;
 
   if (energy < 4 || libido < 4) {
     resultText += " ⚠️ You may need some help with hormone health. We can draft a letter for your GP.";
@@ -31,12 +32,14 @@ document.getElementById("health-form").addEventListener("submit", function(e) {
   document.getElementById("result-text").textContent = resultText;
 });
 
+// Show GP letter form
 document.getElementById("gp-letter-btn").addEventListener("click", function() {
   document.getElementById("results").classList.add("hidden");
   document.getElementById("gp-form-section").classList.remove("hidden");
 });
 
+// Placeholder GP letter submit
 document.getElementById("gp-form").addEventListener("submit", function(e) {
   e.preventDefault();
-  alert("📄 GP Letter would be generated as PDF (this is placeholder).");
+  alert("📄 GP Letter would be generated as PDF (placeholder).");
 });
