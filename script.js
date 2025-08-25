@@ -1,52 +1,74 @@
-import { generateLetter } from './gp-letter/letter.js';
-
-document.getElementById("healthForm").addEventListener("submit", function(e) {
+document.getElementById("health-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const age = parseInt(document.getElementById("age").value);
-  const height = parseInt(document.getElementById("height").value) / 100;
   const weight = parseInt(document.getElementById("weight").value);
-  const waist = parseInt(document.getElementById("waist").value);
-  const sleep = parseInt(document.getElementById("sleep").value);
+  const height = parseInt(document.getElementById("height").value);
   const energy = parseInt(document.getElementById("energy").value);
   const libido = parseInt(document.getElementById("libido").value);
-  const stress = parseInt(document.getElementById("stress").value);
-  const activity = parseInt(document.getElementById("activity").value);
-  const email = document.getElementById("email").value;
+  const erections = parseInt(document.getElementById("erections").value);
+  const mood = parseInt(document.getElementById("mood").value);
+  const sleep = parseInt(document.getElementById("sleep").value);
+  const surgery = document.getElementById("surgery").value;
+  const medications = document.getElementById("medications").value;
 
-  const bmi = weight / (height * height);
-  const waistRatio = waist / (height * 100);
+  const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
 
-  let score = 0;
-  let suggestions = [];
+  let issues = [];
 
-  if (bmi > 30) { score += 2; suggestions.push("Consider reducing body fat through diet and exercise."); }
-  else if (bmi >= 25) { score += 1; suggestions.push("Overweight: Maintaining a healthy weight may help hormone levels."); }
-  if (waistRatio > 0.55) { score += 1; suggestions.push("Central obesity detected: waist reduction can support testosterone health."); }
+  if (bmi >= 30) issues.push("High BMI (obesity)");
+  else if (bmi >= 25) issues.push("Overweight BMI");
+  if (libido <= 4) issues.push("Low sex drive");
+  if (erections < 3) issues.push("Low frequency of morning erections");
+  if (energy <= 4) issues.push("Low energy");
+  if (mood <= 4) issues.push("Low mood stability");
+  if (sleep <= 4) issues.push("Poor sleep quality");
+  if (surgery === "yes") issues.push("History of testicular surgery/trauma");
+  if (medications === "yes") issues.push("On medications (needs review)");
 
-  if (sleep < 7) { score += 1; suggestions.push("Aim for 7–9 hours of sleep per night."); }
-  if (energy <= 2) { score += 1; suggestions.push("Low energy may indicate lifestyle or hormone issues."); }
-  if (libido <= 2) { score += 1; suggestions.push("Low libido can be linked to hormone imbalance or stress."); }
-  if (stress >= 4) { score += 1; suggestions.push("High stress: consider exercise, meditation, or breathing techniques."); }
-  if (age > 50) { score += 1; suggestions.push("Age-related hormone decline may occur; consider monitoring and healthy habits."); }
-  if (activity <= 1) { score += 1; suggestions.push("Low activity: regular exercise supports hormone health."); }
+  const results = issues.length > 0
+    ? `Potential concerns detected: ${issues.join(", ")}.`
+    : "No major concerns detected. Lifestyle support recommended.";
 
-  let riskCategory = "Low Risk";
-  if (score >= 4) riskCategory = "High Risk";
-  else if (score >= 2) riskCategory = "Moderate Risk";
+  document.getElementById("results").innerText = results;
+  document.getElementById("result-container").classList.remove("hidden");
+  document.getElementById("health-form").classList.add("hidden");
 
-  document.getElementById("healthForm").style.display = "none";
+  // store for GP letter
+  window.userReport = { age, bmi, issues };
+});
 
-  const resultsDiv = document.getElementById("results");
-  document.getElementById("riskScore").innerText = `Hormone Health Risk Score: ${riskCategory}`;
-  document.getElementById("suggestions").innerHTML = suggestions.map(s => `<li>${s}</li>`).join("");
-  resultsDiv.style.display = "block";
+// GP letter generation
+document.getElementById("generate-letter").addEventListener("click", function () {
+  const { age, bmi, issues } = window.userReport;
+  const { jsPDF } = window.jspdf || {};
 
-  const letterDiv = document.getElementById("gpLetter");
-  const letterContent = document.getElementById("letterContent");
-  letterContent.innerText = generateLetter({ bmi, waistRatio, sleep, energy, libido, stress, activity, email });
-  letterDiv.style.display = "block";
+  if (!jsPDF) {
+    alert("PDF generation not available. Please add jsPDF library.");
+    return;
+  }
 
-  resultsDiv.scrollIntoView({ behavior: 'smooth' });
+  const doc = new jsPDF();
+  doc.setFont("times", "normal");
+  doc.setFontSize(12);
+
+  doc.text("To the General Practitioner,", 20, 20);
+  doc.text(`Patient Age: ${age}`, 20, 30);
+  doc.text(`BMI: ${bmi}`, 20, 40);
+
+  if (issues.length > 0) {
+    doc.text("The following concerns were flagged:", 20, 55);
+    issues.forEach((issue, idx) => {
+      doc.text(`- ${issue}`, 25, 65 + idx * 10);
+    });
+    doc.text("Please consider hormone testing and further evaluation.", 20, 65 + issues.length * 10 + 10);
+  } else {
+    doc.text("No major issues were flagged. General monitoring recommended.", 20, 55);
+  }
+
+  doc.text("Kind regards,", 20, 120);
+  doc.text("Men's Hormone Health Checker (automated letter)", 20, 130);
+
+  doc.save("GP_Letter.pdf");
 });
 
