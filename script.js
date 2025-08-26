@@ -1,4 +1,7 @@
-// Elements
+// ===== Config =====
+const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOY_URL/exec'; // <- put your URL here
+
+// ===== Elements =====
 const form = document.getElementById("evaluationForm");
 const formSteps = document.querySelectorAll(".form-step");
 const nextBtns = document.querySelectorAll(".next-btn");
@@ -11,7 +14,7 @@ const restartBtn = document.getElementById("restartBtn");
 
 let formStepIndex = 0;
 
-// --- Step navigation + progress ---
+// ===== Step navigation + progress =====
 function updateFormSteps() {
   formSteps.forEach((step, index) => {
     step.classList.toggle("active", index === formStepIndex);
@@ -40,7 +43,7 @@ prevBtns.forEach(btn => {
   });
 });
 
-// --- Evaluation logic ---
+// ===== Evaluation logic =====
 function evaluate(data) {
   let score = 0;
   const flags = [];
@@ -97,11 +100,25 @@ function evaluate(data) {
   return { score, flags, band };
 }
 
-// --- Submit handler: build results view ---
+// ===== Webhook submission =====
+function submitToSheet(payload) {
+  // Fire-and-forget to avoid CORS errors (opaque response is fine)
+  try {
+    fetch(APPS_SCRIPT_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (_) {
+    // Ignore; UI still proceeds
+  }
+}
+
+// ===== Submit handler: build results view + send to Sheets =====
 form.addEventListener("submit", e => {
   e.preventDefault();
 
-  // Basic client validation for name/email (HTML5 will do most of it)
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
@@ -109,13 +126,18 @@ form.addEventListener("submit", e => {
 
   const fd = new FormData(form);
   const data = Object.fromEntries(fd.entries());
-
   const { score, flags, band } = evaluate(data);
 
-  // Summary
-  resultSummary.textContent = `Overall: ${band.label} (score ${score})`;
+  // Build payload for Sheets
+  const payload = {
+    ...data,
+    score,
+    bandLabel: band.label
+  };
+  submitToSheet(payload); // async, non-blocking
 
-  // Details
+  // Update UI
+  resultSummary.textContent = `Overall: ${band.label} (score ${score})`;
   resultDetails.innerHTML = `
     <p>${band.msg}</p>
     ${flags.length ? `<ul>${flags.map(f => `<li>${f}</li>`).join("")}</ul>` : "<p>No notable risk flags detected based on your answers.</p>"}
@@ -124,12 +146,11 @@ form.addEventListener("submit", e => {
     </p>
   `;
 
-  // Show results, hide form
   resultPanel.classList.remove("hidden");
   form.classList.add("hidden");
 });
 
-// --- Restart: return to step 1 and reset progress ---
+// ===== Restart: return to step 1 and reset progress =====
 restartBtn.addEventListener("click", () => {
   resultPanel.classList.add("hidden");
   form.classList.remove("hidden");
@@ -138,5 +159,5 @@ restartBtn.addEventListener("click", () => {
   updateFormSteps();
 });
 
-// Init
+// ===== Init =====
 updateFormSteps();
