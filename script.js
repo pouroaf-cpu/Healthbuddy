@@ -1,43 +1,193 @@
-const form = document.getElementById("evaluationForm");
-const formSteps = document.querySelectorAll(".form-step");
-const nextBtns = document.querySelectorAll(".next-btn");
-const prevBtns = document.querySelectorAll(".prev-btn");
-const progress = document.getElementById("progress");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HealthBuddy – Free Hormone Evaluation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h1>Free Hormone Evaluation</h1>
 
-let formStepIndex = 0;
+    <div id="progress-bar" aria-label="Progress">
+      <div id="progress"></div>
+    </div>
 
-function updateFormSteps() {
-  formSteps.forEach((step, index) => {
-    step.classList.toggle("active", index === formStepIndex);
-  });
-  progress.style.width = ((formStepIndex) / (formSteps.length - 1)) * 100 + "%";
-}
+    <!-- FORM -->
+    <form id="evaluationForm" novalidate>
+      <!-- Step 1: Lifestyle -->
+      <div class="form-step active" data-step="1">
+        <h2>Lifestyle</h2>
 
-nextBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (formStepIndex < formSteps.length - 1) {
-      formStepIndex++;
-      updateFormSteps();
-    }
-  });
-});
+        <label for="smoking">Do you smoke?</label>
+        <select id="smoking" name="smoking">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
 
-prevBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (formStepIndex > 0) {
-      formStepIndex--;
-      updateFormSteps();
-    }
-  });
-});
+        <label for="alcohol">Do you drink alcohol?</label>
+        <select id="alcohol" name="alcohol">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  alert("Thank you! Your responses have been submitted.");
-  form.reset();
-  formStepIndex = 0;
-  updateFormSteps();
-});
+        <label for="protein">Average daily protein intake (grams)</label>
+        <input id="protein" type="number" name="protein" inputmode="numeric" placeholder="e.g. 120" min="0" />
 
-// Initialize
-updateFormSteps();
+        <label for="caffeine">How many caffeinated drinks per day?</label>
+        <input id="caffeine" type="number" name="caffeine" inputmode="numeric" placeholder="e.g. 3" min="0" />
+
+        <button type="button" class="next-btn">Next</button>
+      </div>
+
+      <!-- Step 2: Sleep & Recovery -->
+      <div class="form-step" data-step="2">
+        <h2>Sleep & Recovery</h2>
+
+        <label for="sleepHours">Hours of sleep per night</label>
+        <input id="sleepHours" type="number" name="sleepHours" inputmode="numeric" placeholder="e.g. 7" min="0" max="24" />
+
+        <label for="rested">Do you feel rested on waking?</label>
+        <select id="rested" name="rested">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Physical Symptoms -->
+      <div class="form-step" data-step="3">
+        <h2>Physical Symptoms</h2>
+
+        <label for="fatigue">Do you feel fatigued often?</label>
+        <select id="fatigue" name="fatigue">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label for="muscle">Difficulty building/maintaining muscle?</label>
+        <select id="muscle" name="muscle">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label for="bodyFat">Have you noticed higher body fat?</label>
+        <select id="bodyFat" name="bodyFat">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label for="hair">Changes in hair (loss, thinning)?</label>
+        <select id="hair" name="hair">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Mood & Mental Health -->
+      <div class="form-step" data-step="4">
+        <h2>Mood & Mental Health</h2>
+
+        <label for="mood">How is your overall mood?</label>
+        <select id="mood" name="mood">
+          <option value="good">Good</option>
+          <option value="low">Low</option>
+        </select>
+
+        <label for="stress">How would you rate your stress levels?</label>
+        <select id="stress" name="stress">
+          <option value="low">Low</option>
+          <option value="moderate">Moderate</option>
+          <option value="high">High</option>
+        </select>
+
+        <label for="motivation">Do you feel motivated day to day?</label>
+        <select id="motivation" name="motivation">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Sexual Health -->
+      <div class="form-step" data-step="5">
+        <h2>Sexual Health</h2>
+
+        <label for="erectile">Any erectile difficulties?</label>
+        <select id="erectile" name="erectile">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label for="morningErections">Morning erections present?</label>
+        <select id="morningErections" name="morningErections">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Medical / Checkup -->
+      <div class="form-step" data-step="6">
+        <h2>Medical & Checkup</h2>
+
+        <label for="hormonePanel">Have you had a recent hormone panel?</label>
+        <select id="hormonePanel" name="hormonePanel">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+
+        <label for="medications">Any current medications/supplements?</label>
+        <textarea id="medications" name="medications" placeholder="List here..."></textarea>
+
+        <div class="btns">
+          <button type="button" class="prev-btn">Back</button>
+          <button type="button" class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <!-- Final: Signup -->
+      <div class="form-step" data-step="7">
+        <h2>Get Your Results</h2>
+        <p>Enter your details to access your free hormone evaluation report.</p>
+
+        <label for="fullName">Your Name</label>
+        <input id="fullName" type="text" name="fullName" required />
+
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required />
+
+        <button type="submit">Submit & Get Report</button>
+      </div>
+    </form>
+
+    <!-- RESULTS PANEL -->
+    <div id="resultPanel" class="result hidden" aria-live="polite">
+      <h2>Your Hormone Evaluation Results</h2>
+      <div id="resultSummary"></div>
+      <div id="resultDetails"></div>
+      <button id="restartBtn" type="button">Start Over</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
