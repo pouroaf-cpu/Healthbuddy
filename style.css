@@ -24,6 +24,27 @@ body {
   color: #222;
 }
 
+/* --- Site header/nav --- */
+.site-header { width: 100%; display: flex; justify-content: center; }
+.nav {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 12px;
+}
+.logo { font-weight: 800; color: var(--teal-700); text-decoration: none; }
+.nav-links a {
+  margin-left: 14px;
+  color: var(--teal-700);
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-links a:hover { text-decoration: underline; }
+.nav a[aria-current="page"] { text-decoration: underline; }
+
+/* Card/container */
 .form-container {
   background: var(--card);
   padding: 30px;
