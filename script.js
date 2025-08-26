@@ -1,163 +1,161 @@
-// ===== Config =====
-const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/AKfycby-F6mA2ei4dFi8S1cUwSxUhKyucY0E6BrW7pbKeqXdnmRlNkk2TYqD8guc2ApxZ0gt/exec'; // <- put your URL here
-
-// ===== Elements =====
-const form = document.getElementById("evaluationForm");
-const formSteps = document.querySelectorAll(".form-step");
-const nextBtns = document.querySelectorAll(".next-btn");
-const prevBtns = document.querySelectorAll(".prev-btn");
-const progress = document.getElementById("progress");
-const resultPanel = document.getElementById("resultPanel");
-const resultSummary = document.getElementById("resultSummary");
-const resultDetails = document.getElementById("resultDetails");
-const restartBtn = document.getElementById("restartBtn");
-
-let formStepIndex = 0;
-
-// ===== Step navigation + progress =====
-function updateFormSteps() {
-  formSteps.forEach((step, index) => {
-    step.classList.toggle("active", index === formStepIndex);
-  });
-
-  // progress from 0% on first step to 100% on final step
-  const pct = (formStepIndex / (formSteps.length - 1)) * 100;
-  progress.style.width = pct + "%";
+/* Base layout */
+:root {
+  --teal-700: #006d6f;
+  --teal-600: #009395;
+  --teal-900: #004c4d;
+  --bg: #f0f4f5;
+  --ink-700: #444;
+  --ink-500: #555;
+  --card: #ffffff;
+  --muted: #ddd;
 }
 
-nextBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (formStepIndex < formSteps.length - 1) {
-      formStepIndex++;
-      updateFormSteps();
-    }
-  });
-});
+* { box-sizing: border-box; }
 
-prevBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (formStepIndex > 0) {
-      formStepIndex--;
-      updateFormSteps();
-    }
-  });
-});
-
-// ===== Evaluation logic =====
-function evaluate(data) {
-  let score = 0;
-  const flags = [];
-
-  const protein = Number(data.protein || 0);
-  const caffeine = Number(data.caffeine || 0);
-  const sleepHours = Number(data.sleepHours || 0);
-  const meds = (data.medications || "").trim();
-
-  // Lifestyle
-  if (data.smoking === "yes") { score += 2; flags.push("Smoking can negatively impact hormones."); }
-  if (data.alcohol === "yes") { score += 1; flags.push("Alcohol may reduce testosterone and impair sleep quality."); }
-  if (protein && protein < 100) { score += 1; flags.push("Protein intake below ~100g may hinder muscle maintenance for many adults."); }
-  if (caffeine > 3) { score += 1; flags.push("High caffeine (>3/day) can disrupt sleep & stress hormones."); }
-
-  // Sleep & recovery
-  if (sleepHours && sleepHours < 7) { score += 2; flags.push("Sleeping <7 hours commonly reduces testosterone and recovery."); }
-  if (data.rested === "no") { score += 1; flags.push("Not waking rested suggests poor recovery and hormone balance."); }
-
-  // Physical symptoms
-  if (data.fatigue === "yes") { score += 2; flags.push("Frequent fatigue reported."); }
-  if (data.muscle === "yes") { score += 2; flags.push("Difficulty maintaining/building muscle."); }
-  if (data.bodyFat === "yes") { score += 1; flags.push("Higher body fat noted."); }
-  if (data.hair === "yes") { score += 1; flags.push("Hair changes reported."); }
-
-  // Mood
-  if (data.mood === "low") { score += 1; flags.push("Low mood reported."); }
-  if (data.stress === "moderate") { score += 1; flags.push("Moderate stress reported."); }
-  if (data.stress === "high") { score += 2; flags.push("High stress reported."); }
-  if (data.motivation === "no") { score += 1; flags.push("Low day-to-day motivation."); }
-
-  // Sexual health
-  if (data.erectile === "yes") { score += 3; flags.push("Erectile difficulties noted."); }
-  if (data.morningErections === "no") { score += 2; flags.push("Lack of morning erections."); }
-
-  // Medical
-  if (data.hormonePanel === "yes") {
-    flags.push("You reported a recent hormone panel—compare these results to that lab if available.");
-  }
-  if (meds.length > 0) {
-    flags.push("Medications/supplements may influence hormones—review with a clinician.");
-  }
-
-  // Banding
-  let band;
-  if (score <= 3) {
-    band = { label: "Low Concern", msg: "Your answers suggest a low likelihood of hormone-related issues." };
-  } else if (score <= 8) {
-    band = { label: "Moderate Concern", msg: "Some factors suggest possible hormone imbalance. Tighten sleep, protein, and stress routines." };
-  } else {
-    band = { label: "High Concern", msg: "Multiple indicators present. Consider a medical consult and a comprehensive lab panel." };
-  }
-
-  return { score, flags, band };
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 12px;
+  color: #222;
 }
 
-// ===== Webhook submission =====
-function submitToSheet(payload) {
-  // Fire-and-forget to avoid CORS errors (opaque response is fine)
-  try {
-    fetch(APPS_SCRIPT_WEBHOOK, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-  } catch (_) {
-    // Ignore; UI still proceeds
-  }
+/* --- Site header/nav --- */
+.site-header { width: 100%; display: flex; justify-content: center; }
+.nav {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 12px;
+}
+.logo { font-weight: 800; color: var(--teal-700); text-decoration: none; }
+.nav-links a {
+  margin-left: 14px;
+  color: var(--teal-700);
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-links a:hover { text-decoration: underline; }
+.nav a[aria-current="page"] { text-decoration: underline; }
+
+/* Card/container */
+.form-container {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 640px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 
-// ===== Submit handler: build results view + send to Sheets =====
-form.addEventListener("submit", e => {
-  e.preventDefault();
+/* Headings */
+h1 {
+  text-align: center;
+  margin: 0 0 20px;
+  color: var(--teal-700);
+}
 
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
+h2 {
+  color: var(--ink-700);
+  margin: 0 0 15px;
+}
 
-  const fd = new FormData(form);
-  const data = Object.fromEntries(fd.entries());
-  const { score, flags, band } = evaluate(data);
+/* Inputs */
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: bold;
+}
 
-  // Build payload for Sheets
-  const payload = {
-    ...data,
-    score,
-    bandLabel: band.label
-  };
-  submitToSheet(payload); // async, non-blocking
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
 
-  // Update UI
-  resultSummary.textContent = `Overall: ${band.label} (score ${score})`;
-  resultDetails.innerHTML = `
-    <p>${band.msg}</p>
-    ${flags.length ? `<ul>${flags.map(f => `<li>${f}</li>`).join("")}</ul>` : "<p>No notable risk flags detected based on your answers.</p>"}
-    <p style="font-size: 0.9em; color:#555;">
-      This is an educational screening, not medical advice. If symptoms persist, talk to a qualified clinician.
-    </p>
-  `;
+textarea { min-height: 90px; }
 
-  resultPanel.classList.remove("hidden");
-  form.classList.add("hidden");
-});
+/* Buttons */
+button {
+  padding: 10px 20px;
+  background: var(--teal-700);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+}
 
-// ===== Restart: return to step 1 and reset progress =====
-restartBtn.addEventListener("click", () => {
-  resultPanel.classList.add("hidden");
-  form.classList.remove("hidden");
-  form.reset();
-  formStepIndex = 0;
-  updateFormSteps();
-});
+button:hover { background: var(--teal-600); }
 
-// ===== Init =====
-updateFormSteps();
+.btns {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.prev-btn { background: #666; }
+.prev-btn:hover { background: #555; }
+
+/* Steps */
+.form-step { display: none; }
+.form-step.active { display: block; }
+
+/* Progress bar */
+#progress-bar {
+  background: var(--muted);
+  border-radius: 6px;
+  height: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+#progress {
+  background: var(--teal-600);
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Results */
+.hidden { display: none; }
+
+.result {
+  background: #f8ffff;
+  border: 1px solid #bfe7e8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.result h2 { color: var(--teal-700); margin-top: 0; }
+
+#resultSummary {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#resultDetails p { margin: 8px 0; }
+#resultDetails ul { margin: 10px 0; padding-left: 18px; }
+
+#restartBtn {
+  margin-top: 16px;
+  background: var(--teal-900);
+}
+#restartBtn:hover { background: var(--teal-700); }
+
+/* Small screens */
+@media (max-width: 400px) {
+  .form-container { padding: 20px; }
+}
