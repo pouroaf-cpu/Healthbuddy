@@ -1,5 +1,5 @@
 // ===== Config =====
-const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/AKfycbyZjNe3fdWAeZ5HyOv6rNPlOctWNppPZC53toOmqqAvVU9g8bODonO-KightPXxg2SV/exec'; // <- put your URL here
+const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/AKfycby-F6mA2ei4dFi8S1cUwSxUhKyucY0E6BrW7pbKeqXdnmRlNkk2TYqD8guc2ApxZ0gt/exec'; // <- put your URL here
 
 // ===== Elements =====
 const form = document.getElementById("evaluationForm");
