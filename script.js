@@ -1,193 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HealthBuddy – Free Hormone Evaluation</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="form-container">
-    <h1>Free Hormone Evaluation</h1>
+// Elements
+const form = document.getElementById("evaluationForm");
+const formSteps = document.querySelectorAll(".form-step");
+const nextBtns = document.querySelectorAll(".next-btn");
+const prevBtns = document.querySelectorAll(".prev-btn");
+const progress = document.getElementById("progress");
+const resultPanel = document.getElementById("resultPanel");
+const resultSummary = document.getElementById("resultSummary");
+const resultDetails = document.getElementById("resultDetails");
+const restartBtn = document.getElementById("restartBtn");
 
-    <div id="progress-bar" aria-label="Progress">
-      <div id="progress"></div>
-    </div>
+let formStepIndex = 0;
 
-    <!-- FORM -->
-    <form id="evaluationForm" novalidate>
-      <!-- Step 1: Lifestyle -->
-      <div class="form-step active" data-step="1">
-        <h2>Lifestyle</h2>
+// --- Step navigation + progress ---
+function updateFormSteps() {
+  formSteps.forEach((step, index) => {
+    step.classList.toggle("active", index === formStepIndex);
+  });
 
-        <label for="smoking">Do you smoke?</label>
-        <select id="smoking" name="smoking">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+  // progress from 0% on first step to 100% on final step
+  const pct = (formStepIndex / (formSteps.length - 1)) * 100;
+  progress.style.width = pct + "%";
+}
 
-        <label for="alcohol">Do you drink alcohol?</label>
-        <select id="alcohol" name="alcohol">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+nextBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (formStepIndex < formSteps.length - 1) {
+      formStepIndex++;
+      updateFormSteps();
+    }
+  });
+});
 
-        <label for="protein">Average daily protein intake (grams)</label>
-        <input id="protein" type="number" name="protein" inputmode="numeric" placeholder="e.g. 120" min="0" />
+prevBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (formStepIndex > 0) {
+      formStepIndex--;
+      updateFormSteps();
+    }
+  });
+});
 
-        <label for="caffeine">How many caffeinated drinks per day?</label>
-        <input id="caffeine" type="number" name="caffeine" inputmode="numeric" placeholder="e.g. 3" min="0" />
+// --- Evaluation logic ---
+function evaluate(data) {
+  let score = 0;
+  const flags = [];
 
-        <button type="button" class="next-btn">Next</button>
-      </div>
+  const protein = Number(data.protein || 0);
+  const caffeine = Number(data.caffeine || 0);
+  const sleepHours = Number(data.sleepHours || 0);
+  const meds = (data.medications || "").trim();
 
-      <!-- Step 2: Sleep & Recovery -->
-      <div class="form-step" data-step="2">
-        <h2>Sleep & Recovery</h2>
+  // Lifestyle
+  if (data.smoking === "yes") { score += 2; flags.push("Smoking can negatively impact hormones."); }
+  if (data.alcohol === "yes") { score += 1; flags.push("Alcohol may reduce testosterone and impair sleep quality."); }
+  if (protein && protein < 100) { score += 1; flags.push("Protein intake below ~100g may hinder muscle maintenance for many adults."); }
+  if (caffeine > 3) { score += 1; flags.push("High caffeine (>3/day) can disrupt sleep & stress hormones."); }
 
-        <label for="sleepHours">Hours of sleep per night</label>
-        <input id="sleepHours" type="number" name="sleepHours" inputmode="numeric" placeholder="e.g. 7" min="0" max="24" />
+  // Sleep & recovery
+  if (sleepHours && sleepHours < 7) { score += 2; flags.push("Sleeping <7 hours commonly reduces testosterone and recovery."); }
+  if (data.rested === "no") { score += 1; flags.push("Not waking rested suggests poor recovery and hormone balance."); }
 
-        <label for="rested">Do you feel rested on waking?</label>
-        <select id="rested" name="rested">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+  // Physical symptoms
+  if (data.fatigue === "yes") { score += 2; flags.push("Frequent fatigue reported."); }
+  if (data.muscle === "yes") { score += 2; flags.push("Difficulty maintaining/building muscle."); }
+  if (data.bodyFat === "yes") { score += 1; flags.push("Higher body fat noted."); }
+  if (data.hair === "yes") { score += 1; flags.push("Hair changes reported."); }
 
-        <div class="btns">
-          <button type="button" class="prev-btn">Back</button>
-          <button type="button" class="next-btn">Next</button>
-        </div>
-      </div>
+  // Mood
+  if (data.mood === "low") { score += 1; flags.push("Low mood reported."); }
+  if (data.stress === "moderate") { score += 1; flags.push("Moderate stress reported."); }
+  if (data.stress === "high") { score += 2; flags.push("High stress reported."); }
+  if (data.motivation === "no") { score += 1; flags.push("Low day-to-day motivation."); }
 
-      <!-- Step 3: Physical Symptoms -->
-      <div class="form-step" data-step="3">
-        <h2>Physical Symptoms</h2>
+  // Sexual health
+  if (data.erectile === "yes") { score += 3; flags.push("Erectile difficulties noted."); }
+  if (data.morningErections === "no") { score += 2; flags.push("Lack of morning erections."); }
 
-        <label for="fatigue">Do you feel fatigued often?</label>
-        <select id="fatigue" name="fatigue">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+  // Medical
+  if (data.hormonePanel === "yes") {
+    flags.push("You reported a recent hormone panel—compare these results to that lab if available.");
+  }
+  if (meds.length > 0) {
+    flags.push("Medications/supplements may influence hormones—review with a clinician.");
+  }
 
-        <label for="muscle">Difficulty building/maintaining muscle?</label>
-        <select id="muscle" name="muscle">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+  // Banding
+  let band;
+  if (score <= 3) {
+    band = { label: "Low Concern", msg: "Your answers suggest a low likelihood of hormone-related issues." };
+  } else if (score <= 8) {
+    band = { label: "Moderate Concern", msg: "Some factors suggest possible hormone imbalance. Tighten sleep, protein, and stress routines." };
+  } else {
+    band = { label: "High Concern", msg: "Multiple indicators present. Consider a medical consult and a comprehensive lab panel." };
+  }
 
-        <label for="bodyFat">Have you noticed higher body fat?</label>
-        <select id="bodyFat" name="bodyFat">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+  return { score, flags, band };
+}
 
-        <label for="hair">Changes in hair (loss, thinning)?</label>
-        <select id="hair" name="hair">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
+// --- Submit handler: build results view ---
+form.addEventListener("submit", e => {
+  e.preventDefault();
 
-        <div class="btns">
-          <button type="button" class="prev-btn">Back</button>
-          <button type="button" class="next-btn">Next</button>
-        </div>
-      </div>
+  // Basic client validation for name/email (HTML5 will do most of it)
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
 
-      <!-- Step 4: Mood & Mental Health -->
-      <div class="form-step" data-step="4">
-        <h2>Mood & Mental Health</h2>
+  const fd = new FormData(form);
+  const data = Object.fromEntries(fd.entries());
 
-        <label for="mood">How is your overall mood?</label>
-        <select id="mood" name="mood">
-          <option value="good">Good</option>
-          <option value="low">Low</option>
-        </select>
+  const { score, flags, band } = evaluate(data);
 
-        <label for="stress">How would you rate your stress levels?</label>
-        <select id="stress" name="stress">
-          <option value="low">Low</option>
-          <option value="moderate">Moderate</option>
-          <option value="high">High</option>
-        </select>
+  // Summary
+  resultSummary.textContent = `Overall: ${band.label} (score ${score})`;
 
-        <label for="motivation">Do you feel motivated day to day?</label>
-        <select id="motivation" name="motivation">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+  // Details
+  resultDetails.innerHTML = `
+    <p>${band.msg}</p>
+    ${flags.length ? `<ul>${flags.map(f => `<li>${f}</li>`).join("")}</ul>` : "<p>No notable risk flags detected based on your answers.</p>"}
+    <p style="font-size: 0.9em; color:#555;">
+      This is an educational screening, not medical advice. If symptoms persist, talk to a qualified clinician.
+    </p>
+  `;
 
-        <div class="btns">
-          <button type="button" class="prev-btn">Back</button>
-          <button type="button" class="next-btn">Next</button>
-        </div>
-      </div>
+  // Show results, hide form
+  resultPanel.classList.remove("hidden");
+  form.classList.add("hidden");
+});
 
-      <!-- Step 5: Sexual Health -->
-      <div class="form-step" data-step="5">
-        <h2>Sexual Health</h2>
+// --- Restart: return to step 1 and reset progress ---
+restartBtn.addEventListener("click", () => {
+  resultPanel.classList.add("hidden");
+  form.classList.remove("hidden");
+  form.reset();
+  formStepIndex = 0;
+  updateFormSteps();
+});
 
-        <label for="erectile">Any erectile difficulties?</label>
-        <select id="erectile" name="erectile">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-
-        <label for="morningErections">Morning erections present?</label>
-        <select id="morningErections" name="morningErections">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <div class="btns">
-          <button type="button" class="prev-btn">Back</button>
-          <button type="button" class="next-btn">Next</button>
-        </div>
-      </div>
-
-      <!-- Step 6: Medical / Checkup -->
-      <div class="form-step" data-step="6">
-        <h2>Medical & Checkup</h2>
-
-        <label for="hormonePanel">Have you had a recent hormone panel?</label>
-        <select id="hormonePanel" name="hormonePanel">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-
-        <label for="medications">Any current medications/supplements?</label>
-        <textarea id="medications" name="medications" placeholder="List here..."></textarea>
-
-        <div class="btns">
-          <button type="button" class="prev-btn">Back</button>
-          <button type="button" class="next-btn">Next</button>
-        </div>
-      </div>
-
-      <!-- Final: Signup -->
-      <div class="form-step" data-step="7">
-        <h2>Get Your Results</h2>
-        <p>Enter your details to access your free hormone evaluation report.</p>
-
-        <label for="fullName">Your Name</label>
-        <input id="fullName" type="text" name="fullName" required />
-
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" required />
-
-        <button type="submit">Submit & Get Report</button>
-      </div>
-    </form>
-
-    <!-- RESULTS PANEL -->
-    <div id="resultPanel" class="result hidden" aria-live="polite">
-      <h2>Your Hormone Evaluation Results</h2>
-      <div id="resultSummary"></div>
-      <div id="resultDetails"></div>
-      <button id="restartBtn" type="button">Start Over</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+// Init
+updateFormSteps();
