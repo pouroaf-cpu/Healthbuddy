@@ -1,5 +1,5 @@
 // ===== Config =====
-const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOY_URL/exec'; // <- put your URL here
+const APPS_SCRIPT_WEBHOOK = 'https://script.google.com/macros/s/AKfycbyZjNe3fdWAeZ5HyOv6rNPlOctWNppPZC53toOmqqAvVU9g8bODonO-KightPXxg2SV/exec'; // <- put your URL here
 
 // ===== Elements =====
 const form = document.getElementById("evaluationForm");
