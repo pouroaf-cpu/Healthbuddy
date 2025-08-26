@@ -36,7 +36,17 @@ body {
   gap: 4px;
   margin: 8px auto 12px;       /* center the nav container */
 }
-.logo { font-weight: 800; color: var(--teal-700); text-decoration: none; }
+/* Logo image */
+.logo-img {
+  display: block;
+  height: 48px;   /* adjust if needed */
+  width: auto;
+}
+
+/* (optional) If you want text next to the image later: */
+/*
+.logo { display: inline-flex; align-items: center; gap: 8px; }
+*/
 .nav-links {
   display: flex;
   flex-direction: column;      /* About under logo */
