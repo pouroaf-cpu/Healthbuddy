@@ -32,7 +32,7 @@ body {
   max-width: 640px;
   display: flex;
   flex-direction: column;     /* stack items */
-  align-items: flex-start;     /* left-align */
+  align-items: center;     /* center-align */
   gap: 4px;
   margin: 8px auto 12px;       /* center the nav container */
 }
