@@ -27,43 +27,67 @@ body {
 
 /* --- Site header/nav --- */
 .site-header { width: 100%; display: flex; justify-content: center; }
+
 .nav {
   width: 100%;
   max-width: 640px;
   display: flex;
-  flex-direction: Column;     /* column items */
-  align-items: center;     /* center-align */
-  gap: 4px;
-  margin: 8px auto 12px;       /* center the nav container */
-}
-/* Logo image */
-.logo-img {
-  display: block;
-  height: 248px;   /* adjust if needed */
-  width: auto;
+  flex-direction: column;   /* column items (lowercase: CSS is case-sensitive) */
+  align-items: center;      /* center-align */
+  gap: 8px;
+  margin: 8px auto 12px;    /* center the nav container */
 }
 
-/* (optional) If you want text next to the image later: */
-/*
-.logo { display: inline-flex; align-items: center; gap: 8px; }
-*/
+/* Text Logo (replaces image) */
+.logo { text-decoration: none; }
+.logo-text {
+  display: flex;
+  flex-direction: column;   /* stack words */
+  align-items: center;
+  line-height: 1;
+}
+.logo-line {
+  font-family: Arial, sans-serif;
+  font-weight: 900;         /* bold */
+  font-size: 42px;          /* bigger than nav links */
+}
+.logo-hormone { color: var(--teal-600); }   /* teal */
+.logo-buddy   { color: #3c4a4a; }           /* teal/grey mix */
+
+/* Remove old image logo sizing if any remains */
+.logo-img { display: none; }
+
+/* Nav links — horizontal */
 .nav-links {
   display: flex;
-  flex-direction: Row;      /* About under logo */
-  gap: 4px;
+  flex-direction: row;      /* horizontal (lowercase) */
+  gap: 28px;                /* increased spacing between links */
+  justify-content: center;  /* center under logo */
+  flex-wrap: wrap;          /* wrap on small screens */
+  margin-top: 12px;         /* space between logo and links */
 }
 
-.nav-links a {                 /* remove left margin from previous version */
-  margin: 0;
+.nav-links a {
   color: var(--teal-700);
   text-decoration: none;
   font-weight: 600;
+  font-size: 18px;
+  padding: 8px 12px;        /* larger click target */
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.06s ease;
 }
-.nav-links a:hover { text-decoration: underline; }
-.nav a[aria-current="page"] { text-decoration: underline; }
+.nav-links a:hover {
+  background: var(--teal-600);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.nav a[aria-current="page"] {
+  text-decoration: underline;
+}
 
 /* Card/container */
-.form-container { margin: 0 auto;   /* hard-center the card */
+.form-container {
+  margin: 0 auto;           /* hard-center the card */
   background: var(--card);
   padding: 30px;
   border-radius: 12px;
@@ -78,7 +102,6 @@ h1 {
   margin: 0 0 20px;
   color: var(--teal-700);
 }
-
 h2 {
   color: var(--ink-700);
   margin: 0 0 15px;
@@ -90,7 +113,6 @@ label {
   margin: 12px 0 6px;
   font-weight: bold;
 }
-
 input, select, textarea {
   width: 100%;
   padding: 10px;
@@ -99,7 +121,6 @@ input, select, textarea {
   margin-bottom: 10px;
   font-size: 16px;
 }
-
 textarea { min-height: 90px; }
 
 /* Buttons */
@@ -113,7 +134,6 @@ button {
   margin-top: 10px;
   font-size: 16px;
 }
-
 button:hover { background: var(--teal-600); }
 
 .btns {
@@ -122,7 +142,6 @@ button:hover { background: var(--teal-600); }
   justify-content: space-between;
   margin-top: 10px;
 }
-
 .prev-btn { background: #666; }
 .prev-btn:hover { background: #555; }
 
@@ -138,7 +157,6 @@ button:hover { background: var(--teal-600); }
   margin-bottom: 20px;
   overflow: hidden;
 }
-
 #progress {
   background: var(--teal-600);
   height: 100%;
@@ -148,7 +166,6 @@ button:hover { background: var(--teal-600); }
 
 /* Results */
 .hidden { display: none; }
-
 .result {
   background: #f8ffff;
   border: 1px solid #bfe7e8;
@@ -156,24 +173,15 @@ button:hover { background: var(--teal-600); }
   padding: 20px;
   margin-top: 20px;
 }
-
 .result h2 { color: var(--teal-700); margin-top: 0; }
-
-#resultSummary {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
+#resultSummary { font-weight: bold; margin-bottom: 10px; }
 #resultDetails p { margin: 8px 0; }
 #resultDetails ul { margin: 10px 0; padding-left: 18px; }
-
-#restartBtn {
-  margin-top: 16px;
-  background: var(--teal-900);
-}
+#restartBtn { margin-top: 16px; background: var(--teal-900); }
 #restartBtn:hover { background: var(--teal-700); }
 
 /* Small screens */
 @media (max-width: 400px) {
   .form-container { padding: 20px; }
+  .logo-line { font-size: 36px; }  /* scale logo down a bit on very small screens */
 }
