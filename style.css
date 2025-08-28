@@ -31,7 +31,7 @@ body {
   width: 100%;
   max-width: 640px;
   display: flex;
-  flex-direction: column;     /* stack items */
+  flex-direction: row;     /* row items */
   align-items: center;     /* center-align */
   gap: 4px;
   margin: 8px auto 12px;       /* center the nav container */
