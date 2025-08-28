@@ -31,7 +31,7 @@ body {
   width: 100%;
   max-width: 640px;
   display: flex;
-  flex-direction: row;     /* row items */
+  flex-direction: Column;     /* column items */
   align-items: center;     /* center-align */
   gap: 4px;
   margin: 8px auto 12px;       /* center the nav container */
@@ -49,7 +49,7 @@ body {
 */
 .nav-links {
   display: flex;
-  flex-direction: column;      /* About under logo */
+  flex-direction: Row;      /* About under logo */
   gap: 4px;
 }
 
