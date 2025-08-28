@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRT/Peptide Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Page-local styles */
+    .calc-wrap { background: var(--card); border:1px solid rgba(0,0,0,0.08); border-radius:12px; padding:20px; max-width:640px; margin:12px auto; box-shadow:0 8px 18px rgba(0,0,0,0.08); }
+    .calc-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    .calc-grid .full { grid-column: 1 / -1; }
+    .inline { display:flex; align-items:center; gap:10px; }
+    .muted { color: var(--ink-500); font-size: 14px; }
+    .out { background:#f8ffff; border:1px solid #bfe7e8; border-radius:12px; padding:16px; margin-top:16px; }
+    .out h3 { margin:0 0 8px; color: var(--teal-700); }
+
+    /* Syringe visual: 1 mL barrel, 0.1 mL ticks */
+    .syringe {
+      display:flex; align-items:flex-end; gap:16px; margin-top:12px;
+    }
+    .barrel-wrap { height:240px; /* 1 mL = 200px scale with padding */ padding:20px 12px; border:1px solid #ddd; border-radius:10px; background:#fff; position:relative; }
+    .barrel {
+      position:relative; width:64px; height:200px; border:2px solid #999; border-radius:10px; background:linear-gradient(#fff,#f6f6f6);
+      overflow:hidden;
+    }
+    .fill {
+      position:absolute; left:0; bottom:0; width:100%; height:0;
+      background: linear-gradient(180deg, var(--teal-600), var(--teal-700));
+      transition: height 0.25s ease;
+    }
+    .ticks {
+      position:absolute; left:70px; bottom:0; height:200px; display:flex; flex-direction:column; justify-content:space-between; font-size:12px; color:#333;
+    }
+    .tick { display:flex; align-items:center; gap:6px; }
+    .tick::before { content:""; display:block; width:10px; height:1px; background:#333; }
+    .ml-label { font-weight:600; color:#103132; }
+
+    .warn { margin-top:10px; padding:10px; border-radius:8px; background:#fff6f6; border:1px solid #ffd6d6; color:#7a1c1c; }
+    .kpi { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:10px; }
+    .kpi .card { background:#fff; border:1px solid rgba(0,0,0,0.06); border-radius:10px; padding:12px; text-align:center; }
+    .kpi .card b { display:block; font-size:20px; color:#103132; }
+
+    @media (max-width: 560px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: 1fr; }
+      .ticks { left:68px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav (reuse your existing header) -->
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="index.html">
+        <span class="logo-text">
+          <span class="logo-line logo-hormone">Hormone</span>
+          <span class="logo-line logo-buddy">Buddy</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="trt-peptide-calculator.html" aria-current="page">TRT/Peptide Calculator</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h1>TRT/Peptide Dosage Calculator</h1>
+    <div class="calc-wrap">
+      <div class="calc-grid">
+        <div class="full">
+          <label for="conc">Vial strength (mg per mL)</label>
+          <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200 (means 200 mg/mL)">
+          <p class="muted">Example: Testosterone 200 mg/mL → enter <b>200</b>.</p>
+        </div>
+
+        <div>
+          <label for="weekly">Prescribed total per week (mg/week)</label>
+          <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140">
+        </div>
+
+        <div class="full">
+          <div class="inline">
+            <input type="radio" name="sched" id="opt-count" checked>
+            <label for="opt-count">I know how many injections per week</label>
+          </div>
+          <div class="inline" style="margin-top:6px">
+            <input type="radio" name="sched" id="opt-interval">
+            <label for="opt-interval">I inject every N days</label>
+          </div>
+        </div>
+
+        <div id="count-wrap">
+          <label for="count">Injections per week</label>
+          <input id="count" type="number" min="1" max="14" step="1" placeholder="e.g. 2">
+        </div>
+
+        <div id="interval-wrap" style="display:none;">
+          <label for="interval">Days between injections</label>
+          <input id="interval" type="number" min="0.5" step="0.5" placeholder="e.g. 3.5">
+          <p class="muted">Injections/week = 7 ÷ interval.</p>
+        </div>
+
+        <div class="full">
+          <button id="calcBtn" type="button">Calculate</button>
+        </div>
+      </div>
+
+      <div id="out" class="out" hidden>
+        <h3>Dose & Volume per Injection</h3>
+        <div class="kpi">
+          <div class="card">
+            <span class="muted">Injections / week</span>
+            <b id="kpi_inj">—</b>
+          </div>
+          <div class="card">
+            <span class="muted">Dose per injection (mg)</span>
+            <b id="kpi_mg">—</b>
+          </div>
+          <div class="card">
+            <span class="muted">Volume per injection (mL)</span>
+            <b id="kpi_ml">—</b>
+          </div>
+        </div>
+
+        <div class="syringe">
+          <div class="barrel-wrap">
+            <div class="barrel">
+              <div class="fill" id="fill"></div>
+            </div>
+            <div class="ticks" id="ticks"></div>
+          </div>
+          <div>
+            <div class="ml-label"><span id="mlLabel">0.00</span> mL</div>
+            <div class="muted">Fill syringe to this mark.</div>
+            <div id="warn" class="warn" hidden></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="muted">This tool is for educational planning only. Always follow your clinician’s directions.</p>
+  </div>
+
+  <script>
+    // Build 0.0 → 1.0 ticks (0.1 mL steps)
+    (function buildTicks(){
+      const t = document.getElementById('ticks');
+      for (let i=10; i>=0; i--) {
+        const el = document.createElement('div');
+        el.className = 'tick';
+        el.style.height = (200/10) + 'px'; // space evenly
+        el.innerHTML = '<span>' + (i/10).toFixed(1) + ' mL</span>';
+        t.appendChild(el);
+      }
+    })();
+
+    const $ = id => document.getElementById(id);
+
+    function compute() {
+      const conc = parseFloat($('conc').value);
+      const weekly = parseFloat($('weekly').value);
+      const useCount = $('opt-count').checked;
+      const countVal = parseFloat($('count').value);
+      const intervalVal = parseFloat($('interval').value);
+
+      // Basic validation
+      if (!(conc > 0) || !(weekly > 0)) {
+        alert('Enter positive numbers for vial strength and weekly dose.');
+        return;
+      }
+
+      let injPerWeek;
+      if (useCount) {
+        if (!(countVal > 0)) { alert('Enter injections per week.'); return; }
+        injPerWeek = countVal;
+      } else {
+        if (!(intervalVal > 0)) { alert('Enter days between injections.'); return; }
+        injPerWeek = 7 / intervalVal;
+      }
+
+      const dosePerInj_mg = weekly / injPerWeek;
+      const volPerInj_ml = dosePerInj_mg / conc;
+
+      // Update KPIs
+      $('kpi_inj').textContent = injPerWeek.toFixed(2);
+      $('kpi_mg').textContent  = dosePerInj_mg.toFixed(2);
+      $('kpi_ml').textContent  = volPerInj_ml.toFixed(3);
+      $('mlLabel').textContent = volPerInj_ml.toFixed(3);
+
+      // Update fill (maxed at 1 mL visual)
+      const maxVisual = 1.0;
+      const ratio = Math.min(volPerInj_ml / maxVisual, 1);
+      $('fill').style.height = (ratio * 200) + 'px';
+
+      // Warning if >1 mL
+      const warn = $('warn');
+      if (volPerInj_ml > 1) {
+        const injectionsNeeded = Math.ceil(volPerInj_ml / 1);
+        const splitVol = volPerInj_ml / injectionsNeeded;
+        warn.hidden = false;
+        warn.textContent =
+          `Volume exceeds 1.00 mL. Consider splitting into ${injectionsNeeded} injection(s) of ~${splitVol.toFixed(2)} mL each, or discuss a higher concentration vial / adjusted schedule with your clinician.`;
+      } else {
+        warn.hidden = true;
+        warn.textContent = '';
+      }
+
+      $('out').hidden = false;
+    }
+
+    $('calcBtn').addEventListener('click', compute);
+
+    // Toggle schedule inputs
+    function toggleSched() {
+      const useCount = $('opt-count').checked;
+      $('count-wrap').style.display = useCount ? '' : 'none';
+      $('interval-wrap').style.display = useCount ? 'none' : '';
+    }
+    $('opt-count').addEventListener('change', toggleSched);
+    $('opt-interval').addEventListener('change', toggleSched);
+  </script>
+</body>
+</html>
