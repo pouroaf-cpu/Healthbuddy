@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://healthbubbyv1.netlify.app/sitemap.xml
