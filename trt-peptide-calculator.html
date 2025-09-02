@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRT/Peptide Dosage Calculator — Hormone Buddy</title>
+  <meta name="description" content="Compute exact mL per injection from vial concentration and weekly dose. Visual insulin-style syringe fills in real-time." />
+  <link rel="canonical" href="https://healthbubbyv1.netlify.app/trt-peptide-calculator.html" />
+  <meta property="og:title" content="TRT/Peptide Dosage Calculator — Hormone Buddy" />
+  <meta property="og:description" content="Compute exact mL per injection from vial concentration and weekly dose. Visual insulin-style syringe fills in real-time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://healthbubbyv1.netlify.app/trt-peptide-calculator.html" />
+  <meta property="og:site_name" content="Hormone Buddy" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>.form-container{max-width:980px;margin:24px auto;padding:0 12px}</style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="/index.html" aria-label="Hormone Buddy home">
+      <span class="logo-text">
+        <span class="logo-line logo-hormone">Hormone</span>
+        <span class="logo-line logo-buddy">Buddy</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/trt-peptide-calculator.html" aria-current="page">TRT/Peptide Calculator</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<div class="form-container">
+  <h1>TRT/Peptide Dosage Calculator</h1>
+
+  <div class="calc-wrap">
+    <div class="calc-grid">
+      <!-- Unit toggle -->
+      <div class="full">
+        <label>Concentration units</label>
+        <div class="inline">
+          <input type="radio" name="unit" id="unit-mg" checked>
+          <label for="unit-mg">mg/mL</label>
+          <input type="radio" name="unit" id="unit-iu" style="margin-left:14px">
+          <label for="unit-iu">IU/mL</label>
+        </div>
+      </div>
+
+      <!-- Concentration + presets -->
+      <div class="full">
+        <label id="lbl-conc" for="conc">Vial strength (mg per mL)</label>
+        <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200">
+        <p id="hint-conc" class="muted">Example: Testosterone 200 mg/mL → enter <b>200</b>.</p>
+
+        <div id="presets-mg" class="preset-row">
+          <button type="button" class="preset" data-val="100">100 mg/mL</button>
+          <button type="button" class="preset" data-val="150">150 mg/mL</button>
+          <button type="button" class="preset" data-val="200">200 mg/mL</button>
+          <button type="button" class="preset" data-val="250">250 mg/mL</button>
+        </div>
+        <div id="presets-iu" class="preset-row" style="display:none;">
+          <button type="button" class="preset" data-val="500">500 IU/mL</button>
+          <button type="button" class="preset" data-val="1000">1000 IU/mL</button>
+          <button type="button" class="preset" data-val="1500">1500 IU/mL</button>
+          <button type="button" class="preset" data-val="2000">2000 IU/mL</button>
+        </div>
+      </div>
+
+      <!-- Weekly dose -->
+      <div>
+        <label id="lbl-weekly" for="weekly">Prescribed total per week (mg/week)</label>
+        <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140">
+      </div>
+
+      <!-- Schedule selector -->
+      <div class="full">
+        <div class="inline">
+          <input type="radio" name="sched" id="opt-count" checked>
+          <label for="opt-count">I know how many injections per week</label>
+        </div>
+        <div class="inline" style="margin-top:6px">
+          <input type="radio" name="sched" id="opt-interval">
+          <label for="opt-interval">I inject every N days</label>
+        </div>
+      </div>
+
+      <div id="count-wrap">
+        <label for="count">Injections per week</label>
+        <input id="count" type="number" min="1" max="14" step="1" placeholder="e.g. 2">
+      </div>
+
+      <div id="interval-wrap" style="display:none;">
+        <label for="interval">Days between injections</label>
+        <input id="interval" type="number" min="0.5" step="0.5" placeholder="e.g. 3.5">
+        <p class="muted">Injections/week = 7 ÷ interval.</p>
+      </div>
+
+      <!-- Syringe selector -->
+      <div>
+        <label for="syringe">Syringe size</label>
+        <select id="syringe">
+          <option value="1">1 mL (insulin)</option>
+          <option value="3">3 mL</option>
+        </select>
+        <p class="muted">Tip: on U-100 insulin syringes, <b>mL × 100 = units</b>. (0.35 mL ≈ 35 units.)</p>
+      </div>
+
+      <div class="full">
+        <button id="calcBtn" type="button">Calculate</button>
+      </div>
+    </div>
+
+    <div id="out" class="out" hidden>
+      <h3>Dose & Volume per Injection</h3>
+      <div class="kpi">
+        <div class="card">
+          <span class="muted">Injections / week</span>
+          <b id="kpi_inj">—</b>
+        </div>
+        <div class="card">
+          <span class="muted">Dose per injection</span>
+          <b id="kpi_dose">—</b>
+        </div>
+        <div class="card">
+          <span class="muted">Volume per injection (mL)</span>
+          <b id="kpi_ml">—</b>
+        </div>
+      </div>
+
+      <div class="syringe" aria-label="Syringe visual">
+        <div class="barrel-wrap inactive">
+          <div class="barrel"><div class="fill" id="fill"></div></div>
+          <div class="ticks" id="ticks"></div>
+        </div>
+        <div>
+          <div class="ml-label"><span id="mlLabel">0.00</span> mL</div>
+          <div id="syrMeta" class="muted">1 mL syringe · <span id="units">0 units (U-100)</span></div>
+          <div class="muted">Fill syringe to this mark.</div>
+          <div id="warn" class="warn" hidden></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="muted">For planning only. Always follow your clinician’s instructions.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const isMgMode = () => $('unit-mg').checked;
+
+let barrelWrap = null, fillEl = null, mlOut = null, unitsOut = null, syrMeta = null;
+
+function setInactive() {
+  if (!barrelWrap) return;
+  barrelWrap.classList.remove('active');
+  barrelWrap.classList.add('inactive');
+  fillEl.style.height = '0px';
+  mlOut.textContent = '0.00';
+  unitsOut.textContent = '0 units (U-100)';
+  const cap = ($('syringe').value || '1');
+  syrMeta.innerHTML = cap + ' mL syringe · <span id="units">0 units (U-100)</span>';
+  unitsOut = $('units');
+}
+
+function setActive() {
+  if (!barrelWrap) return;
+  barrelWrap.classList.remove('inactive');
+  barrelWrap.classList.add('active');
+}
+
+function buildTicks(maxMl){
+  const ticks = $('ticks');
+  ticks.innerHTML = '';
+  const step = (maxMl <= 1) ? 0.1 : 0.5;
+  const barrelPx = 200;
+  for (let v = 0; v <= maxMl + 1e-9; v += step) {
+    const row = document.createElement('div');
+    row.className = 'tick-row';
+    const y = (v / maxMl) * barrelPx;
+    row.style.bottom = y + 'px';
+    row.innerHTML = '<span>' + v.toFixed(1) + ' mL</span>';
+    ticks.appendChild(row);
+  }
+}
+
+function setSyringeUI(volumeMl, syringeMaxMl) {
+  const vol = Math.max(0, Math.min(volumeMl, syringeMaxMl));
+  const ratio = Math.min(vol / syringeMaxMl, 1);
+  fillEl.style.height = (ratio * 200) + 'px';
+  mlOut.textContent = vol.toFixed(3);
+  const cap = syringeMaxMl.toFixed(0);
+  syrMeta.innerHTML = cap + ' mL syringe · <span id="units">' + Math.round(vol * 100) + ' units (U-100)</span>';
+  unitsOut = $('units');
+  buildTicks(syringeMaxMl);
+  if (vol > 0) setActive(); else setInactive();
+}
+
+function toggleUnit() {
+  if (isMgMode()) {
+    $('lbl-conc').textContent = 'Vial strength (mg per mL)';
+    $('lbl-weekly').textContent = 'Prescribed total per week (mg/week)';
+    $('hint-conc').innerHTML = 'Example: Testosterone 200 mg/mL → enter <b>200</b>.';
+    $('presets-mg').style.display = '';
+    $('presets-iu').style.display = 'none';
+    $('weekly').placeholder = 'e.g. 140';
+  } else {
+    $('lbl-conc').textContent = 'Vial strength (IU per mL)';
+    $('lbl-weekly').textContent = 'Prescribed total per week (IU/week)';
+    $('hint-conc').innerHTML = 'Example: hCG reconstituted to 1000 IU/mL → enter <b>1000</b>.';
+    $('presets-mg').style.display = 'none';
+    $('presets-iu').style.display = '';
+    $('weekly').placeholder = 'e.g. 1000';
+  }
+  $('out').hidden = true;
+  setInactive();
+}
+$('unit-mg').addEventListener('change', toggleUnit);
+$('unit-iu').addEventListener('change', toggleUnit);
+
+function toggleSched() {
+  const useCount = $('opt-count').checked;
+  $('count-wrap').style.display = useCount ? '' : 'none';
+  $('interval-wrap').style.display = useCount ? 'none' : '';
+}
+$('opt-count').addEventListener('change', toggleSched);
+$('opt-interval').addEventListener('change', toggleSched);
+
+function wirePresets(containerId) {
+  document.getElementById(containerId).addEventListener('click', (e) => {
+    if (e.target.classList.contains('preset')) {
+      const v = parseFloat(e.target.getAttribute('data-val'));
+      if (v > 0) $('conc').value = v;
+    }
+  });
+}
+wirePresets('presets-mg');
+wirePresets('presets-iu');
+
+function compute() {
+  const conc = parseFloat($('conc').value);
+  const weekly = parseFloat($('weekly').value);
+  const useCount = $('opt-count').checked;
+  const countVal = parseFloat($('count').value);
+  const intervalVal = parseFloat($('interval').value);
+  const syringeMaxMl = parseFloat($('syringe').value) || 1;
+
+  setInactive();
+
+  if (!(conc > 0) || !(weekly > 0)) {
+    alert('Enter positive numbers for vial strength and weekly dose.');
+    return;
+  }
+
+  let injPerWeek;
+  if (useCount) {
+    if (!(countVal > 0)) { alert('Enter injections per week.'); return; }
+    injPerWeek = countVal;
+  } else {
+    if (!(intervalVal > 0)) { alert('Enter days between injections.'); return; }
+    injPerWeek = 7 / intervalVal;
+  }
+
+  const dosePerInj = weekly / injPerWeek;   // mg or IU
+  const volPerInj_ml = dosePerInj / conc;   // mL
+
+  // KPIs
+  $('kpi_inj').textContent = injPerWeek.toFixed(2);
+  $('kpi_dose').textContent = dosePerInj.toFixed(2) + (isMgMode() ? ' mg' : ' IU');
+  $('kpi_ml').textContent  = volPerInj_ml.toFixed(3);
+  $('mlLabel').textContent = volPerInj_ml.toFixed(3);
+
+  // Visual
+  setSyringeUI(volPerInj_ml, syringeMaxMl);
+
+  // Warning for capacity overflow
+  const warn = $('warn');
+  if (volPerInj_ml > syringeMaxMl) {
+    const injectionsNeeded = Math.ceil(volPerInj_ml / syringeMaxMl);
+    const splitVol = volPerInj_ml / injectionsNeeded;
+    warn.hidden = false;
+    warn.textContent =
+      `Volume exceeds ${syringeMaxMl.toFixed(2)} mL. Consider splitting into ${injectionsNeeded} injection(s) of ~${splitVol.toFixed(2)} mL each, using a larger syringe, or discussing a higher concentration vial with your clinician.`;
+  } else {
+    warn.hidden = true;
+    warn.textContent = '';
+  }
+
+  $('out').hidden = false;
+}
+$('calcBtn').addEventListener('click', compute);
+
+// Rebuild ticks and reset on syringe change
+$('syringe').addEventListener('change', () => {
+  const maxMl = parseFloat($('syringe').value) || 1;
+  buildTicks(maxMl);
+  setInactive();
+  $('out').hidden = true;
+});
+
+// Init DOM refs + defaults
+window.addEventListener('DOMContentLoaded', () => {
+  barrelWrap = document.querySelector('.barrel-wrap');
+  fillEl = $('fill');
+  mlOut = $('mlLabel');
+  unitsOut = $('units');
+  syrMeta = $('syrMeta');
+
+  toggleUnit();
+  toggleSched();
+  buildTicks(1); // default 1 mL
+  setInactive();
+});
+</script>
+</body>
+</html>
