@@ -185,3 +185,30 @@ button:hover { background: var(--teal-600); }
   .form-container { padding: 20px; }
   .logo-line { font-size: 36px; }  /* scale logo down a bit on very small screens */
 }
+/* Inactive / active states */ /* New edition */
+.barrel-wrap.inactive { filter: grayscale(0.9); opacity: 0.6; }
+.barrel-wrap.active   { filter: none; opacity: 1; }
+
+/* Simple insulin needle (shaft + tip) */
+.barrel-wrap::before {
+  content: "";
+  position: absolute;
+  left: calc(12px + 32px - 1px); /* align to barrel center (12px padding + half of 64px) */
+  bottom: calc(100% + 10px);
+  width: 2px;
+  height: 56px;
+  background: #999;
+}
+.barrel-wrap::after {
+  content: "";
+  position: absolute;
+  left: calc(12px + 32px - 4px);
+  bottom: calc(100% + 66px);
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 8px solid #999; /* needle tip */
+}
+
+/* Small meta/units line */
+#syrMeta { margin-top: 6px; }
