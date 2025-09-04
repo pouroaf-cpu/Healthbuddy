@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Questionnaire — Hormone Buddy</title>
-  <meta name="description" content="A simple, private questionnaire to organize your TRT/peptide context before visiting the calculator or your clinician." />
+  <meta name="description" content="Private, multi-step hormone health questionnaire. Short (15) or full (30) version. Exports locally." />
   <link rel="canonical" href="https://healthbubbyv1.netlify.app/questionnaire.html" />
   <meta property="og:title" content="Questionnaire — Hormone Buddy" />
-  <meta property="og:description" content="A simple, private questionnaire to organize your TRT/peptide context before visiting the calculator or your clinician." />
+  <meta property="og:description" content="Private, multi-step hormone health questionnaire. Short (15) or full (30) version. Exports locally." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://healthbubbyv1.netlify.app/questionnaire.html" />
   <meta property="og:site_name" content="Hormone Buddy" />
@@ -16,14 +16,18 @@
   <style>
     .qn-wrap{background:var(--card);border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:20px;max-width:740px;margin:12px auto;box-shadow:0 8px 18px rgba(0,0,0,0.08)}
     .steps{display:flex;gap:6px;margin:6px 0 14px}
-    .step{flex:1;height:6px;background:#e9f4f4;border-radius:6px;overflow:hidden}
+    .step{flex:1;height:6px;background:#e9f4f4;border-radius:6px}
     .step.active{background:var(--teal-600)}
     .qn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .full{grid-column:1 / -1}
     .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
     .button{background:var(--teal-600);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
     .button.ghost{background:#0b3b3b14;color:#0b3b3b}
-    .muted small{font-size:12px}
+    .q{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:10px;padding:10px}
+    .q small{color:var(--ink-500)}
+    .q .range-row{display:flex;align-items:center;gap:10px}
+    .q .range-row input[type=range]{flex:1}
+    .badge{display:inline-block;font-size:12px;padding:2px 6px;border-radius:999px;background:#eef7f7;color:#0b3b3b;margin-left:6px}
     @media (max-width:780px){ .qn-grid{grid-template-columns:1fr} }
   </style>
 </head>
@@ -48,164 +52,32 @@
 </header>
 
 <main class="container">
-  <h1>Questionnaire</h1>
+  <h1>Hormone Health Questionnaire</h1>
   <p class="muted">Private & local to your browser. For planning only — not medical advice.</p>
 
-  <div class="qn-wrap" id="qform" role="form" aria-labelledby="h-steps">
-    <div class="steps" aria-hidden="true" id="progress"></div>
+  <div class="qn-wrap" id="app">
+    <div class="inline" style="justify-content:space-between">
+      <label class="inline">
+        <input type="checkbox" id="mvpToggle" checked>
+        <span>Use short version (≈15 questions)</span>
+        <span class="badge" id="qCountBadge">15</span>
+      </label>
+      <button class="button ghost" id="exportBtn" type="button">Export JSON</button>
+    </div>
 
-    <!-- STEP 1: Basics -->
-    <section class="step-pane" data-step="1">
-      <h2 id="h-steps">Basics</h2>
-      <div class="qn-grid">
-        <div>
-          <label for="age">Age</label>
-          <select id="age">
-            <option value="">Select…</option>
-            <option>18–24</option><option>25–34</option><option>35–44</option>
-            <option>45–54</option><option>55–64</option><option>65+</option>
-          </select>
-        </div>
-        <div>
-          <label for="goal">Primary goal</label>
-          <select id="goal">
-            <option value="">Select…</option>
-            <option>TRT planning</option>
-            <option>Peptide planning</option>
-            <option>General education</option>
-          </select>
-        </div>
-        <div class="full">
-          <label for="experience">Experience level</label>
-          <select id="experience">
-            <option value="">Select…</option>
-            <option>New — first time</option>
-            <option>Some experience</option>
-            <option>Experienced</option>
-          </select>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="button" data-next>Next</button>
-      </div>
-    </section>
+    <div class="steps" id="progress" aria-hidden="true"></div>
 
-    <!-- STEP 2: Symptoms (optional) -->
-    <section class="step-pane" data-step="2" hidden>
-      <h2>Symptoms (optional)</h2>
-      <div class="qn-grid">
-        <label class="full"><input type="checkbox" value="Low energy" class="sym"> Low energy</label>
-        <label class="full"><input type="checkbox" value="Low libido" class="sym"> Low libido</label>
-        <label class="full"><input type="checkbox" value="ED" class="sym"> Erectile issues</label>
-        <label class="full"><input type="checkbox" value="Low mood" class="sym"> Low mood</label>
-        <label class="full"><input type="checkbox" value="Brain fog" class="sym"> Brain fog</label>
-        <label class="full"><input type="checkbox" value="Increased fat" class="sym"> Increased fat</label>
-        <label class="full"><input type="checkbox" value="Decreased muscle" class="sym"> Decreased muscle</label>
-        <label class="full"><input type="checkbox" value="Poor sleep" class="sym"> Poor sleep</label>
-      </div>
-      <div class="actions">
-        <button class="button ghost" data-prev>Back</button>
-        <button class="button" data-next>Next</button>
-      </div>
-    </section>
+    <section id="pane" class="full"></section>
 
-    <!-- STEP 3: History & risk flags -->
-    <section class="step-pane" data-step="3" hidden>
-      <h2>History & risk flags</h2>
-      <div class="qn-grid">
-        <label class="full"><input type="checkbox" value="Prostate concerns" class="risk"> Prostate concerns (history or current)</label>
-        <label class="full"><input type="checkbox" value="Polycythemia/high hematocrit" class="risk"> Polycythemia / high hematocrit</label>
-        <label class="full"><input type="checkbox" value="Untreated sleep apnea" class="risk"> Untreated sleep apnea</label>
-        <label class="full"><input type="checkbox" value="Clotting disorder" class="risk"> Known clotting disorder</label>
-        <label class="full"><input type="checkbox" value="Hormone-sensitive cancer (self/family)" class="risk"> Hormone-sensitive cancer (self/family)</label>
-        <label class="full"><input type="checkbox" value="Liver/kidney issues" class="risk"> Liver/kidney issues</label>
-      </div>
-      <p class="muted"><small>These flags do not diagnose anything. They help you decide what to discuss with your clinician.</small></p>
-      <div class="actions">
-        <button class="button ghost" data-prev>Back</button>
-        <button class="button" data-next>Next</button>
-      </div>
-    </section>
+    <div class="actions">
+      <button class="button ghost" id="backBtn" type="button">Back</button>
+      <button class="button" id="nextBtn" type="button">Next</button>
+    </div>
 
-    <!-- STEP 4: Current numbers (optional, helps prefill calculator) -->
-    <section class="step-pane" data-step="4" hidden>
-      <h2>Current numbers (optional)</h2>
-      <div class="qn-grid">
-        <div>
-          <label for="unitMode">Concentration unit</label>
-          <select id="unitMode">
-            <option value="mg">mg/mL</option>
-            <option value="iu">IU/mL</option>
-          </select>
-        </div>
-        <div>
-          <label for="conc">Vial strength (per mL)</label>
-          <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200" />
-        </div>
-        <div>
-          <label for="weekly">Weekly prescription total</label>
-          <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140" />
-        </div>
-        <div>
-          <label for="schedPref">Injection schedule</label>
-          <select id="schedPref">
-            <option value="count">I know injections/week</option>
-            <option value="interval">I inject every N days</option>
-          </select>
-        </div>
-        <div>
-          <label for="count">Injections per week</label>
-          <input id="count" type="number" min="1" step="1" placeholder="e.g. 2" />
-        </div>
-        <div>
-          <label for="interval">Days between injections</label>
-          <input id="interval" type="number" min="0.5" step="0.5" placeholder="e.g. 3.5" />
-        </div>
-        <div>
-          <label for="syringe">Syringe size</label>
-          <select id="syringe">
-            <option value="1">1 mL (insulin)</option>
-            <option value="3">3 mL</option>
-          </select>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="button ghost" data-prev>Back</button>
-        <button class="button" data-next>Next</button>
-      </div>
-    </section>
-
-    <!-- STEP 5: Labs (optional quick log) -->
-    <section class="step-pane" data-step="5" hidden>
-      <h2>Recent labs (optional)</h2>
-      <div class="qn-grid">
-        <label class="full"><input type="checkbox" class="lab" value="Total Testosterone"> Total Testosterone (date known)</label>
-        <label class="full"><input type="checkbox" class="lab" value="Free Testosterone"> Free Testosterone</label>
-        <label class="full"><input type="checkbox" class="lab" value="Estradiol (E2)"> Estradiol (E2)</label>
-        <label class="full"><input type="checkbox" class="lab" value="LH/FSH"> LH/FSH</label>
-        <label class="full"><input type="checkbox" class="lab" value="Hematocrit/hemoglobin"> Hematocrit/Hemoglobin</label>
-        <label class="full"><input type="checkbox" class="lab" value="PSA (if applicable)"> PSA (if applicable)</label>
-      </div>
-      <div class="actions">
-        <button class="button ghost" data-prev>Back</button>
-        <button class="button" data-next>Next</button>
-      </div>
-    </section>
-
-    <!-- STEP 6: Summary -->
-    <section class="step-pane" data-step="6" hidden>
-      <h2>Summary</h2>
-      <div class="out" id="summaryBox" style="margin:0"></div>
-      <div class="actions">
-        <button class="button ghost" id="exportBtn" type="button">Export JSON</button>
-        <button class="button ghost" id="clearBtn" type="button">Clear</button>
-        <a class="button" id="toCalc" href="/trt-peptide-calculator.html">Open Calculator</a>
-      </div>
-      <p class="muted"><small>Opening the calculator will prefill values you entered here. You can edit them there.</small></p>
-    </section>
+    <div id="summary" class="out" style="margin-top:14px; display:none"></div>
   </div>
 
-  <p class="muted">Always follow your clinician’s instructions.</p>
+  <p class="muted">Tip: You can open the calculator in another tab at any time.</p>
 </main>
 
 <footer>
@@ -215,137 +87,354 @@
   </div>
 </footer>
 
+<!-- Master question set (your list, with MVP tagging) -->
+<script type="application/json" id="questions">
+{
+  "sections": [
+    {
+      "key": "energy",
+      "title": "1. Energy / Fatigue",
+      "questions": [
+        {"id":"energy_level","label":"How would you rate your daily energy levels?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"energy_too_tired","label":"How often do you feel too tired to finish daily tasks?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":false},
+        {"id":"energy_refreshed","label":"How refreshed do you feel when you wake up in the morning?","type":"slider","min":1,"max":10,"mvp":true}
+      ]
+    },
+    {
+      "key": "libido",
+      "title": "2. Libido",
+      "questions": [
+        {"id":"libido_interest","label":"How would you rate your interest in sexual activity?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"libido_frequency","label":"How often do you think about or feel interested in sex?","type":"single","options":["Rarely","Sometimes","Often","Daily"],"mvp":false},
+        {"id":"libido_satisfaction","label":"How satisfied are you with your level of sexual desire?","type":"slider","min":1,"max":10,"mvp":true}
+      ]
+    },
+    {
+      "key":"sexual_fn",
+      "title":"3. Erectile / Sexual Function",
+      "questions":[
+        {"id":"sex_ability","label":"How often are you able to perform sexually as you would like?","type":"single","options":["Always","Often","Sometimes","Rarely","Never"],"mvp":true},
+        {"id":"sex_confidence","label":"How confident are you in your ability to have satisfying sexual activity?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"sex_limits","label":"How often does your sexual function limit your satisfaction?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":false}
+      ]
+    },
+    {
+      "key":"mood",
+      "title":"4. Mood",
+      "questions":[
+        {"id":"mood_overall","label":"How would you rate your overall mood in the past week?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"mood_irritable","label":"How often have you felt irritable or on edge?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":true},
+        {"id":"mood_low","label":"How often have you felt low or unmotivated?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":false}
+      ]
+    },
+    {
+      "key":"strength",
+      "title":"5. Muscle Strength",
+      "questions":[
+        {"id":"strength_rating","label":"How would you rate your strength for daily tasks or exercise?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"strength_weak","label":"How often do you feel physically weak compared to your usual?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":false},
+        {"id":"strength_satisfaction","label":"How satisfied are you with your muscle strength and endurance?","type":"slider","min":1,"max":10,"mvp":true}
+      ]
+    },
+    {
+      "key":"bodyfat",
+      "title":"6. Body Fat",
+      "questions":[
+        {"id":"bf_weight_desc","label":"How would you describe your body weight?","type":"single","options":["Underweight","Healthy","Overweight"],"mvp":true},
+        {"id":"bf_comp_sat","label":"How satisfied are you with your current body composition (muscle vs fat)?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"bf_waist","label":"What is your waist measurement?","type":"number","unit":"cm/in","mvp":true}
+      ]
+    },
+    {
+      "key":"sleep",
+      "title":"7. Sleep",
+      "questions":[
+        {"id":"sleep_hours","label":"How many hours do you sleep on average per night?","type":"number","mvp":true},
+        {"id":"sleep_quality","label":"How would you rate the quality of your sleep?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"sleep_wakings","label":"How often do you wake up during the night?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":false}
+      ]
+    },
+    {
+      "key":"focus",
+      "title":"8. Cognitive / Focus",
+      "questions":[
+        {"id":"focus_difficulty","label":"How often do you have difficulty concentrating?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":true},
+        {"id":"focus_rating","label":"How would you rate your mental focus during the day?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"focus_forget","label":"How often do you forget important things or tasks?","type":"single","options":["Rarely","Sometimes","Often","Always"],"mvp":false}
+      ]
+    },
+    {
+      "key":"hair",
+      "title":"9. Hair Growth",
+      "questions":[
+        {"id":"hair_growth_rating","label":"How would you rate your facial or body hair growth?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"hair_groom_freq","label":"How often do you need to shave or groom facial/body hair?","type":"single","options":["Daily","Weekly","Less than weekly"],"mvp":false},
+        {"id":"hair_sat","label":"How satisfied are you with your hair growth?","type":"slider","min":1,"max":10,"mvp":true}
+      ]
+    },
+    {
+      "key":"bone",
+      "title":"10. Bone / Joint Strength",
+      "questions":[
+        {"id":"bone_pain","label":"How often do you experience bone or joint pain?","type":"single","options":["Never","Sometimes","Often","Always"],"mvp":true},
+        {"id":"bone_strength","label":"How would you rate your bone/joint strength for daily activity?","type":"slider","min":1,"max":10,"mvp":true},
+        {"id":"bone_wb_ex","label":"How often do you do weight-bearing exercise (walking, running, lifting)?","type":"single","options":["Never","1–2x/week","3–5x/week","Daily"],"mvp":false}
+      ]
+    }
+  ]
+}
+</script>
+
 <script>
-(function(){
-  const $ = (id) => document.getElementById(id);
-  const panes = [...document.querySelectorAll('.step-pane')];
-  const total = panes.length;
-  const progress = $('progress');
-  const LS_KEY = 'hb_q';
-  let step = 1;
-  let data = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+(() => {
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  const LS_KEY = 'hb_q_master_v1';
 
-  // Build progress ticks
-  for (let i=1;i<=total;i++){
-    const d = document.createElement('div');
-    d.className = 'step' + (i===1?' active':'');
-    progress.appendChild(d);
-  }
-  const markProgress = () => {
-    [...progress.children].forEach((el, idx) => {
-      el.classList.toggle('active', idx < step);
+  const state = {
+    sectionIndex: 0,
+    answers: JSON.parse(localStorage.getItem(LS_KEY) || '{}'),
+    shortMode: true
+  };
+
+  const qData = JSON.parse($('#questions').textContent);
+  const sections = qData.sections;
+
+  // UI refs
+  const mvpToggle = $('#mvpToggle');
+  const qCountBadge = $('#qCountBadge');
+  const progress = $('#progress');
+  const pane = $('#pane');
+  const backBtn = $('#backBtn');
+  const nextBtn = $('#nextBtn');
+  const exportBtn = $('#exportBtn');
+  const summary = $('#summary');
+
+  // Derived
+  const visibleQsCount = () => {
+    if (!state.shortMode) return 30;
+    // count only q.mvp === true
+    return sections.reduce((acc, s) => acc + s.questions.filter(q => q.mvp).length, 0);
+  };
+
+  // Build progress bars (one per section)
+  const renderProgress = () => {
+    progress.innerHTML = '';
+    sections.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'step' + (i <= state.sectionIndex ? ' active' : '');
+      progress.appendChild(d);
     });
   };
 
-  // Helpers
-  const showStep = (n) => {
-    step = Math.max(1, Math.min(total, n));
-    panes.forEach(p => p.hidden = (parseInt(p.dataset.step,10) !== step));
-    markProgress();
-    if (step === total) renderSummary();
+  // Render current section
+  const renderSection = () => {
+    summary.style.display = 'none';
+    const s = sections[state.sectionIndex];
+    const qs = s.questions.filter(q => state.shortMode ? q.mvp : true);
+
+    const html = `
+      <h2 class="full">${s.title}</h2>
+      <div class="qn-grid">
+        ${qs.map(q => renderQuestion(q)).join('')}
+      </div>
+    `;
+    pane.innerHTML = html;
+
+    // hydrate values
+    qs.forEach(q => setValue(q));
+
+    // enable/disable nav
+    backBtn.disabled = state.sectionIndex === 0;
+    nextBtn.textContent = state.sectionIndex === sections.length - 1 ? 'Finish' : 'Next';
+
+    renderProgress();
+    updateBadge();
   };
 
-  const val = (id) => (document.getElementById(id)?.value ?? '').trim();
-
-  const collect = () => {
-    data.age = val('age');
-    data.goal = val('goal');
-    data.experience = val('experience');
-    data.symptoms = [...document.querySelectorAll('.sym:checked')].map(x=>x.value);
-    data.risks = [...document.querySelectorAll('.risk:checked')].map(x=>x.value);
-    data.unitMode = val('unitMode') || data.unitMode || 'mg';
-    data.conc = parseFloat(val('conc')) || '';
-    data.weekly = parseFloat(val('weekly')) || '';
-    data.schedPref = val('schedPref') || data.schedPref || 'count';
-    data.count = parseFloat(val('count')) || '';
-    data.interval = parseFloat(val('interval')) || '';
-    data.syringe = val('syringe') || data.syringe || '1';
-    data.labs = [...document.querySelectorAll('.lab:checked')].map(x=>x.value);
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
-  };
-
-  const validateCurrent = () => {
-    if (step === 1) {
-      if (!val('age') || !val('goal')) { alert('Select Age and Primary goal.'); return false; }
+  const renderQuestion = (q) => {
+    const help = q.type === 'slider' ? '<small>1 = low, 10 = high</small>' : '';
+    if (q.type === 'slider') {
+      return `
+        <div class="q">
+          <label for="${q.id}">${q.label}</label>
+          <div class="range-row">
+            <span>1</span>
+            <input type="range" id="${q.id}" min="${q.min||1}" max="${q.max||10}" step="1" />
+            <span>10</span>
+            <output id="${q.id}_out" style="min-width:2ch;text-align:center">–</output>
+          </div>
+          ${help}
+        </div>`;
     }
-    if (step === 4) {
-      // No hard validation; fields are optional but warn if partial schedule
-      if (val('schedPref') === 'count' && val('count') === '') {
-        // allow but warn
-      }
-      if (val('schedPref') === 'interval' && val('interval') === '') {
-        // allow but warn
-      }
+    if (q.type === 'single') {
+      return `
+        <div class="q">
+          <label>${q.label}</label>
+          <div class="inline" role="radiogroup" aria-label="${q.label}">
+            ${q.options.map((opt,idx)=>`
+              <label class="inline" style="gap:6px">
+                <input type="radio" name="${q.id}" value="${opt}"> <span>${opt}</span>
+              </label>`).join('')}
+          </div>
+        </div>`;
     }
-    return true;
+    if (q.type === 'number') {
+      return `
+        <div class="q">
+          <label for="${q.id}">${q.label}</label>
+          <input type="number" id="${q.id}" step="0.1" placeholder="Enter number" />
+          ${q.unit ? `<small>Units: ${q.unit}</small>` : ''}
+        </div>`;
+    }
+    return '';
   };
 
-  const renderSummary = () => {
-    const box = $('summaryBox');
+  const setValue = (q) => {
+    const v = state.answers[q.id];
+    if (v === undefined) return;
+
+    if (q.type === 'slider') {
+      const el = $('#' + q.id, pane);
+      const out = $('#' + q.id + '_out', pane);
+      if (el) { el.value = v; if (out) out.value = v; }
+      el?.addEventListener('input', () => out && (out.value = el.value));
+    }
+    if (q.type === 'single') {
+      const el = $$('input[name="'+q.id+'"]', pane).find(r => r.value === v);
+      el && (el.checked = true);
+    }
+    if (q.type === 'number') {
+      const el = $('#' + q.id, pane);
+      el && (el.value = v);
+    }
+  };
+
+  const collectCurrent = () => {
+    const s = sections[state.sectionIndex];
+    const qs = s.questions.filter(q => state.shortMode ? q.mvp : true);
+    qs.forEach(q => {
+      if (q.type === 'slider') {
+        const el = $('#' + q.id, pane);
+        if (el && el.value) state.answers[q.id] = Number(el.value);
+      } else if (q.type === 'single') {
+        const el = $$('input[name="'+q.id+'"]', pane).find(r => r.checked);
+        if (el) state.answers[q.id] = el.value;
+      } else if (q.type === 'number') {
+        const el = $('#' + q.id, pane);
+        if (el && el.value !== '') state.answers[q.id] = Number(el.value);
+      }
+    });
+    localStorage.setItem(LS_KEY, JSON.stringify(state.answers));
+  };
+
+  const next = () => {
+    collectCurrent();
+    if (state.sectionIndex < sections.length - 1) {
+      state.sectionIndex++;
+      renderSection();
+    } else {
+      showSummary();
+    }
+  };
+
+  const back = () => {
+    if (state.sectionIndex > 0) {
+      state.sectionIndex--;
+      renderSection();
+    }
+  };
+
+  const updateBadge = () => { qCountBadge.textContent = String(visibleQsCount()); };
+
+  const scoreMap = {
+    // Map single-choice to 1..10-ish for rollups
+    "Never":10, "Rarely":7, "Sometimes":5, "Often":3, "Always":1,
+    "Daily":10, "3–5x/week":8, "1–2x/week":6,
+    "Underweight":5, "Healthy":8, "Overweight":4,
+    "Weekly":7, "Less than weekly":4, "Daily+":10
+  };
+
+  const sectionScore = (sec) => {
+    const qs = sec.questions.filter(q => state.shortMode ? q.mvp : true);
+    const vals = qs.map(q => {
+      const v = state.answers[q.id];
+      if (v === undefined || v === '') return null;
+      if (q.type === 'slider') return Number(v);
+      if (q.type === 'number') {
+        // Normalize a bit: sleep hours target ~7-8 => map to 8 if >=7 & <=9
+        if (q.id === 'sleep_hours') return v >= 7 && v <= 9 ? 8 : (v < 6 ? 4 : 6);
+        if (q.id === 'bf_waist') return 10 - Math.min(6, Math.max(0, (v - 80) / 10)); // crude, non-medical
+        return 6;
+      }
+      if (q.type === 'single') return scoreMap[v] ?? 6;
+      return 6;
+    }).filter(x => x !== null);
+    if (!vals.length) return null;
+    const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+    return Math.round(avg * 10) / 10;
+  };
+
+  const showSummary = () => {
     const lines = [];
-    lines.push(`<b>Basics</b>: ${data.age || '—'} · ${data.goal || '—'} · ${data.experience || '—'}`);
-    lines.push(`<b>Symptoms</b>: ${data.symptoms?.length ? data.symptoms.join(', ') : '—'}`);
-    lines.push(`<b>Risk flags</b>: ${data.risks?.length ? data.risks.join(', ') : '—'}`);
-    lines.push(`<b>Numbers</b>: ${data.conc || '—'} ${data.unitMode || 'mg'}/mL · Weekly ${data.weekly || '—'} · Schedule ${data.schedPref || 'count'} (${data.count || data.interval || '—'}) · Syringe ${data.syringe || '1'} mL`);
-    lines.push(`<b>Labs</b>: ${data.labs?.length ? data.labs.join(', ') : '—'}`);
-    box.innerHTML = '<div>' + lines.join('</div><div>') + '</div>';
-
-    // Prepare calculator prefill
-    const prefill = {
-      unit: (data.unitMode || 'mg'),
-      conc: (data.conc || ''),
-      weekly: (data.weekly || ''),
-      schedMode: (data.schedPref || 'count'),
-      count: (data.count || ''),
-      interval: (data.interval || ''),
-      syringe: (data.syringe || '1')
-    };
-    localStorage.setItem('hb_calc_pref', JSON.stringify(prefill));
+    sections.forEach(sec => {
+      const sc = sectionScore(sec);
+      lines.push(`<div><b>${sec.title.replace(/^\d+\. /,'')}</b>: ${sc !== null ? sc + '/10' : '—'}</div>`);
+    });
+    summary.innerHTML = `
+      <h3>Summary (experimental)</h3>
+      ${lines.join('')}
+      <p class="muted">Scores are rough, non-diagnostic, and for planning only.</p>
+      <div class="actions">
+        <a class="button" href="/trt-peptide-calculator.html">Open Calculator</a>
+        <button class="button ghost" id="clearBtn" type="button">Clear</button>
+      </div>
+    `;
+    summary.style.display = 'block';
+    $('#clearBtn', summary)?.addEventListener('click', () => {
+      localStorage.removeItem(LS_KEY);
+      state.answers = {};
+      state.sectionIndex = 0;
+      renderSection();
+      summary.style.display = 'none';
+    });
+    // Scroll into view
+    summary.scrollIntoView({behavior:'smooth', block:'start'});
   };
 
-  // Button wiring
-  document.querySelectorAll('[data-next]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      collect();
-      if (!validateCurrent()) return;
-      showStep(step+1);
-    });
+  // Wire UI
+  mvpToggle.addEventListener('change', () => {
+    state.shortMode = mvpToggle.checked;
+    updateBadge();
+    renderProgress();
+    renderSection();
   });
-  document.querySelectorAll('[data-prev]').forEach(btn=>{
-    btn.addEventListener('click', ()=> showStep(step-1));
-  });
-
-  // Export / Clear
-  $('exportBtn')?.addEventListener('click', ()=>{
-    collect();
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  nextBtn.addEventListener('click', next);
+  backBtn.addEventListener('click', back);
+  exportBtn.addEventListener('click', () => {
+    collectCurrent();
+    const blob = new Blob([JSON.stringify(state.answers, null, 2)], {type:'application/json'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'hormone-buddy-questionnaire.json';
     a.click();
     URL.revokeObjectURL(a.href);
   });
-  $('clearBtn')?.addEventListener('click', ()=>{
-    localStorage.removeItem(LS_KEY);
-    localStorage.removeItem('hb_calc_pref');
-    data = {};
-    location.reload();
-  });
 
-  // Restore previous session
-  if (Object.keys(data).length){
-    // Rehydrate controls if present
-    const set = (id,val)=>{ const el=$(id); if(el && val!==undefined && val!==''){ el.value=val; } };
-    set('age', data.age); set('goal', data.goal); set('experience', data.experience);
-    set('unitMode', data.unitMode); set('conc', data.conc); set('weekly', data.weekly);
-    set('schedPref', data.schedPref); set('count', data.count); set('interval', data.interval);
-    set('syringe', data.syringe);
-    (data.symptoms||[]).forEach(v=>{ const el=[...document.querySelectorAll('.sym')].find(x=>x.value===v); if(el) el.checked=true; });
-    (data.risks||[]).forEach(v=>{ const el=[...document.querySelectorAll('.risk')].find(x=>x.value===v); if(el) el.checked=true; });
-    (data.labs||[]).forEach(v=>{ const el=[...document.querySelectorAll('.lab')].find(x=>x.value===v); if(el) el.checked=true; });
-  }
+  // Init
+  if (state.answers.__shortMode !== undefined) state.shortMode = !!state.answers.__shortMode;
+  mvpToggle.checked = state.shortMode;
+  updateBadge();
+  renderProgress();
+  renderSection();
 
-  showStep(1);
+  // Keep shortMode in LS too
+  const origCollect = collectCurrent;
+  collectCurrent = () => {
+    origCollect();
+    state.answers.__shortMode = state.shortMode;
+    localStorage.setItem(LS_KEY, JSON.stringify(state.answers));
+  };
 })();
 </script>
 </body>
