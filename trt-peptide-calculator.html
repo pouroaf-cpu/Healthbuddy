@@ -296,6 +296,26 @@ function compute() {
   const countVal = parseFloat($('count').value);
   const intervalVal = parseFloat($('interval').value);
   const syringeMaxMl = parseFloat($('syringe').value) || 1;
+// Redirect to results page with params, including syringe size
+const q = new URLSearchParams({
+  inj: injPerWeek.toFixed(2),
+  dose: dosePerInj.toFixed(2),
+  unit: isMgMode() ? 'mg' : 'iu',
+  ml:  volPerInj_ml.toFixed(3),
+  syr: (parseFloat($('syringe').value) || 1).toFixed(0)
+});
+
+// Save a local fallback (also keep syringe)
+localStorage.setItem('hb_last_calc', JSON.stringify({
+  inj: injPerWeek,
+  dose: dosePerInj,
+  unit: isMgMode() ? 'mg' : 'iu',
+  ml:  volPerInj_ml,
+  syr: parseFloat($('syringe').value) || 1
+}));
+
+location.href = '/result.html?' + q.toString();
+return;
 
   setInactive();
 
