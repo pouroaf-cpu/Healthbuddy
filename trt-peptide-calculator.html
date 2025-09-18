@@ -303,6 +303,17 @@ function compute() {
   $('kpi_dose').textContent = dosePerInj.toFixed(2) + (isMgMode() ? ' mg' : ' IU');
   $('kpi_ml').textContent  = volPerInj_ml.toFixed(3);
   $('mlLabel').textContent = volPerInj_ml.toFixed(3);
+// top-of-screen banner
+showBanner(injPerWeek, dosePerInj, volPerInj_ml);
+
+// (optional) persist last result for other pages
+localStorage.setItem('hb_last_calc', JSON.stringify({
+  inj: injPerWeek,
+  dose: dosePerInj,
+  unit: isMgMode() ? 'mg' : 'IU',
+  ml: volPerInj_ml,
+  syringe: syringeMaxMl
+}));
 
   // Visual
   setSyringeUI(volPerInj_ml, syringeMaxMl);
