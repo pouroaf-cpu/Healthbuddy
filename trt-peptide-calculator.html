@@ -232,16 +232,36 @@ $('opt-count').addEventListener('change', toggleSched);
 $('opt-interval').addEventListener('change', toggleSched);
 
 function wirePresets(containerId) {
-  document.getElementById(containerId).addEventListener('click', (e) => {
-    if (e.target.classList.contains('preset')) {
-      const v = parseFloat(e.target.getAttribute('data-val'));
-      if (v > 0) $('conc').value = v;
-    }
+  const container = document.getElementById(containerId);
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('.preset');
+    if (!btn) return;
+
+    const v = parseFloat(btn.getAttribute('data-val'));
+    if (v > 0) $('conc').value = v;
+
+    // Set active in this group only
+    container.querySelectorAll('.preset').forEach(b => {
+      const isActive = b === btn;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
   });
 }
 wirePresets('presets-mg');
 wirePresets('presets-iu');
-
+  
+function syncPresetHighlight() {
+  const val = parseFloat($('conc').value);
+  const groupId = isMgMode() ? 'presets-mg' : 'presets-iu';
+  const container = $(groupId);
+  container.querySelectorAll('.preset').forEach(b => {
+    const active = (parseFloat(b.getAttribute('data-val')) === val);
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+}
+$('conc').addEventListener('input', syncPresetHighlight);
 function compute() {
   const conc = parseFloat($('conc').value);
   const weekly = parseFloat($('weekly').value);
@@ -311,7 +331,14 @@ window.addEventListener('DOMContentLoaded', () => {
   unitsOut = $('units');
   syrMeta = $('syrMeta');
 
-  toggleUnit();
+  toggleUnit(
+    ['presets-mg','presets-iu'].forEach(id => {
+  document.getElementById(id).querySelectorAll('.preset').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed','false');
+  });
+});
+  );
   toggleSched();
   buildTicks(1); // default 1 mL
   setInactive();
