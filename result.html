@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Result — Hormone Buddy</title>
+  <meta name="description" content="Your dosage and volume per injection." />
+  <link rel="canonical" href="https://healthbubbyv1.netlify.app/result.html" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="/index.html" aria-label="Hormone Buddy home">
+      <span class="logo-text">
+        <span class="logo-line logo-hormone">Hormone</span>
+        <span class="logo-line logo-buddy">Buddy</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/trt-peptide-calculator.html">TRT/Peptide Calculator</a>
+      <a href="/result.html" aria-current="page">Result</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>Your Result</h1>
+
+  <div class="kpi">
+    <div class="card">
+      <span class="muted">Injections / week</span>
+      <b id="r_inj">—</b>
+    </div>
+    <div class="card">
+      <span class="muted">Dose per injection</span>
+      <b id="r_dose">—</b>
+    </div>
+    <div class="card">
+      <span class="muted">Volume per injection (mL)</span>
+      <b id="r_ml">—</b>
+    </div>
+  </div>
+
+  <div class="cta" style="margin-top:14px; gap:8px;">
+    <a class="button" href="/trt-peptide-calculator.html">Back to Calculator</a>
+    <button id="copyLink" class="button secondary" type="button">Copy Sharable Link</button>
+  </div>
+
+  <p class="muted" style="margin-top:8px">For planning only. Always follow your clinician’s instructions.</p>
+  <div id="r_warn" class="warn" hidden style="margin-top:12px"></div>
+</main>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const p = new URLSearchParams(location.search);
+
+  // Try query params first
+  let inj  = p.get('inj');
+  let dose = p.get('dose');
+  let unit = p.get('unit'); // 'mg' or 'iu'
+  let ml   = p.get('ml');
+
+  // Fallback to last calc in localStorage
+  if (!inj || !dose || !unit || !ml) {
+    try {
+      const last = JSON.parse(localStorage.getItem('hb_last_calc') || '{}');
+      inj  = inj  ?? last.inj;
+      dose = dose ?? last.dose;
+      unit = unit ?? last.unit;
+      ml   = ml   ?? last.ml;
+    } catch(e){}
+  }
+
+  if (inj && dose && unit && ml) {
+    $('r_inj').textContent  = Number(inj).toFixed(2);
+    $('r_dose').textContent = Number(dose).toFixed(2) + ' ' + String(unit).toUpperCase();
+    $('r_ml').textContent   = Number(ml).toFixed(3);
+  } else {
+    const w = $('r_warn');
+    w.hidden = false;
+    w.textContent = 'No recent calculation found. Go back to the calculator, run a calculation, and you’ll be redirected here.';
+  }
+
+  // Copy link with current values (falling back to what’s on screen)
+  $('copyLink').addEventListener('click', () => {
+    const vals = {
+      inj: $('r_inj').textContent,
+      dose: $('r_dose').textContent.split(' ')[0],
+      unit: (String(unit || '').toLowerCase() === 'iu') ? 'iu' : 'mg',
+      ml: $('r_ml').textContent
+    };
+    const qs = new URLSearchParams({
+      inj: vals.inj, dose: vals.dose, unit: vals.unit, ml: vals.ml
+    }).toString();
+    const url = location.origin + '/result.html?' + qs;
+    navigator.clipboard.writeText(url).then(()=> {
+      $('copyLink').textContent = 'Link copied';
+      setTimeout(()=> $('copyLink').textContent = 'Copy Sharable Link', 1200);
+    });
+  });
+})();
+</script>
+</body>
+</html>
