@@ -90,15 +90,7 @@ p.lead{font-size:18px;color:#123}
   height: 200px;
 }
 
-/* 4) Re-anchor the pointer/arrow above the barrel center */
-.barrel-wrap.inactive{filter:grayscale(.9);opacity:.6}
-.barrel-wrap.active{filter:none;opacity:1}
-.barrel-wrap::before{
-  content:"";
-  position:absolute;
-  left: calc(var(--barrel-left) + (var(--barrel-width) / 2) - 1px);
-  bottom: calc(100% + 10px);
-  width:2px;height:56px;background:#999;
+
 }
 .barrel-wrap::after{
   content:"";
