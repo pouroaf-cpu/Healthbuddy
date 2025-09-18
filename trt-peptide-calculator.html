@@ -161,6 +161,24 @@
 
 <script>
 const $ = id => document.getElementById(id);
+  // dynamic header height for sticky banner
+function __setHeaderH(){
+  const h = document.querySelector('.site-header')?.offsetHeight || 56;
+  document.documentElement.style.setProperty('--header-h', h + 'px');
+}
+window.addEventListener('load', __setHeaderH);
+window.addEventListener('resize', __setHeaderH);
+
+// banner helpers
+function showBanner(inj, dose, vol){
+  $('rbInj').textContent  = inj.toFixed(2);
+  $('rbDose').textContent = dose.toFixed(2) + (isMgMode() ? ' mg' : ' IU');
+  $('rbMl').textContent   = vol.toFixed(3);
+  $('resultBanner').hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+$('rbClose')?.addEventListener('click', () => $('resultBanner').hidden = true);
+
 const isMgMode = () => $('unit-mg').checked;
 
 let barrelWrap = null, fillEl = null, mlOut = null, unitsOut = null, syrMeta = null;
