@@ -52,6 +52,17 @@
   <p class="muted" style="margin-top:8px">For planning only. Always follow your clinician’s instructions.</p>
   <div id="r_warn" class="warn" hidden style="margin-top:12px"></div>
 </main>
+<!-- Syringe visual -->
+<div class="syringe" aria-label="Syringe visual" style="margin-top:14px">
+  <div class="barrel-wrap active">
+    <div class="barrel"><div class="fill" id="r_fill"></div></div>
+    <div class="ticks" id="r_ticks"></div>
+  </div>
+  <div>
+    <div class="ml-label"><span id="r_mlLabel">0.000</span> mL</div>
+    <div class="muted">Syringe: <span id="r_syr">1</span> mL · <span id="r_units">0 units (U-100)</span></div>
+  </div>
+</div>
 
 <script>
 (function(){
