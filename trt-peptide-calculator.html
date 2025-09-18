@@ -176,7 +176,7 @@ wirePresets('presets-mg'); wirePresets('presets-iu');
 function syncPresetHighlight(){ const val=parseFloat($('conc').value); const groupId=isMgMode()?'presets-mg':'presets-iu'; const container=$(groupId); container.querySelectorAll('.preset').forEach(b=>{ const active=(parseFloat(b.getAttribute('data-val'))===val); b.classList.toggle('active', active); b.setAttribute('aria-pressed', active?'true':'false');});}
 $('conc').addEventListener('input', syncPresetHighlight);
 
-// ---- FIXED compute(): validate → compute → save → redirect to /results.html ----
+// ---- FIXED compute(): validate → compute → save → redirect to /result.html ----
 function compute(){
   const conc = parseFloat($('conc').value);
   const weekly = parseFloat($('weekly').value);
@@ -208,7 +208,7 @@ function compute(){
     syr: syringeMaxMl
   }));
 
-  // Redirect to /results.html with params (match your filename)
+  // Redirect to /result.html with params (match your filename)
   const q = new URLSearchParams({
     inj: injPerWeek.toFixed(2),
     dose: dosePerInj.toFixed(2),
@@ -216,7 +216,7 @@ function compute(){
     ml:  volPerInj_ml.toFixed(3),
     syr: syringeMaxMl.toFixed(0)
   });
-  location.href = '/results.html?' + q.toString();
+  location.href = '/result.html?' + q.toString();
 }
 $('calcBtn').addEventListener('click', compute);
 
