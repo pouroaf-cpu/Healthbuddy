@@ -34,15 +34,6 @@
     </div>
   </nav>
 </header>
-<!-- Sticky results banner -->
-<div id="resultBanner" class="result-banner" hidden>
-  <div class="container">
-    <b>Per injection:</b> <span id="rbDose">—</span>
-    • <b>Volume:</b> <span id="rbMl">—</span> mL
-    • <b>Shots/week:</b> <span id="rbInj">—</span>
-    <button id="rbClose" aria-label="Hide" style="margin-left:auto">×</button>
-  </div>
-</div>
 
 <div class="form-container">
   <h1>TRT/Peptide Dosage Calculator</h1>
@@ -124,6 +115,7 @@
       </div>
     </div>
 
+    <!-- (Kept for completeness, but compute() now redirects to results page) -->
     <div id="out" class="out" hidden>
       <h3>Dose & Volume per Injection</h3>
       <div class="kpi">
@@ -161,168 +153,39 @@
 
 <script>
 const $ = id => document.getElementById(id);
-  // dynamic header height for sticky banner
-function __setHeaderH(){
-  const h = document.querySelector('.site-header')?.offsetHeight || 56;
-  document.documentElement.style.setProperty('--header-h', h + 'px');
-}
-window.addEventListener('load', __setHeaderH);
-window.addEventListener('resize', __setHeaderH);
-
-// banner helpers
-function showBanner(inj, dose, vol){
-  $('rbInj').textContent  = inj.toFixed(2);
-  $('rbDose').textContent = dose.toFixed(2) + (isMgMode() ? ' mg' : ' IU');
-  $('rbMl').textContent   = vol.toFixed(3);
-  $('resultBanner').hidden = false;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-$('rbClose')?.addEventListener('click', () => $('resultBanner').hidden = true);
-
 const isMgMode = () => $('unit-mg').checked;
 
+// ---- UI helpers (unchanged) ----
 let barrelWrap = null, fillEl = null, mlOut = null, unitsOut = null, syrMeta = null;
+function setInactive(){ if(!barrelWrap) return; barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive'); fillEl.style.height='0px'; mlOut.textContent='0.00'; unitsOut.textContent='0 units (U-100)'; const cap=($('syringe').value||'1'); syrMeta.innerHTML=cap+' mL syringe · <span id="units">0 units (U-100)</span>'; unitsOut=$('units'); }
+function setActive(){ if(!barrelWrap) return; barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active'); }
+function buildTicks(maxMl){ const ticks=$('ticks'); ticks.innerHTML=''; const step=(maxMl<=1)?0.1:0.5; const barrelPx=200; for(let v=0; v<=maxMl+1e-9; v+=step){ const row=document.createElement('div'); row.className='tick-row'; const y=(v/maxMl)*barrelPx; row.style.bottom=y+'px'; row.innerHTML='<span>'+v.toFixed(1)+' mL</span>'; ticks.appendChild(row);} }
+function setSyringeUI(volumeMl, syringeMaxMl){ const vol=Math.max(0, Math.min(volumeMl, syringeMaxMl)); const ratio=Math.min(vol/syringeMaxMl,1); fillEl.style.height=(ratio*200)+'px'; mlOut.textContent=vol.toFixed(3); const cap=syringeMaxMl.toFixed(0); syrMeta.innerHTML=cap+' mL syringe · <span id="units">'+Math.round(vol*100)+' units (U-100)</span>'; unitsOut=$('units'); buildTicks(syringeMaxMl); if(vol>0) setActive(); else setInactive(); }
 
-function setInactive() {
-  if (!barrelWrap) return;
-  barrelWrap.classList.remove('active');
-  barrelWrap.classList.add('inactive');
-  fillEl.style.height = '0px';
-  mlOut.textContent = '0.00';
-  unitsOut.textContent = '0 units (U-100)';
-  const cap = ($('syringe').value || '1');
-  syrMeta.innerHTML = cap + ' mL syringe · <span id="units">0 units (U-100)</span>';
-  unitsOut = $('units');
-}
-
-function setActive() {
-  if (!barrelWrap) return;
-  barrelWrap.classList.remove('inactive');
-  barrelWrap.classList.add('active');
-}
-
-function buildTicks(maxMl){
-  const ticks = $('ticks');
-  ticks.innerHTML = '';
-  const step = (maxMl <= 1) ? 0.1 : 0.5;
-  const barrelPx = 200;
-  for (let v = 0; v <= maxMl + 1e-9; v += step) {
-    const row = document.createElement('div');
-    row.className = 'tick-row';
-    const y = (v / maxMl) * barrelPx;
-    row.style.bottom = y + 'px';
-    row.innerHTML = '<span>' + v.toFixed(1) + ' mL</span>';
-    ticks.appendChild(row);
-  }
-}
-
-function setSyringeUI(volumeMl, syringeMaxMl) {
-  const vol = Math.max(0, Math.min(volumeMl, syringeMaxMl));
-  const ratio = Math.min(vol / syringeMaxMl, 1);
-  fillEl.style.height = (ratio * 200) + 'px';
-  mlOut.textContent = vol.toFixed(3);
-  const cap = syringeMaxMl.toFixed(0);
-  syrMeta.innerHTML = cap + ' mL syringe · <span id="units">' + Math.round(vol * 100) + ' units (U-100)</span>';
-  unitsOut = $('units');
-  buildTicks(syringeMaxMl);
-  if (vol > 0) setActive(); else setInactive();
-}
-
-function toggleUnit() {
-  if (isMgMode()) {
-    $('lbl-conc').textContent = 'Vial strength (mg per mL)';
-    $('lbl-weekly').textContent = 'Prescribed total per week (mg/week)';
-    $('hint-conc').innerHTML = 'Example: Testosterone 200 mg/mL → enter <b>200</b>.';
-    $('presets-mg').style.display = '';
-    $('presets-iu').style.display = 'none';
-    $('weekly').placeholder = 'e.g. 140';
-  } else {
-    $('lbl-conc').textContent = 'Vial strength (IU per mL)';
-    $('lbl-weekly').textContent = 'Prescribed total per week (IU/week)';
-    $('hint-conc').innerHTML = 'Example: hCG reconstituted to 1000 IU/mL → enter <b>1000</b>.';
-    $('presets-mg').style.display = 'none';
-    $('presets-iu').style.display = '';
-    $('weekly').placeholder = 'e.g. 1000';
-  }
-  $('out').hidden = true;
-  setInactive();
-}
+// Toggles
+function toggleUnit(){ if(isMgMode()){ $('lbl-conc').textContent='Vial strength (mg per mL)'; $('lbl-weekly').textContent='Prescribed total per week (mg/week)'; $('hint-conc').innerHTML='Example: Testosterone 200 mg/mL → enter <b>200</b>.'; $('presets-mg').style.display=''; $('presets-iu').style.display='none'; $('weekly').placeholder='e.g. 140'; } else { $('lbl-conc').textContent='Vial strength (IU per mL)'; $('lbl-weekly').textContent='Prescribed total per week (IU/week)'; $('hint-conc').innerHTML='Example: hCG reconstituted to 1000 IU/mL → enter <b>1000</b>.'; $('presets-mg').style.display='none'; $('presets-iu').style.display=''; $('weekly').placeholder='e.g. 1000'; } $('out').hidden=true; setInactive(); }
 $('unit-mg').addEventListener('change', toggleUnit);
 $('unit-iu').addEventListener('change', toggleUnit);
-
-function toggleSched() {
-  const useCount = $('opt-count').checked;
-  $('count-wrap').style.display = useCount ? '' : 'none';
-  $('interval-wrap').style.display = useCount ? 'none' : '';
-}
+function toggleSched(){ const useCount=$('opt-count').checked; $('count-wrap').style.display=useCount?'':'none'; $('interval-wrap').style.display=useCount?'none':''; }
 $('opt-count').addEventListener('change', toggleSched);
 $('opt-interval').addEventListener('change', toggleSched);
 
-function wirePresets(containerId) {
-  const container = document.getElementById(containerId);
-  container.addEventListener('click', (e) => {
-    const btn = e.target.closest('.preset');
-    if (!btn) return;
-
-    const v = parseFloat(btn.getAttribute('data-val'));
-    if (v > 0) $('conc').value = v;
-
-    // Set active in this group only
-    container.querySelectorAll('.preset').forEach(b => {
-      const isActive = b === btn;
-      b.classList.toggle('active', isActive);
-      b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    });
-  });
-}
-wirePresets('presets-mg');
-wirePresets('presets-iu');
-  
-function syncPresetHighlight() {
-  const val = parseFloat($('conc').value);
-  const groupId = isMgMode() ? 'presets-mg' : 'presets-iu';
-  const container = $(groupId);
-  container.querySelectorAll('.preset').forEach(b => {
-    const active = (parseFloat(b.getAttribute('data-val')) === val);
-    b.classList.toggle('active', active);
-    b.setAttribute('aria-pressed', active ? 'true' : 'false');
-  });
-}
+// Presets + highlight
+function wirePresets(containerId){ const container=document.getElementById(containerId); container.addEventListener('click', (e)=>{ const btn=e.target.closest('.preset'); if(!btn) return; const v=parseFloat(btn.getAttribute('data-val')); if(v>0) $('conc').value=v; container.querySelectorAll('.preset').forEach(b=>{ const active=(b===btn); b.classList.toggle('active', active); b.setAttribute('aria-pressed', active?'true':'false');}); });}
+wirePresets('presets-mg'); wirePresets('presets-iu');
+function syncPresetHighlight(){ const val=parseFloat($('conc').value); const groupId=isMgMode()?'presets-mg':'presets-iu'; const container=$(groupId); container.querySelectorAll('.preset').forEach(b=>{ const active=(parseFloat(b.getAttribute('data-val'))===val); b.classList.toggle('active', active); b.setAttribute('aria-pressed', active?'true':'false');});}
 $('conc').addEventListener('input', syncPresetHighlight);
-function compute() {
+
+// ---- FIXED compute(): validate → compute → save → redirect to /results.html ----
+function compute(){
   const conc = parseFloat($('conc').value);
   const weekly = parseFloat($('weekly').value);
   const useCount = $('opt-count').checked;
   const countVal = parseFloat($('count').value);
   const intervalVal = parseFloat($('interval').value);
   const syringeMaxMl = parseFloat($('syringe').value) || 1;
-// Redirect to results page with params, including syringe size
-const q = new URLSearchParams({
-  inj: injPerWeek.toFixed(2),
-  dose: dosePerInj.toFixed(2),
-  unit: isMgMode() ? 'mg' : 'iu',
-  ml:  volPerInj_ml.toFixed(3),
-  syr: (parseFloat($('syringe').value) || 1).toFixed(0)
-});
 
-// Save a local fallback (also keep syringe)
-localStorage.setItem('hb_last_calc', JSON.stringify({
-  inj: injPerWeek,
-  dose: dosePerInj,
-  unit: isMgMode() ? 'mg' : 'iu',
-  ml:  volPerInj_ml,
-  syr: parseFloat($('syringe').value) || 1
-}));
-
-location.href = '/result.html?' + q.toString();
-return;
-
-  setInactive();
-
-  if (!(conc > 0) || !(weekly > 0)) {
-    alert('Enter positive numbers for vial strength and weekly dose.');
-    return;
-  }
+  if (!(conc > 0) || !(weekly > 0)) { alert('Enter positive numbers for vial strength and weekly dose.'); return; }
 
   let injPerWeek;
   if (useCount) {
@@ -336,81 +199,32 @@ return;
   const dosePerInj = weekly / injPerWeek;   // mg or IU
   const volPerInj_ml = dosePerInj / conc;   // mL
 
-  // KPIs
-  $('kpi_inj').textContent = injPerWeek.toFixed(2);
-  $('kpi_dose').textContent = dosePerInj.toFixed(2) + (isMgMode() ? ' mg' : ' IU');
-  $('kpi_ml').textContent  = volPerInj_ml.toFixed(3);
-  $('mlLabel').textContent = volPerInj_ml.toFixed(3);
-// top-of-screen banner
-showBanner(injPerWeek, dosePerInj, volPerInj_ml);
+  // Save for results page (also as fallback)
+  localStorage.setItem('hb_last_calc', JSON.stringify({
+    inj: injPerWeek,
+    dose: dosePerInj,
+    unit: isMgMode() ? 'mg' : 'iu',
+    ml:  volPerInj_ml,
+    syr: syringeMaxMl
+  }));
 
-// (optional) persist last result for other pages
-localStorage.setItem('hb_last_calc', JSON.stringify({
-  inj: injPerWeek,
-  dose: dosePerInj,
-  unit: isMgMode() ? 'mg' : 'IU',
-  ml: volPerInj_ml,
-  syringe: syringeMaxMl
-}));
-// --- Redirect to the results page with query params
-const q = new URLSearchParams({
-  inj: injPerWeek.toFixed(2),
-  dose: dosePerInj.toFixed(2),
-  unit: isMgMode() ? 'mg' : 'iu',
-  ml: volPerInj_ml.toFixed(3)
-});
-
-// Also save a local fallback
-localStorage.setItem('hb_last_calc', JSON.stringify({
-  inj: injPerWeek,
-  dose: dosePerInj,
-  unit: isMgMode() ? 'mg' : 'iu',
-  ml: volPerInj_ml
-}));
-
-location.href = '/result.html?' + q.toString();
-return; // stop here after redirect
-
-  // Visual
-  setSyringeUI(volPerInj_ml, syringeMaxMl);
-
-  // Warning for capacity overflow
-  const warn = $('warn');
-  if (volPerInj_ml > syringeMaxMl) {
-    const injectionsNeeded = Math.ceil(volPerInj_ml / syringeMaxMl);
-    const splitVol = volPerInj_ml / injectionsNeeded;
-    warn.hidden = false;
-    warn.textContent =
-      `Volume exceeds ${syringeMaxMl.toFixed(2)} mL. Consider splitting into ${injectionsNeeded} injection(s) of ~${splitVol.toFixed(2)} mL each, using a larger syringe, or discussing a higher concentration vial with your clinician.`;
-  } else {
-    warn.hidden = true;
-    warn.textContent = '';
-  }
-
-  $('out').hidden = false;
+  // Redirect to /results.html with params (match your filename)
+  const q = new URLSearchParams({
+    inj: injPerWeek.toFixed(2),
+    dose: dosePerInj.toFixed(2),
+    unit: isMgMode() ? 'mg' : 'iu',
+    ml:  volPerInj_ml.toFixed(3),
+    syr: syringeMaxMl.toFixed(0)
+  });
+  location.href = '/results.html?' + q.toString();
 }
 $('calcBtn').addEventListener('click', compute);
 
-// Rebuild ticks and reset on syringe change
-$('syringe').addEventListener('change', () => {
-  const maxMl = parseFloat($('syringe').value) || 1;
-  buildTicks(maxMl);
-  setInactive();
-  $('out').hidden = true;
-});
-
-// Init DOM refs + defaults
+// Init
 window.addEventListener('DOMContentLoaded', () => {
   barrelWrap = document.querySelector('.barrel-wrap');
-  fillEl = $('fill');
-  mlOut = $('mlLabel');
-  unitsOut = $('units');
-  syrMeta = $('syrMeta');
-
-  toggleUnit();
-  toggleSched();
-  buildTicks(1); // default 1 mL
-  setInactive();
+  fillEl = $('fill'); mlOut = $('mlLabel'); unitsOut = $('units'); syrMeta = $('syrMeta');
+  toggleUnit(); toggleSched(); buildTicks(1); setInactive();
 });
 </script>
 </body>
