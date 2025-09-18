@@ -48,6 +48,22 @@ p.lead{font-size:18px;color:#123}
 .preset-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .preset{border:1px solid rgba(0,0,0,0.1);background:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:600}
 .preset:hover{background:#f7f7f7}
+/* Keep a preset visibly selected */
+.preset {
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.preset.active,
+.preset[aria-pressed="true"] {
+  background: var(--teal-600);
+  color: #fff;
+  border-color: var(--teal-600);
+}
+
+.preset.active:hover,
+.preset[aria-pressed="true"]:hover {
+  background: #007b7d; /* subtle hover when selected */
+}
 
 .syringe{display:flex;align-items:flex-end;gap:16px;margin-top:12px}
 .barrel-wrap{padding:20px 12px;border:1px solid #ddd;border-radius:10px;background:#fff;position:relative;transition:filter .2s,opacity .2s}
