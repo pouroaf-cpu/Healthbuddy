@@ -332,6 +332,24 @@ localStorage.setItem('hb_last_calc', JSON.stringify({
   ml: volPerInj_ml,
   syringe: syringeMaxMl
 }));
+// --- Redirect to the results page with query params
+const q = new URLSearchParams({
+  inj: injPerWeek.toFixed(2),
+  dose: dosePerInj.toFixed(2),
+  unit: isMgMode() ? 'mg' : 'iu',
+  ml: volPerInj_ml.toFixed(3)
+});
+
+// Also save a local fallback
+localStorage.setItem('hb_last_calc', JSON.stringify({
+  inj: injPerWeek,
+  dose: dosePerInj,
+  unit: isMgMode() ? 'mg' : 'iu',
+  ml: volPerInj_ml
+}));
+
+location.href = '/result.html?' + q.toString();
+return; // stop here after redirect
 
   // Visual
   setSyringeUI(volPerInj_ml, syringeMaxMl);
