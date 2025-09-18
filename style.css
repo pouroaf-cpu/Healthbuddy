@@ -18,6 +18,33 @@ body{
   color:#222;
   line-height:1.5;
 }
+/* --- Syringe visual (shared) --- */
+.syringe { display:flex; align-items:flex-end; gap:16px; margin-top:12px; }
+.barrel-wrap { position:relative; padding:20px 108px 20px 12px; border:1px solid #ddd; border-radius:10px; background:#fff; }
+.barrel { position:relative; width:64px; height:200px; border:2px solid #999; border-radius:10px; background:linear-gradient(#fff,#f6f6f6); overflow:hidden; }
+.fill { position:absolute; left:0; bottom:0; width:100%; height:0; background:linear-gradient(180deg, var(--teal-600), var(--teal-700)); transition:height .25s ease; }
+
+.ticks { position:absolute; left:78px; bottom:20px; width:84px; height:200px; }
+.tick-row { position:absolute; left:0; width:100%; display:flex; align-items:center; gap:6px; font-size:12px; color:#333; line-height:1; }
+.tick-row::before { content:""; display:block; width:10px; height:1px; background:#333; }
+
+.barrel-wrap.inactive{filter:grayscale(.9);opacity:.6}
+.barrel-wrap.active{filter:none;opacity:1}
+
+.ml-label { font-weight:600; color:#103132; }
+.warn { margin-top:10px; padding:10px; border-radius:8px; background:#fff6f6; border:1px solid #ffd6d6; color:#7a1c1c; }
+
+@media (max-width:560px){
+  .syringe { gap:20px; }
+  .barrel { height:200px; }
+  .barrel-wrap { padding-right:96px; }
+  .ticks { width:72px; left:74px; }
+  .tick-row { font-size:11px; }
+}
+
+/* If you previously added arrow pointers above the syringe, this removes them */
+.barrel-wrap::before,
+.barrel-wrap::after { content:none !important; display:none !important; }
 
 .site-header{width:100%;display:flex;justify-content:center;background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(0,0,0,.06)}
 .nav{width:100%;max-width:980px;display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
