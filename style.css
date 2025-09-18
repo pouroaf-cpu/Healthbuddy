@@ -64,11 +64,49 @@ p.lead{font-size:18px;color:#123}
 .kpi .card{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:10px;padding:12px;text-align:center}
 .kpi .card b{display:block;font-size:20px;color:#103132}
 
+/* 1) Reserve space for tick labels inside the barrel container */
+.barrel-wrap {
+  position: relative;
+  padding: 20px 108px 20px 12px; /* right = ticks width + margin */
+}
+
+/* 2) Define barrel geometry once (no magic numbers) */
+:root {
+  --barrel-left: 12px;   /* left padding inside .barrel-wrap */
+  --barrel-width: 64px;  /* .barrel width */
+  --barrel-border: 2px;  /* .barrel border width */
+  --ticks-width: 84px;   /* room for tick marks + labels */
+}
+
+/* Keep barrel using the variable so everything tracks */
+.barrel { width: var(--barrel-width); }
+
+/* 3) Position the tick column relative to the barrel, not a fixed px value */
+.ticks {
+  position: absolute;
+  left: calc(var(--barrel-left) + var(--barrel-width) + var(--barrel-border));
+  bottom: 20px;
+  width: var(--ticks-width);
+  height: 200px;
+}
+
+/* 4) Re-anchor the pointer/arrow above the barrel center */
 .barrel-wrap.inactive{filter:grayscale(.9);opacity:.6}
 .barrel-wrap.active{filter:none;opacity:1}
-.barrel-wrap::before{content:"";position:absolute;left:calc(12px + 32px - 1px);bottom:calc(100% + 10px);width:2px;height:56px;background:#999}
-.barrel-wrap::after{content:"";position:absolute;left:calc(12px + 32px - 4px);bottom:calc(100% + 66px);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:8px solid #999}
-
+.barrel-wrap::before{
+  content:"";
+  position:absolute;
+  left: calc(var(--barrel-left) + (var(--barrel-width) / 2) - 1px);
+  bottom: calc(100% + 10px);
+  width:2px;height:56px;background:#999;
+}
+.barrel-wrap::after{
+  content:"";
+  position:absolute;
+  left: calc(var(--barrel-left) + (var(--barrel-width) / 2) - 4px);
+  bottom: calc(100% + 66px);
+  width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:8px solid #999;
+}
 #syrMeta{margin-top:6px}
 
 footer{max-width:980px;margin:32px auto 40px;padding:0 12px;color:#556;font-size:14px}
@@ -79,4 +117,7 @@ footer a{color:var(--teal-700)}
   .kpi{grid-template-columns:1fr}
   .ticks{left:74px;width:68px}
   .tick-row{font-size:11px}
+@media (max-width:560px){
+  .barrel-wrap { padding-right:96px; }
+}
 }
