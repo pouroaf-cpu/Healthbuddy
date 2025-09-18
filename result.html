@@ -24,7 +24,7 @@
   </nav>
 </header>
 
-<main class="container">
+<main class="container form-container">
   <h1>Your Result</h1>
 
   <div class="kpi">
@@ -42,16 +42,15 @@
     <div>
       <div class="ml-label"><span id="r_mlLabel">0.000</span> mL</div>
       <div class="muted">Syringe: <span id="r_syr">1</span> mL · <span id="r_units">0 units (U-100)</span></div>
+      <div id="r_warn" class="warn" hidden></div>
     </div>
   </div>
 
   <div class="cta" style="margin-top:14px; gap:8px;">
     <a class="button" href="/trt-peptide-calculator.html">Back to Calculator</a>
-    <button id="copyLink" class="button secondary" type="button">Copy Sharable Link</button>
   </div>
 
   <p class="muted" style="margin-top:8px">For planning only. Always follow your clinician’s instructions.</p>
-  <div id="r_warn" class="warn" hidden style="margin-top:12px"></div>
 </main>
 
 <script>
@@ -59,7 +58,7 @@
   const $ = id => document.getElementById(id);
   const p = new URLSearchParams(location.search);
 
-  // Read params or fallback to localStorage
+  // Params or fallback to localStorage
   let inj  = p.get('inj');
   let dose = p.get('dose');
   let unit = p.get('unit'); // 'mg' or 'iu'
@@ -77,6 +76,7 @@
     } catch(e){}
   }
 
+  // KPIs
   if (inj && dose && unit && ml) {
     $('r_inj').textContent  = Number(inj).toFixed(2);
     $('r_dose').textContent = Number(dose).toFixed(2) + ' ' + String(unit).toUpperCase();
@@ -87,7 +87,7 @@
     w.textContent = 'No recent calculation found. Go back to the calculator, run a calculation, and you’ll be redirected here.';
   }
 
-  // Syringe helpers
+  // Syringe
   function buildTicks(maxMl){
     const ticks = $('r_ticks');
     ticks.innerHTML = '';
@@ -132,22 +132,6 @@
   }
 
   setSyringeUI(ml, syr);
-
-  // Copy link
-  $('copyLink').addEventListener('click', () => {
-    const qs = new URLSearchParams({
-      inj: $('r_inj').textContent,
-      dose: $('r_dose').textContent.split(' ')[0],
-      unit: (String(unit || '').toLowerCase() === 'iu') ? 'iu' : 'mg',
-      ml: $('r_ml').textContent,
-      syr: String(syr)
-    }).toString();
-    const url = location.origin + '/result.html?' + qs;
-    navigator.clipboard.writeText(url).then(()=>{
-      $('copyLink').textContent='Link copied';
-      setTimeout(()=> $('copyLink').textContent='Copy Sharable Link', 1200);
-    });
-  });
 })();
 </script>
 </body>
