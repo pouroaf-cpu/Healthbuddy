@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
   <url>
     <loc>https://www.injectbuddy.com/</loc>
     <priority>1.0</priority>
   </url>
+
+  <!-- Main pages -->
   <url>
     <loc>https://www.injectbuddy.com/about.html</loc>
   </url>
@@ -22,4 +26,6 @@
   <url>
     <loc>https://www.injectbuddy.com/privacy.html</loc>
   </url>
+
 </urlset>
+
