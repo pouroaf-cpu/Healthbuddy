@@ -22,24 +22,76 @@
 </script>
 </head>
 <body>
-<header class="site-header">
-  <nav class="nav" aria-label="Main">
-    <a class="logo" href="/index.html" aria-label="Inject Buddy home">
-      <span class="logo-text">
-        <span class="logo-line logo-hormone">Hormone</span>
-        <span class="logo-line logo-buddy">Buddy</span>
-      </span>
-    </a>
-    <div class="nav-links">
-      <a href="/index.html" aria-current="page">Home</a>
-      <a href="/about.html">About</a>
-      <a href="/trt-peptide-calculator.html">TRT/Peptide Calculator</a>
-      <a href="/questionnaire.html">Questionnaire</a>
-      <a href="/faq.html">FAQ</a>
-      <a href="/contact.html">Contact</a>
-    </div>
-  </nav>
+<!-- InjectBuddy Header (mobile + desktop) -->
+<header class="ib-header">
+  <div class="ib-nav">
+    <a class="ib-brand" href="/">InjectBuddy</a>
+
+    <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="ib-navlinks" class="ib-links" role="navigation">
+      <a href="/"              class="ib-link active">Home</a>
+      <a href="/trt-peptide-calculator.html" class="ib-link">Calculator</a>
+      <a href="/questionnaire.html"          class="ib-link">Questionnaire</a>
+      <a href="/faq.html"                    class="ib-link">FAQ</a>
+      <a href="/contact.html"                class="ib-link">Contact</a>
+    </nav>
+  </div>
 </header>
+
+<style>
+/* ===== InjectBuddy Header Styles ===== */
+.ib-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6eef0}
+.ib-nav{max-width:1080px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ib-brand{font-weight:800;text-decoration:none;color:#0b1220;font-size:18px}
+.ib-brand:hover{opacity:.9}
+
+.ib-links{display:flex;gap:16px}
+.ib-link{color:#0b1220;text-decoration:none;padding:8px 10px;border-radius:8px}
+.ib-link:hover{background:#f2fbfb}
+
+.ib-toggle{display:none;flex-direction:column;gap:4px;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer}
+.ib-toggle span{width:24px;height:2px;background:#0b1220;display:block}
+
+/* Mobile */
+@media (max-width:768px){
+  .ib-toggle{display:flex}
+  .ib-links{
+    position:absolute;left:0;right:0;top:56px;display:none;flex-direction:column;
+    background:#fff;border-bottom:1px solid #e6eef0;padding:10px 14px;gap:8px
+  }
+  .ib-links.show{display:flex}
+  .ib-link{padding:12px;border-radius:10px}
+  .ib-nav{padding:10px 12px}
+}
+
+/* Optional: highlight the current page by adding "active" to that link */
+.ib-link.active{background:#e6f7f7;border:1px solid #cdeeee}
+</style>
+
+<script>
+/* ===== InjectBuddy Header Script (tiny) ===== */
+(function(){
+  const btn=document.querySelector('.ib-toggle');
+  const nav=document.getElementById('ib-navlinks');
+  if(!btn||!nav) return;
+  btn.addEventListener('click',()=>{
+    const open=nav.classList.toggle('show');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  nav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      if(nav.classList.contains('show')){
+        nav.classList.remove('show');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  });
+})();
+</script>
+
 
 <main class="container">
   <section class="hero" aria-labelledby="h-hero">
