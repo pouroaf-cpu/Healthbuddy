@@ -50,46 +50,21 @@
     }
     .ib-link.active{background:#e6f7f7;border:1px solid #cdeeee}
 
-    /* Minor layout tweak for embedded calc wrapper */
-    .form-container{max-width:980px;margin:24px auto;padding:0 12px}
-    /* Center all content inside calculator */
-.form-container {
-  max-width: 980px;
-  margin: 24px auto;
-  padding: 20px 12px;
-  text-align: center;        /* centres inline elements and text */
-}
+    /* ===== Calculator layout tweaks ===== */
+    .form-container{max-width:980px;margin:24px auto;padding:20px 12px;text-align:center}
+    .form-container input,
+    .form-container select,
+    .form-container button{margin:8px auto;display:block;max-width:300px;width:100%}
+    .preset-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:12px auto}
+    .preset{padding:10px;text-align:center;background:#f2fbfb;border:1px solid #cdeeee;border-radius:4px;cursor:pointer;font-weight:600}
+    .preset:hover{background:#e6f7f7}
 
-/* Make form inputs and selects align nicely in the middle */
-.form-container input,
-.form-container select,
-.form-container button {
-  margin: 8px auto;          /* adds space and centres block inputs */
-  display: block;            /* makes them take full width control */
-  max-width: 300px;          /* keeps them narrow enough for mobile */
-  width: 100%;               /* responsive full width on small screens */
-}
-.preset-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 buttons per row */
-  gap: 10px;
-  max-width: 320px;   /* keeps grid narrow and centred */
-  margin: 12px auto;  /* centres the grid */
-}
-
-.preset {
-  padding: 10px;
-  text-align: center;
-  background: #f2fbfb;
-  border: 1px solid #cdeeee;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.preset:hover {
-  background: #e6f7f7;
-}
+    /* ===== NEW: Two-button segmented control ===== */
+    .cadence-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f2fbfb;border:1px solid #cdeeee;border-radius:12px;padding:6px;max-width:420px;margin:8px auto}
+    .cadence-btn{appearance:none;border:1px solid #cdeeee;background:#fff;border-radius:10px;min-height:44px;padding:10px 12px;font-weight:700;color:#0b1220;cursor:pointer}
+    .cadence-btn[aria-checked="true"]{border-color:transparent;background:#009395;color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.14)}
+    .cadence-btn:focus-visible{outline:3px solid #1a73e8;outline-offset:2px}
+    /* Keep side-by-side on mobile; no wrap */
   </style>
 </head>
 <body>
@@ -167,8 +142,8 @@
             <button type="button" class="preset" data-val="150">150 mg/mL</button>
             <button type="button" class="preset" data-val="200">200 mg/mL</button>
             <button type="button" class="preset" data-val="250">250 mg/mL</button>
-                        <button type="button" class="preset" data-val="300">300 mg/mL</button>
-                        <button type="button" class="preset" data-val="500">500 mg/mL</button>
+            <button type="button" class="preset" data-val="300">300 mg/mL</button>
+            <button type="button" class="preset" data-val="500">500 mg/mL</button>
           </div>
           <div id="presets-iu" class="preset-row" style="display:none;">
             <button type="button" class="preset" data-val="500">500 IU/mL</button>
@@ -184,33 +159,29 @@
           <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140">
         </div>
 
-        <!-- Schedule selector -->
+        <!-- ===== NEW: Cadence segmented control (replaces old radios) ===== -->
         <div class="full">
-          <div class="inline">
-            <input type="radio" name="sched" id="opt-count" checked>
-            <label for="opt-count">I know how many injections per week</label>
-          </div>
-          <div class="inline" style="margin-top:6px">
-            <input type="radio" name="sched" id="opt-interval">
-            <label for="opt-interval">I inject every N days</label>
+          <div class="cadence-toggle" role="radiogroup" aria-label="Injection cadence" id="cadenceToggle">
+            <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-mode="perWeek">Injections / week</button>
+            <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
           </div>
         </div>
 
-<div id="count-wrap">
-  <label for="count">Injections per week</label>
-  <input id="count" type="number" min="1" max="7" step="1" placeholder="e.g. 2" value="2" />
-  <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px">
-  <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
-</div>
+        <!-- Per-week inputs -->
+        <div id="count-wrap">
+          <label for="count">Injections per week</label>
+          <input id="count" type="number" min="1" max="7" step="1" placeholder="e.g. 2" value="2" />
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px">
+          <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
+        </div>
 
-
-<div id="interval-wrap" style="display:none;">
-  <label for="interval">Days between injections</label>
-  <input id="interval" type="number" min="0.5" max="7" step="0.5" placeholder="e.g. 3.5" value="3.5" />
-  <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px">
-  <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
-</div>
-
+        <!-- Interval inputs -->
+        <div id="interval-wrap" style="display:none;">
+          <label for="interval">Days between injections</label>
+          <input id="interval" type="number" min="0.5" max="7" step="0.5" placeholder="e.g. 3.5" value="3.5" />
+          <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px">
+          <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
+        </div>
 
         <!-- Syringe selector -->
         <div>
@@ -260,10 +231,9 @@
       </div>
     </div>
 
-<div style="background: rgba(255, 255, 0, 0.25); border: 2px solid #999; padding: 14px; text-align: center; font-weight: 700; font-size: 15px; color: #222; font-style: italic;">
-  This tool is provided for informational purposes only. Always follow your clinician’s instructions.
-</div>
-
+    <div style="background: rgba(255, 255, 0, 0.25); border: 2px solid #999; padding: 14px; text-align: center; font-weight: 700; font-size: 15px; color: #222; font-style: italic;">
+      This tool is provided for informational purposes only. Always follow your clinician’s instructions.
+    </div>
   </section>
   <!-- ===== /EMBEDDED CALCULATOR ===== -->
 
@@ -275,10 +245,14 @@
     <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   </div>
 </footer>
+
 <!-- Calculator logic (cleaned; includes live sliders) -->
 <script>
   const $ = id => document.getElementById(id);
   const isMgMode = () => $('unit-mg').checked;
+
+  // Cadence mode state (perWeek | everyNDays)
+  let cadenceMode = 'perWeek';
 
   // UI refs
   let barrelWrap=null, fillEl=null, mlOut=null, unitsOut=null, syrMeta=null;
@@ -315,7 +289,7 @@
     if(vol>0) setActive(); else setInactive();
   }
 
-  // Toggles
+  // Unit toggle
   function toggleUnit(){
     if(isMgMode()){
       $('lbl-conc').textContent='Vial strength (mg per mL)';
@@ -336,10 +310,43 @@
     setInactive();
   }
 
-  function toggleSched(){
-    const useCount=$('opt-count').checked;
-    $('count-wrap').style.display=useCount?'':'none';
-    $('interval-wrap').style.display=useCount?'none':'';
+  // ===== NEW: Cadence segmented control wiring =====
+  function setCadenceMode(mode){
+    cadenceMode = mode;
+    const group = $('cadenceToggle');
+    const btns = group.querySelectorAll('.cadence-btn');
+    btns.forEach(b=>{
+      const active = b.dataset.mode === mode;
+      b.setAttribute('aria-checked', String(active));
+    });
+    // Show/hide the relevant input rows
+    $('count-wrap').style.display = (mode==='perWeek') ? '' : 'none';
+    $('interval-wrap').style.display = (mode==='everyNDays') ? '' : 'none';
+    try{ localStorage.setItem('hb_cadence_mode', mode); }catch(e){}
+  }
+
+  function initCadenceToggle(){
+    const group = $('cadenceToggle');
+    const btns = group.querySelectorAll('.cadence-btn');
+
+    group.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.cadence-btn');
+      if(!btn) return;
+      setCadenceMode(btn.dataset.mode);
+    });
+
+    group.addEventListener('keydown', (e)=>{
+      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+      e.preventDefault();
+      const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
+      const next = current === btns[0] ? btns[1] : btns[0];
+      setCadenceMode(next.dataset.mode);
+      next.focus();
+    });
+
+    // Init
+    const saved = (()=>{ try{ return localStorage.getItem('hb_cadence_mode'); }catch(e){ return null; } })();
+    setCadenceMode(saved==='everyNDays' ? 'everyNDays' : 'perWeek');
   }
 
   // Presets
@@ -371,7 +378,6 @@
   function compute(){
     const conc = parseFloat($('conc').value);
     const weekly = parseFloat($('weekly').value);
-    const useCount = $('opt-count').checked;
     const countVal = parseFloat($('count').value);
     const intervalVal = parseFloat($('interval').value);
     const syringeMaxMl = parseFloat($('syringe').value) || 1;
@@ -379,7 +385,7 @@
     if (!(conc > 0) || !(weekly > 0)) { alert('Enter positive numbers for vial strength and weekly dose.'); return; }
 
     let injPerWeek;
-    if (useCount) {
+    if (cadenceMode === 'perWeek') {
       if (!(countVal > 0)) { alert('Enter injections per week.'); return; }
       injPerWeek = countVal;
     } else {
@@ -406,13 +412,16 @@
 
     $('out').hidden = false;
 
-    localStorage.setItem('hb_last_calc', JSON.stringify({
-      inj: injPerWeek,
-      dose: dosePerInj,
-      unit: isMgMode() ? 'mg' : 'iu',
-      ml:  volPerInj_ml,
-      syr: syringeMaxMl
-    }));
+    try{
+      localStorage.setItem('hb_last_calc', JSON.stringify({
+        inj: injPerWeek,
+        dose: dosePerInj,
+        unit: isMgMode() ? 'mg' : 'iu',
+        ml:  volPerInj_ml,
+        syr: syringeMaxMl,
+        mode: cadenceMode
+      }));
+    }catch(e){}
   }
 
   // LIVE SLIDER SYNC
@@ -445,11 +454,6 @@
       intervalSlider.addEventListener('input', ()=> setIntervalDays(intervalSlider.value));
       setIntervalDays(intervalInput.value || 3.5);
     }
-
-    // keep values visible when switching schedule mode
-    const optCount=$('opt-count'), optInterval=$('opt-interval');
-    if(optCount)    optCount.addEventListener('change', ()=> countInput && countSlider && countVal && countVal.textContent);
-    if(optInterval) optInterval.addEventListener('change', ()=> intervalInput && intervalSlider && intervalVal && intervalVal.textContent);
   }
 
   // Wire events + init
@@ -459,12 +463,12 @@
 
     $('unit-mg').addEventListener('change', toggleUnit);
     $('unit-iu').addEventListener('change', toggleUnit);
-    $('opt-count').addEventListener('change', toggleSched);
-    $('opt-interval').addEventListener('change', toggleSched);
+
     $('conc').addEventListener('input', syncPresetHighlight);
     wirePresets('presets-mg'); wirePresets('presets-iu');
 
-    toggleUnit(); toggleSched(); buildTicks(1); setInactive();
+    initCadenceToggle();          // NEW
+    toggleUnit(); buildTicks(1); setInactive();
     initLiveSliders();
 
     const calcBtn = $('calcBtn');
@@ -473,4 +477,5 @@
 </script>
 </body>
 </html>
+
 
