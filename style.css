@@ -299,4 +299,6 @@ footer .container{margin-top:32px;margin-bottom:40px}
     text-align: center;
   }
 }
+/* Keep the mg/mL preset buttons left-aligned on all screens */
+.preset-row{ justify-content: flex-start !important; }
 
