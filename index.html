@@ -7,7 +7,6 @@
   <title>InjectBuddy — Free Testosterone & Peptide Dosage Calculator</title>
   <meta name="description" content="InjectBuddy makes peptide and Testosterone dosing simple. Calculate syringe fills, injection schedules, and reconstitution volumes in seconds. Free and easy to use." />
 
-  <!-- Canonical + OG set to your live domain -->
   <link rel="canonical" href="https://injectbuddy.com/" />
   <meta property="og:title" content="InjectBuddy — Simple Testosterone & Peptide Tools" />
   <meta property="og:description" content="Fast, no-nonsense tools to plan Testosterone and peptide injection volumes. Visual syringe guide, unit toggles, and clear steps." />
@@ -59,25 +58,22 @@
     .preset{padding:10px;text-align:center;background:#f2fbfb;border:1px solid #cdeeee;border-radius:4px;cursor:pointer;font-weight:600}
     .preset:hover{background:#e6f7f7}
 
-    /* ===== NEW: Two-button segmented control ===== */
+    /* ===== Segmented control (shared for cadence & syringe) ===== */
     .cadence-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f2fbfb;border:1px solid #cdeeee;border-radius:12px;padding:6px;max-width:420px;margin:8px auto}
     .cadence-btn{appearance:none;border:1px solid #cdeeee;background:#fff;border-radius:10px;min-height:44px;padding:10px 12px;font-weight:700;color:#0b1220;cursor:pointer}
     .cadence-btn[aria-checked="true"]{border-color:transparent;background:#009395;color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.14)}
     .cadence-btn:focus-visible{outline:3px solid #1a73e8;outline-offset:2px}
-    /* Keep side-by-side on mobile; no wrap */
   </style>
 </head>
 <body>
 
-<!-- InjectBuddy Header (mobile + desktop) -->
+<!-- InjectBuddy Header -->
 <header class="ib-header">
   <div class="ib-nav">
     <a class="ib-brand" href="/">InjectBuddy</a>
-
     <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-
     <nav id="ib-navlinks" class="ib-links" role="navigation">
       <a href="/" class="ib-link active">Home</a>
       <a href="/about.html" class="ib-link">About</a>
@@ -120,18 +116,18 @@
 
     <div class="calc-wrap">
       <div class="calc-grid">
-        <!-- Unit toggle -->
+        <!-- ===== NEW: Syringe size (segmented) — moved to top ===== -->
         <div class="full">
-          <label>Concentration units</label>
-          <div class="inline">
-            <input type="radio" name="unit" id="unit-mg" checked>
-            <label for="unit-mg">mg/mL</label>
-            <input type="radio" name="unit" id="unit-iu" style="margin-left:14px">
-            <label for="unit-iu">IU/mL</label>
+          <div class="cadence-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
+            <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
+            <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
           </div>
+          <p class="muted" style="margin-top:6px;max-width:480px;margin-left:auto;margin-right:auto;">
+            U-100 insulin markings: mL × 100 = units (e.g., 0.35 mL ≈ 35 units).
+          </p>
         </div>
 
-        <!-- Concentration + presets -->
+        <!-- Concentration (mg/mL only) + presets -->
         <div class="full">
           <label id="lbl-conc" for="conc">Vial strength (mg per mL)</label>
           <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200">
@@ -145,21 +141,15 @@
             <button type="button" class="preset" data-val="300">300 mg/mL</button>
             <button type="button" class="preset" data-val="500">500 mg/mL</button>
           </div>
-          <div id="presets-iu" class="preset-row" style="display:none;">
-            <button type="button" class="preset" data-val="500">500 IU/mL</button>
-            <button type="button" class="preset" data-val="1000">1000 IU/mL</button>
-            <button type="button" class="preset" data-val="1500">1500 IU/mL</button>
-            <button type="button" class="preset" data-val="2000">2000 IU/mL</button>
-          </div>
         </div>
 
-        <!-- Weekly dose -->
+        <!-- Weekly dose (mg/week) -->
         <div>
           <label id="lbl-weekly" for="weekly">Prescribed total per week (mg/week)</label>
           <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140">
         </div>
 
-        <!-- ===== NEW: Cadence segmented control (replaces old radios) ===== -->
+        <!-- Cadence segmented control -->
         <div class="full">
           <div class="cadence-toggle" role="radiogroup" aria-label="Injection cadence" id="cadenceToggle">
             <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-mode="perWeek">Injections / week</button>
@@ -183,22 +173,12 @@
           <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
         </div>
 
-        <!-- Syringe selector -->
-        <div>
-          <label for="syringe">Syringe size</label>
-          <select id="syringe">
-            <option value="1">1 mL (insulin)</option>
-            <option value="3">3 mL</option>
-          </select>
-          <p class="muted">Tip: on U-100 insulin syringes, <b>mL × 100 = units</b>. (0.35 mL ≈ 35 units.)</p>
-        </div>
-
         <div class="full">
           <button id="calcBtn" type="button">Calculate</button>
         </div>
       </div>
 
-      <!-- Results on same page -->
+      <!-- Results -->
       <div id="out" class="out" hidden>
         <h3>Dose & Volume per Injection</h3>
         <div class="kpi">
@@ -246,13 +226,14 @@
   </div>
 </footer>
 
-<!-- Calculator logic (cleaned; includes live sliders) -->
+<!-- Calculator logic -->
 <script>
   const $ = id => document.getElementById(id);
-  const isMgMode = () => $('unit-mg').checked;
 
-  // Cadence mode state (perWeek | everyNDays)
-  let cadenceMode = 'perWeek';
+  // Global state
+  let cadenceMode = 'perWeek';         // 'perWeek' | 'everyNDays'
+  let currentSyringeMl = 1;            // 1 | 3
+  const DOSE_UNIT = 'mg';              // units for weekly/dose per injection
 
   // UI refs
   let barrelWrap=null, fillEl=null, mlOut=null, unitsOut=null, syrMeta=null;
@@ -260,15 +241,20 @@
   function setInactive(){
     if(!barrelWrap) return;
     barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive');
-    fillEl.style.height='0px'; mlOut.textContent='0.00';
-    unitsOut.textContent='0 units (U-100)';
-    const cap = ($('syringe').value||'1');
-    syrMeta.innerHTML = cap+' mL syringe · <span id="units">0 units (U-100)</span>';
-    unitsOut = $('units');
+    fillEl.style.height='0px';
+    mlOut.textContent='0.00';
+    if(syrMeta){
+      syrMeta.innerHTML = currentSyringeMl+' mL syringe · <span id="units">0 units (U-100)</span>';
+      unitsOut = $('units');
+    }
   }
-  function setActive(){ if(!barrelWrap) return; barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active'); }
+  function setActive(){
+    if(!barrelWrap) return;
+    barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active');
+  }
   function buildTicks(maxMl){
-    const ticks=$('ticks'); ticks.innerHTML='';
+    const ticks=$('ticks'); if(!ticks) return;
+    ticks.innerHTML='';
     const step=(maxMl<=1)?0.1:0.5; const barrelPx=200;
     for(let v=0; v<=maxMl+1e-9; v+=step){
       const row=document.createElement('div'); row.className='tick-row';
@@ -282,35 +268,51 @@
     const ratio=Math.min(vol/syringeMaxMl,1);
     fillEl.style.height=(ratio*200)+'px';
     mlOut.textContent=vol.toFixed(3);
-    const cap=syringeMaxMl.toFixed(0);
-    syrMeta.innerHTML=cap+' mL syringe · <span id="units">'+Math.round(vol*100)+' units (U-100)</span>';
-    unitsOut=$('units');
+    if(syrMeta){
+      syrMeta.innerHTML = syringeMaxMl.toFixed(0)+' mL syringe · <span id="units">'+Math.round(vol*100)+' units (U-100)</span>';
+      unitsOut=$('units');
+    }
     buildTicks(syringeMaxMl);
     if(vol>0) setActive(); else setInactive();
   }
 
-  // Unit toggle
-  function toggleUnit(){
-    if(isMgMode()){
-      $('lbl-conc').textContent='Vial strength (mg per mL)';
-      $('lbl-weekly').textContent='Prescribed total per week (mg/week)';
-      $('hint-conc').innerHTML='Example: Testosterone 200 mg/mL → enter <b>200</b>.';
-      $('presets-mg').style.display='';
-      $('presets-iu').style.display='none';
-      $('weekly').placeholder='e.g. 140';
-    } else {
-      $('lbl-conc').textContent='Vial strength (IU per mL)';
-      $('lbl-weekly').textContent='Prescribed total per week (IU/week)';
-      $('hint-conc').innerHTML='Example: hCG reconstituted to 1000 IU/mL → enter <b>1000</b>.';
-      $('presets-mg').style.display='none';
-      $('presets-iu').style.display='';
-      $('weekly').placeholder='e.g. 1000';
-    }
-    $('out').hidden=false; // keep syringe visible
-    setInactive();
+  /* ===== Syringe segmented control ===== */
+  function setSyringe(ml){
+    currentSyringeMl = ml;
+    const group = $('syringeToggle');
+    const btns = group.querySelectorAll('.cadence-btn');
+    btns.forEach(b=>{
+      const active = Number(b.dataset.ml) === ml;
+      b.setAttribute('aria-checked', String(active));
+    });
+    buildTicks(currentSyringeMl);
+    setInactive(); // clear fill until next Calculate
+    try{ localStorage.setItem('hb_syr_ml', String(ml)); }catch(e){}
+  }
+  function initSyringeToggle(){
+    const group = $('syringeToggle');
+    const btns = group.querySelectorAll('.cadence-btn');
+
+    group.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.cadence-btn');
+      if(!btn) return;
+      setSyringe(Number(btn.dataset.ml));
+    });
+
+    group.addEventListener('keydown', (e)=>{
+      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+      e.preventDefault();
+      const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
+      const next = current === btns[0] ? btns[1] : btns[0];
+      setSyringe(Number(next.dataset.ml));
+      next.focus();
+    });
+
+    const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
+    setSyringe(saved===3 ? 3 : 1);
   }
 
-  // ===== NEW: Cadence segmented control wiring =====
+  /* ===== Cadence segmented control ===== */
   function setCadenceMode(mode){
     cadenceMode = mode;
     const group = $('cadenceToggle');
@@ -319,12 +321,10 @@
       const active = b.dataset.mode === mode;
       b.setAttribute('aria-checked', String(active));
     });
-    // Show/hide the relevant input rows
     $('count-wrap').style.display = (mode==='perWeek') ? '' : 'none';
     $('interval-wrap').style.display = (mode==='everyNDays') ? '' : 'none';
     try{ localStorage.setItem('hb_cadence_mode', mode); }catch(e){}
   }
-
   function initCadenceToggle(){
     const group = $('cadenceToggle');
     const btns = group.querySelectorAll('.cadence-btn');
@@ -344,12 +344,11 @@
       next.focus();
     });
 
-    // Init
     const saved = (()=>{ try{ return localStorage.getItem('hb_cadence_mode'); }catch(e){ return null; } })();
     setCadenceMode(saved==='everyNDays' ? 'everyNDays' : 'perWeek');
   }
 
-  // Presets
+  // Presets (mg only)
   function wirePresets(containerId){
     const container=document.getElementById(containerId);
     if(!container) return;
@@ -364,8 +363,7 @@
   }
   function syncPresetHighlight(){
     const val=parseFloat($('conc').value);
-    const groupId=isMgMode()?'presets-mg':'presets-iu';
-    const container=$(groupId);
+    const container=$('presets-mg');
     if(!container) return;
     container.querySelectorAll('.preset').forEach(b=>{
       const active=(parseFloat(b.getAttribute('data-val'))===val);
@@ -380,7 +378,6 @@
     const weekly = parseFloat($('weekly').value);
     const countVal = parseFloat($('count').value);
     const intervalVal = parseFloat($('interval').value);
-    const syringeMaxMl = parseFloat($('syringe').value) || 1;
 
     if (!(conc > 0) || !(weekly > 0)) { alert('Enter positive numbers for vial strength and weekly dose.'); return; }
 
@@ -393,17 +390,17 @@
       injPerWeek = 7 / intervalVal;
     }
 
-    const dosePerInj = weekly / injPerWeek;   // mg or IU
-    const volPerInj_ml = dosePerInj / conc;   // mL
+    const dosePerInj = weekly / injPerWeek;        // mg
+    const volPerInj_ml = dosePerInj / conc;        // mL
 
     $('kpi_inj').textContent = injPerWeek.toFixed(2);
-    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' ' + (isMgMode() ? 'mg' : 'IU');
+    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' ' + DOSE_UNIT;
     $('kpi_ml').textContent = volPerInj_ml.toFixed(3);
 
-    setSyringeUI(volPerInj_ml, syringeMaxMl);
+    setSyringeUI(volPerInj_ml, currentSyringeMl);
 
     const warn = $('warn');
-    if (volPerInj_ml > syringeMaxMl){
+    if (volPerInj_ml > currentSyringeMl){
       warn.hidden=false;
       warn.textContent='Volume exceeds syringe capacity. Choose a larger syringe or adjust schedule.';
     } else {
@@ -416,9 +413,9 @@
       localStorage.setItem('hb_last_calc', JSON.stringify({
         inj: injPerWeek,
         dose: dosePerInj,
-        unit: isMgMode() ? 'mg' : 'iu',
+        unit: DOSE_UNIT,
         ml:  volPerInj_ml,
-        syr: syringeMaxMl,
+        syr: currentSyringeMl,
         mode: cadenceMode
       }));
     }catch(e){}
@@ -461,14 +458,13 @@
     barrelWrap = document.querySelector('.barrel-wrap');
     fillEl = $('fill'); mlOut = $('mlLabel'); unitsOut = $('units'); syrMeta = $('syrMeta');
 
-    $('unit-mg').addEventListener('change', toggleUnit);
-    $('unit-iu').addEventListener('change', toggleUnit);
-
     $('conc').addEventListener('input', syncPresetHighlight);
-    wirePresets('presets-mg'); wirePresets('presets-iu');
+    wirePresets('presets-mg');
 
-    initCadenceToggle();          // NEW
-    toggleUnit(); buildTicks(1); setInactive();
+    initSyringeToggle();
+    initCadenceToggle();
+    buildTicks(currentSyringeMl);
+    setInactive();
     initLiveSliders();
 
     const calcBtn = $('calcBtn');
@@ -477,5 +473,3 @@
 </script>
 </body>
 </html>
-
-
