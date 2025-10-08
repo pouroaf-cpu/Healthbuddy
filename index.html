@@ -52,6 +52,24 @@
 
     /* Minor layout tweak for embedded calc wrapper */
     .form-container{max-width:980px;margin:24px auto;padding:0 12px}
+    /* Center all content inside calculator */
+.form-container {
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 20px 12px;
+  text-align: center;        /* centres inline elements and text */
+}
+
+/* Make form inputs and selects align nicely in the middle */
+.form-container input,
+.form-container select,
+.form-container button {
+  margin: 8px auto;          /* adds space and centres block inputs */
+  display: block;            /* makes them take full width control */
+  max-width: 300px;          /* keeps them narrow enough for mobile */
+  width: 100%;               /* responsive full width on small screens */
+}
+
   </style>
 </head>
 <body>
