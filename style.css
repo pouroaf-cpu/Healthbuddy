@@ -190,3 +190,34 @@ footer .container{margin-top:32px;margin-bottom:40px}
 .tick-row span{ top:-8px; }
 .barrel .ticks .tick-row:first-child span{ top:4px; }
 .barrel .ticks .tick-row:last-child span{ top:auto; bottom:4px; }
+/* Force KPI (left) and syringe (right) on desktop,
+   and STACK with syringe BELOW KPI on mobile */
+.out-row{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "kpi syringe";
+  gap:16px;
+  align-items:end;
+}
+.out-row .kpi{ grid-area:kpi; }
+.out-row .syringe{ grid-area:syringe; margin-top:0; }
+
+/* Mobile: single column, syringe under KPI */
+@media (max-width:900px){
+  .out-row{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kpi"
+      "syringe";
+  }
+  .out-row .syringe{
+    margin-top:8px;
+    justify-content:center;   /* centers the barrel */
+  }
+}
+
+/* Ensure the sticky right-rail doesn't fight mobile stacking */
+@media (max-width:900px){
+  .out{ position:static; width:auto; }
+}
+
