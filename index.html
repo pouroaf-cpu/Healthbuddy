@@ -321,7 +321,7 @@
   // ---------- Auto-calc wiring ----------
   function wireAutoCalc(){
     // Number inputs
-    ['conc','weekly','count','interval'].forEach(id=>{
+['conc','weekly','interval'].forEach(id=>{
       const el=$(id); if(!el) return;
       el.addEventListener('input', computeDebounced);
       el.addEventListener('change', computeDebounced);
@@ -337,24 +337,20 @@
 
   // Live slider sync (shows selected values while dragging)
   function initLiveSliders(){
-    const countInput = $('count');
-    const countSlider= $('count-slider');
-    const countVal  = $('count-val');
+const countSlider = $('count-slider');
+const countVal    = $('count-val');
 
-    const intervalInput = $('interval');
-    const intervalSlider= $('interval-slider');
-    const intervalVal   = $('interval-val');
+if(countSlider && countVal){
+  const setCount = (v)=>{
+    v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
+    countSlider.value = v;
+    countVal.textContent = v;
+    computeDebounced();
+  };
+  countSlider.addEventListener('input', ()=> setCount(countSlider.value));
+  setCount(countSlider.value || 2);
+}
 
-    if(countInput && countSlider && countVal){
-      const setCount = (v)=>{
-        v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
-        countInput.value=v; countSlider.value=v; countVal.textContent=v;
-        computeDebounced();
-      };
-      countInput.addEventListener('input', ()=> setCount(countInput.value));
-      countSlider.addEventListener('input', ()=> setCount(countSlider.value));
-      setCount(countInput.value || 2);
-    }
 
     if(intervalInput && intervalSlider && intervalVal){
       const setIntervalDays = (v)=>{
@@ -375,10 +371,10 @@
     const weekly = parseFloat($('weekly').value);
 
     let injPerWeek = NaN;
-    if (cadenceMode === 'perWeek') {
-      const countVal = parseFloat($('count').value);
-      if (countVal > 0) injPerWeek = countVal;
-    } else {
+if (cadenceMode === 'perWeek') {
+  const countVal = parseFloat($('count-slider').value);
+  if (countVal > 0) injPerWeek = countVal;
+} else {
       const intervalVal = parseFloat($('interval').value);
       if (intervalVal > 0) injPerWeek = 7 / intervalVal;
     }
