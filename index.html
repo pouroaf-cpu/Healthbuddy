@@ -77,36 +77,19 @@
           </div>
         </div>
 
-        <!-- Weekly dose -->
-        <div>
-          <label for="weekly">Prescribed total per week (mg/week)</label>
-          <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140" />
-        </div>
-
-        <!-- Cadence mode toggle -->
+        <!-- Weekly dose slider (50–500, step 0.25) -->
         <div class="full">
-          <div class="seg-toggle" role="radiogroup" aria-label="Injection cadence" id="cadenceToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-mode="perWeek">Injections / week</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
-          </div>
+          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
+          <input id="weekly-slider" type="range" min="50" max="500" step="0.25" value="140" style="width:100%;margin-top:6px" />
+          <div class="muted" style="margin-top:4px">Selected: <b id="weekly-val">140.00</b> mg/week</div>
         </div>
 
-        <!-- Per-week inputs -->
-<div id="count-wrap">
-  <label for="count-slider">Injections per week</label>
-  <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
-  <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
-</div>
-
-        <!-- Interval inputs -->
-        <div id="interval-wrap" style="display:none;">
-          <label for="interval">Days between injections</label>
-          <input id="interval" type="number" min="0.5" max="7" step="0.5" placeholder="e.g. 3.5" value="3.5" />
-          <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px" />
-          <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
+        <!-- Injections per week (slider only) -->
+        <div id="count-wrap">
+          <label for="count-slider">Injections per week</label>
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
+          <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
         </div>
-
-
       </div>
 
       <!-- Right column: results (always visible) -->
@@ -188,9 +171,7 @@
   })();
 
   // ---------- State ----------
-  let cadenceMode = 'perWeek';   // 'perWeek' | 'everyNDays'
   let currentSyringeMl = 1;      // 1 | 3
-  const DOSE_UNIT = 'mg';
 
   // Barrel refs
   let barrelWrap=null, fillEl=null;
@@ -266,34 +247,6 @@
     setSyringe(saved===3 ? 3 : 1);
   }
 
-  function setCadenceMode(mode){
-    cadenceMode = mode;
-    const group = $('cadenceToggle');
-    const btns = group.querySelectorAll('.seg-btn');
-    btns.forEach(b=> b.setAttribute('aria-checked', String(b.dataset.mode === mode)));
-    $('count-wrap').style.display   = (mode==='perWeek') ? '' : 'none';
-    $('interval-wrap').style.display= (mode==='everyNDays') ? '' : 'none';
-    computeDebounced();
-    try{ localStorage.setItem('hb_cadence_mode', mode); }catch(e){}
-  }
-  function initCadenceToggle(){
-    const group = $('cadenceToggle');
-    const btns = group.querySelectorAll('.seg-btn');
-    group.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.seg-btn'); if(!btn) return;
-      setCadenceMode(btn.dataset.mode);
-    });
-    group.addEventListener('keydown', (e)=>{
-      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
-      e.preventDefault();
-      const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
-      const next = current === btns[0] ? btns[1] : btns[0];
-      setCadenceMode(next.dataset.mode); next.focus();
-    });
-    const saved = (()=>{ try{ return localStorage.getItem('hb_cadence_mode'); }catch(e){ return null; } })();
-    setCadenceMode(saved==='everyNDays' ? 'everyNDays' : 'perWeek');
-  }
-
   // ---------- Presets ----------
   function wirePresets(containerId){
     const container=document.getElementById(containerId);
@@ -321,14 +274,14 @@
   // ---------- Auto-calc wiring ----------
   function wireAutoCalc(){
     // Number inputs
-['conc','weekly','interval'].forEach(id=>{
+    ['conc'].forEach(id=>{
       const el=$(id); if(!el) return;
       el.addEventListener('input', computeDebounced);
       el.addEventListener('change', computeDebounced);
     });
 
     // Range sliders
-    ['count-slider','interval-slider'].forEach(id=>{
+    ['weekly-slider','count-slider'].forEach(id=>{
       const el=$(id); if(!el) return;
       el.addEventListener('input', computeDebounced);
       el.addEventListener('change', computeDebounced);
@@ -337,47 +290,43 @@
 
   // Live slider sync (shows selected values while dragging)
   function initLiveSliders(){
-const countSlider = $('count-slider');
-const countVal    = $('count-val');
-
-if(countSlider && countVal){
-  const setCount = (v)=>{
-    v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
-    countSlider.value = v;
-    countVal.textContent = v;
-    computeDebounced();
-  };
-  countSlider.addEventListener('input', ()=> setCount(countSlider.value));
-  setCount(countSlider.value || 2);
-}
-
-
-    if(intervalInput && intervalSlider && intervalVal){
-      const setIntervalDays = (v)=>{
-        v = Math.min(7, Math.max(0.5, parseFloat(v)||3.5));
-        v = Math.round(v*2)/2; // 0.5 steps
-        intervalInput.value=v; intervalSlider.value=v; intervalVal.textContent=v.toFixed(1);
+    // Injections per week (slider only)
+    const countSlider = $('count-slider');
+    const countVal    = $('count-val');
+    if(countSlider && countVal){
+      const setCount = (v)=>{
+        v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
+        countSlider.value = v;
+        countVal.textContent = v;
         computeDebounced();
       };
-      intervalInput.addEventListener('input', ()=> setIntervalDays(intervalInput.value));
-      intervalSlider.addEventListener('input', ()=> setIntervalDays(intervalSlider.value));
-      setIntervalDays(intervalInput.value || 3.5);
+      countSlider.addEventListener('input', ()=> setCount(countSlider.value));
+      setCount(countSlider.value || 2);
+    }
+
+    // Weekly dose slider (50–500, step 0.25)
+    const weeklySlider = $('weekly-slider');
+    const weeklyVal    = $('weekly-val');
+    if(weeklySlider && weeklyVal){
+      const setWeekly = (v)=>{
+        let n = parseFloat(v);
+        if (!isFinite(n)) n = 140;
+        n = Math.min(500, Math.max(50, n));
+        n = Math.round(n / 0.25) * 0.25; // snap to .25
+        weeklySlider.value = n;
+        weeklyVal.textContent = n.toFixed(2);
+        computeDebounced();
+      };
+      weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
+      setWeekly(weeklySlider.value || 140);
     }
   }
 
   // ---------- Compute (silent; runs on every change) ----------
   function compute(){
     const conc = parseFloat($('conc').value);
-    const weekly = parseFloat($('weekly').value);
-
-    let injPerWeek = NaN;
-if (cadenceMode === 'perWeek') {
-  const countVal = parseFloat($('count-slider').value);
-  if (countVal > 0) injPerWeek = countVal;
-} else {
-      const intervalVal = parseFloat($('interval').value);
-      if (intervalVal > 0) injPerWeek = 7 / intervalVal;
-    }
+    const weekly = parseFloat($('weekly-slider').value);
+    const injPerWeek = parseFloat($('count-slider').value);
 
     const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
 
@@ -395,7 +344,7 @@ if (cadenceMode === 'perWeek') {
     const volPerInj_ml = dosePerInj / conc;   // mL
 
     $('kpi_inj').textContent  = injPerWeek.toFixed(2);
-    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' ' + DOSE_UNIT;
+    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
     $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
 
     setSyringeUI(volPerInj_ml, currentSyringeMl);
@@ -414,10 +363,9 @@ if (cadenceMode === 'perWeek') {
       localStorage.setItem('hb_last_calc', JSON.stringify({
         inj: injPerWeek,
         dose: dosePerInj,
-        unit: DOSE_UNIT,
+        unit: 'mg',
         ml:  volPerInj_ml,
-        syr: currentSyringeMl,
-        mode: cadenceMode
+        syr: currentSyringeMl
       }));
     }catch(e){}
   }
@@ -434,17 +382,12 @@ if (cadenceMode === 'perWeek') {
 
     // toggles, sliders, auto-calc
     initSyringeToggle();
-    initCadenceToggle();
     initLiveSliders();
     wireAutoCalc();
 
     // initial render
     buildTicks(currentSyringeMl);
     compute(); // first pass
-
-    // Button still works (optional)
-    const calcBtn = $('calcBtn');
-    if (calcBtn) calcBtn.addEventListener('click', compute);
   });
 </script>
 </body>
