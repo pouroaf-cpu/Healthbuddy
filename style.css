@@ -220,4 +220,35 @@ footer .container{margin-top:32px;margin-bottom:40px}
 @media (max-width:900px){
   .out{ position:static; width:auto; }
 }
+/* Keep KPI (left) and syringe (right) side-by-side on ALL breakpoints */
+.out-row{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "kpi syringe";
+  gap:16px;
+  align-items:end;
+}
+.out-row .kpi{ grid-area:kpi; }
+.out-row .syringe{ grid-area:syringe; margin-top:0; }
+
+/* Mobile: still side-by-side, just tighter + smaller syringe */
+@media (max-width:900px){
+  .out-row{
+    grid-template-columns: 1fr minmax(84px, auto) !important; /* stop any prior stacking */
+    gap:10px;
+  }
+  .kpi{ grid-template-columns:1fr; gap:8px; } /* compress KPI cards internally */
+  .syringe{ justify-content:flex-end; }
+
+  /* shrink syringe so it fits next to KPI */
+  .barrel{ width:56px; height:160px; }
+  .tick-row{ font-size:10px; }
+  .tick-row span{ right:2px; top:-6px; }
+}
+
+/* Extra-small devices */
+@media (max-width:360px){
+  .barrel{ width:52px; height:150px; }
+  .tick-row{ font-size:9px; }
+}
 
