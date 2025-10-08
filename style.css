@@ -301,4 +301,35 @@ footer .container{margin-top:32px;margin-bottom:40px}
 }
 /* Keep the mg/mL preset buttons left-aligned on all screens */
 .preset-row{ justify-content: flex-start !important; }
+/* ----- Preset pills: left-aligned, wrap into rows like original ----- */
+#presets-mg.preset-row{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 8px;
+  justify-content: flex-start;   /* never centered */
+}
+
+/* Desktop: 3 per row */
+#presets-mg .preset{
+  flex: 0 0 calc((100% - 16px) / 3); /* 3 columns with 8px gaps */
+  max-width: calc((100% - 16px) / 3);
+  text-align: left;
+}
+
+/* Tablet/large mobile: 2 per row */
+@media (max-width: 900px){
+  #presets-mg .preset{
+    flex: 0 0 calc((100% - 8px) / 2);
+    max-width: calc((100% - 8px) / 2);
+  }
+}
+
+/* Very small phones: allow single column if needed */
+@media (max-width: 380px){
+  #presets-mg .preset{
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+}
 
