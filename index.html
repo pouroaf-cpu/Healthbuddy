@@ -156,16 +156,21 @@
           </div>
         </div>
 
-        <div id="count-wrap">
-          <label for="count">Injections per week</label>
-          <input id="count" type="number" min="1" max="14" step="1" placeholder="e.g. 2">
-        </div>
+<div id="count-wrap">
+  <label for="count">Injections per week</label>
+  <input id="count" type="number" min="1" max="14" step="1" placeholder="e.g. 2" value="2" />
+  <input id="count-slider" type="range" min="1" max="14" step="1" value="2" style="width:100%;margin-top:6px">
+  <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
+</div>
 
-        <div id="interval-wrap" style="display:none;">
-          <label for="interval">Days between injections</label>
-          <input id="interval" type="number" min="0.5" step="0.5" placeholder="e.g. 3.5">
-          <p class="muted">Injections/week = 7 ÷ interval.</p>
-        </div>
+
+<div id="interval-wrap" style="display:none;">
+  <label for="interval">Days between injections</label>
+  <input id="interval" type="number" min="0.5" max="7" step="0.5" placeholder="e.g. 3.5" value="3.5" />
+  <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px">
+  <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
+</div>
+
 
         <!-- Syringe selector -->
         <div>
@@ -386,6 +391,36 @@
     fillEl = $('fill'); mlOut = $('mlLabel'); unitsOut = $('units'); syrMeta = $('syrMeta');
     toggleUnit(); toggleSched(); buildTicks(1); setInactive();
   });
+  <script>
+// Slider sync: count (injections/week)
+(function(){
+  const countInput = document.getElementById('count');
+  const countSlider = document.getElementById('count-slider');
+  const countVal = document.getElementById('count-val');
+  if(countInput && countSlider && countVal){
+    const syncCount = (v)=>{ countInput.value = v; countSlider.value = v; countVal.textContent = v; };
+    countInput.addEventListener('input', ()=> syncCount(countInput.value || 1));
+    countSlider.addEventListener('input', ()=> syncCount(countSlider.value));
+    // init
+    syncCount(countInput.value || 2);
+  }
+})();
+
+// Slider sync: interval (days between)
+(function(){
+  const intervalInput = document.getElementById('interval');
+  const intervalSlider = document.getElementById('interval-slider');
+  const intervalVal = document.getElementById('interval-val');
+  if(intervalInput && intervalSlider && intervalVal){
+    const syncInterval = (v)=>{ intervalInput.value = v; intervalSlider.value = v; intervalVal.textContent = Number(v).toFixed(1); };
+    intervalInput.addEventListener('input', ()=> syncInterval(intervalInput.value || 1));
+    intervalSlider.addEventListener('input', ()=> syncInterval(intervalSlider.value));
+    // init
+    syncInterval(intervalInput.value || 3.5);
+  }
+})();
+</script>
+
 </script>
 
 </body>
