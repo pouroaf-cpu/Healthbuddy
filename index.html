@@ -156,8 +156,28 @@
             <button type="button" class="preset" data-val="1500">1500 IU/mL</button>
             <button type="button" class="preset" data-val="2000">2000 IU/mL</button>
           </div>
-        </div>
+        </div>/* Preset button grid — applies to both mg and IU */
+.preset-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 buttons per row */
+  gap: 10px;
+  max-width: 320px;   /* keeps grid narrow and centred */
+  margin: 12px auto;  /* centres the grid */
+}
 
+.preset {
+  padding: 10px;
+  text-align: center;
+  background: #f2fbfb;
+  border: 1px solid #cdeeee;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.preset:hover {
+  background: #e6f7f7;
+}
         <!-- Weekly dose -->
         <div>
           <label id="lbl-weekly" for="weekly">Prescribed total per week (mg/week)</label>
