@@ -251,4 +251,52 @@ footer .container{margin-top:32px;margin-bottom:40px}
   .barrel{ width:52px; height:150px; }
   .tick-row{ font-size:9px; }
 }
+/* ===== Mobile: center form controls + tighten title spacing ===== */
+@media (max-width: 900px){
+  /* Tighter container padding on mobile */
+  #calculator.form-container{
+    padding:16px;
+  }
+
+  /* Decrease space above/below the title */
+  #calc-title{
+    margin:6px 0 10px !important;   /* was roomier */
+    line-height:1.2;
+    /* optional: uncomment to slightly reduce title size on small phones */
+    /* font-size: 22px; */
+  }
+
+  /* Single-column inputs with centered controls */
+  .calc-grid{
+    grid-template-columns: 1fr;
+    gap:10px;
+  }
+  /* Center labels and helper text */
+  .calc-grid label,
+  #count-wrap .muted,
+  #interval-wrap .muted{
+    text-align:center;
+  }
+
+  /* Center the segment toggles and preset pills */
+  .seg-toggle{ margin-left:auto; margin-right:auto; }
+  .preset-row{ justify-content:center; }
+
+  /* Center the actual form controls */
+  .calc-grid input[type="number"],
+  .calc-grid input[type="range"],
+  .calc-grid select,
+  .calc-grid .button,
+  .calc-grid button{
+    max-width: 360px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Ensure the two “per week / every N days” blocks are centered too */
+  #count-wrap, #interval-wrap{
+    text-align: center;
+  }
+}
 
