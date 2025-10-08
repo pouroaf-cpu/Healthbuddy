@@ -165,3 +165,28 @@ footer .container{margin-top:32px;margin-bottom:40px}
 @media (max-width:700px){
   .calc-grid{grid-template-columns:1fr}
 }
+/* --- FIX: keep tick labels fully inside the barrel --- */
+.barrel .ticks{
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0; /* full overlay */
+}
+
+.tick-row{
+  transform: none;                         /* override older translateY(50%) */
+}
+
+/* Default label sits just above each tick line */
+.tick-row span{
+  top: -8px;
+}
+
+/* Bottom-most tick (0.0 mL): push label up inside the barrel */
+.barrel .ticks .tick-row:first-child span{
+  top: 4px;
+}
+
+/* Top-most tick (max mL): keep label inside at the top edge */
+.barrel .ticks .tick-row:last-child span{
+  top: auto;
+  bottom: 4px;
+}
