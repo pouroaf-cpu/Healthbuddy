@@ -59,8 +59,6 @@
             <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
           </div>
-          <p class="muted" style="margin-top:6px;max-width:480px;margin-inline:auto;">
-          </p>
         </div>
 
         <!-- Concentration -->
@@ -119,29 +117,36 @@
       <aside id="out" class="out">
         <h3>Dose & Volume per Injection</h3>
 
-        <div class="kpi">
-          <div class="card">
-            <span class="muted">Injections / week</span>
-            <b id="kpi_inj">—</b>
+        <div class="out-row">
+          <!-- KPI cards -->
+          <div class="kpi">
+            <div class="card">
+              <span class="muted">Injections / week</span>
+              <b id="kpi_inj">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Dose per injection</span>
+              <b id="kpi_dose">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Volume per injection (mL)</span>
+              <b id="kpi_ml">—</b>
+            </div>
           </div>
-          <div class="card">
-            <span class="muted">Dose per injection</span>
-            <b id="kpi_dose">—</b>
-          </div>
-          <div class="card">
-            <span class="muted">Volume per injection (mL)</span>
-            <b id="kpi_ml">—</b>
-          </div>
-        </div>
 
-        <div class="syringe" aria-label="Syringe visual">
-          <div class="barrel-wrap inactive">
-            <div class="barrel">
-              <div class="fill" id="fill"></div>
-              <div class="ticks" id="ticks"></div>
+          <!-- Visual syringe -->
+          <div class="syringe" aria-label="Syringe visual">
+            <div class="barrel-wrap inactive">
+              <div class="barrel">
+                <div class="fill" id="fill"></div>
+                <div class="ticks" id="ticks"></div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Warnings -->
+        <div id="warn" class="warn" hidden></div>
       </aside>
     </div>
 
@@ -192,17 +197,13 @@
   const DOSE_UNIT = 'mg';
 
   // Barrel refs
-  let barrelWrap=null, fillEl=null, mlOut=null, syrMeta=null;
+  let barrelWrap=null, fillEl=null;
 
   // ---------- UI helpers ----------
   function setInactive(){
     if(!barrelWrap) return;
     barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive');
-    fillEl.style.height='0px';
-    if (mlOut) mlOut.textContent='0.00';
-    if(syrMeta){
-      syrMeta.innerHTML = currentSyringeMl+' mL syringe · <span id="units">0 units (U-100)</span>';
-    }
+    if (fillEl) fillEl.style.height='0px';
   }
   function setActive(){
     if(!barrelWrap) return;
@@ -226,11 +227,7 @@
   function setSyringeUI(volumeMl, syringeMaxMl){
     const vol=Math.max(0, Math.min(volumeMl, syringeMaxMl));
     const ratio=Math.min(vol/syringeMaxMl,1);
-    fillEl.style.height=(ratio*200)+'px';
-    if (mlOut) mlOut.textContent=vol.toFixed(3);
-    if(syrMeta){
-      syrMeta.innerHTML = syringeMaxMl.toFixed(0)+' mL syringe · <span id="units">'+Math.round(vol*100)+' units (U-100)</span>';
-    }
+    if (fillEl) fillEl.style.height=(ratio*200)+'px';
     buildTicks(syringeMaxMl);
     if(vol>0) setActive(); else setInactive();
   }
@@ -393,7 +390,6 @@
     const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
 
     if (!valid){
-      // idle/invalid state, no alerts
       const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
       if(k1) k1.textContent='—';
       if(k2) k2.textContent='—';
@@ -439,8 +435,6 @@
     // cache elements
     barrelWrap = document.querySelector('.barrel-wrap');
     fillEl     = $('fill');
-    mlOut      = $('mlLabel');
-    syrMeta    = $('syrMeta');
 
     // inputs & presets
     $('conc').addEventListener('input', syncPresetHighlight);
