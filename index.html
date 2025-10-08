@@ -25,50 +25,9 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
-
-  <style>
-    /* ===== InjectBuddy Header Styles ===== */
-    .ib-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6eef0}
-    .ib-nav{max-width:1080px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .ib-brand{font-weight:800;text-decoration:none;color:#0b1220;font-size:18px}
-    .ib-brand:hover{opacity:.9}
-    .ib-links{display:flex;gap:16px}
-    .ib-link{color:#0b1220;text-decoration:none;padding:8px 10px;border-radius:8px}
-    .ib-link:hover{background:#f2fbfb}
-    .ib-toggle{display:none;flex-direction:column;gap:4px;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer}
-    .ib-toggle span{width:24px;height:2px;background:#0b1220;display:block}
-    @media (max-width:768px){
-      .ib-toggle{display:flex}
-      .ib-links{
-        position:absolute;left:0;right:0;top:56px;display:none;flex-direction:column;
-        background:#fff;border-bottom:1px solid #e6eef0;padding:10px 14px;gap:8px
-      }
-      .ib-links.show{display:flex}
-      .ib-link{padding:12px;border-radius:10px}
-      .ib-nav{padding:10px 12px}
-    }
-    .ib-link.active{background:#e6f7f7;border:1px solid #cdeeee}
-
-    /* ===== Calculator layout tweaks ===== */
-    .form-container{max-width:980px;margin:24px auto;padding:20px 12px;text-align:center}
-    .form-container input,
-    .form-container select,
-    .form-container button{margin:8px auto;display:block;max-width:300px;width:100%}
-    .preset-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:12px auto}
-    .preset{padding:10px;text-align:center;background:#f2fbfb;border:1px solid #cdeeee;border-radius:4px;cursor:pointer;font-weight:600}
-    .preset:hover{background:#e6f7f7}
-
-    /* ===== Segmented control (shared for cadence & syringe) ===== */
-    .cadence-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#ffffff;border:0px solid #cdeeee;border-radius:12px;padding:6px;max-width:420px;margin:8px auto}
-    .cadence-btn{appearance:none;border:1px solid #cdeeee;background:#fff;border-radius:10px;min-height:44px;padding:10px 12px;font-weight:700;color:#0b1220;cursor:pointer}
-    .cadence-btn[aria-checked="true"]{border-color:transparent;background:#009395;color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06), inset 0 0 0 1px rgba(255,255,255,.14)}
-    .cadence-btn:focus-visible{outline:3px solid #1a73e8;outline-offset:2px}
-  </style>
 </head>
 <body>
-
-<!-- InjectBuddy Header -->
-<header class="ib-header">
+<header class="ib-header" id="siteHeader">
   <div class="ib-nav">
     <a class="ib-brand" href="/">InjectBuddy</a>
     <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
@@ -86,52 +45,30 @@
   </div>
 </header>
 
-<script>
-  /* Header toggle */
-  (function(){
-    const btn=document.querySelector('.ib-toggle');
-    const nav=document.getElementById('ib-navlinks');
-    if(!btn||!nav) return;
-    btn.addEventListener('click',()=>{
-      const open=nav.classList.toggle('show');
-      btn.setAttribute('aria-expanded', open?'true':'false');
-    });
-    nav.querySelectorAll('a').forEach(a=>{
-      a.addEventListener('click',()=>{
-        if(nav.classList.contains('show')){
-          nav.classList.remove('show');
-          btn.setAttribute('aria-expanded','false');
-        }
-      });
-    });
-  })();
-</script>
-
 <main class="container">
-
-  <!-- ===== EMBEDDED CALCULATOR ===== -->
-<section id="calculator" class="form-container" aria-labelledby="calc-title" 
-         style="background:#f8fbfb; border:1px solid #ddd; padding:20px; margin-top:20px;">
+  <!-- ===== CALCULATOR ===== -->
+  <section id="calculator" class="form-container" aria-labelledby="calc-title">
     <h1 id="calc-title" style="text-align:center;">Testosterone/Peptide Dosage Calculator</h1>
 
     <div class="calc-wrap">
+      <!-- Left column: inputs -->
       <div class="calc-grid">
-        <!-- ===== NEW: Syringe size (segmented) — moved to top ===== -->
+        <!-- Syringe size toggle -->
         <div class="full">
-          <div class="cadence-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
-            <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
+          <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
+            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
           </div>
-          <p class="muted" style="margin-top:6px;max-width:480px;margin-left:auto;margin-right:auto;">
+          <p class="muted" style="margin-top:6px;max-width:480px;margin-inline:auto;">
             U-100 insulin markings: mL × 100 = units (e.g., 0.35 mL ≈ 35 units).
           </p>
         </div>
 
-        <!-- Concentration (mg/mL only) + presets -->
+        <!-- Concentration -->
         <div class="full">
-          <label id="lbl-conc" for="conc">Vial strength (mg per mL)</label>
-          <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200">
-          <p id="hint-conc" class="muted">Example: Testosterone 200 mg/mL → enter <b>200</b>.</p>
+          <label for="conc">Vial strength (mg per mL)</label>
+          <input id="conc" type="number" min="0" step="0.01" placeholder="e.g. 200" />
+          <p class="muted">Example: Testosterone 200 mg/mL → enter <b>200</b>.</p>
 
           <div id="presets-mg" class="preset-row">
             <button type="button" class="preset" data-val="100">100 mg/mL</button>
@@ -143,17 +80,17 @@
           </div>
         </div>
 
-        <!-- Weekly dose (mg/week) -->
+        <!-- Weekly dose -->
         <div>
-          <label id="lbl-weekly" for="weekly">Prescribed total per week (mg/week)</label>
-          <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140">
+          <label for="weekly">Prescribed total per week (mg/week)</label>
+          <input id="weekly" type="number" min="0" step="0.01" placeholder="e.g. 140" />
         </div>
 
-        <!-- Cadence segmented control -->
+        <!-- Cadence mode toggle -->
         <div class="full">
-          <div class="cadence-toggle" role="radiogroup" aria-label="Injection cadence" id="cadenceToggle">
-            <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-mode="perWeek">Injections / week</button>
-            <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
+          <div class="seg-toggle" role="radiogroup" aria-label="Injection cadence" id="cadenceToggle">
+            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-mode="perWeek">Injections / week</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
           </div>
         </div>
 
@@ -161,7 +98,7 @@
         <div id="count-wrap">
           <label for="count">Injections per week</label>
           <input id="count" type="number" min="1" max="7" step="1" placeholder="e.g. 2" value="2" />
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px">
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
           <div class="muted" style="margin-top:4px">Selected: <b id="count-val">2</b> / week</div>
         </div>
 
@@ -169,18 +106,20 @@
         <div id="interval-wrap" style="display:none;">
           <label for="interval">Days between injections</label>
           <input id="interval" type="number" min="0.5" max="7" step="0.5" placeholder="e.g. 3.5" value="3.5" />
-          <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px">
+          <input id="interval-slider" type="range" min="0.5" max="7" step="0.5" value="3.5" style="width:100%;margin-top:6px" />
           <p class="muted" style="margin-top:4px">Selected: <b id="interval-val">3.5</b> days (Injections/week ≈ 7 ÷ N)</p>
         </div>
 
+        <!-- Calculate -->
         <div class="full">
-<button id="calcBtn" class="button" type="button">Calculate</button>
+          <button id="calcBtn" class="button" type="button">Calculate</button>
         </div>
       </div>
 
-      <!-- Results -->
-      <div id="out" class="out" hidden>
+      <!-- Right column: results -->
+      <aside id="out" class="out" hidden>
         <h3>Dose & Volume per Injection</h3>
+
         <div class="kpi">
           <div class="card">
             <span class="muted">Injections / week</span>
@@ -198,8 +137,10 @@
 
         <div class="syringe" aria-label="Syringe visual">
           <div class="barrel-wrap inactive">
-            <div class="barrel"><div class="fill" id="fill"></div></div>
-            <div class="ticks" id="ticks"></div>
+            <div class="barrel">
+              <div class="fill" id="fill"></div>
+              <div class="ticks" id="ticks"></div>
+            </div>
           </div>
           <div>
             <div class="ml-label"><span id="mlLabel">0.00</span> mL</div>
@@ -208,35 +149,57 @@
             <div id="warn" class="warn" hidden></div>
           </div>
         </div>
-      </div>
+      </aside>
     </div>
 
-    <div style="background: rgba(255, 255, 0, 0.25); border: 2px solid #999; padding: 14px; text-align: center; font-weight: 700; font-size: 15px; color: #222; font-style: italic;">
+    <div class="notice">
       This tool is provided for informational purposes only. Always follow your clinician’s instructions.
     </div>
   </section>
-  <!-- ===== /EMBEDDED CALCULATOR ===== -->
-
+  <!-- ===== /CALCULATOR ===== -->
 </main>
 
 <footer>
-  <div class="container">
+  <div class="container footer-meta">
     <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
     <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   </div>
 </footer>
 
-<!-- Calculator logic -->
 <script>
+  // --- Utils
   const $ = id => document.getElementById(id);
 
-  // Global state
-  let cadenceMode = 'perWeek';         // 'perWeek' | 'everyNDays'
-  let currentSyringeMl = 1;            // 1 | 3
-  const DOSE_UNIT = 'mg';              // units for weekly/dose per injection
+  // --- Header toggle + CSS var for sticky offset
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const btn = document.querySelector('.ib-toggle');
+    const nav = document.getElementById('ib-navlinks');
+    const setHeaderH = () => document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    setHeaderH(); window.addEventListener('resize', setHeaderH);
 
-  // UI refs
-  let barrelWrap=null, fillEl=null, mlOut=null, unitsOut=null, syrMeta=null;
+    if (!btn || !nav) return;
+    btn.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('show');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', ()=>{
+        if (nav.classList.contains('show')) {
+          nav.classList.remove('show');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  })();
+
+  // --- Global state
+  let cadenceMode = 'perWeek';   // 'perWeek' | 'everyNDays'
+  let currentSyringeMl = 1;      // 1 | 3
+  const DOSE_UNIT = 'mg';
+
+  // --- UI refs
+  let barrelWrap=null, fillEl=null, mlOut=null, syrMeta=null;
 
   function setInactive(){
     if(!barrelWrap) return;
@@ -245,24 +208,27 @@
     mlOut.textContent='0.00';
     if(syrMeta){
       syrMeta.innerHTML = currentSyringeMl+' mL syringe · <span id="units">0 units (U-100)</span>';
-      unitsOut = $('units');
     }
   }
   function setActive(){
     if(!barrelWrap) return;
     barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active');
   }
+
+  // Build tick lines + labels inside the barrel
   function buildTicks(maxMl){
     const ticks=$('ticks'); if(!ticks) return;
     ticks.innerHTML='';
     const step=(maxMl<=1)?0.1:0.5; const barrelPx=200;
     for(let v=0; v<=maxMl+1e-9; v+=step){
-      const row=document.createElement('div'); row.className='tick-row';
+      const row=document.createElement('div');
+      row.className='tick-row';
       row.style.bottom=(v/maxMl)*barrelPx+'px';
       row.innerHTML='<span>'+v.toFixed(1)+' mL</span>';
       ticks.appendChild(row);
     }
   }
+
   function setSyringeUI(volumeMl, syringeMaxMl){
     const vol=Math.max(0, Math.min(volumeMl, syringeMaxMl));
     const ratio=Math.min(vol/syringeMaxMl,1);
@@ -270,85 +236,67 @@
     mlOut.textContent=vol.toFixed(3);
     if(syrMeta){
       syrMeta.innerHTML = syringeMaxMl.toFixed(0)+' mL syringe · <span id="units">'+Math.round(vol*100)+' units (U-100)</span>';
-      unitsOut=$('units');
     }
     buildTicks(syringeMaxMl);
     if(vol>0) setActive(); else setInactive();
   }
 
-  /* ===== Syringe segmented control ===== */
+  // --- Segmented controls
   function setSyringe(ml){
     currentSyringeMl = ml;
     const group = $('syringeToggle');
-    const btns = group.querySelectorAll('.cadence-btn');
-    btns.forEach(b=>{
-      const active = Number(b.dataset.ml) === ml;
-      b.setAttribute('aria-checked', String(active));
-    });
+    const btns = group.querySelectorAll('.seg-btn');
+    btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === ml)));
     buildTicks(currentSyringeMl);
-    setInactive(); // clear fill until next Calculate
+    setInactive();
     try{ localStorage.setItem('hb_syr_ml', String(ml)); }catch(e){}
   }
   function initSyringeToggle(){
     const group = $('syringeToggle');
-    const btns = group.querySelectorAll('.cadence-btn');
-
+    const btns = group.querySelectorAll('.seg-btn');
     group.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.cadence-btn');
-      if(!btn) return;
+      const btn = e.target.closest('.seg-btn'); if(!btn) return;
       setSyringe(Number(btn.dataset.ml));
     });
-
     group.addEventListener('keydown', (e)=>{
       if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
       e.preventDefault();
       const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
       const next = current === btns[0] ? btns[1] : btns[0];
-      setSyringe(Number(next.dataset.ml));
-      next.focus();
+      setSyringe(Number(next.dataset.ml)); next.focus();
     });
-
     const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
     setSyringe(saved===3 ? 3 : 1);
   }
 
-  /* ===== Cadence segmented control ===== */
   function setCadenceMode(mode){
     cadenceMode = mode;
     const group = $('cadenceToggle');
-    const btns = group.querySelectorAll('.cadence-btn');
-    btns.forEach(b=>{
-      const active = b.dataset.mode === mode;
-      b.setAttribute('aria-checked', String(active));
-    });
+    const btns = group.querySelectorAll('.seg-btn');
+    btns.forEach(b=> b.setAttribute('aria-checked', String(b.dataset.mode === mode)));
     $('count-wrap').style.display = (mode==='perWeek') ? '' : 'none';
     $('interval-wrap').style.display = (mode==='everyNDays') ? '' : 'none';
     try{ localStorage.setItem('hb_cadence_mode', mode); }catch(e){}
   }
   function initCadenceToggle(){
     const group = $('cadenceToggle');
-    const btns = group.querySelectorAll('.cadence-btn');
-
+    const btns = group.querySelectorAll('.seg-btn');
     group.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.cadence-btn');
-      if(!btn) return;
+      const btn = e.target.closest('.seg-btn'); if(!btn) return;
       setCadenceMode(btn.dataset.mode);
     });
-
     group.addEventListener('keydown', (e)=>{
       if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
       e.preventDefault();
       const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
       const next = current === btns[0] ? btns[1] : btns[0];
-      setCadenceMode(next.dataset.mode);
-      next.focus();
+      setCadenceMode(next.dataset.mode); next.focus();
     });
-
     const saved = (()=>{ try{ return localStorage.getItem('hb_cadence_mode'); }catch(e){ return null; } })();
     setCadenceMode(saved==='everyNDays' ? 'everyNDays' : 'perWeek');
   }
 
-  // Presets (mg only)
+  // --- Presets
   function wirePresets(containerId){
     const container=document.getElementById(containerId);
     if(!container) return;
@@ -363,8 +311,7 @@
   }
   function syncPresetHighlight(){
     const val=parseFloat($('conc').value);
-    const container=$('presets-mg');
-    if(!container) return;
+    const container=$('presets-mg'); if(!container) return;
     container.querySelectorAll('.preset').forEach(b=>{
       const active=(parseFloat(b.getAttribute('data-val'))===val);
       b.classList.toggle('active', active);
@@ -372,7 +319,7 @@
     });
   }
 
-  // Compute
+  // --- Compute
   function compute(){
     const conc = parseFloat($('conc').value);
     const weekly = parseFloat($('weekly').value);
@@ -390,8 +337,8 @@
       injPerWeek = 7 / intervalVal;
     }
 
-    const dosePerInj = weekly / injPerWeek;        // mg
-    const volPerInj_ml = dosePerInj / conc;        // mL
+    const dosePerInj = weekly / injPerWeek;   // mg
+    const volPerInj_ml = dosePerInj / conc;   // mL
 
     $('kpi_inj').textContent = injPerWeek.toFixed(2);
     $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' ' + DOSE_UNIT;
@@ -421,42 +368,10 @@
     }catch(e){}
   }
 
-  // LIVE SLIDER SYNC
-  function initLiveSliders(){
-    const countInput = $('count');
-    const countSlider= $('count-slider');
-    const countVal  = $('count-val');
-
-    const intervalInput = $('interval');
-    const intervalSlider= $('interval-slider');
-    const intervalVal   = $('interval-val');
-
-    if(countInput && countSlider && countVal){
-      const setCount = (v)=>{
-        v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
-        countInput.value=v; countSlider.value=v; countVal.textContent=v;
-      };
-      countInput.addEventListener('input', ()=> setCount(countInput.value));
-      countSlider.addEventListener('input', ()=> setCount(countSlider.value));
-      setCount(countInput.value || 2);
-    }
-
-    if(intervalInput && intervalSlider && intervalVal){
-      const setIntervalDays = (v)=>{
-        v = Math.min(7, Math.max(0.5, parseFloat(v)||3.5));
-        v = Math.round(v*2)/2; // 0.5 steps
-        intervalInput.value=v; intervalSlider.value=v; intervalVal.textContent=v.toFixed(1);
-      };
-      intervalInput.addEventListener('input', ()=> setIntervalDays(intervalInput.value));
-      intervalSlider.addEventListener('input', ()=> setIntervalDays(intervalSlider.value));
-      setIntervalDays(intervalInput.value || 3.5);
-    }
-  }
-
-  // Wire events + init
+  // --- Init
   document.addEventListener('DOMContentLoaded', ()=>{
     barrelWrap = document.querySelector('.barrel-wrap');
-    fillEl = $('fill'); mlOut = $('mlLabel'); unitsOut = $('units'); syrMeta = $('syrMeta');
+    fillEl = $('fill'); mlOut = $('mlLabel'); syrMeta = $('syrMeta');
 
     $('conc').addEventListener('input', syncPresetHighlight);
     wirePresets('presets-mg');
@@ -465,7 +380,31 @@
     initCadenceToggle();
     buildTicks(currentSyringeMl);
     setInactive();
-    initLiveSliders();
+
+    // live sliders
+    const countInput = $('count'), countSlider= $('count-slider'), countValEl  = $('count-val');
+    const intervalInput = $('interval'), intervalSlider= $('interval-slider'), intervalValEl = $('interval-val');
+
+    if(countInput && countSlider && countValEl){
+      const setCount = (v)=>{
+        v = Math.min(7, Math.max(1, Math.round(parseFloat(v)||2)));
+        countInput.value=v; countSlider.value=v; countValEl.textContent=v;
+      };
+      countInput.addEventListener('input', ()=> setCount(countInput.value));
+      countSlider.addEventListener('input', ()=> setCount(countSlider.value));
+      setCount(countInput.value || 2);
+    }
+
+    if(intervalInput && intervalSlider && intervalValEl){
+      const setIntervalDays = (v)=>{
+        v = Math.min(7, Math.max(0.5, parseFloat(v)||3.5));
+        v = Math.round(v*2)/2;
+        intervalInput.value=v; intervalSlider.value=v; intervalValEl.textContent=v.toFixed(1);
+      };
+      intervalInput.addEventListener('input', ()=> setIntervalDays(intervalInput.value));
+      intervalSlider.addEventListener('input', ()=> setIntervalDays(intervalSlider.value));
+      setIntervalDays(intervalInput.value || 3.5);
+    }
 
     const calcBtn = $('calcBtn');
     if (calcBtn) calcBtn.addEventListener('click', compute);
