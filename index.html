@@ -304,23 +304,23 @@
       setCount(countSlider.value || 2);
     }
 
-    // Weekly dose slider (50–500, step 0.25)
-    const weeklySlider = $('weekly-slider');
-    const weeklyVal    = $('weekly-val');
-    if(weeklySlider && weeklyVal){
-      const setWeekly = (v)=>{
-        let n = parseFloat(v);
-        if (!isFinite(n)) n = 140;
-        n = Math.min(500, Math.max(50, n));
-        n = Math.round(n / 0.25) * 0.25; // snap to .25
-        weeklySlider.value = n;
-        weeklyVal.textContent = n.toFixed(2);
-        computeDebounced();
-      };
-      weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
-      setWeekly(weeklySlider.value || 140);
-    }
-  }
+// Weekly dose slider (50–500, step 10)
+const weeklySlider = $('weekly-slider');
+const weeklyVal    = $('weekly-val');
+if(weeklySlider && weeklyVal){
+  const setWeekly = (v)=>{
+    let n = parseFloat(v);
+    if (!isFinite(n)) n = 140;
+    n = Math.min(500, Math.max(50, n));
+    n = Math.round(n / 10) * 10; // snap to 10 mg
+    weeklySlider.value = n;
+    weeklyVal.textContent = n.toFixed(0);
+    computeDebounced();
+  };
+  weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
+  setWeekly(weeklySlider.value || 140);
+}
+
 
   // ---------- Compute (silent; runs on every change) ----------
   function compute(){
