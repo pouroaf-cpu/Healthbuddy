@@ -17,9 +17,8 @@
   <!-- Site CSS -->
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Liquid 'slosh then settle' overlay (tiny, effect-specific CSS) -->
+  <!-- Liquid “slosh then settle” overlay (robust, above ticks) -->
   <style>
-    /* The fill already has a solid background from your CSS. We add a temporary surface ripple. */
     .barrel{ position:relative; overflow:hidden; }
     .fill{
       position:absolute; left:0; right:0; bottom:0; height:0;
@@ -28,32 +27,36 @@
     }
     .ticks{ position:absolute; inset:0; z-index:3; pointer-events:none; }
 
-    /* Surface ripple appears only while .slosh is present */
-    .fill::before{
+    /* Surface highlight appears briefly during changes */
+    .fill::after{
       content:"";
-      position:absolute; left:-120px; right:-120px; top:-2px; height:14px;
-      border-radius:999px/10px;
-      pointer-events:none; opacity:0; transform: translateY(-2px);
-      background:
-        radial-gradient(circle at 16px 7px, rgba(255,255,255,.55) 0 2px, transparent 3px) repeat-x,
-        radial-gradient(circle at 8px  7px, rgba(255,255,255,.35) 0 1.5px, transparent 2.5px) repeat-x;
-      background-size:32px 14px, 24px 14px;
-      background-position:0 0, 0 0;
-      z-index:2;
+      position:absolute; left:-96px; right:-96px; top:-6px; height:14px;
+      border-radius:999px/12px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.25));
+      opacity:0;
+      transform: translateX(0) translateY(-2px) skewX(0deg);
+      filter: saturate(120%) brightness(105%);
+      pointer-events:none;
+      z-index:4;         /* above tick lines so it’s visible */
+      will-change: transform, opacity;
     }
-    .fill.slosh::before{
-      opacity:.95;
+    .fill.slosh::after{
+      opacity:.96;
       animation:
-        ib-wave-x 1.2s ease-in-out 0s 2,
-        ib-settle  1.2s ease-out    0s 1 forwards;
+        ib-slosh 900ms ease-in-out 2,
+        ib-settle 700ms ease-out 1 forwards;
     }
-    @keyframes ib-wave-x{
-      0%   { background-position: 0 0,    0 0; }
-      100% { background-position: 32px 0, -24px 0; }
+    @keyframes ib-slosh{
+      0%   { transform: translateX(-14px) translateY(-2px) skewX(-3deg); }
+      50%  { transform: translateX( 14px) translateY(-1px) skewX( 3deg); }
+      100% { transform: translateX(-14px) translateY(-2px) skewX(-3deg); }
     }
     @keyframes ib-settle{
-      0%   { opacity:.95; transform: translateY(-2px); }
-      100% { opacity:0;   transform: translateY( 0 ); }
+      to { opacity:0; transform: translateX(0) translateY(0) skewX(0deg); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .fill{ transition: height .2s linear; }
+      .fill::after{ display:none; }
     }
   </style>
 
@@ -255,7 +258,7 @@
     void fillEl.offsetWidth;                // force reflow
     fillEl.classList.add('slosh');
     clearTimeout(sloshTimer);
-    sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), 1300);
+    sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), 1400);
   }
 
   function setSyringeUI(volumeMl, syringeMaxMl){
