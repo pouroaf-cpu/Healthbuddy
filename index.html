@@ -87,9 +87,9 @@
     }
     input[type="range"]{padding:0;height:auto;border:none}
 
-    /* Live value chips (pill style) */
+    /* Live chips (per slider) */
     .live-reads{
-      display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; justify-content:flex-start;
+      display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;justify-content:flex-start;
     }
     .live-chip{
       border:1px solid var(--line);
@@ -196,28 +196,21 @@
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
           <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" style="width:100%;margin-top:6px" />
-          <p class="muted">Example: Testosterone 200 mg/mL → slide to <b>200</b>.</p>
+          <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
         </div>
 
         <!-- Weekly dose slider (50–500, step 10) -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" style="width:100%;margin-top:6px" />
+          <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
         </div>
 
         <!-- Injections per week (slider only) -->
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
           <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
-        </div>
-
-        <!-- Live chips row -->
-        <div class="full">
-          <div class="live-reads" id="liveReads">
-            <div class="live-chip" id="lr-conc">200 mg/mL</div>
-            <div class="live-chip" id="lr-weekly">140 mg/week</div>
-            <div class="live-chip" id="lr-count">2 / week</div>
-          </div>
+          <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
         </div>
       </div>
 
