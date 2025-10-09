@@ -409,3 +409,85 @@ input[type="range"]::-ms-thumb{
 
 /* Focus */
 input[type="range"]:focus-visible{ outline:3px solid #1a73e8; outline-offset:2px; }
+/* Ensure the unfilled slider track has a visible line */
+:root{
+  --line: #e6eef0; /* fallback for track background if not already set */
+}
+
+/* Live value chips: smaller, lighter teal, don’t stretch full width */
+.live-reads{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.live-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;              /* smaller */
+  font-size:13px;                /* smaller */
+  line-height:1.2;
+  border-radius:999px;
+  flex:0 0 auto;                 /* don’t grow to full width */
+  /* lighter teal with border */
+  background: color-mix(in srgb, var(--teal-600) 18%, #fff);
+  border:1px solid color-mix(in srgb, var(--teal-600) 40%, #fff);
+  color: var(--teal-700);
+  box-shadow:0 1px 0 rgba(0,0,0,.03);
+}
+/* Fallback if color-mix isn’t supported */
+@supports not (background: color-mix(in srgb, white 50%, black)){
+  .live-chip{
+    background: #d8f0f0;                /* light teal-ish */
+    border:1px solid #9fd7d8;
+  }
+}
+
+/* Slider track: show a clear line + teal fill */
+input[type="range"]{
+  --val: 0%; /* JS updates this; keeps the filled portion accurate */
+}
+
+/* WebKit (Chrome/Safari/Edge) */
+input[type="range"]::-webkit-slider-runnable-track{
+  height:8px;
+  border-radius:999px;
+  background:
+    linear-gradient(to right, var(--teal-600) var(--val,0%), var(--line) var(--val,0%));
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal-600);
+  border:2px solid #fff;
+  margin-top:-5px; /* centers thumb on 8px track */
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track{
+  height:8px; border-radius:999px; background:var(--line);
+}
+input[type="range"]::-moz-range-progress{
+  height:8px; border-radius:999px; background:var(--teal-600);
+}
+input[type="range"]::-moz-range-thumb{
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal-600);
+  border:2px solid #fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+/* (Legacy) MS */
+input[type="range"]::-ms-track{
+  height:8px; background:transparent; color:transparent; border:none;
+}
+input[type="range"]::-ms-fill-lower{ background:var(--teal-600); border-radius:999px; }
+input[type="range"]::-ms-fill-upper{ background:var(--line);     border-radius:999px; }
+input[type="range"]::-ms-thumb{
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal-600); border:2px solid #fff; cursor:pointer;
+}
