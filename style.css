@@ -305,3 +305,35 @@ footer .container{margin-top:32px;margin-bottom:40px}
     max-width: 100%;
   }
 }
+/* --- Mobile layout fix: inputs first, results second; no overlap --- */
+@media (max-width: 900px){
+  .calc-wrap{
+    display: flex;
+    flex-direction: column;   /* stack vertically */
+    gap: 16px;
+  }
+  .calc-grid{
+    order: 1;                 /* inputs on top */
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .out{
+    order: 2;                 /* results below inputs */
+    position: static !important;  /* disable sticky on mobile */
+    width: 100%;
+    margin-top: 8px;
+  }
+  /* keep KPI + syringe side-by-side within the results block */
+  .out-row{
+    grid-template-columns: 1fr 140px;
+    align-items: end;
+  }
+  .barrel-wrap{ min-width: 140px; }
+}
+
+/* very small phones */
+@media (max-width: 560px){
+  .out-row{ grid-template-columns: 1fr 120px; }
+  .barrel-wrap{ min-width: 120px; }
+}
