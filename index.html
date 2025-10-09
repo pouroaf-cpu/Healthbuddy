@@ -43,8 +43,8 @@
     .fill.slosh::after{
       opacity:.96;
       animation:
-        ib-slosh 900ms ease-in-out 2,
-        ib-settle 700ms ease-out 1 forwards;
+        ib-slosh 1400ms ease-in-out 3,
+        ib-settle 1000ms ease-out 1 forwards;
     }
     @keyframes ib-slosh{
       0%   { transform: translateX(-14px) translateY(-2px) skewX(-3deg); }
@@ -258,7 +258,8 @@
     void fillEl.offsetWidth;                // force reflow
     fillEl.classList.add('slosh');
     clearTimeout(sloshTimer);
-    sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), 1400);
+sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), (1400*3)+1000+50);
+
   }
 
   function setSyringeUI(volumeMl, syringeMaxMl){
