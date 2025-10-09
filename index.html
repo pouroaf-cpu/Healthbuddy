@@ -14,7 +14,7 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- Your site styles -->
+  <!-- Site CSS -->
   <link rel="stylesheet" href="/style.css" />
 
   <!-- Microsoft Clarity -->
@@ -64,7 +64,7 @@
         <!-- Vial strength slider -->
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
-          <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" style="width:100%;margin-top:6px" />
+          <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" />
           <div class="live-reads">
             <div class="live-chip" id="lr-conc">200 mg/mL</div>
           </div>
@@ -73,7 +73,7 @@
         <!-- Weekly dose slider -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" style="width:100%;margin-top:6px" />
+          <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" />
           <div class="live-reads">
             <div class="live-chip" id="lr-weekly">140 mg/week</div>
           </div>
@@ -82,7 +82,7 @@
         <!-- Injections per week slider -->
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
           <div class="live-reads">
             <div class="live-chip" id="lr-count">2 / week</div>
           </div>
@@ -111,24 +111,24 @@
           </div>
 
           <!-- Visual syringe -->
-<div class="syringe" aria-label="Syringe visual">
-  <div class="barrel-wrap inactive">
-    <div class="barrel">
-      <div class="fill" id="fill"></div>
-      <!-- ADD THIS -->
-      <div class="bubbles" id="bubbles"></div>
-      <!-- /ADD THIS -->
-      <div class="ticks" id="ticks"></div>
-    </div>
-  </div>
-</div>
+          <div class="syringe" aria-label="Syringe visual">
+            <div class="barrel-wrap inactive">
+              <div class="barrel">
+                <div class="fill" id="fill"></div>
+                <!-- bubbling layer -->
+                <div class="bubbles" id="bubbles"></div>
+                <div class="ticks" id="ticks"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Warnings -->
         <div id="warn" class="warn" hidden></div>
       </aside>
     </div>
 
-    <div class="notice" style="background: rgba(255, 255, 0, 0.15); border: 1px solid #ccc; padding: 12px; text-align: center; font-weight: 700; font-size: 14px; color: #222; font-style: italic; border-radius:10px; margin-top:12px;">
+    <div class="notice">
       This tool is provided for informational purposes only. Always follow your clinician’s instructions.
     </div>
   </section>
@@ -198,7 +198,7 @@
   function buildTicks(maxMl){
     const ticks=$('ticks'); if(!ticks) return;
     ticks.innerHTML='';
-    const step=(maxMl<=1)?0.1:0.5; 
+    const step=(maxMl<=1)?0.1:0.5;
     const barrelPx=200; // must match CSS barrel height
     for(let v=0; v<=maxMl+1e-9; v+=step){
       const row=document.createElement('div');
@@ -209,17 +209,43 @@
     }
   }
 
+  // bubbling: seed and clip to fill height
+  function seedBubbles(container, n = 16){
+    if(!container) return;
+    container.innerHTML = "";
+    for(let i=0; i<n; i++){
+      const b = document.createElement('span');
+      const x = Math.floor(Math.random()*92) + 4; // 4%..96%
+      const dur = (Math.random()*2 + 3.2).toFixed(2) + "s";
+      const del = (-Math.random()*5).toFixed(2) + "s";
+      const r = Math.random();
+      if (r < 0.35) b.classList.add('s');
+      else if (r > 0.8) b.classList.add('l');
+      b.style.setProperty('--x', x + "%");
+      b.style.setProperty('--dur', dur);
+      b.style.setProperty('--del', del);
+      container.appendChild(b);
+    }
+  }
+  function setBubbleHeight(px){
+    const bubbles = $('bubbles');
+    if(!bubbles) return;
+    bubbles.style.height = Math.max(0, px|0) + "px";
+  }
+
   function setSyringeUI(volumeMl, syringeMaxMl){
-    const vol=Math.max(0, Math.min(volumeMl, syringeMaxMl));
-    const ratio=Math.min(vol/syringeMaxMl,1);
-    if (fillEl) fillEl.style.height=(ratio*200)+'px';
+    const vol = Math.max(0, Math.min(volumeMl, syringeMaxMl));
+    const ratio = Math.min(vol / syringeMaxMl, 1);
+    const px = ratio * 200;            // 200px = barrel height in CSS
+    if (fillEl) fillEl.style.height = px + 'px';
+    setBubbleHeight(px);
     buildTicks(syringeMaxMl);
     if(vol>0) setActive(); else setInactive();
   }
 
   // ---------- Debounce ----------
   let __computeTimer = null;
-  function debounce(fn, delay=100){
+  function debounce(fn, delay=80){
     return (...args)=>{
       clearTimeout(__computeTimer);
       __computeTimer = setTimeout(()=>fn(...args), delay);
@@ -369,6 +395,7 @@
 
     // initial render
     buildTicks(currentSyringeMl);
+    seedBubbles($('bubbles'), 16);
     compute(); // first pass
 
     // ensure track fill paints on load & subsequent changes
