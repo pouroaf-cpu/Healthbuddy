@@ -337,3 +337,75 @@ footer .container{margin-top:32px;margin-bottom:40px}
   .out-row{ grid-template-columns: 1fr 120px; }
   .barrel-wrap{ min-width: 120px; }
 }
+/* --- Teal chips --- */
+.live-chip{
+  border:1px solid var(--teal-600);
+  background:var(--teal-600);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:700;
+  box-shadow:0 1px 0 rgba(0,0,0,.03);
+}
+
+/* --- Teal sliders (cross-browser) --- */
+input[type="range"]{
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  background:transparent;      /* track handled by pseudos */
+  outline:none;
+  height:auto;
+  border:none;
+  --val:0%;                    /* JS updates this to fill % for WebKit */
+}
+
+/* WebKit (Chrome/Safari/Edge) */
+input[type="range"]::-webkit-slider-runnable-track{
+  height:8px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    var(--teal-600) var(--val,0%),
+    var(--line)     var(--val,0%)
+  );
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:18px; height:18px;
+  border-radius:50%;
+  background:var(--teal-600);
+  border:2px solid #fff;
+  margin-top:-5px; /* center on 8px track */
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track{
+  height:8px; border-radius:999px; background:var(--line);
+}
+input[type="range"]::-moz-range-progress{
+  height:8px; border-radius:999px; background:var(--teal-600);
+}
+input[type="range"]::-moz-range-thumb{
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal-600);
+  border:2px solid #fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+/* (Legacy) MS */
+input[type="range"]::-ms-track{
+  height:8px; background:transparent; color:transparent; border:none;
+}
+input[type="range"]::-ms-fill-lower{ background:var(--teal-600); border-radius:999px; }
+input[type="range"]::-ms-fill-upper{ background:var(--line);     border-radius:999px; }
+input[type="range"]::-ms-thumb{
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal-600); border:2px solid #fff; cursor:pointer;
+}
+
+/* Focus */
+input[type="range"]:focus-visible{ outline:3px solid #1a73e8; outline-offset:2px; }
