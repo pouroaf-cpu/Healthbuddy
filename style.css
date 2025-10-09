@@ -491,3 +491,55 @@ input[type="range"]::-ms-thumb{
   width:18px; height:18px; border-radius:50%;
   background:var(--teal-600); border:2px solid #fff; cursor:pointer;
 }
+/* ===== Bubbling liquid effect ===== */
+.barrel{ position:relative; overflow:hidden; }
+.fill{ position:absolute; left:0; right:0; bottom:0; height:0; z-index:1; }
+.ticks{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+
+/* Bubble layer sits above the fill but under ticks */
+.bubbles{
+  position:absolute; left:0; right:0; bottom:0; height:0;
+  overflow:hidden; pointer-events:none; z-index:2;
+}
+
+/* Single bubble */
+.bubbles span{
+  --x: 50%;         /* horizontal position */
+  --dur: 4s;        /* rise duration */
+  --del: -2s;       /* negative delay for staggered start */
+  position:absolute;
+  bottom:-14px;
+  left:var(--x);
+  width:8px; height:8px;
+  border-radius:50%;
+  background: color-mix(in srgb, var(--teal-600) 65%, #fff);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--teal-600) 25%, #fff) inset;
+  opacity:.9;
+  animation: ib-bubble-rise var(--dur) linear infinite;
+  animation-delay: var(--del);
+  filter: saturate(120%);
+}
+
+/* smaller random bubbles use a modifier class */
+.bubbles span.s{
+  width:5px; height:5px; opacity:.8;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--teal-600) 25%, #fff) inset;
+}
+.bubbles span.l{
+  width:10px; height:10px;
+}
+
+/* Rising motion (travel > barrel height so they drift out) */
+@keyframes ib-bubble-rise{
+  0%   { transform: translateY(0) scale(1);   opacity:.95; }
+  70%  { transform: translateY(-180px) scale(1.05); opacity:.85; }
+  100% { transform: translateY(-230px) scale(1.12); opacity:0; }
+}
+
+/* Gentle surface shimmer at the liquid top (optional) */
+.fill::before{
+  content:"";
+  position:absolute; left:0; right:0; top:-1px; height:6px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.55), rgba(255,255,255,0));
+  pointer-events:none;
+}
