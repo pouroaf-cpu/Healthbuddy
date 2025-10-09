@@ -14,148 +14,17 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
-  <style>
-    :root{
-      --teal-900:#004c4d;
-      --teal-700:#006d6f;
-      --teal-600:#009395;
-      --ink-900:#0b1220;
-      --ink-500:#566;
-      --bg:#f0f4f5;
-      --card:#ffffff;
-      --line:#e6eef0;
-      --header-h:56px;
-    }
+  <!-- Your site styles -->
+  <link rel="stylesheet" href="/style.css" />
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:#222;
-      line-height:1.5;
-    }
-
-    /* Header */
-    .ib-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
-    .ib-nav{max-width:1080px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .ib-brand{font-weight:800;text-decoration:none;color:var(--ink-900);font-size:18px}
-    .ib-links{display:flex;gap:16px}
-    .ib-link{color:var(--ink-900);text-decoration:none;padding:8px 10px;border-radius:8px}
-    .ib-link:hover,.ib-link.active{background:#ecf9f9}
-    .ib-toggle{display:none;flex-direction:column;gap:4px;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer}
-    .ib-toggle span{width:24px;height:2px;background:var(--ink-900);display:block}
-    @media (max-width:768px){
-      .ib-toggle{display:flex}
-      .ib-links{
-        position:absolute;left:0;right:0;top:56px;display:none;flex-direction:column;
-        background:#fff;border-bottom:1px solid var(--line);padding:10px 14px;gap:8px
-      }
-      .ib-links.show{display:flex}
-    }
-
-    /* Page container */
-    .container{max-width:980px;margin:24px auto;padding:0 12px}
-
-    /* Calculator shell */
-    #calculator.form-container{
-      background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;
-    }
-    #calc-title{margin:6px 0 8px;color:var(--teal-900);text-align:center}
-
-    /* Two-column layout: inputs (left) + results (right) */
-    .calc-wrap{
-      display:flex;align-items:flex-start;gap:24px;max-width:980px;margin:0 auto;
-      background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;box-shadow:0 8px 18px rgba(0,0,0,0.06);
-    }
-    .calc-grid{flex:1 1 0;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .full{grid-column:1 / -1}
-    .muted{color:var(--ink-500);font-size:14px}
-
-    /* Segmented toggle (syringe size) */
-    .seg-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border-radius:12px;padding:6px;max-width:420px}
-    .seg-btn{
-      appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;min-height:44px;
-      padding:10px 12px;font-weight:700;color:#0b1220;cursor:pointer;transition:background .2s ease,border-color .2s ease
-    }
-    .seg-btn[aria-checked="true"]{border-color:transparent;background:var(--teal-600);color:#fff}
-
-    /* Inputs */
-    input[type="number"], input[type="range"]{
-      width:100%;max-width:420px;display:block;border:1px solid var(--line);border-radius:10px;
-      padding:10px 12px;background:#fff;color:#0b1220;
-    }
-    input[type="range"]{padding:0;height:auto;border:none}
-
-    /* Live chips (per slider) */
-    .live-reads{
-      display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;justify-content:flex-start;
-    }
-    .live-chip{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:700;
-      color:#0b3b3b;
-      box-shadow:0 1px 0 rgba(0,0,0,.03);
-    }
-
-    /* Results panel */
-    .out{flex:0 0 360px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;position:sticky;top:calc(var(--header-h) + 12px)}
-    .out h3{margin:0 0 10px;color:var(--teal-700)}
-
-    /* KPIs + syringe side-by-side (even on mobile) */
-    .out-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end}
-    .kpi{display:grid;grid-template-columns:1fr;gap:10px;flex:1 1 200px;min-width:200px}
-    .kpi .card{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fafcfc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-    .kpi .card b{font-weight:800;color:#103132}
-
-    /* Syringe visual */
-    .syringe{display:flex;align-items:flex-end}
-    .barrel-wrap{
-      display:flex;align-items:flex-end;justify-content:center;
-      height:200px;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;
-      transition:filter .2s,opacity .2s; min-width:128px;
-    }
-    .barrel-wrap.inactive{filter:grayscale(.9);opacity:.6}
-    .barrel{
-      position:relative;width:64px;height:100%;
-      border:2px solid #cdeeee;border-radius:8px;background:linear-gradient(#fff,#f7ffff);
-      overflow:hidden; padding-bottom:8px; /* keep bottom labels visible */
-    }
-    .fill{position:absolute;left:0;right:0;bottom:0;height:0;background:#00939522;border-top:1px solid #00939566;transition:height .25s ease}
-
-    /* Ticks INSIDE the barrel */
-    .ticks{position:absolute;left:0;right:0;bottom:0;top:0;padding:0 6px}
-    .tick-row{
-      position:absolute;left:6px;right:6px;
-      border-top:1px dashed var(--line);font-size:11px;line-height:1;transform:translateY(50%);
-    }
-    .tick-row span{position:absolute;right:2px;top:-8px;background:transparent;color:#345;padding:0 2px}
-
-    /* Warning */
-    .warn{margin-top:10px;padding:8px 10px;border-radius:8px;background:#fff6f6;border:1px solid #f2c4c4;color:#7a1c1c}
-
-    /* Footer */
-    .footer-meta{color:#556;font-size:14px}
-    .footer-meta a{color:var(--teal-700)}
-
-    /* Responsive */
-    @media (max-width:780px){
-      .calc-grid{grid-template-columns:1fr}
-      /* center inputs on mobile */
-      .calc-grid > *{max-width:520px;margin-inline:auto}
-      .seg-toggle{margin-inline:auto}
-      .out{position:static;flex:1 1 auto}
-      .out-row{grid-template-columns:1fr 140px} /* keep side-by-side */
-      .barrel-wrap{min-width:140px}
-    }
-    @media (max-width:560px){
-      .out-row{grid-template-columns:1fr 120px}
-      .barrel-wrap{min-width:120px}
-    }
-  </style>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "tlo6h3wt7s");
+  </script>
 </head>
 <body>
 <header class="ib-header" id="siteHeader">
@@ -196,21 +65,27 @@
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
           <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" style="width:100%;margin-top:6px" />
-          <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-conc">200 mg/mL</div>
+          </div>
         </div>
 
-        <!-- Weekly dose slider (50–500, step 10) -->
+        <!-- Weekly dose slider -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" style="width:100%;margin-top:6px" />
-          <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-weekly">140 mg/week</div>
+          </div>
         </div>
 
-        <!-- Injections per week (slider only) -->
+        <!-- Injections per week slider -->
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
           <input id="count-slider" type="range" min="1" max="7" step="1" value="2" style="width:100%;margin-top:6px" />
-          <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-count">2 / week</div>
+          </div>
         </div>
       </div>
 
@@ -266,15 +141,15 @@
 </footer>
 
 <script>
-  // ---------- Utilities ----------
+  // ---------- Helpers ----------
   const $ = id => document.getElementById(id);
 
-  // Header toggle + CSS var for sticky offset
+  // Header toggle + sticky offset var
   (function(){
     const header = document.getElementById('siteHeader');
     const btn = document.querySelector('.ib-toggle');
     const nav = document.getElementById('ib-navlinks');
-    const setHeaderH = () => document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    const setHeaderH = () => document.documentElement.style.setProperty('--header-h', (header?.offsetHeight || 56) + 'px');
     setHeaderH(); window.addEventListener('resize', setHeaderH);
 
     if (!btn || !nav) return;
@@ -292,13 +167,21 @@
     });
   })();
 
+  // Paint filled portion of range track (WebKit/Chromium)
+  function paintRange(el){
+    if(!el) return;
+    const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
+    const pct = ((val - min) * 100) / (max - min);
+    el.style.setProperty('--val', pct + '%'); // consumed in CSS as var(--val)
+  }
+
   // ---------- State ----------
   let currentSyringeMl = 1; // 1 | 3
 
   // Barrel refs
   let barrelWrap=null, fillEl=null;
 
-  // ---------- UI helpers ----------
+  // ---------- Syringe UI ----------
   function setInactive(){
     if(!barrelWrap) return;
     barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive');
@@ -314,7 +197,7 @@
     const ticks=$('ticks'); if(!ticks) return;
     ticks.innerHTML='';
     const step=(maxMl<=1)?0.1:0.5; 
-    const barrelPx=200; // barrel height in px
+    const barrelPx=200; // must match CSS barrel height
     for(let v=0; v<=maxMl+1e-9; v+=step){
       const row=document.createElement('div');
       row.className='tick-row';
@@ -334,15 +217,15 @@
 
   // ---------- Debounce ----------
   let __computeTimer = null;
-  function debounce(fn, delay=120){
+  function debounce(fn, delay=100){
     return (...args)=>{
       clearTimeout(__computeTimer);
       __computeTimer = setTimeout(()=>fn(...args), delay);
     };
   }
-  const computeDebounced = debounce(compute, 120);
+  const computeDebounced = debounce(compute, 80);
 
-  // ---------- Segmented controls ----------
+  // ---------- Segmented control (syringe size) ----------
   function setSyringe(ml){
     currentSyringeMl = ml;
     const group = $('syringeToggle');
@@ -352,6 +235,7 @@
     computeDebounced();
     try{ localStorage.setItem('hb_syr_ml', String(ml)); }catch(e){}
   }
+
   function initSyringeToggle(){
     const group = $('syringeToggle');
     const btns = group.querySelectorAll('.seg-btn');
@@ -362,9 +246,11 @@
     group.addEventListener('keydown', (e)=>{
       if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
       e.preventDefault();
-      const current = [...btns].find(b=>b.getAttribute('aria-checked')==='true');
-      const next = current === btns[0] ? btns[1] : btns[0];
-      setSyringe(Number(next.dataset.ml)); next.focus();
+      const arr=[...btns];
+      const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
+      const next = current===0 ? 1 : 0;
+      setSyringe(Number(arr[next].dataset.ml));
+      arr[next].focus();
     });
     const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
     setSyringe(saved===3 ? 3 : 1);
@@ -372,49 +258,49 @@
 
   // ---------- Live sliders + chips ----------
   function initLiveSliders(){
-    // Concentration (mg/mL)
-    const concSlider = $('conc-slider');
-    const lrConc     = $('lr-conc');
+    const concSlider   = $('conc-slider');
+    const weeklySlider = $('weekly-slider');
+    const countSlider  = $('count-slider');
+
+    const lrConc   = $('lr-conc');
+    const lrWeekly = $('lr-weekly');
+    const lrCount  = $('lr-count');
+
     if(concSlider && lrConc){
       const setConc = (v)=>{
         let n = parseFloat(v);
         if(!isFinite(n)) n = 200;
-        n = Math.min(500, Math.max(50, n));
-        n = Math.round(n / 10) * 10; // snap to 10 mg/mL
+        n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 10) * 10));
         concSlider.value = n;
         lrConc.textContent = n.toFixed(0) + ' mg/mL';
+        paintRange(concSlider);
         computeDebounced();
       };
       concSlider.addEventListener('input', ()=> setConc(concSlider.value));
       setConc(concSlider.value || 200);
     }
 
-    // Weekly dose (50–500, step 10)
-    const weeklySlider = $('weekly-slider');
-    const lrWeekly     = $('lr-weekly');
     if(weeklySlider && lrWeekly){
       const setWeekly = (v)=>{
         let n = parseFloat(v);
         if (!isFinite(n)) n = 140;
-        n = Math.min(500, Math.max(50, n));
-        n = Math.round(n / 10) * 10;
+        n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 10) * 10));
         weeklySlider.value = n;
         lrWeekly.textContent = n.toFixed(0) + ' mg/week';
+        paintRange(weeklySlider);
         computeDebounced();
       };
       weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
       setWeekly(weeklySlider.value || 140);
     }
 
-    // Injections per week
-    const countSlider = $('count-slider');
-    const lrCount     = $('lr-count');
     if(countSlider && lrCount){
       const setCount = (v)=>{
         let n = Math.round(parseFloat(v)||2);
-        n = Math.min(7, Math.max(1, n));
+        n = Math.min(+countSlider.max, Math.max(+countSlider.min, n));
         countSlider.value = n;
         lrCount.textContent = n + ' / week';
+        paintRange(countSlider);
         computeDebounced();
       };
       countSlider.addEventListener('input', ()=> setCount(countSlider.value));
@@ -422,16 +308,7 @@
     }
   }
 
-  // ---------- Auto-calc wiring ----------
-  function wireAutoCalc(){
-    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
-      const el=$(id); if(!el) return;
-      el.addEventListener('input', computeDebounced);
-      el.addEventListener('change', computeDebounced);
-    });
-  }
-
-  // ---------- Compute (silent; runs on every change) ----------
+  // ---------- Compute ----------
   function compute(){
     const conc       = parseFloat(($('conc-slider')||{}).value);
     const weekly     = parseFloat(($('weekly-slider')||{}).value);
@@ -487,11 +364,19 @@
     // toggles, sliders, auto-calc
     initSyringeToggle();
     initLiveSliders();
-    wireAutoCalc();
 
     // initial render
     buildTicks(currentSyringeMl);
     compute(); // first pass
+
+    // ensure track fill paints on load & subsequent changes
+    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      paintRange(el);
+      el.addEventListener('input', ()=>paintRange(el));
+      el.addEventListener('change', ()=>paintRange(el));
+    });
   });
 </script>
 </body>
