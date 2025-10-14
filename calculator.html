@@ -527,6 +527,64 @@
     <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   </div>
 </footer>
+  <script>
+(function(){
+  const header = document.getElementById('siteHeader');
+  const btn = document.querySelector('.ib-toggle');
+  const nav = document.getElementById('ib-navlinks');
+  if (!header || !btn || !nav) return;
+
+  const closeNav = () => {
+    nav.classList.remove('show');
+    document.body.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded', 'false');
+  };
+  const openNav = () => {
+    nav.classList.add('show');
+    document.body.classList.add('nav-open');
+    btn.setAttribute('aria-expanded', 'true');
+  };
+
+  // Toggle on button
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('show');
+    document.body.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Close when any nav link is clicked
+  nav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', closeNav);
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e)=>{
+    if (!nav.classList.contains('show')) return;
+    const withinHeader = header.contains(e.target);
+    if (!withinHeader) closeNav();
+  });
+
+  // Close on Esc
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') closeNav();
+  });
+
+  // Close if viewport grows beyond mobile breakpoint
+  const mq = window.matchMedia('(min-width: 901px)');
+  mq.addEventListener?.('change', e => { if (e.matches) closeNav(); });
+
+  // Handle bfcache/back-forward: ensure menu starts closed
+  window.addEventListener('pageshow', () => closeNav());
+
+  // Optional: close on scroll (mobile UX nicety)
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', ()=>{
+    if (Math.abs(window.scrollY - lastY) > 10 && nav.classList.contains('show')) closeNav();
+    lastY = window.scrollY;
+  });
+})();
+</script>
+
 </body>
 </html>
 
