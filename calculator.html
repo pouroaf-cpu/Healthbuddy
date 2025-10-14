@@ -387,6 +387,146 @@
     });
   });
 </script>
+  <!-- ===== FAQ (Collapsible) ===== -->
+<section id="faq" class="faq container" aria-labelledby="faq-title">
+  <h2 id="faq-title">Calculator FAQ</h2>
+
+  <details class="faq-item">
+    <summary>How do I use the calculator?</summary>
+    <div class="faq-body">
+      Set your vial strength (mg/mL), your prescribed total per week (mg/week), and how many injections you do per week. The cards show dose per injection and the mL to draw. The syringe visual updates in real time.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What does “vial strength (mg/mL)” mean?</summary>
+    <div class="faq-body">
+      It’s the concentration printed on your vial label (e.g., 200&nbsp;mg/mL). The calculator uses this to convert mg to mL.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>How do I change syringe size?</summary>
+    <div class="faq-body">
+      Use the “1&nbsp;mL” or “3&nbsp;mL” toggle at the top of the inputs. The visual and tick marks adjust to that capacity.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Why do I see “Volume exceeds syringe capacity”?</summary>
+    <div class="faq-body">
+      Your per-injection volume is larger than the selected syringe can hold. Choose a larger syringe or increase injections per week so each shot is smaller.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What’s the difference between mL and insulin “units”?</summary>
+    <div class="faq-body">
+      Insulin syringes often mark “units” where 100&nbsp;units = 1&nbsp;mL. This tool displays volume in mL; if your syringe is U-100, multiply mL × 100 to get units (e.g., 0.25&nbsp;mL = 25&nbsp;units).
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Can I split my weekly dose differently?</summary>
+    <div class="faq-body">
+      Yes. Change “Injections per week” to your schedule (e.g., 2×/week, 3×/week). The tool recalculates the per-injection mL automatically.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this tell me what dose I should take?</summary>
+    <div class="faq-body">
+      No. It converts a prescribed weekly dose into per-injection volume. Always follow your clinician’s instructions.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does the calculator save my settings?</summary>
+    <div class="faq-body">
+      The syringe size and last inputs may be stored locally in your browser so you don’t have to re-enter them. Clearing site data resets this.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this send any data to a server?</summary>
+    <div class="faq-body">
+      The calculation runs in your browser. If you’ve enabled analytics (e.g., Microsoft Clarity), page usage may be tracked, but the calculator inputs aren’t sent by this tool.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Which browsers and devices are supported?</summary>
+    <div class="faq-body">
+      Modern Chromium, Firefox, and Safari on mobile and desktop. If the sliders look odd, update your browser or try another device.
+    </div>
+  </details>
+</section>
+
+<!-- Minimal FAQ styles -->
+<style>
+  .faq { margin-top: 32px; }
+  .faq h2 { margin-bottom: 12px; }
+  .faq-item {
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 12px;
+    background: #fff;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .faq-item > summary {
+    cursor: pointer;
+    padding: 14px 16px;
+    list-style: none;
+    font-weight: 600;
+    position: relative;
+  }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary:after {
+    content: "▸";
+    position: absolute;
+    right: 16px; top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform .2s ease;
+  }
+  .faq-item[open] > summary:after { transform: translateY(-50%) rotate(90deg); }
+  .faq-body {
+    padding: 0 16px 16px 16px;
+    color: var(--ink-700, #444);
+    line-height: 1.5;
+  }
+</style>
+
+<!-- Optional: only one open at a time -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = Array.from(document.querySelectorAll('#faq .faq-item'));
+    items.forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) items.forEach(other => { if (other !== d) other.removeAttribute('open'); });
+    }));
+  });
+</script>
+
+<!-- SEO: FAQ structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How do I use the calculator?","acceptedAnswer":{"@type":"Answer","text":"Set vial strength (mg/mL), weekly dose (mg/week), and injections per week. The tool outputs dose per injection and mL to draw, with a live syringe visual."}},
+    {"@type":"Question","name":"What does vial strength mean?","acceptedAnswer":{"@type":"Answer","text":"Vial strength is the concentration on your vial label (e.g., 200 mg/mL). The calculator uses it to convert mg to mL."}},
+    {"@type":"Question","name":"How do I change syringe size?","acceptedAnswer":{"@type":"Answer","text":"Use the 1 mL or 3 mL toggle above the inputs. The syringe visual and tick marks adjust to that capacity."}},
+    {"@type":"Question","name":"Why do I see a capacity warning?","acceptedAnswer":{"@type":"Answer","text":"Your per-injection volume exceeds the selected syringe size. Choose a larger syringe or increase the number of injections per week to reduce volume per shot."}},
+    {"@type":"Question","name":"mL vs insulin units","acceptedAnswer":{"@type":"Answer","text":"On U-100 syringes, 100 units = 1 mL. Multiply mL by 100 to get units (e.g., 0.25 mL = 25 units)."}},
+    {"@type":"Question","name":"Can I split my weekly dose differently?","acceptedAnswer":{"@type":"Answer","text":"Yes. Adjust injections per week; the calculator recomputes per-injection mL automatically."}},
+    {"@type":"Question","name":"Does this set my medical dose?","acceptedAnswer":{"@type":"Answer","text":"No. It converts a prescribed weekly dose into per-injection volume. Follow your clinician’s instructions."}},
+    {"@type":"Question","name":"Are my settings saved?","acceptedAnswer":{"@type":"Answer","text":"Some preferences may be saved locally in your browser for convenience. Clearing site data resets them."}},
+    {"@type":"Question","name":"Is any data sent to a server?","acceptedAnswer":{"@type":"Answer","text":"The calculation runs in your browser. If analytics are enabled, page usage may be tracked, but calculator inputs are not transmitted by this tool."}},
+    {"@type":"Question","name":"What browsers are supported?","acceptedAnswer":{"@type":"Answer","text":"Current versions of Chromium, Firefox, and Safari on mobile and desktop. Update your browser if UI elements don’t render correctly."}}
+  ]
+}
+</script>
+<!-- ===== /FAQ ===== -->
+
 </body>
 </html>
 
