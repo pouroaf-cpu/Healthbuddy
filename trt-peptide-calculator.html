@@ -3,70 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Testosterone & TRT Dose Calculator — Free Online Tool</title>
-<meta name="description" content="Calculate your testosterone or TRT dosage based on vial concentration, weekly dose, and injection schedule. Instant results with clear syringe visuals.">
-  <link rel="canonical" href="https://www.injectbuddy.com/trt-peptide-calculator" />
-  <meta property="og:title" content="TRT/Peptide Dosage Calculator — Inject Buddy" />
-  <meta property="og:description" content="Compute exact mL per injection from vial concentration and weekly dose. Visual insulin-style syringe fills in real-time." />
+  <title>Dosage Calculator — InjectBuddy</title>
+  <meta name="description" content="Instantly calculate your TRT or testosterone injection dose. Choose vial strength, injection frequency, and see visual syringe fills — free and simple.">
+  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:title" content="Dosage Calculator — InjectBuddy" />
+  <meta property="og:description" content="Fast, no-nonsense tools to plan testosterone and peptide injection volumes." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/trt-peptide-calculator.html" />
-  <meta property="og:site_name" content="Inject Buddy" />
+  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/style.css" />
-  <style>.form-container{max-width:980px;margin:24px auto;padding:0 12px}</style>
+  <!-- If you split calculator-only CSS into its own file, include it here -->
+  <!-- <link rel="stylesheet" href="/assets/css/calculator.css" /> -->
 </head>
 <body>
-<!-- InjectBuddy Header (mobile + desktop) -->
-<header class="ib-header">
+<header class="ib-header" id="siteHeader">
   <div class="ib-nav">
     <a class="ib-brand" href="/">InjectBuddy</a>
-
     <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-
     <nav id="ib-navlinks" class="ib-links" role="navigation">
-<a href="/" class="ib-link">Home</a>
-<a href="/about.html" class="ib-link">About</a>
-<a href="/trt-peptide-calculator.html" class="ib-link active">Calculator</a>
-<a href="/questionnaire.html" class="ib-link">Questionnaire</a>
-<a href="/faq.html" class="ib-link">FAQ</a>
-<a href="/contact.html" class="ib-link">Contact</a>
-<a href="/privacy.html" class="ib-link">Privacy</a>
+      <a href="/" class="ib-link">Home</a>
+      <a href="/about.html" class="ib-link">About</a>
+      <a href="/calculator.html" class="ib-link active" aria-current="page">Calculator</a>
+      <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
+      <a href="/faq.html" class="ib-link">FAQ</a>
+      <a href="/contact.html" class="ib-link">Contact</a>
+      <a href="/privacy.html" class="ib-link">Privacy</a>
     </nav>
   </div>
 </header>
 
-<style>
-/* ===== InjectBuddy Header Styles ===== */
-.ib-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6eef0}
-.ib-nav{max-width:1080px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.ib-brand{font-weight:800;text-decoration:none;color:#0b1220;font-size:18px}
-.ib-brand:hover{opacity:.9}
+<main class="container">
+  <!-- ===== CALCULATOR (moved from index) ===== -->
+  <!-- PASTE YOUR WHOLE CALCULATOR SECTION HERE, UNCHANGED -->
+  <!-- <section id="calculator">…</section> -->
+</main>
 
-.ib-links{display:flex;gap:16px}
-.ib-link{color:#0b1220;text-decoration:none;padding:8px 10px;border-radius:8px}
-.ib-link:hover{background:#f2fbfb}
+<footer>
+  <div class="container footer-meta">
+    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
+    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  </div>
+</footer>
 
-.ib-toggle{display:none;flex-direction:column;gap:4px;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer}
-.ib-toggle span{width:24px;height:2px;background:#0b1220;display:block}
-
-/* Mobile */
-@media (max-width:768px){
-  .ib-toggle{display:flex}
-  .ib-links{
-    position:absolute;left:0;right:0;top:56px;display:none;flex-direction:column;
-    background:#fff;border-bottom:1px solid #e6eef0;padding:10px 14px;gap:8px
-  }
-  .ib-links.show{display:flex}
-  .ib-link{padding:12px;border-radius:10px}
-  .ib-nav{padding:10px 12px}
-}
-
-/* Optional: highlight the current page by adding "active" to that link */
-.ib-link.active{background:#e6f7f7;border:1px solid #cdeeee}
-</style>
-
+<!-- If you had calculator-specific JS, load it here (deferred) -->
 <script>
   // ---------- Helpers ----------
   const $ = id => document.getElementById(id);
