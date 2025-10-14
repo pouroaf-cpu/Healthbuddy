@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Peptide Reconstitution Calculator — InjectBuddy</title>
-  <meta name="description" content="Reconstitute peptides fast. Enter vial mg and diluent mL to get mg/mL, µg/mL, dose volume in mL and U-100 units, doses per vial, and syringe capacity warnings." />
+  <meta name="description" content="Reconstitute peptides fast. Enter vial mg and diluent mL to get mg/mL, µg/mL, dose volume in mL and U-100 units, doses per vial, and syringe capacity checks." />
   <link rel="canonical" href="https://www.injectbuddy.com/peptides.html" />
   <meta property="og:title" content="Peptide Reconstitution Calculator — InjectBuddy" />
   <meta property="og:description" content="Compute concentration and per-dose volume instantly. Clean, mobile-first UI with syringe size checks." />
@@ -16,8 +16,8 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/style.css" />
 
+  <!-- Page-local polish (uses your tokens) -->
   <style>
-    /* Page-local polish */
     :root{
       --brand: var(--teal-600, #009395);
       --brand-700: var(--teal-700, #006d6f);
@@ -170,7 +170,7 @@
   </div>
 </footer>
 
-<!-- Mobile nav behavior (same fix you added site-wide) -->
+<!-- Mobile nav behavior (same pattern as other pages) -->
 <script>
 (function(){
   const header = document.getElementById('siteHeader');
@@ -220,7 +220,7 @@
 
   function format(n, d=3){
     if (!isFinite(n)) return '—';
-    return (+n).toFixed(d).replace(/\.?0+$/,''); // trim trailing zeros
+    return (+n).toFixed(d).replace(/\.?0+$/,'');
   }
 
   function compute(){
