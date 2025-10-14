@@ -41,7 +41,6 @@
     .btn-ghost{ background:#fff; border:1px solid var(--muted); color:#111; }
     .muted{ color:#6b6b6b; }
 
-    /* Vial layout */
     .vial-wrap{
       display:grid; gap:18px; grid-template-columns: 1.1fr .9fr;
       align-items:center; margin-top:12px;
@@ -51,10 +50,8 @@
     .vial-card{ display:flex; align-items:center; justify-content:center; }
     .vial{ width: 220px; max-width: 60vw; filter: drop-shadow(0 10px 24px rgba(0,0,0,.10)); }
 
-    /* Liquid anim (kept for smoothness even though it's always full) */
     .vial [data-liquid]{ transition: y .35s ease, height .35s ease; }
 
-    /* Label text */
     .label-line{ font-weight:700; fill:#0f172a; }
     .label-sub { fill:#334155; }
   </style>
@@ -98,13 +95,11 @@
     </div>
 
     <div class="vial-wrap">
-      <!-- SVG Vial -->
       <div class="vial-card">
         <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
           <title id="vialTitle">Vial visualization with live label</title>
           <desc id="vialDesc">Shows a vial with cap, glass, and a label that updates to reflect mg, mL, and mg per mL.</desc>
 
-          <!-- Gradients + filters -->
           <defs>
             <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#3b3b3b"/><stop offset="100%" stop-color="#1f2937"/>
@@ -116,11 +111,11 @@
               <stop offset="0%" stop-color="#8fe5e8"/><stop offset="100%" stop-color="#42b7ba"/>
             </linearGradient>
 
-            <!-- White / light-silver label gradient (lighter) -->
+            <!-- FLAT WHITE label gradient (all white) -->
             <linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%"   stop-color="#ffffff"/>
-              <stop offset="50%"  stop-color="#f6fafb"/>
-              <stop offset="100%" stop-color="#edf3f4"/>
+              <stop offset="50%"  stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#ffffff"/>
             </linearGradient>
 
             <!-- Inner shadow for paper glow -->
@@ -150,23 +145,27 @@
           <!-- Liquid (FULL) -->
           <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="url(#liquidGrad)" opacity="0.9"/>
 
-          <!-- Label (silver-white gradient + inner glow) -->
+          <!-- Label (pure white + inner glow) -->
           <g>
             <rect x="34" y="160" width="132" height="92" rx="10"
                   fill="url(#labelGrad)" stroke="#d5dee5" filter="url(#innerShadow)"/>
-            <!-- Subtle edge shade for realism -->
+            <!-- Very light edges for realism -->
             <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000" opacity=".02"/>
             <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000" opacity=".018"/>
 
             <!-- Text clipped to label -->
             <g clip-path="url(#labelClip)">
-              <text id="lblTop" x="100" y="192" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
-              <!-- Disclaimer ABOVE mg/mL -->
-              <text x="100" y="214" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
-                For planning only — not medical advice
+              <!-- Top line: totals -->
+              <text id="lblTop" x="100" y="190" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
+
+              <!-- TWO-LINE disclaimer -->
+              <text x="100" y="210" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
+                <tspan x="100" dy="0">For planning only —</tspan>
+                <tspan x="100" dy="14">not medical advice</tspan>
               </text>
-              <!-- mg/mL on lower line -->
-              <text id="lblSub" x="100" y="236" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
+
+              <!-- Lower line: mg/mL -->
+              <text id="lblSub" x="100" y="244" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
             </g>
           </g>
 
@@ -236,11 +235,10 @@
 
   const lblTop = document.getElementById('lblTop');
   const lblSub = document.getElementById('lblSub');
-  const liquid = document.querySelector('[data-liquid]');
 
-  // Label sizing params (must match rect x/width)
+  // Label sizing params (must match rect width)
   const LABEL_W = 132, PADDING = 12;
-  const MAX_W = LABEL_W - PADDING*2; // usable width
+  const MAX_W = LABEL_W - PADDING*2;
   const TOP_MAX = 16, TOP_MIN = 11;
   const SUB_MAX = 13, SUB_MIN = 10;
 
@@ -266,7 +264,6 @@
       kUgMl.textContent = '—';
       lblTop.textContent = '— mg / — mL';
       lblSub.textContent = '— mg/mL';
-      setLiquid(1); // keep full even when empty/invalid
       return;
     }
 
@@ -276,29 +273,15 @@
     kMgMl.textContent = `${fmt(mgPerMl,3)} mg/mL`;
     kUgMl.textContent = `${fmt(ugPerMl,0)} µg/mL`;
 
-    // Label content
     lblTop.textContent = `${fmt(mgVal,3)} mg / ${fmt(mlVal,3)} mL`;
     lblSub.textContent = `${fmt(mgPerMl,3)} mg/mL`;
 
-    // Fit text to label rect (prevents spill)
     fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
     fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
 
-    // Save
     try{ localStorage.setItem('ib_pep_vial_v3', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
-
-    // Liquid stays full (fixed by request)
-    setLiquid(1);
   }
 
-  function setLiquid(pct){
-    // Full height is y=96, h=204 (matches the rect in SVG)
-    const y = 96, h = 204;
-    liquid.setAttribute('y', String(y));
-    liquid.setAttribute('height', String(h));
-  }
-
-  // events
   ['input','change'].forEach(ev => { mg.addEventListener(ev, compute); ml.addEventListener(ev, compute); });
 
   copyBtn.addEventListener('click', ()=>{
@@ -312,7 +295,6 @@
 
   resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
 
-  // init
   try{
     const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v3')||'{}');
     if (saved.mg) mg.value = saved.mg;
@@ -320,7 +302,7 @@
   }catch(e){}
   compute();
 
-  // Refit on resize (fonts can reflow slightly)
+  // Refit on resize
   window.addEventListener('resize', () => {
     fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
     fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
