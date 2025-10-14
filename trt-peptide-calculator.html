@@ -34,11 +34,92 @@
     </nav>
   </div>
 </header>
-
 <main class="container">
-  <!-- ===== CALCULATOR (moved from index) ===== -->
-  <!-- PASTE YOUR WHOLE CALCULATOR SECTION HERE, UNCHANGED -->
-  <!-- <section id="calculator">…</section> -->
+  <!-- ===== CALCULATOR ===== -->
+  <section id="calculator" class="form-container" aria-labelledby="calc-title">
+    <h1 id="calc-title">Testosterone/Peptide Dosage Calculator</h1>
+
+    <div class="calc-wrap">
+      <!-- Left column: inputs -->
+      <div class="calc-grid">
+        <!-- Syringe size toggle -->
+        <div class="full">
+          <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
+            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
+          </div>
+        </div>
+
+        <!-- Vial strength slider -->
+        <div class="full">
+          <label for="conc-slider">Vial strength (mg per mL)</label>
+          <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" />
+          <div class="live-reads">
+            <div class="live-chip" id="lr-conc">200 mg/mL</div>
+          </div>
+        </div>
+
+        <!-- Weekly dose slider -->
+        <div class="full">
+          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
+          <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" />
+          <div class="live-reads">
+            <div class="live-chip" id="lr-weekly">140 mg/week</div>
+          </div>
+        </div>
+
+        <!-- Injections per week slider -->
+        <div id="count-wrap" class="full">
+          <label for="count-slider">Injections per week</label>
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
+          <div class="live-reads">
+            <div class="live-chip" id="lr-count">2 / week</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: results (always visible) -->
+      <aside id="out" class="out">
+        <h3>Dose & Volume per Injection</h3>
+
+        <div class="out-row">
+          <!-- KPI cards -->
+          <div class="kpi">
+            <div class="card">
+              <span class="muted">Injections / week</span>
+              <b id="kpi_inj">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Dose per injection</span>
+              <b id="kpi_dose">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Volume per injection (mL)</span>
+              <b id="kpi_ml">—</b>
+            </div>
+          </div>
+
+          <!-- Visual syringe -->
+          <div class="syringe" aria-label="Syringe visual">
+            <div class="barrel-wrap inactive">
+              <div class="barrel">
+                <div class="fill" id="fill"></div>
+                <div class="ticks" id="ticks"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warnings -->
+        <div id="warn" class="warn" hidden></div>
+      </aside>
+    </div>
+
+    <div class="notice">
+      This tool is provided for informational purposes only. Always follow your clinician’s instructions.
+    </div>
+  </section>
+  <!-- ===== /CALCULATOR ===== -->
 </main>
 
 <footer>
