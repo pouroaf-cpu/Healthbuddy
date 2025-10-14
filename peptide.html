@@ -1,1 +1,43 @@
+<section class="card" id="reconst" aria-labelledby="reconst-title">
+  <h2 id="reconst-title">Peptide Reconstitution Calculator</h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+    <label>Peptide vial content (mg)
+      <input id="pepMg" type="number" min="0" step="0.1" value="5">
+    </label>
+    <label>Diluent volume (mL)
+      <input id="dilMl" type="number" min="0" step="0.1" value="2">
+    </label>
+    <label>Desired dose (µg)
+      <input id="doseUg" type="number" min="0" step="10" value="250">
+    </label>
+  </div>
+
+  <div class="kpi" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;">
+    <div class="card"><span class="muted">Concentration</span><b id="conc">—</b></div>
+    <div class="card"><span class="muted">Dose volume</span><b id="doseVol">—</b></div>
+    <div class="card"><span class="muted">Doses per vial</span><b id="doses">—</b></div>
+  </div>
+</section>
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  function calc(){
+    const mg = +$('pepMg').value||0;
+    const ml = +$('dilMl').value||0;
+    const ugDose = +$('doseUg').value||0;
+    if(mg<=0||ml<=0){ $('conc').textContent='—'; $('doseVol').textContent='—'; $('doses').textContent='—'; return; }
+
+    const mgPerMl = mg/ml;
+    const ugPerMl = mgPerMl*1000;
+    const mlPerDose = ugDose/ugPerMl;
+    const totalDoses = (mg*1000)/(ugDose||Infinity);
+
+    $('conc').textContent = mgPerMl.toFixed(3)+' mg/mL ('+Math.round(ugPerMl)+' µg/mL)';
+    $('doseVol').textContent = isFinite(mlPerDose) ? mlPerDose.toFixed(3)+' mL' : '—';
+    $('doses').textContent = isFinite(totalDoses) ? Math.floor(totalDoses) : '—';
+  }
+  ['pepMg','dilMl','doseUg'].forEach(id=>$(id).addEventListener('input', calc));
+  calc();
+})();
+</script>
 
