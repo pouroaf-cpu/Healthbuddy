@@ -4,20 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Free TRT & Testosterone Dose Calculator | InjectBuddy</title>
-  <meta name="description" content="InjectBuddy makes testosterone and peptide planning simple. Explore tools, then use the free dosage calculator to plan syringe fills and schedules.">
-  <link rel="canonical" href="https://www.injectbuddy.com/" />
+  <title>InjectBuddy — Free TRT & Testosterone Dose Calculator, Testosterone Cypionate Dosage & Peptide Dosing Tools</title>
+  <meta name="description" content="Free TRT & testosterone dose calculator, testosterone cypionate dosage calculator, and peptide dosing tools. Plan exact mL per injection, schedules, and reconstitution in seconds." />
 
-  <meta property="og:title" content="InjectBuddy — Simple Testosterone & Peptide Tools" />
-  <meta property="og:description" content="Fast, no-nonsense tools to plan testosterone and peptide injections. Visual syringe guide, unit toggles, and clear steps." />
+  <!-- Canonical + Social -->
+  <link rel="canonical" href="https://www.injectbuddy.com/" />
+  <meta property="og:title" content="InjectBuddy — Free TRT & Testosterone Dose Calculator" />
+  <meta property="og:description" content="Fast, no-nonsense tools for testosterone and peptide dosing. Visual syringe guidance, clear steps, and mobile-first UI." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
-
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- (Optional) Microsoft Clarity -->
+  <!-- Optional analytics you already use -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -25,6 +27,50 @@
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
   <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
+
+  <!-- Site-wide structured data (Organization + WebSite + SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"InjectBuddy",
+    "url":"https://www.injectbuddy.com/",
+    "logo":"https://www.injectbuddy.com/assets/favicon.svg",
+    "sameAs":[]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "url":"https://www.injectbuddy.com/",
+    "name":"InjectBuddy",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://www.injectbuddy.com/faq.html?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+
+  <style>
+    /* Lightweight page-local helpers (rest in /style.css) */
+    .hero-cta { padding: 56px 0 28px; text-align: left; }
+    .hero-cta h1 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 40px); }
+    .hero-sub { color: var(--ink-700, #444); max-width: 720px; }
+    .cta-row { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display:inline-block; padding:12px 16px; border-radius:12px; text-decoration:none; font-weight:600; }
+    .btn-primary { background: var(--teal-600, #009395); color:#fff; }
+    .btn-ghost { border:1px solid #ddd; color:#222; background:#fff; }
+    .pill { display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; background:#eef7f7; color:#046; margin-right:6px; }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    .card { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:16px; }
+    .klist { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+    .klist li::marker{ display:none; }
+    .muted { color: var(--ink-500, #555); }
+    .section { padding: 28px 0; }
+    .footlinks a { color: inherit; }
+  </style>
 </head>
 <body>
 <header class="ib-header" id="siteHeader">
@@ -34,11 +80,11 @@
       <span></span><span></span><span></span>
     </button>
     <nav id="ib-navlinks" class="ib-links" role="navigation">
-      <a href="/" class="ib-link active">Home</a>
-      <a href="/about.html" class="ib-link">About</a>
+      <a href="/" class="ib-link active" aria-current="page">Home</a>
       <a href="/calculator.html" class="ib-link">Calculator</a>
       <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
       <a href="/faq.html" class="ib-link">FAQ</a>
+      <a href="/about.html" class="ib-link">About</a>
       <a href="/contact.html" class="ib-link">Contact</a>
       <a href="/privacy.html" class="ib-link">Privacy</a>
     </nav>
@@ -46,15 +92,116 @@
 </header>
 
 <main class="container">
-  <!-- Simple CTA instead of embedded calculator -->
-  <section class="hero-cta" aria-labelledby="calc-cta-title">
-    <h1 id="calc-cta-title">Free TRT & Testosterone Dose Calculator</h1>
-    <p>Plan syringe fills, injection schedules, and reconstitution volumes in seconds.</p>
-    <a class="btn btn-primary" href="/calculator.html" rel="nofollow">Open Calculator</a>
+  <!-- HERO -->
+  <section class="hero-cta" aria-labelledby="home-h1">
+    <span class="pill">Free tools • No sign-up</span>
+    <h1 id="home-h1">TRT & Testosterone Dose Calculator — plus Testosterone Cypionate Dosage and Peptide Dosing Tools</h1>
+    <p class="hero-sub">
+      Plan exact mL per injection with the <strong>TRT calculator</strong>, convert mg to mL for
+      <strong>testosterone cypionate dosage</strong>, and streamline <strong>peptide dosing</strong>.
+      Built for speed, accuracy, and a clean mobile-first workflow.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/calculator.html">Open Dosage Calculator</a>
+      <a class="btn btn-ghost" href="/questionnaire.html">“Is TRT for me?” Questionnaire</a>
+    </div>
+    <p class="muted" style="margin-top:8px;">No medical advice. Always follow your clinician’s instructions.</p>
   </section>
 
+  <!-- QUICK ACCESS TILES -->
+  <section class="section" aria-labelledby="tiles-title">
+    <h2 id="tiles-title">Get to what you need — fast</h2>
+    <div class="grid">
+      <a class="card" href="/calculator.html">
+        <h3>Testosterone Dose Calculator</h3>
+        <p class="muted">Convert prescribed mg/week into exact mL per injection. Visual syringe guide.</p>
+      </a>
+      <a class="card" href="/calculator.html">
+        <h3>Testosterone Cypionate Dosage Calculator</h3>
+        <p class="muted">mg/mL → mL for cypionate (e.g., 200&nbsp;mg/mL). Works for enanthate too.</p>
+      </a>
+      <a class="card" href="/calculator.html">
+        <h3>TRT Injection Calculator</h3>
+        <p class="muted">Choose 1&nbsp;mL or 3&nbsp;mL syringe, set dose splits (2–3×/week), see warnings if over capacity.</p>
+      </a>
+      <a class="card" href="/calculator.html">
+        <h3>Peptide Dosing Calculator</h3>
+        <p class="muted">Dial in reconstitution and per-shot mL for common peptide protocols.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- KEYWORDS + VALUE PROPS -->
+  <section class="section" aria-labelledby="value-title">
+    <h2 id="value-title">Why InjectBuddy</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Accurate mg → mL math</h3>
+        <ul class="klist">
+          <li>Handles <strong>TRT dosage</strong>, <strong>testosterone dose calculator</strong>, and <strong>testosterone cypionate dosage calculator</strong> use-cases.</li>
+          <li>Auto-recalculates for <strong>2–3 injections/week</strong> or custom schedules.</li>
+          <li>Live syringe visual with capacity check.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Fast, mobile-first UI</h3>
+        <ul class="klist">
+          <li>Loads light on Home; heavy logic only on <code>/calculator.html</code>.</li>
+          <li>Clean sliders, segmented controls (1&nbsp;mL / 3&nbsp;mL).</li>
+          <li>Keyboard and screen-reader friendly.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Peptide support</h3>
+        <ul class="klist">
+          <li>Simple <strong>peptide dosing calculator</strong> flow.</li>
+          <li>Clear reconstitution and per-shot volume outputs.</li>
+          <li>Units guidance (mL vs U-100 “units”).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF / TRUST -->
+  <section class="section" aria-labelledby="trust-title">
+    <h2 id="trust-title">Built for clarity</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>No sign-up, no fluff</h3>
+        <p class="muted">Open the calculator and go. Your inputs compute in your browser.</p>
+      </div>
+      <div class="card">
+        <h3>Transparent logic</h3>
+        <p class="muted">Dose per injection = weekly mg ÷ injections/week. Volume (mL) = dose ÷ concentration (mg/mL).</p>
+      </div>
+      <div class="card">
+        <h3>Community-driven roadmap</h3>
+        <p class="muted">Have a tool idea? <a href="/contact.html">Tell us</a>. We iterate fast.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY LINE -->
+  <section class="section" aria-labelledby="safety-title">
+    <h2 id="safety-title">Safety first</h2>
+    <p class="muted">
+      InjectBuddy provides planning tools only. We don’t give medical advice and don’t replace clinical guidance. Always follow your clinician’s instructions.
+    </p>
+  </section>
+
+  <!-- Internal links for crawl depth and keyword reinforcement -->
+  <section class="section footlinks" aria-label="Helpful links">
+    <p class="muted">
+      More: <a href="/calculator.html">TRT calculator</a> ·
+      <a href="/calculator.html">testosterone dose calculator</a> ·
+      <a href="/calculator.html">testosterone cypionate dosage calculator</a> ·
+      <a href="/calculator.html">peptide dosing calculator</a> ·
+      <a href="/faq.html">FAQ</a>
+    </p>
+  </section>
+
+  <!-- Redirect legacy fragment /#calculator to new page -->
   <script>
-    // Redirect old fragment links like /#calculator to the new page
     if (location.hash && location.hash.toLowerCase() === '#calculator') {
       location.replace('/calculator.html');
     }
