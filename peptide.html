@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Peptide Reconstitution Calculator — InjectBuddy</title>
-  <meta name="description" content="Reconstitute peptides fast. Enter vial mg and diluent mL to get mg/mL, µg/mL, dose volume in mL and U-100 units, doses per vial, and syringe capacity checks." />
+  <title>Peptide Reconstitution — Vial Strength Calculator | InjectBuddy</title>
+  <meta name="description" content="Enter peptide strength (mg) and bacteriostatic water volume (mL) to get vial strength in mg/mL and µg/mL." />
   <link rel="canonical" href="https://www.injectbuddy.com/peptides.html" />
-  <meta property="og:title" content="Peptide Reconstitution Calculator — InjectBuddy" />
-  <meta property="og:description" content="Compute concentration and per-dose volume instantly. Clean, mobile-first UI with syringe size checks." />
+  <meta property="og:title" content="Peptide Reconstitution — Vial Strength Calculator" />
+  <meta property="og:description" content="Quickly calculate peptide vial strength (mg/mL and µg/mL) from peptide mg and BAC water volume." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/peptides.html" />
   <meta property="og:site_name" content="InjectBuddy" />
@@ -16,47 +16,21 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Page-local polish (uses your tokens) -->
+  <!-- Page-local light polish (uses your tokens) -->
   <style>
-    :root{
-      --brand: var(--teal-600, #009395);
-      --brand-700: var(--teal-700, #006d6f);
-      --ink-900:#111; --ink-700:#3b3b3b; --ink-500:#6b6b6b;
-      --bg:#f6f8f8; --card:#fff; --muted:#e9eef0;
-      --radius:16px; --radius-sm:12px;
-      --shadow-sm: 0 2px 10px rgba(0,0,0,.05);
-      --shadow-md: 0 8px 24px rgba(0,0,0,.08);
-    }
-    html,body{ background:var(--bg); color:var(--ink-900); }
-
+    :root{ --brand: var(--teal-600,#009395); --ink-700:#3b3b3b; --muted:#e9eef0; --radius:16px; --shadow-sm:0 2px 10px rgba(0,0,0,.05); }
     .page-head{ padding:44px 0 18px; }
     .sub{ color:var(--ink-700); max-width:780px; }
     .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .card{ background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-sm); }
+    .card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-sm); }
     label{ font-weight:600; display:flex; flex-direction:column; gap:8px; }
-    input, select{
-      appearance:none; border:1px solid var(--muted); border-radius:12px; padding:10px 12px; font:inherit; background:#fff;
-    }
-    .seg{ display:flex; gap:8px; flex-wrap:wrap; }
-    .seg button{
-      border:1px solid var(--muted); background:#fff; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700;
-    }
-    .seg button[aria-pressed="true"]{ background:var(--brand); color:#fff; border-color:transparent; }
+    input{ appearance:none; border:1px solid var(--muted); border-radius:12px; padding:10px 12px; font:inherit; background:#fff; }
     .kpis{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); margin-top:12px; }
     .kpi b{ display:block; font-size:1.15rem; margin-top:4px; }
-    .warn{ border:1px solid #ffd7a1; background:#fff7e9; color:#8a5200; border-radius:12px; padding:10px 12px; display:none;}
-    .good{ border:1px solid #cfe8d8; background:#f1fbf6; color:#165f3a; border-radius:12px; padding:10px 12px; display:none;}
-    .row{ display:flex; gap:8px; flex-wrap:wrap; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{ display:inline-block; padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700; }
-    .btn-primary{ background:var(--brand); color:#fff; }
-    .btn-ghost{ background:#fff; border:1px solid var(--muted); color:var(--ink-900); }
-    .muted{ color:var(--ink-500); }
-    details.faq{ border:1px solid rgba(0,0,0,.08); border-radius:12px; background:#fff; padding:0; }
-    details.faq + details.faq{ margin-top:10px; }
-    details.faq > summary{ list-style:none; cursor:pointer; padding:14px 16px; font-weight:700; }
-    details.faq > summary::-webkit-details-marker{ display:none; }
-    details.faq[open] > summary{ border-bottom:1px solid rgba(0,0,0,.08); }
-    details.faq .body{ padding:12px 16px 16px; color:var(--ink-700); }
+    .btn-ghost{ background:#fff; border:1px solid var(--muted); color:#111; }
+    .muted{ color:#6b6b6b; }
   </style>
 </head>
 <body>
@@ -81,60 +55,28 @@
 
 <main class="container">
   <section class="page-head">
-    <h1>Peptide Reconstitution Calculator</h1>
-    <p class="sub">Enter vial mg and diluent mL to get concentration (mg/mL and µg/mL), dose volume in mL and U-100 units, doses per vial, and capacity checks for 1&nbsp;mL/3&nbsp;mL syringes.</p>
-    <div class="row" style="margin-top:10px;">
-      <a class="btn btn-primary" href="/calculator.html">TRT/Testosterone Calculator</a>
-      <a class="btn btn-ghost" href="/#tiles-title">All tools</a>
-    </div>
+    <h1>Peptide Reconstitution — Vial Strength</h1>
+    <p class="sub">Enter your peptide amount and bacteriostatic water volume. We’ll compute the final concentration as <strong>mg/mL</strong> and <strong>µg/mL</strong>. No dosing—just vial strength.</p>
   </section>
 
   <section class="card" aria-labelledby="reconst-title">
-    <h2 id="reconst-title" style="margin-top:0;">Reconstitution</h2>
-
-    <!-- Presets -->
-    <div class="card" style="margin:10px 0;">
-      <div class="row" style="align-items:center; justify-content:space-between;">
-        <strong>Quick presets</strong>
-        <div class="seg" role="group" aria-label="Common peptide vials">
-          <button type="button" class="preset" data-mg="2" data-ml="1">2&nbsp;mg / 1&nbsp;mL</button>
-          <button type="button" class="preset" data-mg="5" data-ml="2">5&nbsp;mg / 2&nbsp;mL</button>
-          <button type="button" class="preset" data-mg="10" data-ml="3">10&nbsp;mg / 3&nbsp;mL</button>
-          <button type="button" class="preset" data-mg="10" data-ml="5">10&nbsp;mg / 5&nbsp;mL</button>
-        </div>
-      </div>
-    </div>
+    <h2 id="reconst-title" style="margin-top:0;">Inputs</h2>
 
     <!-- Inputs -->
-    <div class="grid">
-      <label>Peptide vial content <span class="muted">(mg)</span>
+    <div class="grid" style="margin-bottom:8px;">
+      <label>Peptide strength <span class="muted">(mg in vial)</span>
         <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
       </label>
-      <label>Diluent volume <span class="muted">(mL)</span>
-        <input id="dilMl" type="number" min="0" step="0.1" value="2" inputmode="decimal" />
-      </label>
-      <label>Desired dose <span class="muted">(µg)</span>
-        <input id="doseUg" type="number" min="0" step="10" value="250" inputmode="numeric" />
-      </label>
-      <label>Syringe size
-        <div class="seg" role="radiogroup" aria-label="Syringe size" id="syrToggle">
-          <button type="button" class="syr" data-ml="1" aria-pressed="true">1&nbsp;mL</button>
-          <button type="button" class="syr" data-ml="3" aria-pressed="false">3&nbsp;mL</button>
-        </div>
+      <label>Bacteriostatic water <span class="muted">(mL added)</span>
+        <input id="bacMl" type="number" min="0" step="0.1" value="2" inputmode="decimal" />
       </label>
     </div>
 
     <!-- KPIs -->
-    <div class="kpis">
-      <div class="card kpi"><span class="muted">Concentration</span><b id="kConc">—</b></div>
-      <div class="card kpi"><span class="muted">Dose volume</span><b id="kDoseVol">—</b></div>
-      <div class="card kpi"><span class="muted">Dose in U-100 units</span><b id="kUnits">—</b></div>
-      <div class="card kpi"><span class="muted">Doses per vial</span><b id="kDoses">—</b></div>
+    <div class="kpis" role="status" aria-live="polite">
+      <div class="card kpi"><span class="muted">Vial strength</span><b id="kMgMl">—</b></div>
+      <div class="card kpi"><span class="muted">Vial strength (µg/mL)</span><b id="kUgMl">—</b></div>
     </div>
-
-    <!-- Notices -->
-    <div class="warn" id="capWarn">Volume exceeds selected syringe capacity. Use a larger syringe or reduce per-dose amount.</div>
-    <div class="good" id="okNote">Within selected syringe capacity.</div>
 
     <!-- Actions -->
     <div class="row" style="margin-top:12px;">
@@ -145,21 +87,14 @@
     <p class="muted" style="margin-top:10px;">For planning only. Follow your clinician’s instructions.</p>
   </section>
 
-  <!-- Collapsible FAQ -->
-  <section class="section" aria-labelledby="faq-title">
-    <h2 id="faq-title">Peptide FAQ</h2>
-    <details class="faq">
-      <summary>What does mg/mL mean?</summary>
-      <div class="body">It’s the concentration after reconstitution. Example: 5&nbsp;mg in 2&nbsp;mL = 2.5&nbsp;mg/mL (2,500&nbsp;µg/mL).</div>
-    </details>
-    <details class="faq">
-      <summary>How do I get units for an insulin syringe?</summary>
-      <div class="body">On U-100 syringes, 1&nbsp;mL = 100&nbsp;units. Multiply mL × 100. Example: 0.12&nbsp;mL = 12&nbsp;units.</div>
-    </details>
-    <details class="faq">
-      <summary>Why do I get a capacity warning?</summary>
-      <div class="body">Your per-dose mL exceeds the chosen syringe size. Pick 3&nbsp;mL or reduce the per-dose amount.</div>
-    </details>
+  <!-- Optional quick examples -->
+  <section class="section" aria-labelledby="examples-title">
+    <h2 id="examples-title">Common mixes</h2>
+    <div class="grid">
+      <button class="card example" data-mg="2" data-ml="1"><strong>2&nbsp;mg + 1&nbsp;mL</strong><br><span class="muted">→ 2.0 mg/mL (2000 µg/mL)</span></button>
+      <button class="card example" data-mg="5" data-ml="2"><strong>5&nbsp;mg + 2&nbsp;mL</strong><br><span class="muted">→ 2.5 mg/mL (2500 µg/mL)</span></button>
+      <button class="card example" data-mg="10" data-ml="5"><strong>10&nbsp;mg + 5&nbsp;mL</strong><br><span class="muted">→ 2.0 mg/mL (2000 µg/mL)</span></button>
+    </div>
   </section>
 </main>
 
@@ -170,7 +105,7 @@
   </div>
 </footer>
 
-<!-- Mobile nav behavior (same pattern as other pages) -->
+<!-- Mobile nav behavior (same as other pages) -->
 <script>
 (function(){
   const header = document.getElementById('siteHeader');
@@ -194,123 +129,58 @@
 <script>
 (function(){
   const $ = id => document.getElementById(id);
+  const mg = $('pepMg');
+  const ml = $('bacMl');
+  const kMgMl = $('kMgMl');
+  const kUgMl = $('kUgMl');
+  const resetBtn = $('resetBtn');
+  const copyBtn  = $('copyBtn');
 
-  const pepMg   = $('pepMg');
-  const dilMl   = $('dilMl');
-  const doseUg  = $('doseUg');
-  const kConc   = $('kConc');
-  const kDoseVol= $('kDoseVol');
-  const kUnits  = $('kUnits');
-  const kDoses  = $('kDoses');
-  const capWarn = $('capWarn');
-  const okNote  = $('okNote');
-  const presets = document.querySelectorAll('.preset');
-  const syrBtns = document.querySelectorAll('.syr');
-  const resetBtn= $('resetBtn');
-  const copyBtn = $('copyBtn');
-
-  let syringeMax = 1; // mL
-
-  function setSyr(ml){
-    syringeMax = ml;
-    syrBtns.forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.ml) === ml)));
-    compute();
-    try{ localStorage.setItem('ib_pep_syr', String(ml)); }catch(e){}
-  }
-
-  function format(n, d=3){
-    if (!isFinite(n)) return '—';
-    return (+n).toFixed(d).replace(/\.?0+$/,'');
-  }
+  function fmt(n, d=3){ return (!isFinite(n) ? '—' : (+n).toFixed(d).replace(/\.?0+$/,'')); }
 
   function compute(){
-    const mg = +pepMg.value || 0;
-    const ml = +dilMl.value || 0;
-    const ugDose = +doseUg.value || 0;
+    const mgVal = +mg.value || 0;
+    const mlVal = +ml.value || 0;
 
-    if (mg<=0 || ml<=0){
-      kConc.textContent = '—';
-      kDoseVol.textContent = '—';
-      kUnits.textContent = '—';
-      kDoses.textContent = '—';
-      capWarn.style.display = 'none';
-      okNote.style.display = 'none';
+    if (mgVal <= 0 || mlVal <= 0){
+      kMgMl.textContent = '—';
+      kUgMl.textContent = '—';
       return;
     }
-
-    const mgPerMl = mg / ml;
+    const mgPerMl = mgVal / mlVal;
     const ugPerMl = mgPerMl * 1000;
 
-    const mlPerDose = ugDose > 0 ? (ugDose / ugPerMl) : NaN;
-    const unitsPerDose = mlPerDose * 100; // U-100
-    const dosesPerVial = ugDose > 0 ? ((mg*1000) / ugDose) : NaN;
+    kMgMl.textContent = `${fmt(mgPerMl,3)} mg/mL`;
+    kUgMl.textContent = `${fmt(ugPerMl,0)} µg/mL`;
 
-    kConc.textContent    = `${format(mgPerMl,3)} mg/mL (${Math.round(ugPerMl)} µg/mL)`;
-    kDoseVol.textContent = isFinite(mlPerDose) ? `${format(mlPerDose,3)} mL` : '—';
-    kUnits.textContent   = isFinite(unitsPerDose) ? `${format(unitsPerDose,0)} units` : '—';
-    kDoses.textContent   = isFinite(dosesPerVial) ? `${Math.floor(dosesPerVial)}` : '—';
-
-    if (isFinite(mlPerDose) && mlPerDose > syringeMax){
-      capWarn.style.display = 'block';
-      okNote.style.display  = 'none';
-    } else if (isFinite(mlPerDose)) {
-      capWarn.style.display = 'none';
-      okNote.style.display  = 'block';
-    } else {
-      capWarn.style.display = 'none';
-      okNote.style.display  = 'none';
-    }
-
-    try{
-      localStorage.setItem('ib_pep_last', JSON.stringify({mg, ml, ugDose}));
-    }catch(e){}
+    try{ localStorage.setItem('ib_pep_vial', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
   }
 
-  // Events
-  ;['input','change'].forEach(ev => {
-    pepMg.addEventListener(ev, compute);
-    dilMl.addEventListener(ev, compute);
-    doseUg.addEventListener(ev, compute);
-  });
+  // events
+  ['input','change'].forEach(ev => { mg.addEventListener(ev, compute); ml.addEventListener(ev, compute); });
 
-  presets.forEach(btn=>{
+  // examples
+  document.querySelectorAll('.example').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      pepMg.value = btn.dataset.mg;
-      dilMl.value = btn.dataset.ml;
+      mg.value = btn.dataset.mg;
+      ml.value = btn.dataset.ml;
       compute();
     });
   });
 
-  syrBtns.forEach(btn=>{
-    btn.addEventListener('click', ()=> setSyr(Number(btn.dataset.ml)));
-  });
-
-  resetBtn.addEventListener('click', ()=>{
-    pepMg.value = 5; dilMl.value = 2; doseUg.value = 250; setSyr(1); compute();
-  });
-
+  // actions
+  resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
   copyBtn.addEventListener('click', ()=>{
-    const text = [
-      `Peptide: ${pepMg.value} mg`,
-      `Diluent: ${dilMl.value} mL`,
-      `Concentration: ${kConc.textContent}`,
-      `Desired dose: ${doseUg.value} µg`,
-      `Dose volume: ${kDoseVol.textContent} (${kUnits.textContent})`,
-      `Doses per vial: ${kDoses.textContent}`,
-      `Syringe size: ${syringeMax} mL`
-    ].join('\n');
+    const text = `Peptide: ${mg.value} mg\nBAC water: ${ml.value} mL\nVial strength: ${kMgMl.textContent} (${kUgMl.textContent})`;
     navigator.clipboard?.writeText(text);
   });
 
-  // Init from storage
+  // init from storage
   try{
-    const saved = JSON.parse(localStorage.getItem('ib_pep_last')||'{}');
-    if(saved.mg) pepMg.value = saved.mg;
-    if(saved.ml) dilMl.value = saved.ml;
-    if(saved.ugDose) doseUg.value = saved.ugDose;
-    const s = Number(localStorage.getItem('ib_pep_syr')); setSyr(s===3?3:1);
-  }catch(e){ setSyr(1); }
-
+    const saved = JSON.parse(localStorage.getItem('ib_pep_vial')||'{}');
+    if (saved.mg) mg.value = saved.mg;
+    if (saved.ml) ml.value = saved.ml;
+  }catch(e){}
   compute();
 })();
 </script>
