@@ -111,14 +111,7 @@
               <stop offset="0%" stop-color="#8fe5e8"/><stop offset="100%" stop-color="#42b7ba"/>
             </linearGradient>
 
-            <!-- FLAT WHITE label gradient (all white) -->
-            <linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#ffffff"/>
-              <stop offset="50%"  stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#ffffff"/>
-            </linearGradient>
-
-            <!-- Inner shadow for paper glow -->
+            <!-- Inner shadow for paper glow (kept) -->
             <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
               <feOffset dx="0" dy="1" />
               <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -145,10 +138,10 @@
           <!-- Liquid (FULL) -->
           <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="url(#liquidGrad)" opacity="0.9"/>
 
-          <!-- Label (pure white + inner glow) -->
+          <!-- Label (PURE WHITE, no gradient) + glow -->
           <g>
             <rect x="34" y="160" width="132" height="92" rx="10"
-                  fill="url(#labelGrad)" stroke="#d5dee5" filter="url(#innerShadow)"/>
+                  fill="#ffffff" stroke="#d5dee5" filter="url(#innerShadow)"/>
             <!-- Very light edges for realism -->
             <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000" opacity=".02"/>
             <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000" opacity=".018"/>
