@@ -51,7 +51,7 @@
     .vial-card{ display:flex; align-items:center; justify-content:center; }
     .vial{ width: 220px; max-width: 60vw; filter: drop-shadow(0 10px 24px rgba(0,0,0,.10)); }
 
-    /* Liquid anim */
+    /* Liquid anim (kept for smoothness even though it's always full) */
     .vial [data-liquid]{ transition: y .35s ease, height .35s ease; }
 
     /* Label text */
@@ -115,19 +115,22 @@
             <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#8fe5e8"/><stop offset="100%" stop-color="#42b7ba"/>
             </linearGradient>
-            <!-- More realistic label gradient -->
-<linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0%" stop-color="#ffffff"/>
-  <stop offset="55%" stop-color="#f9fdfd"/>
-  <stop offset="100%" stop-color="#f1f7f8"/>
-</linearGradient>
-            <!-- Inner shadow for paper -->
+
+            <!-- White / light-silver label gradient (lighter) -->
+            <linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#ffffff"/>
+              <stop offset="50%"  stop-color="#f6fafb"/>
+              <stop offset="100%" stop-color="#edf3f4"/>
+            </linearGradient>
+
+            <!-- Inner shadow for paper glow -->
             <filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
               <feOffset dx="0" dy="1" />
               <feGaussianBlur stdDeviation="2" result="blur"/>
               <feComposite in="SourceGraphic" in2="blur" operator="arithmetic" k2="-1" k3="2" />
               <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 .35 0"/>
             </filter>
+
             <!-- Clip for label text (prevents spill) -->
             <clipPath id="labelClip">
               <rect x="34" y="160" width="132" height="92" rx="10"/>
@@ -144,30 +147,28 @@
           <!-- Glass body -->
           <rect x="30" y="80" width="140" height="240" rx="18" fill="url(#glassGrad)" stroke="#c9d3dd"/>
 
-          <!-- Liquid (0–10 mL → height) -->
-          <rect data-liquid x="34" y="300" width="132" height="0" rx="14" fill="url(#liquidGrad)" opacity="0.9"/>
+          <!-- Liquid (FULL) -->
+          <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="url(#liquidGrad)" opacity="0.9"/>
 
-          <!-- Label (now sized to glass; with gradient + inner shadow) -->
-<!-- Label (now sized to glass; with gradient + inner shadow) -->
-<g>
-  <rect x="34" y="160" width="132" height="92" rx="10" fill="url(#labelGrad)" stroke="#c9d3dd" filter="url(#innerShadow)"/>
-  <!-- Subtle side shading (lighter) -->
-  <rect x="34" y="160" width="6" height="92" rx="6" fill="#000" opacity=".02"/>
-  <rect x="160" y="160" width="6" height="92" rx="6" fill="#000" opacity=".018"/>
+          <!-- Label (silver-white gradient + inner glow) -->
+          <g>
+            <rect x="34" y="160" width="132" height="92" rx="10"
+                  fill="url(#labelGrad)" stroke="#d5dee5" filter="url(#innerShadow)"/>
+            <!-- Subtle edge shade for realism -->
+            <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000" opacity=".02"/>
+            <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000" opacity=".018"/>
 
-  <!-- Text clipped to label rect -->
-  <g clip-path="url(#labelClip)">
-    <text id="lblTop" x="100" y="192" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
-
-    <!-- Disclaimer moved UP one line -->
-    <text x="100" y="214" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
-      For planning only — not medical advice
-    </text>
-
-    <!-- mg/mL now on the LOWER line -->
-    <text id="lblSub" x="100" y="236" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
-  </g>
-</g>
+            <!-- Text clipped to label -->
+            <g clip-path="url(#labelClip)">
+              <text id="lblTop" x="100" y="192" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
+              <!-- Disclaimer ABOVE mg/mL -->
+              <text x="100" y="214" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
+                For planning only — not medical advice
+              </text>
+              <!-- mg/mL on lower line -->
+              <text id="lblSub" x="100" y="236" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
+            </g>
+          </g>
 
           <!-- Glass highlights -->
           <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
@@ -222,7 +223,7 @@
 </script>
 
 <script>
-/* Vial strength + label fit + liquid level */
+/* Vial strength + label fit (liquid stays full) */
 (function(){
   const $ = id => document.getElementById(id);
   const mg = $('pepMg');
@@ -238,7 +239,7 @@
   const liquid = document.querySelector('[data-liquid]');
 
   // Label sizing params (must match rect x/width)
-  const LABEL_X = 34, LABEL_W = 132, PADDING = 12;
+  const LABEL_W = 132, PADDING = 12;
   const MAX_W = LABEL_W - PADDING*2; // usable width
   const TOP_MAX = 16, TOP_MIN = 11;
   const SUB_MAX = 13, SUB_MIN = 10;
@@ -246,7 +247,6 @@
   function fmt(n, d=3){ return (!isFinite(n) ? '—' : (+n).toFixed(d).replace(/\.?0+$/,'')); }
 
   function fitText(el, maxPx, maxSize, minSize){
-    // Start big, shrink until fits
     let size = maxSize;
     el.setAttribute('font-size', size);
     let box = el.getBBox();
@@ -266,7 +266,7 @@
       kUgMl.textContent = '—';
       lblTop.textContent = '— mg / — mL';
       lblSub.textContent = '— mg/mL';
-      setLiquid(0);
+      setLiquid(1); // keep full even when empty/invalid
       return;
     }
 
@@ -287,16 +287,13 @@
     // Save
     try{ localStorage.setItem('ib_pep_vial_v3', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
 
-    // Liquid: simple 0..10 mL scale
-    const pct = Math.max(0, Math.min(mlVal / 10, 1));
-    setLiquid(pct);
+    // Liquid stays full (fixed by request)
+    setLiquid(1);
   }
 
   function setLiquid(pct){
-    // Glass body Y range: 96..300 (height ≈ 204)
-    const maxH = 204;
-    const h = Math.max(2, maxH * pct);
-    const y = 300 - h;
+    // Full height is y=96, h=204 (matches the rect in SVG)
+    const y = 96, h = 204;
     liquid.setAttribute('y', String(y));
     liquid.setAttribute('height', String(h));
   }
@@ -324,7 +321,10 @@
   compute();
 
   // Refit on resize (fonts can reflow slightly)
-  window.addEventListener('resize', () => { fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN); fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN); });
+  window.addEventListener('resize', () => {
+    fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
+    fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
+  });
 })();
 </script>
 </body>
