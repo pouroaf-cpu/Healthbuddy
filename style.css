@@ -635,3 +635,21 @@ html,body{ background:var(--bg); color:var(--ink-900); line-height:var(--leading
 .ib-link:visited,
 .footlinks a:visited,
 a.btn:visited { color: inherit; }
+/* Mobile nav defaults closed; open only when .show is present */
+@media (max-width: 900px){
+  .ib-links{
+    position: absolute;
+    top: 56px; right: 12px; left: 12px;
+    display: none; flex-direction: column; gap: 8px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.12);
+    z-index: 50;
+  }
+  .ib-links.show{ display: flex; }
+
+  /* Prevent background scroll when menu open */
+  body.nav-open{ overflow: hidden; }
+}
