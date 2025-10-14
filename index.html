@@ -4,66 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
- <title>Free TRT & Testosterone Dose Calculator | InjectBuddy</title>
-<meta name="description" content="Instantly calculate your TRT or testosterone injection dose. Choose vial strength, injection frequency, and see visual syringe fills — free and simple.">
-  <link rel="canonical" href="https://injectbuddy.com/" />
-  <meta property="og:title" content="InjectBuddy — Simple Testosterone & Peptide Tools" />
-  <meta property="og:description" content="Fast, no-nonsense tools to plan Testosterone and peptide injection volumes. Visual syringe guide, unit toggles, and clear steps." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://injectbuddy.com/" />
-  <meta property="og:site_name" content="InjectBuddy" />
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <title>Free TRT & Testosterone Dose Calculator | InjectBuddy</title>
+  <meta name="description" content="InjectBuddy makes testosterone and peptide planning simple. Explore tools, then use the free dosage calculator to plan syringe fills and schedules.">
+  <link rel="canonical" href="https://www.injectbuddy.com/" />
 
-  <!-- Site CSS -->
+  <meta property="og:title" content="InjectBuddy — Simple Testosterone & Peptide Tools" />
+  <meta property="og:description" content="Fast, no-nonsense tools to plan testosterone and peptide injections. Visual syringe guide, unit toggles, and clear steps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/" />
+  <meta property="og:site_name" content="InjectBuddy" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Liquid “slosh then settle” overlay (robust, above ticks) -->
-  <style>
-    .barrel{ position:relative; overflow:hidden; }
-    .fill{
-      position:absolute; left:0; right:0; bottom:0; height:0;
-      transition: height .38s cubic-bezier(.2,.8,.25,1);
-      z-index:1;
-    }
-    .ticks{ position:absolute; inset:0; z-index:3; pointer-events:none; }
-
-    /* Surface highlight appears briefly during changes */
-    .fill::after{
-      content:"";
-      position:absolute; left:-96px; right:-96px; top:-6px; height:14px;
-      border-radius:999px/12px;
-      background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.25));
-      opacity:0;
-      transform: translateX(0) translateY(-2px) skewX(0deg);
-      filter: saturate(120%) brightness(105%);
-      pointer-events:none;
-      z-index:4;         /* above tick lines so it’s visible */
-      will-change: transform, opacity;
-    }
-    .fill.slosh::after{
-      opacity:.96;
-      animation:
-        ib-slosh 1400ms ease-in-out 3,
-        ib-settle 1000ms ease-out 1 forwards;
-    }
-    @keyframes ib-slosh{
-      0%   { transform: translateX(-14px) translateY(-2px) skewX(-3deg); }
-      50%  { transform: translateX( 14px) translateY(-1px) skewX( 3deg); }
-      100% { transform: translateX(-14px) translateY(-2px) skewX(-3deg); }
-    }
-    @keyframes ib-settle{
-      to { opacity:0; transform: translateX(0) translateY(0) skewX(0deg); }
-    }
-    @media (prefers-reduced-motion: reduce){
-      .fill{ transition: height .2s linear; }
-      .fill::after{ display:none; }
-    }
-  </style>
-
-  <!-- Microsoft Clarity -->
+  <!-- (Optional) Microsoft Clarity -->
   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
@@ -80,7 +36,7 @@
     <nav id="ib-navlinks" class="ib-links" role="navigation">
       <a href="/" class="ib-link active">Home</a>
       <a href="/about.html" class="ib-link">About</a>
-      <a href="/#calculator" class="ib-link">Calculator</a>
+      <a href="/calculator.html" class="ib-link">Calculator</a>
       <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
       <a href="/faq.html" class="ib-link">FAQ</a>
       <a href="/contact.html" class="ib-link">Contact</a>
@@ -90,91 +46,19 @@
 </header>
 
 <main class="container">
-  <!-- ===== CALCULATOR ===== -->
-  <section id="calculator" class="form-container" aria-labelledby="calc-title">
-    <h1 id="calc-title">Testosterone/Peptide Dosage Calculator</h1>
-
-    <div class="calc-wrap">
-      <!-- Left column: inputs -->
-      <div class="calc-grid">
-        <!-- Syringe size toggle -->
-        <div class="full">
-          <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
-          </div>
-        </div>
-
-        <!-- Vial strength slider -->
-        <div class="full">
-          <label for="conc-slider">Vial strength (mg per mL)</label>
-          <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" />
-          <div class="live-reads">
-            <div class="live-chip" id="lr-conc">200 mg/mL</div>
-          </div>
-        </div>
-
-        <!-- Weekly dose slider -->
-        <div class="full">
-          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" />
-          <div class="live-reads">
-            <div class="live-chip" id="lr-weekly">140 mg/week</div>
-          </div>
-        </div>
-
-        <!-- Injections per week slider -->
-        <div id="count-wrap" class="full">
-          <label for="count-slider">Injections per week</label>
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
-          <div class="live-reads">
-            <div class="live-chip" id="lr-count">2 / week</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right column: results (always visible) -->
-      <aside id="out" class="out">
-        <h3>Dose & Volume per Injection</h3>
-
-        <div class="out-row">
-          <!-- KPI cards -->
-          <div class="kpi">
-            <div class="card">
-              <span class="muted">Injections / week</span>
-              <b id="kpi_inj">—</b>
-            </div>
-            <div class="card">
-              <span class="muted">Dose per injection</span>
-              <b id="kpi_dose">—</b>
-            </div>
-            <div class="card">
-              <span class="muted">Volume per injection (mL)</span>
-              <b id="kpi_ml">—</b>
-            </div>
-          </div>
-
-          <!-- Visual syringe -->
-          <div class="syringe" aria-label="Syringe visual">
-            <div class="barrel-wrap inactive">
-              <div class="barrel">
-                <div class="fill" id="fill"></div>
-                <div class="ticks" id="ticks"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Warnings -->
-        <div id="warn" class="warn" hidden></div>
-      </aside>
-    </div>
-
-    <div class="notice">
-      This tool is provided for informational purposes only. Always follow your clinician’s instructions.
-    </div>
+  <!-- Simple CTA instead of embedded calculator -->
+  <section class="hero-cta" aria-labelledby="calc-cta-title">
+    <h1 id="calc-cta-title">Free TRT & Testosterone Dose Calculator</h1>
+    <p>Plan syringe fills, injection schedules, and reconstitution volumes in seconds.</p>
+    <a class="btn btn-primary" href="/calculator.html" rel="nofollow">Open Calculator</a>
   </section>
-  <!-- ===== /CALCULATOR ===== -->
+
+  <script>
+    // Redirect old fragment links like /#calculator to the new page
+    if (location.hash && location.hash.toLowerCase() === '#calculator') {
+      location.replace('/calculator.html');
+    }
+  </script>
 </main>
 
 <footer>
@@ -183,7 +67,5 @@
     <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   </div>
 </footer>
-
-
 </body>
 </html>
