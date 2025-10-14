@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Peptide Reconstitution — Vial Strength Calculator | InjectBuddy</title>
-  <meta name="description" content="Enter peptide strength (mg) and bacteriostatic water volume (mL) to get vial strength in mg/mL and µg/mL." />
+  <meta name="description" content="Enter peptide strength (mg) and bacteriostatic water (mL) to get vial strength in mg/mL. The vial label updates live (e.g., 1000 mg / 10 mL · 100 mg/mL)." />
   <link rel="canonical" href="https://www.injectbuddy.com/peptides.html" />
   <meta property="og:title" content="Peptide Reconstitution — Vial Strength Calculator" />
-  <meta property="og:description" content="Quickly calculate peptide vial strength (mg/mL and µg/mL) from peptide mg and BAC water volume." />
+  <meta property="og:description" content="Quickly calculate peptide vial strength with a dynamic vial label." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/peptides.html" />
   <meta property="og:site_name" content="InjectBuddy" />
@@ -16,13 +16,22 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Page-local light polish (uses your tokens) -->
   <style>
-    :root{ --brand: var(--teal-600,#009395); --ink-700:#3b3b3b; --muted:#e9eef0; --radius:16px; --shadow-sm:0 2px 10px rgba(0,0,0,.05); }
+    :root{
+      --brand: var(--teal-600, #009395);
+      --brand-700: var(--teal-700, #006d6f);
+      --ink-900:#111; --ink-700:#3b3b3b; --ink-500:#6b6b6b;
+      --bg:#f6f8f8; --card:#fff; --muted:#e9eef0;
+      --radius:16px; --radius-sm:12px;
+      --shadow-sm: 0 2px 10px rgba(0,0,0,.05);
+      --shadow-md: 0 8px 24px rgba(0,0,0,.08);
+    }
+    html,body{ background:var(--bg); color:var(--ink-900); }
+
     .page-head{ padding:44px 0 18px; }
     .sub{ color:var(--ink-700); max-width:780px; }
     .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-sm); }
+    .card{ background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow-sm); }
     label{ font-weight:600; display:flex; flex-direction:column; gap:8px; }
     input{ appearance:none; border:1px solid var(--muted); border-radius:12px; padding:10px 12px; font:inherit; background:#fff; }
     .kpis{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); margin-top:12px; }
@@ -31,6 +40,26 @@
     .btn{ display:inline-block; padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:700; }
     .btn-ghost{ background:#fff; border:1px solid var(--muted); color:#111; }
     .muted{ color:#6b6b6b; }
+
+    /* Vial layout */
+    .vial-wrap{
+      display:grid; gap:18px; grid-template-columns: 1.1fr .9fr;
+      align-items:center; margin-top:12px;
+    }
+    @media (max-width: 900px){ .vial-wrap{ grid-template-columns: 1fr; } }
+
+    .vial-card{ display:flex; align-items:center; justify-content:center; }
+    .vial{
+      width: 220px; max-width: 60vw;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,.10));
+    }
+    /* Liquid level (based on mL; 10 mL = full) */
+    .vial [data-liquid]{
+      transition: y .35s ease, height .35s ease;
+    }
+    /* Label text */
+    .label-line{ font-weight:700; fill:#0f172a; }
+    .label-sub { fill:#334155; }
   </style>
 </head>
 <body>
@@ -56,13 +85,12 @@
 <main class="container">
   <section class="page-head">
     <h1>Peptide Reconstitution — Vial Strength</h1>
-    <p class="sub">Enter your peptide amount and bacteriostatic water volume. We’ll compute the final concentration as <strong>mg/mL</strong> and <strong>µg/mL</strong>. No dosing—just vial strength.</p>
+    <p class="sub">Enter your peptide amount and bacteriostatic water volume. The vial label updates live (e.g., <strong>1000&nbsp;mg / 10&nbsp;mL</strong> · <strong>100&nbsp;mg/mL</strong>).</p>
   </section>
 
   <section class="card" aria-labelledby="reconst-title">
     <h2 id="reconst-title" style="margin-top:0;">Inputs</h2>
 
-    <!-- Inputs -->
     <div class="grid" style="margin-bottom:8px;">
       <label>Peptide strength <span class="muted">(mg in vial)</span>
         <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
@@ -72,22 +100,85 @@
       </label>
     </div>
 
-    <!-- KPIs -->
-    <div class="kpis" role="status" aria-live="polite">
-      <div class="card kpi"><span class="muted">Vial strength</span><b id="kMgMl">—</b></div>
-      <div class="card kpi"><span class="muted">Vial strength (µg/mL)</span><b id="kUgMl">—</b></div>
+    <div class="vial-wrap">
+      <!-- SVG Vial -->
+      <div class="vial-card">
+        <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
+          <title id="vialTitle">Vial visualization with live label</title>
+          <desc id="vialDesc">Shows a vial with cap, glass, and a label that updates to reflect mg, mL, and mg per mL.</desc>
+
+          <!-- Cap -->
+          <defs>
+            <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3b3b3b"/>
+              <stop offset="100%" stop-color="#1f2937"/>
+            </linearGradient>
+            <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#eef2f7"/>
+            </linearGradient>
+            <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8fe5e8"/>
+              <stop offset="100%" stop-color="#42b7ba"/>
+            </linearGradient>
+            <linearGradient id="labelGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f7fbfb"/>
+              <stop offset="100%" stop-color="#eaf3f4"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Cap -->
+          <rect x="40" y="12" width="120" height="42" rx="8" fill="url(#capGrad)"/>
+          <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
+
+          <!-- Neck -->
+          <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
+
+          <!-- Glass body -->
+          <rect x="30" y="80" width="140" height="240" rx="18" fill="url(#glassGrad)" stroke="#c9d3dd"/>
+
+          <!-- Liquid (height driven by mL, 10 mL ≈ full) -->
+          <rect data-liquid x="34" y="300" width="132" height="0" rx="14" fill="url(#liquidGrad)" opacity="0.9"/>
+
+          <!-- Label -->
+          <g>
+            <rect x="22" y="160" width="156" height="86" rx="10" fill="url(#labelGrad)" stroke="#c9d3dd"/>
+            <text x="100" y="192" text-anchor="middle" class="label-line" font-size="16" aria-live="polite">
+              <tspan id="lblTop">— mg / — mL</tspan>
+            </text>
+            <text x="100" y="216" text-anchor="middle" class="label-sub" font-size="13">
+              <tspan id="lblSub">— mg/mL</tspan>
+            </text>
+            <text x="100" y="238" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
+              For planning only — not medical advice
+            </text>
+          </g>
+
+          <!-- Glass highlights -->
+          <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
+          <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
+          <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
+        </svg>
+      </div>
+
+      <!-- Numeric outputs -->
+      <div class="kpis" style="margin:0;">
+        <div class="card kpi"><span class="muted">Vial strength</span><b id="kMgMl">—</b></div>
+        <div class="card kpi"><span class="muted">Vial strength (µg/mL)</span><b id="kUgMl">—</b></div>
+        <div class="card">
+          <span class="muted">Share / copy</span>
+          <div class="row" style="margin-top:8px;">
+            <button class="btn btn-ghost" id="copyBtn" type="button">Copy results</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Actions -->
-    <div class="row" style="margin-top:12px;">
-      <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
-      <button class="btn btn-ghost" id="copyBtn" type="button">Copy results</button>
-    </div>
-
-    <p class="muted" style="margin-top:10px;">For planning only. Follow your clinician’s instructions.</p>
+    <p class="muted" style="margin-top:10px;">For planning only. Always follow your clinician’s instructions.</p>
   </section>
 
-  <!-- Optional quick examples -->
+  <!-- Quick examples -->
   <section class="section" aria-labelledby="examples-title">
     <h2 id="examples-title">Common mixes</h2>
     <div class="grid">
@@ -105,8 +196,8 @@
   </div>
 </footer>
 
-<!-- Mobile nav behavior (same as other pages) -->
 <script>
+/* Mobile nav behavior (same as other pages) */
 (function(){
   const header = document.getElementById('siteHeader');
   const btn = document.querySelector('.ib-toggle');
@@ -125,16 +216,21 @@
 })();
 </script>
 
-<!-- Calculator logic -->
 <script>
+/* Peptide vial strength + dynamic vial label + liquid level */
 (function(){
   const $ = id => document.getElementById(id);
   const mg = $('pepMg');
   const ml = $('bacMl');
+
   const kMgMl = $('kMgMl');
   const kUgMl = $('kUgMl');
+  const copyBtn = $('copyBtn');
   const resetBtn = $('resetBtn');
-  const copyBtn  = $('copyBtn');
+
+  const lblTop = document.getElementById('lblTop');
+  const lblSub = document.getElementById('lblSub');
+  const liquid = document.querySelector('[data-liquid]');
 
   function fmt(n, d=3){ return (!isFinite(n) ? '—' : (+n).toFixed(d).replace(/\.?0+$/,'')); }
 
@@ -145,39 +241,67 @@
     if (mgVal <= 0 || mlVal <= 0){
       kMgMl.textContent = '—';
       kUgMl.textContent = '—';
+      lblTop.textContent = '— mg / — mL';
+      lblSub.textContent = '— mg/mL';
+      // liquid min
+      setLiquid(0);
       return;
     }
+
     const mgPerMl = mgVal / mlVal;
     const ugPerMl = mgPerMl * 1000;
 
     kMgMl.textContent = `${fmt(mgPerMl,3)} mg/mL`;
     kUgMl.textContent = `${fmt(ugPerMl,0)} µg/mL`;
 
-    try{ localStorage.setItem('ib_pep_vial', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
+    // Label: show totals AND per mL
+    lblTop.textContent = `${fmt(mgVal,3)} mg / ${fmt(mlVal,3)} mL`;
+    lblSub.textContent = `${fmt(mgPerMl,3)} mg/mL`;
+
+    // Save
+    try{ localStorage.setItem('ib_pep_vial_v2', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
+
+    // Liquid: 0..10 mL scale → 0..100% height
+    const pct = Math.max(0, Math.min(mlVal / 10, 1));
+    setLiquid(pct);
   }
 
-  // events
+  // Adjust liquid rect inside the vial (SVG coords)
+  function setLiquid(pct){
+    // Glass body Y range: from y=300 (bottom) up to y=96 (top-ish) (height 204)
+    const maxH = 204;
+    const h = Math.max(2, maxH * pct);
+    const y = 300 - h;
+    liquid.setAttribute('y', String(y));
+    liquid.setAttribute('height', String(h));
+  }
+
+  // Events
   ['input','change'].forEach(ev => { mg.addEventListener(ev, compute); ml.addEventListener(ev, compute); });
 
-  // examples
   document.querySelectorAll('.example').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       mg.value = btn.dataset.mg;
       ml.value = btn.dataset.ml;
       compute();
+      window.scrollTo({top: document.querySelector('.vial-wrap').getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth'});
     });
   });
 
-  // actions
-  resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
   copyBtn.addEventListener('click', ()=>{
-    const text = `Peptide: ${mg.value} mg\nBAC water: ${ml.value} mL\nVial strength: ${kMgMl.textContent} (${kUgMl.textContent})`;
+    const text = [
+      `Peptide: ${mg.value} mg`,
+      `BAC water: ${ml.value} mL`,
+      `Vial strength: ${kMgMl.textContent} (${kUgMl.textContent})`,
+    ].join('\n');
     navigator.clipboard?.writeText(text);
   });
 
-  // init from storage
+  resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
+
+  // Init
   try{
-    const saved = JSON.parse(localStorage.getItem('ib_pep_vial')||'{}');
+    const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v2')||'{}');
     if (saved.mg) mg.value = saved.mg;
     if (saved.ml) ml.value = saved.ml;
   }catch(e){}
