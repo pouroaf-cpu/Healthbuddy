@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InjectBuddy — Test Logger (Web)</title>
+<meta name="description" content="Private TRT blood test logger powered by Supabase." />
+<link rel="icon" href="/assets/favicon.svg" />
+<style>
+  :root { --teal:#009395; --teal-dark:#004c4d; --ink:#223; --bg:#f6fbfb; --card:#fff; --muted:#e6efef; }
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:980px;margin:24px auto;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .logo{font-weight:700;color:var(--teal-dark)}
+  .card{background:var(--card);border:1px solid var(--muted);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.03);padding:16px;margin:12px 0}
+  .grid{display:grid;gap:12px}
+  .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  label{font-size:.92rem;color:#3a4}
+  input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--muted);border-radius:10px;background:#fff}
+  button{border:0;padding:10px 14px;border-radius:10px;background:var(--teal);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--teal-dark);border:1px solid var(--muted)}
+  button.danger{background:#c0392b}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .right{margin-left:auto}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--muted);text-align:left;font-size:.95rem}
+  .hint{font-size:.9rem;color:#566}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef;color:#334;font-size:.8rem}
+  .hide{display:none!important}
+</style>
+<!-- Supabase JS -->
+<script src="https://unpkg.com/@supabase/supabase-js@2.46.1/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">InjectBuddy — Test Logger</div>
+    <div id="authBar" class="row">
+      <span id="userEmail" class="badge hide"></span>
+      <button id="btnSignOut" class="ghost hide">Sign out</button>
+    </div>
+  </header>
+
+  <!-- AUTH CARD -->
+  <section id="authCard" class="card">
+    <h3>Sign in</h3>
+    <p class="hint">Use Google or request a magic link. Your data is private (Row-Level Security).</p>
+    <div class="row">
+      <button id="btnGoogle">Continue with Google</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <input id="emailInput" type="email" placeholder="you@example.com" />
+      <button id="btnMagic">Send magic link</button>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="app" class="hide">
+    <!-- CREATE TEST -->
+    <div class="card">
+      <h3>New Lab Test</h3>
+      <div class="grid grid-2">
+        <div>
+          <label>Date taken</label>
+          <input id="takenAt" type="date" />
+        </div>
+        <div>
+          <label>Lab name</label>
+          <input id="labName" placeholder="Pathlab" />
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label>Notes</label>
+        <textarea id="notes" rows="2" placeholder="Fastened? Any symptoms or protocol changes…"></textarea>
+      </div>
+
+      <details style="margin-top:10px">
+        <summary>Quick markers (optional)</summary>
+        <div class="grid grid-2" style="margin-top:10px">
+          <div><label>Total T (nmol/L)</label><input id="m_total_t" type="number" step="0.01" /></div>
+          <div><label>Free T (pmol/L)</label><input id="m_free_t" type="number" step="0.01" /></div>
+          <div><label>E2 (pmol/L)</label><input id="m_e2" type="number" step="0.01" /></div>
+          <div><label>SHBG (nmol/L)</label><input id="m_shbg" type="number" step="0.01" /></div>
+          <div><label>Hematocrit (%)</label><input id="m_hct" type="number" step="0.01" /></div>
+        </div>
+      </details>
+
+      <div class="row" style="margin-top:12px">
+        <button id="btnSave">Save test</button>
+      </div>
+    </div>
+
+    <!-- LIST -->
+    <div class="card">
+      <div class="row">
+        <h3 style="margin:0">My Lab Tests</h3>
+        <span class="right"></span>
+        <button id="btnExport" class="ghost">Export CSV</button>
+      </div>
+      <table id="testsTable">
+        <thead>
+          <tr><th>Date</th><th>Lab</th><th>Markers</th><th></th></tr>
+        </thead>
+        <tbody id="testsBody"><tr><td colspan="4" class="hint">No data</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- DETAIL -->
+    <div id="detail" class="card hide">
+      <div class="row">
+        <h3 id="detailTitle" style="margin:0">Test</h3>
+        <span class="right"></span>
+        <button id="btnDeleteTest" class="danger">Delete test</button>
+      </div>
+      <div class="grid grid-2">
+        <div>
+          <label>Add marker</label>
+          <div class="grid">
+            <input id="markerLabel" placeholder="Total Testosterone" />
+            <div class="row">
+              <input id="markerValue" type="number" step="0.01" placeholder="Value" />
+              <input id="markerUnit" style="max-width:160px" placeholder="nmol/L" />
+            </div>
+            <div class="row">
+              <input id="refLow" type="number" step="0.01" placeholder="Ref low" />
+              <input id="refHigh" type="number" step="0.01" placeholder="Ref high" />
+              <button id="btnAddMarker">Add</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>Markers</label>
+          <table>
+            <thead><tr><th>Marker</th><th>Value</th><th>Ref</th><th></th></tr></thead>
+            <tbody id="markersBody"><tr><td colspan="4" class="hint">No markers</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/** ====== CONFIG — fill these from Supabase ====== */
+const SUPABASE_URL = 'https://YOUR-PROJECT-REF.supabase.co';
+const SUPABASE_ANON = 'YOUR-ANON-KEY';
+
+/** ====== BOOT ====== */
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// UI refs
+const authCard = document.getElementById('authCard');
+const app = document.getElementById('app');
+const userEmail = document.getElementById('userEmail');
+const btnSignOut = document.getElementById('btnSignOut');
+const btnGoogle = document.getElementById('btnGoogle');
+const btnMagic = document.getElementById('btnMagic');
+const emailInput = document.getElementById('emailInput');
+
+const takenAt = document.getElementById('takenAt');
+const labName = document.getElementById('labName');
+const notes = document.getElementById('notes');
+const quick = {
+  total_t: document.getElementById('m_total_t'),
+  free_t: document.getElementById('m_free_t'),
+  e2: document.getElementById('m_e2'),
+  shbg: document.getElementById('m_shbg'),
+  hct: document.getElementById('m_hct'),
+};
+const btnSave = document.getElementById('btnSave');
+const testsBody = document.getElementById('testsBody');
+const btnExport = document.getElementById('btnExport');
+
+const detail = document.getElementById('detail');
+const detailTitle = document.getElementById('detailTitle');
+const btnDeleteTest = document.getElementById('btnDeleteTest');
+const markerLabel = document.getElementById('markerLabel');
+const markerValue = document.getElementById('markerValue');
+const markerUnit = document.getElementById('markerUnit');
+const refLow = document.getElementById('refLow');
+const refHigh = document.getElementById('refHigh');
+const btnAddMarker = document.getElementById('btnAddMarker');
+const markersBody = document.getElementById('markersBody');
+
+let currentUser = null;
+let currentTest = null;
+
+/** ====== AUTH ====== */
+function showApp(state){
+  if(state){
+    authCard.classList.add('hide');
+    app.classList.remove('hide');
+    userEmail.classList.remove('hide');
+    btnSignOut.classList.remove('hide');
+  }else{
+    authCard.classList.remove('hide');
+    app.classList.add('hide');
+    userEmail.classList.add('hide');
+    btnSignOut.classList.add('hide');
+  }
+}
+
+async function refreshAuth(){
+  const { data: { user } } = await sb.auth.getUser();
+  currentUser = user;
+  if(user){
+    userEmail.textContent = user.email ?? 'Signed in';
+    showApp(true);
+    await loadTests();
+  }else{
+    showApp(false);
+  }
+}
+btnGoogle.onclick = async () => {
+  await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin, // Netlify domain
+    }
+  });
+};
+btnMagic.onclick = async () => {
+  const email = emailInput.value.trim();
+  if(!email) return alert('Enter your email');
+  const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.href }});
+  if(error) alert(error.message); else alert('Magic link sent. Check your inbox.');
+};
+btnSignOut.onclick = async () => { await sb.auth.signOut(); currentUser=null; showApp(false); };
+
+/** ====== CRUD: TESTS ====== */
+function val(v){ return (v===undefined || v===null) ? null : String(v).trim() || null; }
+
+btnSave.onclick = async () => {
+  if(!currentUser) return;
+  const d = takenAt.value || new Date().toISOString().slice(0,10);
+  const insert = {
+    user_id: currentUser.id,
+    taken_at: d,
+    lab_name: val(labName.value),
+    notes: val(notes.value)
+  };
+  const { data, error } = await sb.from('lab_tests').insert(insert).select().single();
+  if(error){ alert(error.message); return; }
+
+  // quick markers
+  const q = [];
+  const defs = [
+    ['total_t','Total Testosterone','nmol/L', quick.total_t.value],
+    ['free_t','Free Testosterone','pmol/L', quick.free_t.value],
+    ['e2','Estradiol (E2)','pmol/L', quick.e2.value],
+    ['shbg','SHBG','nmol/L', quick.shbg.value],
+    ['hct','Hematocrit','%', quick.hct.value],
+  ];
+  defs.forEach(([code,label,unit,valRaw])=>{
+    const num = Number(valRaw);
+    if(!isNaN(num) && valRaw !== '') {
+      q.push({ lab_test_id:data.id, marker_code:code, marker_label:label, value_numeric:num, unit });
+    }
+  });
+  if(q.length) {
+    const { error: mErr } = await sb.from('lab_markers').insert(q);
+    if(mErr) alert(mErr.message);
+  }
+
+  // reset minimal
+  notes.value=''; Object.values(quick).forEach(i=>i.value='');
+  await loadTests();
+  // open detail
+  openDetail(data);
+};
+
+async function loadTests(){
+  if(!currentUser) return;
+  const { data, error } = await sb.from('lab_tests')
+    .select('id,taken_at,lab_name,notes,lab_markers(count)')
+    .eq('user_id', currentUser.id)
+    .order('taken_at', { ascending:false });
+  if(error){ alert(error.message); return; }
+  testsBody.innerHTML = '';
+  if(!data.length){
+    testsBody.innerHTML = '<tr><td colspan="4" class="hint">No data</td></tr>';
+    return;
+  }
+  data.forEach(row=>{
+    const tr = document.createElement('tr');
+    const date = row.taken_at;
+    const lab = row.lab_name ?? '-';
+    const count = row.lab_markers?.[0]?.count ?? 0;
+    tr.innerHTML = `
+      <td>${date}</td>
+      <td>${lab}</td>
+      <td>${count} markers</td>
+      <td><button class="ghost" data-open="${row.id}">Open</button></td>`;
+    testsBody.appendChild(tr);
+  });
+  testsBody.querySelectorAll('button[data-open]').forEach(btn=>{
+    btn.onclick = async () => {
+      const id = btn.getAttribute('data-open');
+      const { data, error } = await sb.from('lab_tests').select('*').eq('id', id).single();
+      if(error) return alert(error.message);
+      openDetail(data);
+    };
+  });
+}
+
+/** ====== DETAIL & MARKERS ====== */
+async function openDetail(test){
+  currentTest = test;
+  detail.classList.remove('hide');
+  detailTitle.textContent = `Test — ${test.taken_at} ${test.lab_name ? '· '+test.lab_name : ''}`;
+  await loadMarkers();
+}
+async function loadMarkers(){
+  const { data, error } = await sb.from('lab_markers')
+    .select('*')
+    .eq('lab_test_id', currentTest.id)
+    .order('marker_label',{ascending:true});
+  if(error){ alert(error.message); return; }
+  markersBody.innerHTML='';
+  if(!data.length){ markersBody.innerHTML='<tr><td colspan="4" class="hint">No markers</td></tr>'; return; }
+  data.forEach(m=>{
+    const tr=document.createElement('tr');
+    const val = (m.value_numeric ?? m.value_text ?? '-');
+    const ref = (m.ref_low!=null && m.ref_high!=null) ? `${m.ref_low}–${m.ref_high} ${m.unit??''}` : '';
+    tr.innerHTML = `
+      <td>${m.marker_label}</td>
+      <td>${val} ${m.unit??''}</td>
+      <td>${ref}</td>
+      <td><button class="ghost" data-del="${m.id}">Delete</button></td>`;
+    markersBody.appendChild(tr);
+  });
+  markersBody.querySelectorAll('button[data-del]').forEach(btn=>{
+    btn.onclick = async ()=>{
+      const id = btn.getAttribute('data-del');
+      await sb.from('lab_markers').delete().eq('id', id);
+      await loadMarkers();
+      await loadTests();
+    };
+  });
+}
+
+btnAddMarker.onclick = async ()=>{
+  if(!currentTest) return;
+  const label = markerLabel.value.trim();
+  const value = markerValue.value.trim();
+  const unit  = markerUnit.value.trim();
+  if(!label || (!value && value!==0)) return alert('Enter label and value');
+
+  const payload = {
+    lab_test_id: currentTest.id,
+    marker_code: label.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,40),
+    marker_label: label,
+    unit: unit || null,
+    value_numeric: value===''? null : Number(value),
+    ref_low: refLow.value===''? null : Number(refLow.value),
+    ref_high: refHigh.value===''? null : Number(refHigh.value),
+  };
+  const { error } = await sb.from('lab_markers').insert(payload);
+  if(error) return alert(error.message);
+
+  markerLabel.value=''; markerValue.value=''; markerUnit.value=''; refLow.value=''; refHigh.value='';
+  await loadMarkers();
+  await loadTests();
+};
+
+btnDeleteTest.onclick = async ()=>{
+  if(!currentTest) return;
+  if(!confirm('Delete this test and all markers?')) return;
+  await sb.from('lab_tests').delete().eq('id', currentTest.id);
+  currentTest=null; detail.classList.add('hide'); await loadTests();
+};
+
+/** ====== EXPORT ====== */
+btnExport.onclick = async ()=>{
+  if(!currentUser) return;
+  // Flatten tests × markers as rows
+  const { data: tests } = await sb.from('lab_tests')
+    .select('id,taken_at,lab_name,notes').eq('user_id', currentUser.id).order('taken_at',{ascending:false});
+  if(!tests?.length) return alert('No data');
+
+  let rows = [];
+  for(const t of tests){
+    const { data: ms } = await sb.from('lab_markers').select('*').eq('lab_test_id', t.id);
+    if(!ms?.length) rows.push({date:t.taken_at, lab:t.lab_name??'', marker:'', value:'', unit:'', ref_low:'', ref_high:'', notes:t.notes??''});
+    else {
+      for(const m of ms){
+        rows.push({
+          date:t.taken_at, lab:t.lab_name??'',
+          marker:m.marker_label, value:(m.value_numeric??m.value_text??''), unit:(m.unit??''),
+          ref_low:(m.ref_low??''), ref_high:(m.ref_high??''), notes:t.notes??''
+        });
+      }
+    }
+  }
+  const headers = ['date','lab','marker','value','unit','ref_low','ref_high','notes'];
+  const csv = [headers.join(','), ...rows.map(r=>headers.map(h=>{
+    const cell = (r[h]??'').toString().replace(/"/g,'""');
+    return /[",\n]/.test(cell) ? `"${cell}"` : cell;
+  }).join(','))].join('\n');
+
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='injectbuddy-tests.csv'; a.click();
+  URL.revokeObjectURL(url);
+};
+
+/** ====== START ====== */
+refreshAuth();
+// handle OAuth redirect hash (for some providers)
+sb.auth.onAuthStateChange((evt,session)=>{ if(session?.user) refreshAuth(); });
+</script>
+</body>
+</html>
