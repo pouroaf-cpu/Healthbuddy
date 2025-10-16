@@ -4,112 +4,146 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>InjectBuddy — Test Logger</title>
-<meta name="description" content="Secure TRT blood test logger powered by Supabase." />
+<meta name="description" content="Secure TRT and blood test logger powered by Supabase." />
 <link rel="icon" href="/assets/favicon.svg" />
 <style>
-  :root { --teal:#009395; --teal-dark:#004c4d; --ink:#1e2a2a; --bg:#f4fbfb; --card:#fff; --muted:#e2eeee; }
-  *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
-  .wrap{max-width:1024px;margin:0 auto;padding:16px}
-  header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-  .logo{font-weight:700;color:var(--teal-dark)}
-  .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef;color:#334;font-size:.8rem}
-  button{border:0;padding:10px 14px;border-radius:10px;background:var(--teal);color:#fff;cursor:pointer}
-  button.ghost{background:transparent;color:var(--teal-dark);border:1px solid var(--muted)}
-  button.danger{background:#c0392b}
-  input,textarea{width:100%;padding:10px 12px;border:1px solid var(--muted);border-radius:10px;background:#fff}
-  label{font-size:.92rem;color:#3a4}
-  .row{display:flex;gap:8px;flex-wrap:wrap}
-  .grid{display:grid;gap:12px}
-  .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .card{background:var(--card);border:1px solid var(--muted);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);padding:16px;margin:12px 0}
-  table{width:100%;border-collapse:collapse}
-  th,td{padding:8px 10px;border-bottom:1px solid var(--muted);text-align:left;font-size:.95rem}
-  .hint{font-size:.9rem;color:#566}
-  .hide{display:none!important}
-
-  /* Full-screen centered auth */
-  .auth-shell{
-    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-    padding:20px; background:linear-gradient(180deg, #f7fcfc 0%, #eef7f7 100%);
+  :root {
+    --teal: #009395;
+    --dark: #004c4d;
+    --bg: #f3fbfb;
+    --muted: #e1eeee;
+    --card: #fff;
   }
-  .auth-card{
-    width:100%; max-width:420px; background:#fff; border:1px solid var(--muted); border-radius:16px; box-shadow:0 6px 24px rgba(0,0,0,.06); padding:18px;
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: #1b2424;
   }
-  .tabbar{display:flex}
-  .tabbar > button{flex:1; border-radius:0}
-  .tabbar > button:first-child{border-top-left-radius:10px;border-bottom-left-radius:10px}
-  .tabbar > button:last-child{border-top-right-radius:10px;border-bottom-right-radius:10px}
-  .orline{display:flex;align-items:center;gap:8px;margin:8px 0}
-  .orline span{height:1px;flex:1;background:var(--muted)}
-  @media (max-width:640px){ .grid-2{grid-template-columns:1fr} }
+  button {
+    border: none;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  button.ghost {
+    background: transparent;
+    color: var(--dark);
+    border: 1px solid var(--muted);
+  }
+  button.danger { background: #c0392b; }
+  input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--muted);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 1rem;
+  }
+  label { font-size: 0.9rem; color: #2d3c3c; }
+  .hide { display: none !important; }
+  .grid { display: grid; gap: 12px; }
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--muted);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    margin: 12px 0;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-bottom: 1px solid var(--muted);
+    padding: 8px;
+    text-align: left;
+  }
+  .hint { font-size: 0.9rem; color: #566; }
+  /* ===== Centered Auth ===== */
+  .auth-shell {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #f6fbfb, #eef7f7);
+    padding: 20px;
+  }
+  .auth-card {
+    background: #fff;
+    border: 1px solid var(--muted);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+  .logo { font-weight: 700; color: var(--dark); font-size: 1.1rem; }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+  }
 </style>
 <script src="https://unpkg.com/@supabase/supabase-js@2.46.1/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
-<!-- Top bar shown only after login -->
+<!-- HEADER -->
 <div class="wrap hide" id="topWrap">
   <header>
     <div class="logo">InjectBuddy — Test Logger</div>
     <div class="row">
-      <span id="userEmail" class="badge"></span>
+      <span id="userEmail" class="hint"></span>
       <button id="btnSignOut" class="ghost">Sign out</button>
     </div>
   </header>
 </div>
 
-<!-- Full-screen centered AUTH -->
+<!-- AUTH -->
 <section id="authShell" class="auth-shell">
   <div class="auth-card">
-    <h2 style="margin:4px 0 12px 0;color:var(--teal-dark)">Welcome</h2>
-    <p class="hint" style="margin-top:0">Create an account or sign in to log your blood tests securely.</p>
+    <h2 style="margin:0;color:var(--dark)">Welcome to InjectBuddy</h2>
+    <p class="hint">Create an account or sign in to track your bloodwork securely.</p>
 
-    <div class="tabbar" style="margin:6px 0 10px 0">
-      <button id="tabLogin" class="ghost">Log in</button>
-      <button id="tabSignup" class="ghost">Sign up</button>
+    <div class="row" style="margin:10px 0;">
+      <button id="btnGoogle" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42v-.1H24v7.2h11.3C33.5 31.8 29.2 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.1-5.1C33.4 5.4 28.9 3.5 24 3.5 12.1 3.5 2.5 13.1 2.5 25S12.1 46.5 24 46.5 45.5 36.9 45.5 25c0-1.5-.2-3-.6-4.5z"/></svg>
+        Continue with Google
+      </button>
     </div>
 
-    <!-- Google -->
-    <button id="btnGoogle" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px">
-      <!-- Simple G icon -->
-      <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42v-.1H24v7.2h11.3C33.5 31.8 29.2 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.1-5.1C33.4 5.4 28.9 3.5 24 3.5 12.1 3.5 2.5 13.1 2.5 25S12.1 46.5 24 46.5 45.5 36.9 45.5 25c0-1.5-.2-3-.6-4.5z"/><path fill="#FF3D00" d="M6.3 14.7l5.9 4.3C13.9 15.7 18.6 13 24 13c3 0 5.7 1.1 7.8 3l5.1-5.1C33.4 5.4 28.9 3.5 24 3.5 15.7 3.5 8.6 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 46.5c5.1 0 9.8-1.9 13.3-5.1l-6.1-5a12.1 12.1 0 0 1-7.2 2.4c-5.1 0-9.4-3.3-11-7.8l-6.1 4.7C9 42.8 15.9 46.5 24 46.5z"/><path fill="#1976D2" d="M43.6 20.5H42v-.1H24v7.2h11.3c-1.3 3.1-4.6 7.4-11.3 7.4V35c5.2 0 9.5-3.2 11.3-7.4h0l6.3-7.1z"/></svg>
-      Continue with Google
-    </button>
-
-    <div class="orline"><span></span><small class="hint">or</small><span></span></div>
-
-    <!-- LOGIN FORM -->
-    <div id="loginForm">
-      <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" />
-      <input id="loginPassword" type="password" placeholder="Your password" autocomplete="current-password" style="margin-top:8px" />
-      <div class="row" style="margin-top:8px">
-        <button id="btnLoginPwd" style="flex:1">Log in</button>
-        <button id="btnForgot" class="ghost">Forgot password</button>
-      </div>
-      <p class="hint" style="margin:10px 0 6px">Prefer email link?</p>
-      <div class="row">
-        <input id="magicEmail" type="email" placeholder="you@example.com" />
-        <button id="btnMagic">Send link</button>
-      </div>
+    <p class="hint" style="margin:8px 0;text-align:center;">or sign in with email</p>
+    <input id="email" type="email" placeholder="you@example.com" />
+    <input id="password" type="password" placeholder="Password" style="margin-top:8px;" />
+    <div class="row" style="margin-top:8px;">
+      <button id="btnLogin" style="flex:1;">Log in</button>
+      <button id="btnSignup" class="ghost">Sign up</button>
     </div>
-
-    <!-- SIGNUP FORM -->
-    <div id="signupForm" class="hide">
-      <input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" />
-      <input id="signupPassword" type="password" placeholder="Create a password (min 8 chars)" autocomplete="new-password" style="margin-top:8px" />
-      <input id="signupPassword2" type="password" placeholder="Confirm password" autocomplete="new-password" style="margin-top:8px" />
-      <div class="row" style="margin-top:8px">
-        <button id="btnSignupPwd" style="flex:1">Create account</button>
-      </div>
-      <p class="hint" style="margin-top:8px">We’ll email a confirmation link if confirmations are enabled.</p>
+    <p class="hint" style="margin:10px 0;">Need a passwordless link?</p>
+    <div class="row">
+      <input id="magicEmail" type="email" placeholder="you@example.com" />
+      <button id="btnMagic">Send link</button>
     </div>
   </div>
 </section>
 
-<!-- APP (visible after login) -->
+<!-- APP -->
 <div class="wrap hide" id="appWrap">
-  <!-- CREATE TEST -->
   <div class="card">
     <h3>New Lab Test</h3>
     <div class="grid grid-2">
@@ -124,16 +158,16 @@
     </div>
     <div style="margin-top:8px">
       <label>Notes</label>
-      <textarea id="notes" rows="2" placeholder="Fasted? Symptoms? Protocol changes…"></textarea>
+      <textarea id="notes" rows="2" placeholder="Fasted? Protocol changes?"></textarea>
     </div>
     <details style="margin-top:10px">
       <summary>Quick markers (optional)</summary>
       <div class="grid grid-2" style="margin-top:10px">
-        <div><label>Total T (nmol/L)</label><input id="m_total_t" type="number" step="0.01" /></div>
-        <div><label>Free T (pmol/L)</label><input id="m_free_t" type="number" step="0.01" /></div>
-        <div><label>E2 (pmol/L)</label><input id="m_e2" type="number" step="0.01" /></div>
-        <div><label>SHBG (nmol/L)</label><input id="m_shbg" type="number" step="0.01" /></div>
-        <div><label>Hematocrit (%)</label><input id="m_hct" type="number" step="0.01" /></div>
+        <div><label>Total T (nmol/L)</label><input id="m_total_t" type="number" /></div>
+        <div><label>Free T (pmol/L)</label><input id="m_free_t" type="number" /></div>
+        <div><label>E2 (pmol/L)</label><input id="m_e2" type="number" /></div>
+        <div><label>SHBG (nmol/L)</label><input id="m_shbg" type="number" /></div>
+        <div><label>Hematocrit (%)</label><input id="m_hct" type="number" /></div>
       </div>
     </details>
     <div class="row" style="margin-top:12px">
@@ -141,126 +175,58 @@
     </div>
   </div>
 
-  <!-- LIST -->
   <div class="card">
     <div class="row">
       <h3 style="margin:0">My Lab Tests</h3>
-      <span style="margin-left:auto"></span>
-      <button id="btnExport" class="ghost">Export CSV</button>
+      <button id="btnExport" class="ghost" style="margin-left:auto;">Export CSV</button>
     </div>
-    <table id="testsTable">
+    <table>
       <thead><tr><th>Date</th><th>Lab</th><th>Markers</th><th></th></tr></thead>
       <tbody id="testsBody"><tr><td colspan="4" class="hint">No data</td></tr></tbody>
     </table>
   </div>
-
-  <!-- DETAIL -->
-  <div id="detail" class="card hide">
-    <div class="row">
-      <h3 id="detailTitle" style="margin:0">Test</h3>
-      <span style="margin-left:auto"></span>
-      <button id="btnDeleteTest" class="danger">Delete test</button>
-    </div>
-    <div class="grid grid-2">
-      <div>
-        <label>Add marker</label>
-        <div class="grid">
-          <input id="markerLabel" placeholder="Total Testosterone" />
-          <div class="row">
-            <input id="markerValue" type="number" step="0.01" placeholder="Value" />
-            <input id="markerUnit" style="max-width:160px" placeholder="nmol/L" />
-          </div>
-          <div class="row">
-            <input id="refLow" type="number" step="0.01" placeholder="Ref low" />
-            <input id="refHigh" type="number" step="0.01" placeholder="Ref high" />
-            <button id="btnAddMarker">Add</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <label>Markers</label>
-        <table>
-          <thead><tr><th>Marker</th><th>Value</th><th>Ref</th><th></th></tr></thead>
-          <tbody id="markersBody"><tr><td colspan="4" class="hint">No markers</td></tr></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
-/* ========= CONFIG ========= */
-const SUPABASE_URL  = 'https://YOUR-PROJECT-REF.supabase.co';
-const SUPABASE_ANON = 'YOUR-ANON-KEY';
+const SUPABASE_URL = 'https://psrtdoglooijxzeyhmpc.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzcnRkb2dsb29panh6ZXlobXBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0NDc5NzgsImV4cCI6MjA3NjAyMzk3OH0.9rJpPsw9jueVW8OTqE_2dnCNj-LcO3yvwszhw_OqYUQ';
+
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-/* ========= ELEMENTS ========= */
 const authShell = document.getElementById('authShell');
-const topWrap   = document.getElementById('topWrap');
-const appWrap   = document.getElementById('appWrap');
+const topWrap = document.getElementById('topWrap');
+const appWrap = document.getElementById('appWrap');
 const userEmail = document.getElementById('userEmail');
-const btnSignOut= document.getElementById('btnSignOut');
-
-const tabLogin  = document.getElementById('tabLogin');
-const tabSignup = document.getElementById('tabSignup');
-const loginForm = document.getElementById('loginForm');
-const signupForm= document.getElementById('signupForm');
-
+const btnSignOut = document.getElementById('btnSignOut');
 const btnGoogle = document.getElementById('btnGoogle');
-const loginEmail= document.getElementById('loginEmail');
-const loginPassword = document.getElementById('loginPassword');
-const btnLoginPwd = document.getElementById('btnLoginPwd');
-const btnForgot  = document.getElementById('btnForgot');
-
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const btnLogin = document.getElementById('btnLogin');
+const btnSignup = document.getElementById('btnSignup');
 const magicEmail = document.getElementById('magicEmail');
-const btnMagic   = document.getElementById('btnMagic');
-
-const signupEmail = document.getElementById('signupEmail');
-const signupPassword = document.getElementById('signupPassword');
-const signupPassword2= document.getElementById('signupPassword2');
-const btnSignupPwd   = document.getElementById('btnSignupPwd');
-
-/* app */
+const btnMagic = document.getElementById('btnMagic');
 const takenAt = document.getElementById('takenAt');
 const labName = document.getElementById('labName');
-const notes   = document.getElementById('notes');
+const notes = document.getElementById('notes');
 const quick = {
   total_t: document.getElementById('m_total_t'),
-  free_t:  document.getElementById('m_free_t'),
-  e2:      document.getElementById('m_e2'),
-  shbg:    document.getElementById('m_shbg'),
-  hct:     document.getElementById('m_hct'),
+  free_t: document.getElementById('m_free_t'),
+  e2: document.getElementById('m_e2'),
+  shbg: document.getElementById('m_shbg'),
+  hct: document.getElementById('m_hct'),
 };
-const btnSave   = document.getElementById('btnSave');
+const btnSave = document.getElementById('btnSave');
 const testsBody = document.getElementById('testsBody');
 const btnExport = document.getElementById('btnExport');
-const detail    = document.getElementById('detail');
-const detailTitle = document.getElementById('detailTitle');
-const btnDeleteTest = document.getElementById('btnDeleteTest');
-const markerLabel = document.getElementById('markerLabel');
-const markerValue = document.getElementById('markerValue');
-const markerUnit  = document.getElementById('markerUnit');
-const refLow = document.getElementById('refLow');
-const refHigh= document.getElementById('refHigh');
-const btnAddMarker = document.getElementById('btnAddMarker');
 
 let currentUser = null;
-let currentTest = null;
 
-/* ========= AUTH UI TOGGLING ========= */
-function showLoginTab(){ loginForm.classList.remove('hide'); signupForm.classList.add('hide'); tabLogin.classList.remove('ghost'); tabSignup.classList.add('ghost'); }
-function showSignupTab(){ signupForm.classList.remove('hide'); loginForm.classList.add('hide'); tabSignup.classList.remove('ghost'); tabLogin.classList.add('ghost'); }
-tabLogin.onclick = showLoginTab;
-tabSignup.onclick = showSignupTab;
-showLoginTab();
-
-/* ========= SESSION HANDLING ========= */
 function setAuthedUI(on){
   if(on){
     authShell.classList.add('hide');
     topWrap.classList.remove('hide');
     appWrap.classList.remove('hide');
-  }else{
+  } else {
     authShell.classList.remove('hide');
     topWrap.classList.add('hide');
     appWrap.classList.add('hide');
@@ -274,233 +240,83 @@ async function refreshAuth(){
     userEmail.textContent = user.email ?? 'Signed in';
     setAuthedUI(true);
     await loadTests();
-  }else{
+  } else {
     setAuthedUI(false);
   }
 }
 
-/* ========= GOOGLE OAUTH (PKCE redirect) ========= */
-/* IMPORTANT:
-   Supabase → Auth → URL Configuration → add your origin (e.g., https://injectbuddy.com)
-   Also add your Netlify preview origins.
-*/
 btnGoogle.onclick = async () => {
-  const redirect = window.location.origin; // returns to your site root
-  const { error } = await sb.auth.signInWithOAuth({
+  await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: {
-      redirectTo: redirect,    // must be whitelisted in Supabase Auth URLs
-      queryParams: { prompt: 'consent' } // helps with refresh token issuance
-    }
+    options: { redirectTo: 'https://psrtdoglooijxzeyhmpc.supabase.co/auth/v1/callback' }
   });
-  if(error) alert(error.message);
 };
 
-/* ========= EMAIL/PASSWORD ========= */
-btnLoginPwd.onclick = async () => {
-  const email = loginEmail.value.trim();
-  const pwd = loginPassword.value;
-  if(!email || !pwd) return alert('Enter email and password');
-  const { error } = await sb.auth.signInWithPassword({ email, password: pwd });
-  if(error) return alert(error.message);
-  await refreshAuth();
+btnLogin.onclick = async () => {
+  const { error } = await sb.auth.signInWithPassword({ email: email.value, password: password.value });
+  if(error) alert(error.message); else await refreshAuth();
 };
 
-btnForgot.onclick = async () => {
-  const email = (loginEmail.value || magicEmail.value || '').trim();
-  if(!email) return alert('Enter your email above first');
-  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/#password-reset' });
-  if(error) return alert(error.message);
-  alert('Password reset link sent. Check your inbox.');
-};
-
-btnSignupPwd.onclick = async () => {
-  const email = signupEmail.value.trim();
-  const p1 = signupPassword.value, p2 = signupPassword2.value;
-  if(!email || !p1 || !p2) return alert('Fill all fields');
-  if(p1.length < 8) return alert('Password must be at least 8 characters');
-  if(p1 !== p2) return alert('Passwords do not match');
-  const { data, error } = await sb.auth.signUp({
-    email, password: p1,
-    options:{ emailRedirectTo: window.location.origin }
+btnSignup.onclick = async () => {
+  const { error } = await sb.auth.signUp({
+    email: email.value,
+    password: password.value,
+    options: { emailRedirectTo: window.location.origin }
   });
-  if(error) return alert(error.message);
-  alert('Check your email to confirm your account, then log in.');
-  showLoginTab();
+  if(error) alert(error.message); else alert('Check your email to confirm your account.');
 };
 
-/* Magic link */
 btnMagic.onclick = async () => {
-  const email = magicEmail.value.trim();
-  if(!email) return alert('Enter your email');
-  const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.origin }});
-  if(error) alert(error.message); else alert('Magic link sent. Check your inbox.');
+  const { error } = await sb.auth.signInWithOtp({ email: magicEmail.value });
+  if(error) alert(error.message); else alert('Magic link sent.');
 };
 
-/* Password recovery inline handler */
-sb.auth.onAuthStateChange(async (event) => {
-  if(event === 'PASSWORD_RECOVERY'){
-    const newPwd = prompt('Enter your new password');
-    if(!newPwd) return;
-    const { error } = await sb.auth.updateUser({ password: newPwd });
-    if(error) alert(error.message); else alert('Password updated. You can log in now.');
-  }
-});
+btnSignOut.onclick = async () => { await sb.auth.signOut(); setAuthedUI(false); };
 
-/* ========= SIGN OUT ========= */
-btnSignOut.onclick = async () => { await sb.auth.signOut(); currentUser = null; setAuthedUI(false); };
-
-/* ========= APP: CRUD ========= */
-function val(v){ return (v===undefined || v===null) ? null : String(v).trim() || null; }
-
+/* --- CRUD --- */
 async function loadTests(){
   if(!currentUser) return;
-  const { data, error } = await sb.from('lab_tests')
-    .select('id,taken_at,lab_name,notes,lab_markers(count)')
-    .eq('user_id', currentUser.id)
-    .order('taken_at', { ascending:false });
-  if(error){ alert(error.message); return; }
+  const { data } = await sb.from('lab_tests')
+    .select('id,taken_at,lab_name,lab_markers(count)')
+    .eq('user_id', currentUser.id).order('taken_at',{ascending:false});
   testsBody.innerHTML = '';
-  if(!data.length){
-    testsBody.innerHTML = '<tr><td colspan="4" class="hint">No data</td></tr>';
-    return;
-  }
-  data.forEach(row=>{
-    const tr = document.createElement('tr');
-    const count = row.lab_markers?.[0]?.count ?? 0;
-    tr.innerHTML = `
-      <td>${row.taken_at}</td>
-      <td>${row.lab_name ?? '-'}</td>
-      <td>${count} markers</td>
-      <td><button class="ghost" data-open="${row.id}">Open</button></td>`;
+  if(!data?.length){ testsBody.innerHTML='<tr><td colspan="4" class="hint">No data</td></tr>'; return; }
+  data.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${r.taken_at}</td><td>${r.lab_name??'-'}</td><td>${r.lab_markers[0]?.count??0}</td><td></td>`;
     testsBody.appendChild(tr);
-  });
-  testsBody.querySelectorAll('button[data-open]').forEach(btn=>{
-    btn.onclick = async () => {
-      const id = btn.getAttribute('data-open');
-      const { data, error } = await sb.from('lab_tests').select('*').eq('id', id).single();
-      if(error) return alert(error.message);
-      openDetail(data);
-    };
   });
 }
 
 btnSave.onclick = async () => {
-  if(!currentUser) return;
+  if(!currentUser) return alert('Please log in first');
   const d = takenAt.value || new Date().toISOString().slice(0,10);
-  const insert = { user_id: currentUser.id, taken_at: d, lab_name: val(labName.value), notes: val(notes.value) };
-  const { data, error } = await sb.from('lab_tests').insert(insert).select().single();
-  if(error){ alert(error.message); return; }
-
-  const testId = data.id;
-  const q = [];
-  const defs = [
-    ['total_t','Total Testosterone','nmol/L', quick.total_t.value],
-    ['free_t','Free Testosterone','pmol/L', quick.free_t.value],
-    ['e2','Estradiol (E2)','pmol/L', quick.e2.value],
-    ['shbg','SHBG','nmol/L', quick.shbg.value],
-    ['hct','Hematocrit','%', quick.hct.value],
-  ];
-  defs.forEach(([code,label,unit,valRaw])=>{
-    const num = Number(valRaw);
-    if(!isNaN(num) && valRaw !== '') q.push({ lab_test_id:testId, marker_code:code, marker_label:label, value_numeric:num, unit });
-  });
-  if(q.length){ const { error:mErr } = await sb.from('lab_markers').insert(q); if(mErr) alert(mErr.message); }
-
-  notes.value=''; Object.values(quick).forEach(i=>i.value='');
-  await loadTests();
-  openDetail(data);
-};
-
-async function openDetail(test){
-  currentTest = test;
-  detail.classList.remove('hide');
-  detailTitle.textContent = `Test — ${test.taken_at}${test.lab_name ? ' · ' + test.lab_name : ''}`;
-  await loadMarkers();
-}
-async function loadMarkers(){
-  const { data, error } = await sb.from('lab_markers')
-    .select('*').eq('lab_test_id', currentTest.id).order('marker_label',{ascending:true});
-  if(error){ alert(error.message); return; }
-  const body = document.getElementById('markersBody');
-  body.innerHTML = '';
-  if(!data.length){ body.innerHTML = '<tr><td colspan="4" class="hint">No markers</td></tr>'; return; }
-  data.forEach(m=>{
-    const tr=document.createElement('tr');
-    const ref = (m.ref_low!=null && m.ref_high!=null) ? `${m.ref_low}–${m.ref_high} ${m.unit??''}` : '';
-    tr.innerHTML = `
-      <td>${m.marker_label}</td>
-      <td>${(m.value_numeric ?? m.value_text ?? '-')} ${m.unit??''}</td>
-      <td>${ref}</td>
-      <td><button class="ghost" data-del="${m.id}">Delete</button></td>`;
-    body.appendChild(tr);
-  });
-  body.querySelectorAll('button[data-del]').forEach(btn=>{
-    btn.onclick = async ()=>{
-      const id = btn.getAttribute('data-del');
-      await sb.from('lab_markers').delete().eq('id', id);
-      await loadMarkers(); await loadTests();
-    };
-  });
-}
-
-btnAddMarker.onclick = async ()=>{
-  if(!currentTest) return;
-  const label = markerLabel.value.trim();
-  const value = markerValue.value.trim();
-  const unit  = markerUnit.value.trim();
-  if(!label || (!value && value!==0)) return alert('Enter label and value');
-
-  const payload = {
-    lab_test_id: currentTest.id,
-    marker_code: label.toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,40),
-    marker_label: label,
-    unit: unit || null,
-    value_numeric: value===''? null : Number(value),
-    ref_low: refLow.value===''? null : Number(refLow.value),
-    ref_high: refHigh.value===''? null : Number(refHigh.value),
-  };
-  const { error } = await sb.from('lab_markers').insert(payload);
+  const { data, error } = await sb.from('lab_tests').insert({ user_id: currentUser.id, taken_at: d, lab_name: labName.value, notes: notes.value }).select().single();
   if(error) return alert(error.message);
-
-  markerLabel.value=''; markerValue.value=''; markerUnit.value=''; refLow.value=''; refHigh.value='';
-  await loadMarkers(); await loadTests();
-};
-
-btnDeleteTest.onclick = async ()=>{
-  if(!currentTest) return;
-  if(!confirm('Delete this test and all markers?')) return;
-  await sb.from('lab_tests').delete().eq('id', currentTest.id);
-  currentTest=null; detail.classList.add('hide'); await loadTests();
+  const t = data.id;
+  const q = [];
+  const defs = [['total_t','Total Testosterone','nmol/L',quick.total_t.value],['free_t','Free Testosterone','pmol/L',quick.free_t.value],['e2','Estradiol','pmol/L',quick.e2.value],['shbg','SHBG','nmol/L',quick.shbg.value],['hct','Hematocrit','%',quick.hct.value]];
+  defs.forEach(([c,l,u,v])=>{if(v)q.push({lab_test_id:t,marker_code:c,marker_label:l,value_numeric:Number(v),unit:u});});
+  if(q.length) await sb.from('lab_markers').insert(q);
+  await loadTests();
 };
 
 btnExport.onclick = async ()=>{
   if(!currentUser) return;
-  const { data: tests } = await sb.from('lab_tests')
-    .select('id,taken_at,lab_name,notes').eq('user_id', currentUser.id).order('taken_at',{ascending:false});
-  if(!tests?.length) return alert('No data');
-
-  let rows = [];
-  for(const t of tests){
-    const { data: ms } = await sb.from('lab_markers').select('*').eq('lab_test_id', t.id);
-    if(!ms?.length) rows.push({date:t.taken_at, lab:t.lab_name??'', marker:'', value:'', unit:'', ref_low:'', ref_high:'', notes:t.notes??''});
-    else for(const m of ms){
-      rows.push({ date:t.taken_at, lab:t.lab_name??'', marker:m.marker_label, value:(m.value_numeric??m.value_text??''), unit:(m.unit??''), ref_low:(m.ref_low??''), ref_high:(m.ref_high??''), notes:t.notes??'' });
-    }
-  }
-  const headers = ['date','lab','marker','value','unit','ref_low','ref_high','notes'];
-  const csv = [headers.join(','), ...rows.map(r=>headers.map(h=>{
-    const cell = (r[h]??'').toString().replace(/"/g,'""');
-    return /[",\n]/.test(cell) ? `"${cell}"` : cell;
-  }).join(','))].join('\n');
-
-  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'}), url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href=url; a.download='injectbuddy-tests.csv'; a.click(); URL.revokeObjectURL(url);
+  const { data } = await sb.from('lab_tests').select('id,taken_at,lab_name,notes,lab_markers(*)').eq('user_id', currentUser.id);
+  if(!data?.length) return alert('No data');
+  let csv='date,lab,marker,value,unit,ref_low,ref_high,notes\n';
+  data.forEach(t=>{
+    (t.lab_markers||[]).forEach(m=>{
+      csv+=`${t.taken_at},${t.lab_name??''},${m.marker_label},${m.value_numeric??''},${m.unit??''},${m.ref_low??''},${m.ref_high??''},${t.notes??''}\n`;
+    });
+  });
+  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='injectbuddy-tests.csv';a.click();URL.revokeObjectURL(a.href);
 };
 
-/* ========= BOOT ========= */
 refreshAuth();
-sb.auth.onAuthStateChange((_event, session) => { if(session?.user) refreshAuth(); });
+sb.auth.onAuthStateChange(()=>refreshAuth());
 </script>
 </body>
 </html>
