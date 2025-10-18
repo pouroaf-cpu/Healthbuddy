@@ -3,196 +3,333 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>InjectBuddy — Simple Tools for TRT & Peptide Dosing</title>
-  <meta name="description" content="InjectBuddy helps you calculate exact testosterone and peptide doses with precision. Clear visuals, simple steps, and no sign-up required." />
+  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
+  <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
   <link rel="canonical" href="https://www.injectbuddy.com/" />
-  <meta property="og:title" content="InjectBuddy — TRT & Peptide Dosing Simplified" />
-  <meta property="og:description" content="Accurate, easy-to-use calculators for testosterone and peptide dosing. Plan injections, reconstitution, and schedules in seconds." />
+  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
+  <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/assets/favicon.svg" />
+
+  <style>
+    :root{
+      --teal:#009395;
+      --teal-900:#004c4d;
+      --ink:#0f172a;
+      --muted:#475569;
+      --bg:#ffffff;
+      --cta:#00b2b5;            /* brighter for punch */
+      --cta-hover:#00c7ca;      /* hover */
+      --cta-dark:#036d6f;       /* for outlines/dark states */
+      --ring:rgba(0, 147, 149, .35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;
+      border:2px solid transparent;cursor:pointer;text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
+    }
+    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .btn-primary{background:var(--cta);color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0, 178, 181, .35)}
+    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
+    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    .btn-ghost{background:transparent;color:#fff;border-color:#fff}
+    .btn-ghost:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
+
+    /* Header */
+    .header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+      backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #e2e8f0;
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .logo{
+      width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
+    }
+    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
+    .nav{display:flex;gap:10px;align-items:center}
+    .nav a{font-weight:600;color:var(--muted)}
+    .nav-cta .btn{padding:10px 16px;border-radius:12px}
+
+    /* Hero */
+    .hero{
+      background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%),
+                 radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%);
+    }
+    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:64px 0}
+    .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
+    .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+    .hero-card{
+      background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(2,6,23,.06)
+    }
+    .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
+
+    /* Features */
+    .section{padding:56px 0}
+    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:18px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .card{border:1px solid #e2e8f0;border-radius:18px;padding:18px;background:#fff}
+    .card h4{margin:0 0 6px;font-size:1.05rem}
+    .kpi{display:flex;gap:14px;align-items:center}
+    .kpi .dot{width:12px;height:12px;border-radius:999px;background:var(--teal)}
+
+    /* How it works */
+    .steps{counter-reset:step;display:grid;gap:14px}
+    .step{
+      display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;border:1px solid #e2e8f0;border-radius:16px;padding:14px;background:#fff
+    }
+    .step::before{
+      counter-increment:step;content:counter(step);
+      width:34px;height:34px;border-radius:10px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;
+      font-weight:800;box-shadow:0 8px 18px rgba(0,147,149,.35)
+    }
+
+    /* Social proof */
+    .quotes{display:grid;gap:14px}
+    .quote{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}
+    .quote p{margin:0;color:#0b1426}
+    .quote small{color:var(--muted)}
+
+    /* Bottom CTA bar */
+    .cta-bar{
+      position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
+      border-top:1px solid #e2e8f0
+    }
+    .cta-bar-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0}
+    .cta-bar strong{color:var(--teal-900)}
+
+    /* Footer */
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid #e2e8f0}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .nav a{display:none}
+      .nav-cta{margin-left:auto}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn, .btn:hover{transition:none;transform:none}
+    }
+  </style>
 </head>
 <body>
-<header class="ib-header" id="siteHeader">
-  <div class="ib-nav">
-    <a class="ib-brand" href="/">InjectBuddy</a>
-    <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="ib-navlinks" class="ib-links" role="navigation">
-      <a href="/" class="ib-link active" aria-current="page">Home</a>
-      <a href="/calculator.html" class="ib-link">Calculator</a>
-      <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
-      <a href="/faq.html" class="ib-link">FAQ</a>
-      <a href="/about.html" class="ib-link">About</a>
-      <a href="/contact.html" class="ib-link">Contact</a>
-      <a href="/privacy.html" class="ib-link">Privacy</a>
-    </nav>
-  </div>
-</header>
 
-<main class="container">
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="InjectBuddy Home">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>InjectBuddy</h1>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#why">Why</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="#open-calculator" aria-label="Open the calculator now">Open Calculator</a>
+      </div>
+    </div>
+  </header>
+
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
+  <section class="hero" id="top">
+    <div class="container hero-inner">
       <div>
-        <div class="badges">
-          <span class="badge">Free tools</span>
-          <span class="badge">No sign-up</span>
-          <span class="badge">Mobile-first</span>
+        <span class="tag">Clarity. Safety. Confidence.</span>
+        <h2>Take control of TRT & peptide dosing — without confusion.</h2>
+        <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="open-calculator" href="/#calculator" aria-label="Start your free calculation">Start Your Free Calculation</a>
+          <a class="btn btn-secondary" href="/questionnaire.html" aria-label="Try the TRT readiness questionnaire">“Is TRT for Me?” Questionnaire</a>
         </div>
-        <h1>Accurate Tools for TRT and Peptide Dosing</h1>
-        <p class="hero-sub">
-          Plan your testosterone or peptide doses with clarity. InjectBuddy makes it easy to calculate exact volumes, understand your schedule, and stay consistent.
-        </p>
-        <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
-          <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
-          <a class="btn btn-ghost" href="/questionnaire.html">Take the TRT Questionnaire</a>
+        <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed for the calculator.</p>
+      </div>
+
+      <div class="hero-card" aria-label="Calculator preview">
+        <!-- Simple visual mock to suggest product; replace with your SVG or img -->
+        <div style="display:grid;gap:10px">
+          <div style="height:14px;width:40%;background:rgba(0,147,149,.15);border-radius:6px"></div>
+          <div style="height:54px;border:1px dashed #cbd5e1;border-radius:14px;padding:10px">
+            <div style="height:8px;width:60%;background:#e2e8f0;border-radius:6px;margin:6px 0"></div>
+            <div style="height:8px;width:40%;background:#e2e8f0;border-radius:6px;margin:6px 0"></div>
+            <div style="height:8px;width:70%;background:#e2e8f0;border-radius:6px;margin:6px 0"></div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <a class="btn btn-primary" href="/#calculator">Open Calculator</a>
+            <a class="btn btn-secondary" href="/faq.html">View FAQ</a>
+          </div>
         </div>
-        <p class="muted" style="margin-top:10px;">For educational purposes only. Always follow your clinician’s instructions.</p>
-      </div>
-
-      <!-- Right-side promo -->
-      <aside class="promo">
-        <h3>What You Can Do Here</h3>
-        <ul class="klist">
-          <li>Work out exact injection volumes for your weekly dose.</li>
-          <li>Plan 2–3x per week dosing schedules with split options.</li>
-          <li>Visual syringe guide with capacity checks.</li>
-          <li>Simple peptide reconstitution calculator included.</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
-
-  <!-- TOOLS OVERVIEW -->
-  <section class="section" aria-labelledby="tools-title">
-    <h2 id="tools-title">Get What You Need — Fast</h2>
-    <div class="grid">
-      <a class="card" href="/calculator.html">
-        <h3>Testosterone Dose Calculator</h3>
-        <p class="muted">Quickly see how much to draw for your prescribed weekly dose. Clear syringe visuals guide every step.</p>
-      </a>
-      <a class="card" href="/calculator.html">
-        <h3>Cypionate & Enanthate Calculator</h3>
-        <p class="muted">Enter your vial strength (e.g. 200 mg/mL) and instantly get your exact injection volume — accurate and repeatable.</p>
-      </a>
-      <a class="card" href="/calculator.html">
-        <h3>TRT Injection Planner</h3>
-        <p class="muted">Choose syringe size and injection frequency. See exact volumes per shot with automatic safety checks.</p>
-      </a>
-      <a class="card" href="/calculator.html">
-        <h3>Peptide Reconstitution Tool</h3>
-        <p class="muted">Calculate how much bacteriostatic water to add and how much to draw per shot — no math required.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- VALUE PROPS -->
-  <section class="section" aria-labelledby="why-title">
-    <h2 id="why-title">Why People Choose InjectBuddy</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Accurate, Every Time</h3>
-        <ul class="klist">
-          <li>Precision mg-to-mL calculations.</li>
-          <li>Automatic adjustments for split dosing.</li>
-          <li>Built-in syringe visual with live feedback.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Clean, Modern Interface</h3>
-        <ul class="klist">
-          <li>Fast-loading and mobile-optimized.</li>
-          <li>Simple sliders and toggles for easy input.</li>
-          <li>Designed for clarity and confidence.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Built for Peptides Too</h3>
-        <ul class="klist">
-          <li>Reconstitution made simple.</li>
-          <li>Clear per-injection breakdowns.</li>
-          <li>Supports mL and U-100 unit systems.</li>
-        </ul>
       </div>
     </div>
   </section>
 
-  <!-- USER REVIEWS -->
-  <section class="section" aria-labelledby="reviews-title">
-    <h2 id="reviews-title">What Users Are Saying</h2>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <blockquote>“Finally, a calculator that actually makes sense.”</blockquote>
-        <p class="muted">“I used to second-guess my doses. InjectBuddy’s guides make everything crystal clear.”</p>
-        <span class="review-author">— Jason T.</span>
-      </div>
-
-      <div class="review-card">
-        <blockquote>“Accurate and stress-free.”</blockquote>
-        <p class="muted">“The peptide tool saved me from endless guesswork. Everything feels professional and safe.”</p>
-        <span class="review-author">— M. Singh</span>
-      </div>
-
-      <div class="review-card">
-        <blockquote>“The syringe visuals are a game-changer.”</blockquote>
-        <p class="muted">“It’s so simple but gives me confidence every time I draw up my dose.”</p>
-        <span class="review-author">— Aaron L.</span>
+  <!-- WHY / VISION -->
+  <section class="section" id="why">
+    <div class="container">
+      <h3>Why InjectBuddy exists</h3>
+      <p class="muted">People managing hormones at home need clarity, not guesswork. We built InjectBuddy to bring clinical accuracy and a calm, modern experience to dosing decisions.</p>
+      <div class="grid grid-3" style="margin-top:18px">
+        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Clinical-style precision</strong><div class="muted">Accurate mg→mL with clean syringe visuals.</div></div></div>
+        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Fast decisions</strong><div class="muted">Enter dose → get exact fill and schedule.</div></div></div>
+        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Built for safety</strong><div class="muted">Clear disclaimers and sensible defaults.</div></div></div>
       </div>
     </div>
   </section>
 
-  <!-- LINKS -->
-  <section class="section" aria-label="Helpful links">
-    <p class="muted">
-      More tools: 
-      <a href="/calculator.html">TRT Calculator</a> · 
-      <a href="/calculator.html">Testosterone Dosing</a> · 
-      <a href="/calculator.html">Cypionate/Enanthate</a> · 
-      <a href="/calculator.html">Peptide Dosing</a> · 
-      <a href="/faq.html">FAQ</a>
-    </p>
-    <script>
-      if (location.hash && location.hash.toLowerCase() === '#calculator') {
-        location.replace('/calculator.html');
-      }
-    </script>
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <h3>What you can do here</h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <h4>TRT dosage calculator</h4>
+          <p class="muted">Exact mL per injection from your mg/week and vial concentration, plus injection frequency.</p>
+          <p><a class="btn btn-secondary" href="/#calculator">Use Calculator</a></p>
+        </div>
+        <div class="card">
+          <h4>Peptide reconstitution</h4>
+          <p class="muted">Simple steps to get target concentration and clear draw volumes for insulin syringes.</p>
+          <p><a class="btn btn-secondary" href="/faq.html#reconstitution">Learn Reconstitution</a></p>
+        </div>
+        <div class="card">
+          <h4>Schedules that stick</h4>
+          <p class="muted">“Injections per week” or “every N days”—your choice, with immediate guidance.</p>
+          <p><a class="btn btn-secondary" href="/#calculator">Plan Schedule</a></p>
+        </div>
+      </div>
+    </div>
   </section>
-</main>
 
-<footer>
-  <div class="container footer-meta">
-    <div>© 2025 InjectBuddy. Educational use only — not medical advice.</div>
-    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="container">
+      <h3>How it works</h3>
+      <div class="steps">
+        <div class="step"><div></div><div><strong>Enter your dose & concentration.</strong><div class="muted">We convert mg to mL and visualize syringe fill.</div></div></div>
+        <div class="step"><div></div><div><strong>Choose a schedule.</strong><div class="muted">Injections/week or every N days—both supported.</div></div></div>
+        <div class="step"><div></div><div><strong>Follow clear outputs.</strong><div class="muted">Exact mL per shot and a simple plan to follow.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="section">
+    <div class="container">
+      <h3>What users say</h3>
+      <div class="quotes">
+        <div class="quote"><p>“No fluff. I get the number I need and the syringe picture makes it foolproof.”</p><small>— Verified user</small></div>
+        <div class="quote"><p>“Finally a dosing tool that doesn’t confuse me.”</p><small>— Gym goer</small></div>
+      </div>
+    </div>
+  </section>
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials" aria-label="User Testimonials">
+  <div class="container">
+    <h3>What Users Are Saying</h3>
+    <div class="testimonial-track">
+      <div class="testimonial-card">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>“Finally a calculator that makes sense. Simple, accurate, and fast.”</p>
+        <small>— Aaron, TRT User</small>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>“I used to spend 10 minutes doing math — now it’s done in seconds.”</p>
+        <small>— Michael, Fitness Coach</small>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars" aria-hidden="true">★★★★☆</div>
+        <p>“Love the syringe visuals. Makes peptide mixing foolproof.”</p>
+        <small>— Daniel, Peptide Enthusiast</small>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>“Super clean layout, no clutter. You nailed the UX.”</p>
+        <small>— Laura, Pharmacist</small>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars" aria-hidden="true">★★★★★</div>
+        <p>“Best tool I’ve found online for TRT management.”</p>
+        <small>— Ben, Hormone Therapy User</small>
+      </div>
+    </div>
   </div>
-</footer>
+</section>
 
 <script>
-(function(){
-  const header = document.getElementById('siteHeader');
-  const btn = document.querySelector('.ib-toggle');
-  const nav = document.getElementById('ib-navlinks');
-  if (!header || !btn || !nav) return;
+  // Auto-scroll testimonials
+  const track = document.querySelector('.testimonial-track');
+  let scrollSpeed = 1; // pixels per frame
+  let direction = 1;
 
-  const closeNav = () => {
-    nav.classList.remove('show');
-    document.body.classList.remove('nav-open');
-    btn.setAttribute('aria-expanded', 'false');
-  };
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('show');
-    document.body.classList.toggle('nav-open', open);
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-  window.addEventListener('pageshow', closeNav);
-})();
+  function autoScroll() {
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth) {
+      direction = -1;
+    } else if (track.scrollLeft <= 0) {
+      direction = 1;
+    }
+    track.scrollLeft += scrollSpeed * direction;
+    requestAnimationFrame(autoScroll);
+  }
+  autoScroll();
 </script>
 
+  <!-- DISCLAIMER / SAFETY -->
+  <section class="section" aria-label="Safety notice">
+    <div class="container">
+      <div class="card">
+        <strong>Safety & Disclaimer</strong>
+        <p class="muted" style="margin:8px 0 0">
+          InjectBuddy is for educational purposes only and is not medical advice. Always follow your clinician’s instructions.
+          Refer to supplier documentation for product-specific guidance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY BOTTOM CTA BAR -->
+  <div class="cta-bar" role="region" aria-label="Quick action bar">
+    <div class="container cta-bar-inner">
+      <strong>Ready to make dosing simple?</strong>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="/#calculator" aria-label="Open the calculator">Open Calculator</a>
+        <a class="btn btn-secondary" href="/questionnaire.html" aria-label="Open the TRT questionnaire">TRT Questionnaire</a>
+      </div>
+    </div>
+  </div>
+
+  <footer role="contentinfo">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>© <span id="y"></span> InjectBuddy</div>
+      <div><a href="/privacy.html">Privacy</a> · <a href="/faq.html">FAQ</a> · <a href="/contact.html">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Set copyright year
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // Smooth scroll (native where supported)
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
 </body>
 </html>
