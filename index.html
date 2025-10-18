@@ -14,20 +14,19 @@
   <link rel="icon" href="/assets/favicon.svg" />
 
   <style>
-    :root{
+    :root {
       --teal:#009395;
       --teal-900:#004c4d;
       --ink:#0f172a;
       --muted:#475569;
       --bg:#ffffff;
-      --cta:#00b2b5;           /* brighter for punch */
-      --cta-hover:#00c7ca;     /* hover */
-      --cta-dark:#036d6f;      /* for outlines/dark states */
+      --cta:#00b2b5;
+      --cta-hover:#00c7ca;
+      --cta-dark:#036d6f;
       --ring:rgba(0,147,149,.35);
-      --card:#ffffff;
       --border:#e2e8f0;
       --shadow:0 10px 30px rgba(2,6,23,.06);
-      --gold:#f5b301;          /* star color */
+      --gold:#f5b301;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
@@ -42,43 +41,39 @@
       box-shadow:0 8px 24px rgba(0,0,0,.08);
       transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
     }
-    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
     .btn-primary{background:var(--cta);color:#fff}
-    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0, 178, 181, .35)}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
     .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
     .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
-    .btn-ghost{background:transparent;color:#fff;border-color:#fff}
-    .btn-ghost:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
 
     /* Header */
-    .header{
-      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
-      backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border);
-    }
+    .header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
-    .logo{
-      width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
-    }
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
     .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
     .nav{display:flex;gap:10px;align-items:center}
     .nav a{font-weight:600;color:var(--muted)}
     .nav-cta .btn{padding:10px 16px;border-radius:12px}
 
     /* Hero */
-    .hero{
-      background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%),
-                 radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%);
-    }
+    .hero{background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%), radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%)}
     .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:64px 0}
     .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
     .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-    .hero-card{
-      background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)
-    }
+    .hero-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
     .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
+
+    /* Reviews */
+    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
+    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
+    .review-mask:hover .review-rail{animation-play-state:paused}
+    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
+    .review-card small{color:var(--muted)}
+    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
 
     /* Sections */
     .section{padding:56px 0}
@@ -86,83 +81,31 @@
     .muted{color:var(--muted)}
     .grid{display:grid;gap:18px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
-    .card{border:1px solid var(--border);border-radius:18px;padding:18px;background:var(--card);box-shadow:var(--shadow)}
+    .card{border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)}
     .card h4{margin:0 0 6px;font-size:1.05rem}
-    .kpi{display:flex;gap:14px;align-items:center}
-    .kpi .dot{width:12px;height:12px;border-radius:999px;background:var(--teal)}
-
-    /* Steps */
-    .steps{counter-reset:step;display:grid;gap:14px}
-    .step{
-      display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;border:1px solid var(--border);border-radius:16px;padding:14px;background:#fff
-    }
-    .step::before{
-      counter-increment:step;content:counter(step);
-      width:34px;height:34px;border-radius:10px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;
-      font-weight:800;box-shadow:0 8px 18px rgba(0,147,149,.35)
-    }
-
-    /* Reviews marquee (single source of truth) */
-    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
-    .review-rail{
-      display:inline-flex;gap:16px;will-change:transform;
-      animation:review-marquee var(--scroll-speed, 28s) linear infinite;
-    }
-    .review-mask:hover .review-rail{animation-play-state:paused}
-    @keyframes review-marquee{
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    .review-card{
-      flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;
-      background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)
-    }
-    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
-    .review-card small{color:var(--muted)}
-    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
 
     /* Bottom CTA bar */
-    .cta-bar{
-      position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
-      border-top:1px solid var(--border)
-    }
+    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border)}
     .cta-bar-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0}
     .cta-bar strong{color:var(--teal-900)}
 
-    /* Footer */
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-inner{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr}
-      .nav a{display:none}
-      .nav-cta{margin-left:auto}
-    }
-    @media (prefers-reduced-motion: reduce){
-      .btn, .btn:hover{transition:none;transform:none}
-      .review-rail{animation:none}
-    }
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header class="header" role="banner">
+  <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="InjectBuddy Home">
-        <div class="logo" aria-hidden="true"></div>
-        <h1>InjectBuddy</h1>
-      </a>
-      <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#top"><div class="logo"></div><h1>InjectBuddy</h1></a>
+      <nav class="nav">
         <a href="#why">Why</a>
         <a href="#features">Features</a>
-        <a href="#how">How it works</a>
+        <a href="#how">How</a>
         <a href="#reviews">Reviews</a>
       </nav>
-      <div class="nav-cta">
-        <a class="btn btn-primary" href="#open-calculator" aria-label="Open the calculator now">Open Calculator</a>
-      </div>
+      <div class="nav-cta"><a class="btn btn-primary" href="/#calculator">Open Calculator</a></div>
     </div>
   </header>
 
@@ -174,105 +117,57 @@
         <h2>Take control of TRT & peptide dosing — without confusion.</h2>
         <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" id="open-calculator" href="/#calculator" aria-label="Start your free calculation">Start Your Free Calculation</a>
-          <a class="btn btn-secondary" href="/questionnaire.html" aria-label="Try the TRT readiness questionnaire">“Is TRT for Me?” Questionnaire</a>
+          <a class="btn btn-primary" href="/#calculator">TRT Calculator</a>
+          <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution Calculator</a>
         </div>
-        <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed for the calculator.</p>
+        <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed.</p>
       </div>
-  <!-- REVIEWS (marquee, fixed-size cards, gold stars) -->
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
   <section class="section" id="reviews" aria-label="User Reviews">
     <div class="container">
       <h3>What Users Are Saying</h3>
       <div class="review-mask">
-        <div class="review-rail" style="--scroll-speed: 28s">
-          <article class="review-card">
-            <div class="stars" aria-label="5 out of 5">★★★★★</div>
-            <p>“Finally a calculator that makes sense. Simple, accurate, and fast.”</p>
-            <small>— Aaron, TRT User</small>
-          </article>
-          <article class="review-card">
-            <div class="stars" aria-label="5 out of 5">★★★★★</div>
-            <p>“I used to spend 10 minutes doing math — now it’s done in seconds.”</p>
-            <small>— Michael, Fitness Coach</small>
-          </article>
-          <article class="review-card">
-            <div class="stars" aria-label="4 out of 5">★★★★☆</div>
-            <p>“The syringe visuals make peptide mixing foolproof.”</p>
-            <small>— Daniel, Peptide User</small>
-          </article>
-          <article class="review-card">
-            <div class="stars" aria-label="5 out of 5">★★★★★</div>
-            <p>“Super clean layout, no clutter. You nailed the UX.”</p>
-            <small>— Laura, Pharmacist</small>
-          </article>
-          <article class="review-card">
-            <div class="stars" aria-label="5 out of 5">★★★★★</div>
-            <p>“Best tool I’ve found online for TRT management.”</p>
-            <small>— Ben, Hormone Therapy User</small>
-          </article>
-          <article class="review-card">
-            <div class="stars" aria-label="5 out of 5">★★★★★</div>
-            <p>“Clear outputs, sensible defaults, and it’s fast on mobile.”</p>
-            <small>— Tessa, Nurse</small>
-          </article>
+        <div class="review-rail">
+          <article class="review-card"><div class="stars">★★★★★</div><p>“Finally a calculator that makes sense. Simple, accurate, and fast.”</p><small>— Aaron, TRT User</small></article>
+          <article class="review-card"><div class="stars">★★★★★</div><p>“I used to spend 10 minutes doing math — now it’s done in seconds.”</p><small>— Michael, Fitness Coach</small></article>
+          <article class="review-card"><div class="stars">★★★★☆</div><p>“The syringe visuals make peptide mixing foolproof.”</p><small>— Daniel, Peptide User</small></article>
+          <article class="review-card"><div class="stars">★★★★★</div><p>“Super clean layout, no clutter. You nailed the UX.”</p><small>— Laura, Pharmacist</small></article>
+          <article class="review-card"><div class="stars">★★★★★</div><p>“Best tool I’ve found online for TRT management.”</p><small>— Ben, Hormone Therapy User</small></article>
+          <article class="review-card"><div class="stars">★★★★★</div><p>“Clear outputs, sensible defaults, and it’s fast on mobile.”</p><small>— Tessa, Nurse</small></article>
         </div>
       </div>
     </div>
   </section>
 
-    </div>
-  </section>
-
-  <!-- WHY / VISION -->
+  <!-- WHY -->
   <section class="section" id="why">
     <div class="container">
       <h3>Why InjectBuddy exists</h3>
-      <p class="muted">People managing hormones at home need clarity, not guesswork. We built InjectBuddy to bring clinical accuracy and a calm, modern experience to dosing decisions.</p>
+      <p class="muted">People managing hormones at home need clarity, not guesswork. InjectBuddy brings clinical accuracy and a calm, modern experience to dosing decisions.</p>
       <div class="grid grid-3" style="margin-top:18px">
-        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Clinical-style precision</strong><div class="muted">Accurate mg→mL with clean syringe visuals.</div></div></div>
-        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Fast decisions</strong><div class="muted">Enter dose → get exact fill and schedule.</div></div></div>
-        <div class="card kpi"><div class="dot" aria-hidden="true"></div><div><strong>Built for safety</strong><div class="muted">Clear disclaimers and sensible defaults.</div></div></div>
+        <div class="card"><h4>Clinical-style precision</h4><p class="muted">Accurate mg→mL with clean syringe visuals.</p></div>
+        <div class="card"><h4>Fast decisions</h4><p class="muted">Enter dose → get exact fill and schedule instantly.</p></div>
+        <div class="card"><h4>Built for safety</h4><p class="muted">Clear disclaimers and sensible defaults for every calculation.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <div class="container">
-      <h3>What you can do here</h3>
-      <div class="grid grid-3">
-        <div class="card">
-          <h4>TRT dosage calculator</h4>
-          <p class="muted">Exact mL per injection from your mg/week and vial concentration, plus injection frequency.</p>
-          <p><a class="btn btn-secondary" href="/#calculator">Use Calculator</a></p>
-        </div>
-        <div class="card">
-          <h4>Peptide reconstitution</h4>
-          <p class="muted">Simple steps to get target concentration and clear draw volumes for insulin syringes.</p>
-          <p><a class="btn btn-secondary" href="/faq.html#reconstitution">Learn Reconstitution</a></p>
-        </div>
-        <div class="card">
-          <h4>Schedules that stick</h4>
-          <p class="muted">“Injections per week” or “every N days”—your choice, with immediate guidance.</p>
-          <p><a class="btn btn-secondary" href="/#calculator">Plan Schedule</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
+  <!-- HOW -->
   <section class="section" id="how">
     <div class="container">
       <h3>How it works</h3>
-      <div class="steps">
-        <div class="step"><div></div><div><strong>Enter your dose & concentration.</strong><div class="muted">We convert mg to mL and visualize syringe fill.</div></div></div>
-        <div class="step"><div></div><div><strong>Choose a schedule.</strong><div class="muted">Injections/week or every N days—both supported.</div></div></div>
-        <div class="step"><div></div><div><strong>Follow clear outputs.</strong><div class="muted">Exact mL per shot and a simple plan to follow.</div></div></div>
+      <div class="grid" style="gap:14px">
+        <div class="card"><strong>1. Enter your dose & concentration.</strong><p class="muted">We convert mg to mL and visualize syringe fill.</p></div>
+        <div class="card"><strong>2. Choose a schedule.</strong><p class="muted">Injections/week or every N days—both supported.</p></div>
+        <div class="card"><strong>3. Follow clear outputs.</strong><p class="muted">Exact mL per shot and a simple plan to follow.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- DISCLAIMER / SAFETY -->
+  <!-- DISCLAIMER -->
   <section class="section" aria-label="Safety notice">
     <div class="container">
       <div class="card">
@@ -285,69 +180,46 @@
     </div>
   </section>
 
-  <!-- STICKY BOTTOM CTA BAR -->
-  <div class="cta-bar" role="region" aria-label="Quick action bar">
+  <!-- STICKY CTA BAR -->
+  <div class="cta-bar">
     <div class="container cta-bar-inner">
       <strong>Ready to make dosing simple?</strong>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn btn-primary" href="/#calculator" aria-label="Open the calculator">Open Calculator</a>
-        <a class="btn btn-secondary" href="/questionnaire.html" aria-label="Open the TRT questionnaire">TRT Questionnaire</a>
+        <a class="btn btn-primary" href="/#calculator">TRT Calculator</a>
+        <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution</a>
       </div>
     </div>
   </div>
 
-  <footer role="contentinfo">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+  <footer>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap">
       <div>© <span id="y"></span> InjectBuddy</div>
       <div><a href="/privacy.html">Privacy</a> · <a href="/faq.html">FAQ</a> · <a href="/contact.html">Contact</a></div>
     </div>
   </footer>
 
   <script>
-    // Set copyright year
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Smooth scroll (native where supported)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href').slice(1);
         const el = document.getElementById(id);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
       });
     });
-
-    // Reviews: duplicate cards until > ~2x width for seamless loop; pause on touch
-    document.addEventListener('DOMContentLoaded', () => {
-      const mask = document.querySelector('#reviews .review-mask');
-      const rail = document.querySelector('#reviews .review-rail');
-      if (!mask || !rail) return;
-
-      const originals = Array.from(rail.children).map(n => n.cloneNode(true));
-      function fill() {
-        let width = rail.scrollWidth;
-        const target = mask.clientWidth * 2.2;
-        while (width < target) {
-          originals.forEach(clone => rail.appendChild(clone.cloneNode(true)));
-          width = rail.scrollWidth;
-        }
+    document.addEventListener('DOMContentLoaded',()=>{
+      const mask=document.querySelector('#reviews .review-mask');
+      const rail=document.querySelector('#reviews .review-rail');
+      if(!mask||!rail)return;
+      const originals=Array.from(rail.children).map(n=>n.cloneNode(true));
+      function fill(){let width=rail.scrollWidth;const target=mask.clientWidth*2.2;
+        while(width<target){originals.forEach(clone=>rail.appendChild(clone.cloneNode(true)));width=rail.scrollWidth;}
       }
       fill();
-
-      // Recalculate on resize (debounced)
       let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          rail.innerHTML = '';
-          originals.forEach(n => rail.appendChild(n.cloneNode(true)));
-          fill();
-        }, 120);
-      });
-
-      // Pause on touch (mobile)
-      let touching = false;
-      mask.addEventListener('touchstart', () => { touching = true; rail.style.animationPlayState = 'paused'; }, {passive:true});
-      mask.addEventListener('touchend',   () => { touching = false; rail.style.animationPlayState = 'running'; }, {passive:true});
+      window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{rail.innerHTML='';originals.forEach(n=>rail.appendChild(n.cloneNode(true)));fill();},120);});
+      mask.addEventListener('touchstart',()=>rail.style.animationPlayState='paused',{passive:true});
+      mask.addEventListener('touchend',()=>rail.style.animationPlayState='running',{passive:true});
     });
   </script>
 </body>
