@@ -653,3 +653,39 @@ a.btn:visited { color: inherit; }
   /* Prevent background scroll when menu open */
   body.nav-open{ overflow: hidden; }
 }
+/* Testimonials */
+.testimonial-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+}
+.testimonial-track::-webkit-scrollbar {
+  display: none;
+}
+.testimonial-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(2, 6, 23, .06);
+}
+.testimonial-card .stars {
+  font-size: 1rem;
+  color: #facc15; /* gold */
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+.testimonial-card p {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.testimonial-card small {
+  color: #475569;
+}
