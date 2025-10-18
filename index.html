@@ -82,12 +82,43 @@
     .card{border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)}
     .card h4{margin:0 0 6px;font-size:1.05rem}
 
-    /* Sticky bottom CTA */
-    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border)}
-    .cta-bar-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 0; /* more padding */}
-    .cta-bar .container{padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));} /* safe area for iOS home bar */
-    .cta-bar strong{color:var(--teal-900)}
-
+/* Sticky bottom CTA */
+.cta-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  background: linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
+  border-top: 1px solid var(--border);
+}
+.cta-bar-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+.cta-bar strong {
+  color: var(--teal-900);
+  padding-left: 20px; /* <-- Adds padding from left edge */
+}
+.cta-bar .container {
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}
+.cta-bar .btn {
+  min-width: 180px;
+}
+@media (max-width: 980px) {
+  .cta-bar-inner {
+    flex-direction: column; /* Stack vertically on mobile */
+    align-items: center;    /* Center both CTAs horizontally */
+    text-align: center;
+    gap: 10px;
+  }
+  .cta-bar strong {
+    padding-left: 0; /* No extra left padding on mobile */
+  }
+}
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
     /* Responsive */
