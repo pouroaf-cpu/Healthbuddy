@@ -14,19 +14,10 @@
   <link rel="icon" href="/assets/favicon.svg" />
 
   <style>
-    :root {
-      --teal:#009395;
-      --teal-900:#004c4d;
-      --ink:#0f172a;
-      --muted:#475569;
-      --bg:#ffffff;
-      --cta:#00b2b5;
-      --cta-hover:#00c7ca;
-      --cta-dark:#036d6f;
-      --ring:rgba(0,147,149,.35);
-      --border:#e2e8f0;
-      --shadow:0 10px 30px rgba(2,6,23,.06);
-      --gold:#f5b301;
+    :root{
+      --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
+      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
+      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06); --gold:#f5b301;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
@@ -34,27 +25,34 @@
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
 
     /* Buttons */
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;
-      border:2px solid transparent;cursor:pointer;text-align:center;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-      transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease;
-    }
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
+    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
     .btn-primary{background:var(--cta);color:#fff}
     .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
     .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
     .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
 
     /* Header */
-    .header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
     .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
     .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
     .nav{display:flex;gap:10px;align-items:center}
     .nav a{font-weight:600;color:var(--muted)}
     .nav-cta .btn{padding:10px 16px;border-radius:12px}
+
+    /* Burger */
+    .burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .burger svg{width:22px;height:22px}
+
+    /* Mobile menu */
+    .mobile-menu{display:none;position:fixed;top:56px; /* just below header */ left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55}
+    .mobile-menu.open{display:block}
+    .mobile-menu .container{padding:14px 20px 16px}
+    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
+    .mobile-cta{display:grid;gap:10px}
 
     /* Hero */
     .hero{background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%), radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%)}
@@ -84,37 +82,83 @@
     .card{border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)}
     .card h4{margin:0 0 6px;font-size:1.05rem}
 
-    /* Bottom CTA bar */
+    /* Sticky bottom CTA */
     .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border)}
-    .cta-bar-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0}
+    .cta-bar-inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 0; /* more padding */}
+    .cta-bar .container{padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));} /* safe area for iOS home bar */
     .cta-bar strong{color:var(--teal-900)}
 
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
-    @media(max-width:980px){.hero-inner{grid-template-columns:1fr}}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero-inner{grid-template-columns:1fr}
+      .nav{display:none}
+      .nav-cta{display:none}       /* hide header CTA on mobile to avoid overlap with burger */
+      .burger{display:inline-flex} /* show burger */
+      /* Hero padding & CTA centering */
+      .hero .container{padding-left:24px; padding-right:24px;} /* extra side padding on mobile */
+      .cta-row{justify-content:center} /* center the two CTAs */
+      .cta-row .btn{width:100%; max-width:520px} /* neat large tap targets, centered */
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn,.btn:hover{transition:none;transform:none}
+      .review-rail{animation:none}
+    }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header class="header">
+  <header class="header" role="banner">
     <div class="container header-inner">
-      <a class="brand" href="#top"><div class="logo"></div><h1>InjectBuddy</h1></a>
-      <nav class="nav">
+      <a class="brand" href="#top" aria-label="InjectBuddy Home">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>InjectBuddy</h1>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
         <a href="#why">Why</a>
         <a href="#features">Features</a>
-        <a href="#how">How</a>
+        <a href="#how">How it works</a>
         <a href="#reviews">Reviews</a>
       </nav>
-      <div class="nav-cta"><a class="btn btn-primary" href="/#calculator">Open Calculator</a></div>
+
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="/#calculator" aria-label="Open the calculator now">Open Calculator</a>
+      </div>
+
+      <!-- Burger for mobile -->
+      <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
     </div>
   </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <div class="mobile-links" role="menu">
+        <a href="#why" role="menuitem">Why</a>
+        <a href="#features" role="menuitem">Features</a>
+        <a href="#how" role="menuitem">How it works</a>
+        <a href="#reviews" role="menuitem">Reviews</a>
+      </div>
+      <div class="mobile-cta">
+        <a class="btn btn-primary" href="/#calculator">Open Calculator</a>
+        <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution</a>
+      </div>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="top">
     <div class="container hero-inner">
       <div>
         <span class="tag">Clarity. Safety. Confidence.</span>
-        <h2>Take control of TRT & peptide dosing — without confusion.</h2>
+        <h2>Take control of TRT &amp; peptide dosing — without confusion.</h2>
         <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="/#calculator">TRT Calculator</a>
@@ -160,7 +204,7 @@
     <div class="container">
       <h3>How it works</h3>
       <div class="grid" style="gap:14px">
-        <div class="card"><strong>1. Enter your dose & concentration.</strong><p class="muted">We convert mg to mL and visualize syringe fill.</p></div>
+        <div class="card"><strong>1. Enter your dose &amp; concentration.</strong><p class="muted">We convert mg to mL and visualize syringe fill.</p></div>
         <div class="card"><strong>2. Choose a schedule.</strong><p class="muted">Injections/week or every N days—both supported.</p></div>
         <div class="card"><strong>3. Follow clear outputs.</strong><p class="muted">Exact mL per shot and a simple plan to follow.</p></div>
       </div>
@@ -171,7 +215,7 @@
   <section class="section" aria-label="Safety notice">
     <div class="container">
       <div class="card">
-        <strong>Safety & Disclaimer</strong>
+        <strong>Safety &amp; Disclaimer</strong>
         <p class="muted" style="margin:8px 0 0">
           InjectBuddy is for educational purposes only and is not medical advice. Always follow your clinician’s instructions.
           Refer to supplier documentation for product-specific guidance.
@@ -180,8 +224,8 @@
     </div>
   </section>
 
-  <!-- STICKY CTA BAR -->
-  <div class="cta-bar">
+  <!-- STICKY BOTTOM CTA -->
+  <div class="cta-bar" role="region" aria-label="Quick action bar">
     <div class="container cta-bar-inner">
       <strong>Ready to make dosing simple?</strong>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -191,35 +235,71 @@
     </div>
   </div>
 
-  <footer>
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap">
+  <footer role="contentinfo">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>© <span id="y"></span> InjectBuddy</div>
       <div><a href="/privacy.html">Privacy</a> · <a href="/faq.html">FAQ</a> · <a href="/contact.html">Contact</a></div>
     </div>
   </footer>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const id = a.getAttribute('href').slice(1);
         const el = document.getElementById(id);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
       });
     });
-    document.addEventListener('DOMContentLoaded',()=>{
-      const mask=document.querySelector('#reviews .review-mask');
-      const rail=document.querySelector('#reviews .review-rail');
-      if(!mask||!rail)return;
-      const originals=Array.from(rail.children).map(n=>n.cloneNode(true));
-      function fill(){let width=rail.scrollWidth;const target=mask.clientWidth*2.2;
-        while(width<target){originals.forEach(clone=>rail.appendChild(clone.cloneNode(true)));width=rail.scrollWidth;}
+
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobile-menu');
+    if (burger && menu) {
+      burger.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // Close on link click
+      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> {
+        menu.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+      }));
+    }
+
+    // Reviews: duplicate cards until > ~2x width for seamless loop; pause on touch
+    document.addEventListener('DOMContentLoaded', () => {
+      const mask = document.querySelector('#reviews .review-mask');
+      const rail = document.querySelector('#reviews .review-rail');
+      if (!mask || !rail) return;
+
+      const originals = Array.from(rail.children).map(n => n.cloneNode(true));
+      function fill() {
+        let width = rail.scrollWidth;
+        const target = mask.clientWidth * 2.2;
+        while (width < target) {
+          originals.forEach(clone => rail.appendChild(clone.cloneNode(true)));
+          width = rail.scrollWidth;
+        }
       }
       fill();
+
       let t;
-      window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{rail.innerHTML='';originals.forEach(n=>rail.appendChild(n.cloneNode(true)));fill();},120);});
-      mask.addEventListener('touchstart',()=>rail.style.animationPlayState='paused',{passive:true});
-      mask.addEventListener('touchend',()=>rail.style.animationPlayState='running',{passive:true});
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          rail.innerHTML = '';
+          originals.forEach(n => rail.appendChild(n.cloneNode(true)));
+          fill();
+        }, 120);
+      });
+
+      // Pause on touch (mobile)
+      mask.addEventListener('touchstart', () => { rail.style.animationPlayState = 'paused'; }, {passive:true});
+      mask.addEventListener('touchend',   () => { rail.style.animationPlayState = 'running'; }, {passive:true});
     });
   </script>
 </body>
