@@ -347,5 +347,46 @@
       mask.addEventListener('touchend',   () => { rail.style.animationPlayState = 'running'; }, {passive:true});
     });
   </script>
+  <script>
+  // Hide bottom CTA at very top on mobile; show once user scrolls down.
+  (function () {
+    const mq = window.matchMedia('(max-width: 980px)');
+    const bar = document.querySelector('.cta-bar');
+    if (!bar) return;
+
+    let ticking = false;
+
+    function applyHiddenState() {
+      // If at (or near) top and on mobile, hide; otherwise show
+      const atTop = window.scrollY <= 4;
+      if (mq.matches && atTop) {
+        bar.classList.add('cta-bar--hidden');
+      } else {
+        bar.classList.remove('cta-bar--hidden');
+      }
+      ticking = false;
+    }
+
+    function onScrollOrResize() {
+      if (!ticking) {
+        window.requestAnimationFrame(applyHiddenState);
+        ticking = true;
+      }
+    }
+
+    // Initial state + listeners
+    applyHiddenState();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+
+    // If viewport breakpoint changes, re-evaluate immediately
+    if (mq.addEventListener) {
+      mq.addEventListener('change', applyHiddenState);
+    } else {
+      mq.addListener(applyHiddenState); // older Safari
+    }
+  })();
+</script>
+
 </body>
 </html>
