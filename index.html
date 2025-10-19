@@ -48,7 +48,7 @@
     .burger svg{width:22px;height:22px}
 
     /* Mobile menu */
-    .mobile-menu{display:none;position:fixed;top:56px; /* just below header */ left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55}
+    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55}
     .mobile-menu.open{display:block}
     .mobile-menu .container{padding:14px 20px 16px}
     .mobile-links{display:grid;gap:10px;margin-bottom:12px}
@@ -60,7 +60,6 @@
     .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
     .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-    .hero-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
     .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
 
     /* Reviews */
@@ -82,55 +81,29 @@
     .card{border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)}
     .card h4{margin:0 0 6px;font-size:1.05rem}
 
-/* Sticky bottom CTA */
-.cta-bar {
-  position: sticky;
-  bottom: 0;
-  z-index: 40;
-  background: linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
-  border-top: 1px solid var(--border);
-}
-.cta-bar-inner {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-}
-.cta-bar strong {
-  color: var(--teal-900);
-  padding-left: 20px; /* <-- Adds padding from left edge */
-}
-.cta-bar .container {
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-}
-.cta-bar .btn {
-  min-width: 180px;
-}
-@media (max-width: 980px) {
-  .cta-bar-inner {
-    flex-direction: column; /* Stack vertically on mobile */
-    align-items: center;    /* Center both CTAs horizontally */
-    text-align: center;
-    gap: 10px;
-  }
-  .cta-bar strong {
-    padding-left: 0; /* No extra left padding on mobile */
-  }
-}
+    /* Sticky bottom CTA */
+    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border)}
+    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
+    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+    .cta-bar-title{color:var(--teal-900);margin:0}
+    .cta-actions{display:flex;gap:10px;align-items:center}
+
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
     /* Responsive */
     @media (max-width:980px){
       .hero-inner{grid-template-columns:1fr}
       .nav{display:none}
-      .nav-cta{display:none}       /* hide header CTA on mobile to avoid overlap with burger */
-      .burger{display:inline-flex} /* show burger */
-      /* Hero padding & CTA centering */
-      .hero .container{padding-left:24px; padding-right:24px;} /* extra side padding on mobile */
-      .cta-row{justify-content:center} /* center the two CTAs */
-      .cta-row .btn{width:100%; max-width:520px} /* neat large tap targets, centered */
+      .nav-cta{display:none}       /* hide header CTA on mobile so it doesn't conflict with burger */
+      .burger{display:inline-flex}
+      .hero .container{padding-left:24px;padding-right:24px} /* extra edge padding on mobile */
+      .cta-row{justify-content:center}
+      .cta-row .btn{width:100%;max-width:520px}
+
+      /* Footer bar: stack and center; TRT above Peptide */
+      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
+      .cta-actions{flex-direction:column;width:100%;max-width:520px}
+      .cta-actions .btn{width:100%}
     }
     @media (prefers-reduced-motion: reduce){
       .btn,.btn:hover{transition:none;transform:none}
@@ -156,7 +129,7 @@
       </nav>
 
       <div class="nav-cta">
-        <a class="btn btn-primary" href="/#calculator" aria-label="Open the calculator now">Open Calculator</a>
+        <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
       </div>
 
       <!-- Burger for mobile -->
@@ -178,8 +151,8 @@
         <a href="#reviews" role="menuitem">Reviews</a>
       </div>
       <div class="mobile-cta">
-        <a class="btn btn-primary" href="/#calculator">Open Calculator</a>
-        <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution</a>
+        <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+        <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
       </div>
     </div>
   </div>
@@ -192,8 +165,8 @@
         <h2>Take control of TRT &amp; peptide dosing — without confusion.</h2>
         <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="/#calculator">TRT Calculator</a>
-          <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution Calculator</a>
+          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
         </div>
         <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed.</p>
       </div>
@@ -230,6 +203,30 @@
     </div>
   </section>
 
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <h3>What you can do here</h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <h4>TRT dosage calculator</h4>
+          <p class="muted">Exact mL per injection from your mg/week and vial concentration, plus injection frequency.</p>
+          <p><a class="btn btn-secondary" href="/calculator.html">Use Calculator</a></p>
+        </div>
+        <div class="card">
+          <h4>Peptide reconstitution</h4>
+          <p class="muted">Simple steps to get target concentration and clear draw volumes for insulin syringes.</p>
+          <p><a class="btn btn-secondary" href="/peptide.html">Reconstitution Tool</a></p>
+        </div>
+        <div class="card">
+          <h4>Schedules that stick</h4>
+          <p class="muted">“Injections per week” or “every N days”—your choice, with immediate guidance.</p>
+          <p><a class="btn btn-secondary" href="/calculator.html">Plan Schedule</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW -->
   <section class="section" id="how">
     <div class="container">
@@ -257,11 +254,13 @@
 
   <!-- STICKY BOTTOM CTA -->
   <div class="cta-bar" role="region" aria-label="Quick action bar">
-    <div class="container cta-bar-inner">
-      <strong>Ready to make dosing simple?</strong>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a class="btn btn-primary" href="/#calculator">TRT Calculator</a>
-        <a class="btn btn-secondary" href="/reconstitution.html">Peptide Reconstitution</a>
+    <div class="container">
+      <div class="cta-bar-inner">
+        <strong class="cta-bar-title">Ready to make dosing simple?</strong>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
+        </div>
       </div>
     </div>
   </div>
@@ -294,8 +293,7 @@
         const open = menu.classList.toggle('open');
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
-      // Close on link click
-      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> {
+      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
         menu.classList.remove('open');
         burger.setAttribute('aria-expanded','false');
       }));
