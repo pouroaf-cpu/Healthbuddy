@@ -109,6 +109,22 @@
       .btn,.btn:hover{transition:none;transform:none}
       .review-rail{animation:none}
     }
+    /* Hide dynamic footer CTA when at very top (mobile only) */
+.cta-bar {
+  transition: transform .18s ease, opacity .18s ease;
+  will-change: transform, opacity;
+}
+.cta-bar--hidden {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cta-bar { transition: none; }
+}
+
   </style>
 </head>
 <body>
