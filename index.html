@@ -3,376 +3,286 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
-  <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
+  
+  <title>InjectBuddy — Free Testosterone & Peptide Dosage Calculator</title>
+  <meta name="description" content="TRT and peptide dosing made simple. Calculate syringe fills, safe reconstitution, and injection schedules in seconds. Fast, mobile-first tools." />
   <link rel="canonical" href="https://www.injectbuddy.com/" />
-  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
-  <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
+
+  <meta property="og:title" content="InjectBuddy — Free Testosterone & Peptide Dosage Calculator" />
+  <meta property="og:description" content="Fast, no-nonsense tools for testosterone and peptide dosing. Visual syringe guidance, clear steps, and mobile-first UI." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
-  <link rel="icon" href="/assets/favicon.svg" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
   <style>
     :root{
-      --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06); --gold:#f5b301;
+      --brand:#009395; --brand-d:#004c4d; --ink:#0b1720; --muted:#5b6b74;
+      --bg:#f7fbfb; --card:#ffffff; --ok:#0fa958; --warn:#e58700; --err:#c62828;
+      --r-xs:.25rem; --r-sm:.5rem; --r-md:1rem; --r-lg:1.25rem; --r-xl:1.5rem;
+      /* Tighter vertical rhythm */
+      --space-1:.4rem; --space-2:.6rem; --space-3:.8rem; --space-4:1rem; --space-6:1.25rem; --space-8:1.75rem; --space-10:2.25rem;
+      --shadow-1:0 1px 2px rgba(0,0,0,.06),0 1px 1px rgba(0,0,0,.04);
+      --shadow-2:0 6px 16px rgba(0,0,0,.08);
+      --grad:linear-gradient(160deg,#009395 0%, #00b3b6 60%, #7de1e3 100%);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    html,body{height:100%}
+    body{background:var(--bg); color:var(--ink); line-height:1.55; margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+    a{text-decoration:none; color:inherit}
+    img,svg{display:block; max-width:100%;}
 
-    /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
-    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
-    .btn-primary{background:var(--cta);color:#fff}
-    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
-    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
-    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    .container{max-width:1100px;margin:0 auto;padding:0 var(--space-3);} 
+    section{padding:var(--space-8) 0;} /* Reduced from large gaps */
 
     /* Header */
-    .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;gap:.75rem;align-items:center}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
-    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
-    .nav{display:flex;gap:10px;align-items:center}
-    .nav a{font-weight:600;color:var(--muted)}
-    .nav-cta .btn{padding:10px 16px;border-radius:12px}
-
-    /* Burger */
-    .burger{display:none;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:#fff}
-    .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid rgba(0,0,0,.06);} 
+    .nav{display:flex;align-items:center;justify-content:space-between; padding:.7rem 0;}
+    .brand{display:flex;align-items:center;gap:.5rem;font-weight:800;letter-spacing:-.01em;color:var(--brand-d)}
+    .brand svg{width:28px;height:28px}
+    .nav-links{display:flex;align-items:center;gap:.9rem}
+    .nav-links a{padding:.5rem .7rem;border-radius:999px}
+    .nav-links a:hover{background:rgba(0,0,0,.04)}
+    .burger{display:none; border:1px solid rgba(0,0,0,.12); background:#fff; border-radius:10px; padding:.45rem .55rem;}
     .burger svg{width:22px;height:22px}
 
-    /* Mobile menu */
-    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55}
-    .mobile-menu.open{display:block}
-    .mobile-menu .container{padding:14px 20px 16px}
-    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
-    .mobile-cta{display:grid;gap:10px}
+    @media (max-width:860px){
+      .nav-links{display:none}
+      .burger{display:inline-flex}
+    }
+    .mobile-menu{position:fixed; inset:64px var(--space-3) auto var(--space-3); background:#fff; border:1px solid rgba(0,0,0,.08); box-shadow:var(--shadow-2); border-radius:16px; padding:.5rem; display:none}
+    .mobile-menu a{display:block;padding:.8rem 1rem;border-radius:10px}
+    .mobile-menu a:hover{background:rgba(0,0,0,.05)}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border-radius:999px;font-weight:700;border:0;cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff;box-shadow:0 8px 20px rgba(0,147,149,.2)}
+    .btn-ghost{background:#fff;color:var(--brand-d);border:1px solid rgba(0,0,0,.08)}
 
     /* Hero */
-    .hero{background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%), radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%)}
-    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:64px 0}
-    .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
-    .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-    .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
+    .hero{background:radial-gradient(900px 500px at 70% -10%, rgba(0,147,149,.14), transparent), linear-gradient(#f9ffff,#f5fbfb);} 
+    .hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--space-6);align-items:center}
+    .kicker{color:var(--brand-d); text-transform:uppercase; font-weight:700; letter-spacing:.08em; font-size:.78rem}
+    .h1{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:850;letter-spacing:-.02em;margin:.35rem 0 .5rem 0}
+    .sub{color:var(--muted);font-size:1rem;margin:0 0 var(--space-3) 0}
+    .cta-row{display:flex;gap:.6rem;flex-wrap:wrap}
 
-    /* Reviews (marquee) */
-    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
-    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
-    .review-mask:hover .review-rail{animation-play-state:paused}
-    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
-    .review-card small{color:var(--muted)}
-    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
+    /* Cards */
+    .grid{display:grid;gap:var(--space-4)}
+    .tools{grid-template-columns:repeat(3,1fr)}
+    .card{background:var(--card); border-radius:18px; padding:var(--space-6); box-shadow:var(--shadow-2); border:1px solid rgba(0,0,0,.04)}
+    .card h3{margin:.2rem 0 .4rem 0}
+    .card p{margin:0 0 .8rem 0; color:var(--muted)}
+    .card .actions{display:flex;gap:.5rem;flex-wrap:wrap}
 
-    /* Sections */
-    .section{padding:56px 0}
-    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
-    .muted{color:var(--muted)}
-
-    /* Features (marquee like reviews) */
-    .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
-    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 32s linear infinite}
-    .features-mask:hover .features-rail{animation-play-state:paused}
-    .feature-card{
-      flex:0 0 320px;height:220px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;
-      background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)
-    }
-    .feature-card h4{margin:0 0 4px;font-size:1.05rem;color:var(--teal-900)}
-    .feature-card p{margin:0;color:var(--muted)}
-    .btn-feature{min-height:44px}
-    .badge{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:800;color:#6b7280;background:#f1f5f9;border:1px solid #e5e7eb;padding:3px 8px;border-radius:999px}
-    .is-disabled{pointer-events:none;opacity:.6;border-color:#cbd5e1;color:#64748b;background:#fff}
-
-    /* Sticky bottom CTA */
-    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease;will-change:transform,opacity}
-    .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
-    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
-    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-    .cta-bar-title{color:var(--teal-900);margin:0}
-    .cta-actions{display:flex;gap:10px;align-items:center}
-
-    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
-
-    /* Responsive */
     @media (max-width:980px){
-      .hero-inner{grid-template-columns:1fr}
-      .nav{display:none}
-      .nav-cta{display:none}       /* hide header CTA on mobile so it doesn't conflict with burger */
-      .burger{display:inline-flex}
-      .hero .container{padding-left:24px;padding-right:24px} /* extra edge padding on mobile */
-      .cta-row{justify-content:center}
-      .cta-row .btn{width:100%;max-width:520px}
+      .hero .wrap{grid-template-columns:1fr}
+      .tools{grid-template-columns:1fr}
+    }
+    @media (min-width:981px) and (max-width:1180px){
+      .tools{grid-template-columns:repeat(2,1fr)}
+    }
 
-      /* Footer bar: stack and center; TRT above Peptide */
-      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
-      .cta-actions{flex-direction:column;width:100%;max-width:520px}
-      .cta-actions .btn{width:100%}
-    }
-    @media (prefers-reduced-motion: reduce){
-      .btn,.btn:hover{transition:none;transform:none}
-      .review-rail,.features-rail{animation:none}
-      .cta-bar{transition:none}
-    }
+    /* Feature list */
+    .feature{display:flex;gap:.6rem;align-items:flex-start;margin:.25rem 0}
+    .badge{width:1rem;height:1rem;border-radius:50%;background:var(--ok);display:inline-block;flex:0 0 auto;box-shadow:0 0 0 3px rgba(15,169,88,.12)}
+
+    /* Proof row */
+    .proof{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+    .proof .mini{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:var(--space-4);text-align:center}
+    .stat{font-weight:800;font-size:1.1rem;color:var(--brand-d)}
+
+    /* FAQ teaser */
+    details{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:var(--space-4)}
+    summary{cursor:pointer;font-weight:700}
+
+    /* CTA band (tight) */
+    .band{background:var(--grad);color:#fff;border-radius:18px;padding:var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
+    .band p{margin:0;color:rgba(255,255,255,.95)}
+
+    /* Footer */
+    footer{padding:var(--space-8) 0;border-top:1px solid rgba(0,0,0,.06); background:#fff}
+    .foot-row{display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:center;justify-content:space-between}
+    .tiny{color:var(--muted);font-size:.92rem}
+
+    /* Dynamic Footer CTA */
+    .dyn-cta{position:fixed;left:var(--space-3);right:var(--space-3);bottom:var(--space-3);background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 12px 30px rgba(0,0,0,.12);border-radius:16px;padding:.8rem 1rem;display:none;align-items:center;justify-content:space-between;gap:.6rem}
+    .dyn-cta .copy{display:flex;flex-direction:column}
+    .dyn-cta strong{font-size:1rem}
+
+    /* Accessibility */
+    a:focus,button:focus{outline:3px solid #7de1e3; outline-offset:2px}
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
-  <header class="header" role="banner">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="InjectBuddy Home">
-        <div class="logo" aria-hidden="true"></div>
-        <h1>InjectBuddy</h1>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#009395" stroke-width="2"/><path d="M7 13.5c2.2-3.2 7.8-3.2 10 0" stroke="#009395" stroke-width="2" stroke-linecap="round"/></svg>
+        InjectBuddy
       </a>
-
-      <nav class="nav" aria-label="Primary">
-        <a href="#why">Why</a>
-        <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#reviews">Reviews</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/calculator.html">TRT Calculator</a>
+        <a href="/peptide.html">Reconstitution</a>
+        <a href="/questionnaire.html">Questionnaire</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact</a>
       </nav>
-
-      <div class="nav-cta">
-        <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
-      </div>
-
-      <!-- Burger for mobile -->
-      <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-        </svg>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile">
+      <a href="/calculator.html">TRT Calculator</a>
+      <a href="/peptide.html">Reconstitution</a>
+      <a href="/questionnaire.html">Questionnaire</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/contact.html">Contact</a>
     </div>
   </header>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobile-menu">
-    <div class="container">
-      <div class="mobile-links" role="menu">
-        <a href="#why" role="menuitem">Why</a>
-        <a href="#features" role="menuitem">Features</a>
-        <a href="#how" role="menuitem">How it works</a>
-        <a href="#reviews" role="menuitem">Reviews</a>
-      </div>
-      <div class="mobile-cta">
-        <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-        <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="container hero-inner">
-      <div>
-        <span class="tag">Clarity. Safety. Confidence.</span>
-        <h2>Take control of TRT &amp; peptide dosing — without confusion.</h2>
-        <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container wrap">
+        <div>
+          <div class="kicker">Dosing made simple</div>
+          <h1 class="h1">TRT & Peptide calculations without the confusion.</h1>
+          <p class="sub">Plan exact mL per injection, safe reconstitution, and schedules you’ll actually stick to—in seconds.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+            <a class="btn btn-ghost" href="/peptide.html">Reconstitution Tool</a>
+          </div>
+          <div class="feature" style="margin-top:.6rem"><span class="badge"></span><div>Visual syringe guidance</div></div>
+          <div class="feature"><span class="badge"></span><div>Sterile technique reminders</div></div>
+          <div class="feature"><span class="badge"></span><div>Mobile-first UI, works offline-ready</div></div>
         </div>
-        <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section class="section" id="reviews" aria-label="User Reviews">
-    <div class="container">
-      <h3>What Users Are Saying</h3>
-      <div class="review-mask">
-        <div class="review-rail">
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Finally a calculator that makes sense. Simple, accurate, and fast.”</p><small>— Aaron, TRT User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“I used to spend 10 minutes doing math — now it’s done in seconds.”</p><small>— Michael, Fitness Coach</small></article>
-          <article class="review-card"><div class="stars">★★★★☆</div><p>“The syringe visuals make peptide mixing foolproof.”</p><small>— Daniel, Peptide User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Super clean layout, no clutter. You nailed the UX.”</p><small>— Laura, Pharmacist</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Best tool I’ve found online for TRT management.”</p><small>— Ben, Hormone Therapy User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Clear outputs, sensible defaults, and it’s fast on mobile.”</p><small>— Tessa, Nurse</small></article>
+        <div>
+          <div class="card">
+            <h3 style="margin:0 0 .25rem 0">Preview Dose</h3>
+            <p class="sub">Pick vial strength, dose, schedule. Get exact mL and marks.</p>
+            <a class="btn btn-primary" href="/calculator.html">Start now</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WHY -->
-  <section class="section" id="why">
-    <div class="container">
-      <h3>Why InjectBuddy exists</h3>
-      <p class="muted">People managing hormones at home need clarity, not guesswork. InjectBuddy brings clinical accuracy and a calm, modern experience to dosing decisions.</p>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <div class="container">
-      <h3>What you can do here</h3>
-
-      <div class="features-mask">
-        <div class="features-rail">
-          <article class="feature-card">
-            <h4>TRT dosage calculator</h4>
-            <p class="muted">Exact mL per injection from your mg/week and vial concentration, plus injection frequency.</p>
-            <a class="btn btn-secondary btn-feature" href="/calculator.html">Use Calculator</a>
+    <!-- TOOLS -->
+    <section>
+      <div class="container">
+        <h2 class="kicker" style="margin-bottom:.4rem">What you can do here</h2>
+        <div class="grid tools">
+          <article class="card">
+            <h3>TRT Dose Calculator</h3>
+            <p>Convert weekly mg to precise mL per injection with a visual syringe guide.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+            </div>
           </article>
-
-          <article class="feature-card">
-            <h4>Peptide reconstitution</h4>
-            <p class="muted">Get target concentration and clear draw volumes for insulin syringes.</p>
-            <a class="btn btn-secondary btn-feature" href="/peptide.html">Reconstitution Tool</a>
+          <article class="card">
+            <h3>Peptide Reconstitution</h3>
+            <p>Get exact BAC water volume and resulting strength—with step-by-step sterile notes.</p>
+            <div class="actions">
+              <a class="btn btn-ghost" href="/peptide.html">Open Reconstitution</a>
+            </div>
           </article>
-
-          <article class="feature-card">
-            <h4>Schedules that stick <span class="badge">Coming&nbsp;Soon</span></h4>
-            <p class="muted">“Injections per week” or “every N days”—auto plans that just make sense.</p>
-            <a class="btn btn-secondary btn-feature is-disabled" href="#" aria-disabled="true" tabindex="-1">Coming Soon</a>
+          <article class="card">
+            <h3>Schedules that stick <span style="color:var(--muted);font-weight:700;">(Coming Soon)</span></h3>
+            <p>Simple calendars that match your dose and vial size. Export reminders.</p>
+            <div class="actions">
+              <a class="btn btn-ghost" href="/faq.html">Learn more</a>
+            </div>
           </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOW -->
-  <section class="section" id="how">
-    <div class="container">
-      <h3>How it works</h3>
-      <div class="grid" style="display:grid;gap:14px">
-        <div class="card"><strong>1. Enter your dose &amp; concentration.</strong><p class="muted">We convert mg to mL and visualize syringe fill.</p></div>
-        <div class="card"><strong>2. Choose a schedule.</strong><p class="muted">Injections/week or every N days—both supported.</p></div>
-        <div class="card"><strong>3. Follow clear outputs.</strong><p class="muted">Exact mL per shot and a simple plan to follow.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DISCLAIMER -->
-  <section class="section" aria-label="Safety notice">
-    <div class="container">
-      <div class="card" style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)">
-        <strong>Safety &amp; Disclaimer</strong>
-        <p class="muted" style="margin:8px 0 0">
-          InjectBuddy is for educational purposes only and is not medical advice. Always follow your clinician’s instructions.
-          Refer to supplier documentation for product-specific guidance.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- STICKY BOTTOM CTA (dynamic) -->
-  <div class="cta-bar" role="region" aria-label="Quick action bar">
-    <div class="container">
-      <div class="cta-bar-inner">
-        <strong class="cta-bar-title">Ready to make dosing simple?</strong>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
+    <!-- PROOF / REASSURANCE -->
+    <section>
+      <div class="container">
+        <div class="proof">
+          <div class="mini"><div class="stat">Fast</div><div class="tiny">Most users finish in under 30 seconds.</div></div>
+          <div class="mini"><div class="stat">Clear</div><div class="tiny">Visual syringe marks remove guesswork.</div></div>
+          <div class="mini"><div class="stat">Practical</div><div class="tiny">Mobile-first, distraction-free layout.</div></div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <footer role="contentinfo">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> InjectBuddy</div>
-      <div><a href="/privacy.html">Privacy</a> · <a href="/faq.html">FAQ</a> · <a href="/contact.html">Contact</a></div>
+    <!-- FAQ TEASER -->
+    <section>
+      <div class="container">
+        <details>
+          <summary>Is this medical advice?</summary>
+          <p class="tiny" style="margin-top:.6rem">No. Educational only—always follow your provider’s instructions and product labels.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section>
+      <div class="container">
+        <div class="band">
+          <p><strong>Ready to make dosing simple?</strong><br/>Calculate exact mL and reconstitution in seconds.</p>
+          <div class="cta-row">
+            <a class="btn" style="background:#fff;color:var(--brand-d)" href="/calculator.html">TRT Calculator</a>
+            <a class="btn btn-ghost" href="/peptide.html">Peptide Tool</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-row">
+      <div class="tiny">&copy; <span id="y"></span> InjectBuddy</div>
+      <nav class="tiny" aria-label="Footer">
+        <a href="/privacy.html">Privacy</a> • 
+        <a href="/faq.html">FAQ</a> • 
+        <a href="/contact.html">Contact</a>
+      </nav>
     </div>
   </footer>
 
-  <script>
-    // Year
+  <!-- Dynamic Footer CTA (appears only after scroll) -->
+  <div class="dyn-cta" id="dynCta" role="region" aria-label="Quick action">
+    <div class="copy">
+      <strong>TRT calculator</strong>
+      <span class="tiny" style="margin-top:.1rem">Get exact mL per injection</span>
+    </div>
+    <a class="btn btn-primary" href="/calculator.html">Open</a>
+  </div>
+
+  <script defer>
+    // Footer year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
-      });
+    // Burger menu toggle (kept small to avoid layout overlap with CTA)
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobileMenu');
+    burger?.addEventListener('click', () => {
+      const open = menu.style.display === 'block';
+      menu.style.display = open ? 'none' : 'block';
+      burger.setAttribute('aria-expanded', String(!open));
     });
-
-    // Mobile menu toggle
-    (function(){
-      const burger = document.getElementById('burger');
-      const menu = document.getElementById('mobile-menu');
-      if (!burger || !menu) return;
-      burger.addEventListener('click', ()=>{
-        const open = menu.classList.toggle('open');
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
-        menu.classList.remove('open');
+    window.addEventListener('click', (e)=>{
+      if(menu.style.display==='block' && !menu.contains(e.target) && e.target!==burger){
+        menu.style.display='none';
         burger.setAttribute('aria-expanded','false');
-      }));
-    })();
-
-    // Marquee filler util
-    function makeMarquee(maskSel, railSel){
-      const mask = document.querySelector(maskSel);
-      const rail = document.querySelector(railSel);
-      if (!mask || !rail) return;
-      const originals = Array.from(rail.children).map(n => n.cloneNode(true));
-      function fill() {
-        let width = rail.scrollWidth;
-        const target = mask.clientWidth * 2.2;
-        while (width < target) {
-          originals.forEach(clone => rail.appendChild(clone.cloneNode(true)));
-          width = rail.scrollWidth;
-        }
       }
-      fill();
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          rail.innerHTML = '';
-          originals.forEach(n => rail.appendChild(n.cloneNode(true)));
-          fill();
-        }, 120);
-      });
-      // Pause on touch (mobile)
-      mask.addEventListener('touchstart', () => { rail.style.animationPlayState = 'paused'; }, {passive:true});
-      mask.addEventListener('touchend',   () => { rail.style.animationPlayState = 'running'; }, {passive:true});
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      makeMarquee('#reviews .review-mask',   '#reviews .review-rail');
-      makeMarquee('#features .features-mask','#features .features-rail');
     });
 
-    // Hide bottom CTA at very top on mobile; show once user scrolls
-    (function () {
-      const mq = window.matchMedia('(max-width: 980px)');
-      const bar = document.querySelector('.cta-bar');
-      if (!bar) return;
-
-      let ticking = false;
-      function applyHiddenState() {
-        const atTop = window.scrollY <= 4;
-        if (mq.matches && atTop) {
-          bar.classList.add('cta-bar--hidden');
-        } else {
-          bar.classList.remove('cta-bar--hidden');
-        }
-        ticking = false;
+    // Dynamic CTA shows after slight scroll; hidden at very top
+    const dyn = document.getElementById('dynCta');
+    const showAfter = 140; // px from top
+    const toggleDyn = () => {
+      if(window.scrollY > showAfter){
+        dyn.style.display = 'flex';
+      } else {
+        dyn.style.display = 'none';
       }
-      function onScrollOrResize() {
-        if (!ticking) {
-          window.requestAnimationFrame(applyHiddenState);
-          ticking = true;
-        }
-      }
-      applyHiddenState();
-      window.addEventListener('scroll', onScrollOrResize, { passive: true });
-      window.addEventListener('resize', onScrollOrResize);
-      if (mq.addEventListener) mq.addEventListener('change', applyHiddenState);
-      else mq.addListener(applyHiddenState);
-    })();
+    };
+    toggleDyn();
+    window.addEventListener('scroll', toggleDyn, {passive:true});
   </script>
 </body>
 </html>
