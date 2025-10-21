@@ -6,11 +6,11 @@
 
   <title>Peptide Reconstitution — Vial Strength Calculator | InjectBuddy</title>
   <meta name="description" content="Enter peptide strength (mg) and bacteriostatic water (mL) to get vial strength in mg/mL. The vial label updates live (e.g., 1000 mg / 10 mL · 100 mg/mL)." />
-  <link rel="canonical" href="https://www.injectbuddy.com/peptides.html" />
+  <link rel="canonical" href="https://www.injectbuddy.com/peptide.html" />
   <meta property="og:title" content="Peptide Reconstitution — Vial Strength Calculator" />
   <meta property="og:description" content="Quickly calculate peptide vial strength with a dynamic vial label." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/peptides.html" />
+  <meta property="og:url" content="https://www.injectbuddy.com/peptide.html" />
   <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
@@ -76,348 +76,327 @@
   </style>
 </head>
 <body>
- <!-- HEADER -->
-<header class="header" role="banner">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div>
-      <h1>InjectBuddy</h1>
-    </a>
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="InjectBuddy Home">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>InjectBuddy</h1>
+      </a>
 
-    <!-- UPDATED NAV LINKS ONLY -->
-    <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html">Dosage Calculator</a>
-      <a href="/peptide.html">Peptide Reconstitution</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/about.html">About</a>
-    </nav>
+      <!-- Desktop nav -->
+      <nav class="nav" aria-label="Primary">
+        <a href="/calculator.html">Dosage Calculator</a>
+        <a href="/peptide.html" class="active" aria-current="page">Peptide Reconstitution</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/about.html">About</a>
+      </nav>
 
-    <!-- keep any existing CTA if you already had one; if not, leave this div empty or remove -->
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
-    </div>
-
-    <!-- Burger for mobile (unchanged) -->
-    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
-    </button>
-  </div>
-</header>
-
-<!-- MOBILE MENU (links updated only) -->
-<div class="mobile-menu" id="mobile-menu">
-  <div class="container">
-    <div class="mobile-links" role="menu">
-      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
-      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
-      <a href="/contact.html" role="menuitem">Contact</a>
-      <a href="/about.html" role="menuitem">About</a>
-    </div>
-    <div class="mobile-cta">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
-    </div>
-  </div>
-</div>
-
-</header>
-
-<main class="container">
-  <section class="page-head">
-    <h1>Peptide Reconstitution — Vial Strength</h1>
-    <p class="sub">Enter your peptide amount and bacteriostatic water volume. The vial label updates live (e.g., <strong>1000&nbsp;mg / 10&nbsp;mL</strong> · <strong>100&nbsp;mg/mL</strong>).</p>
-  </section>
-
-  <section class="card" aria-labelledby="reconst-title">
-    <h2 id="reconst-title" style="margin-top:0;">Inputs</h2>
-
-    <div class="grid" style="margin-bottom:8px;">
-      <label>Peptide strength <span class="muted">(mg in vial)</span>
-        <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
-      </label>
-      <label>Bacteriostatic water <span class="muted">(mL added)</span>
-        <input id="bacMl" type="number" min="0" step="0.1" value="2" inputmode="decimal" />
-      </label>
-    </div>
-
-    <div class="vial-wrap">
-      <!-- SVG Vial -->
-      <div class="vial-card">
-        <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
-          <title id="vialTitle">Vial visualization with live label</title>
-          <desc id="vialDesc">Shows a vial with cap, glass, and a label that updates to reflect mg, mL, and mg per mL.</desc>
-
-          <defs>
-            <!-- Clip for label text (prevents spill) -->
-            <clipPath id="labelClip">
-              <rect x="34" y="160" width="132" height="92" rx="10"/>
-            </clipPath>
-          </defs>
-
-          <!-- Cap + ring (flat colors) -->
-          <rect x="40" y="12" width="120" height="42" rx="8" fill="#2f3a44"/>
-          <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
-
-          <!-- Neck (flat) -->
-          <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
-
-          <!-- Glass body (flat) -->
-          <rect x="30" y="80" width="140" height="240" rx="18" fill="#f4f7fb" stroke="#c9d3dd"/>
-
-          <!-- Liquid (FULL, flat teal) -->
-          <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="#42b7ba" opacity="0.9"/>
-
-          <!-- Label (PURE WHITE, no gradient/no glow) -->
-          <g>
-            <rect x="34" y="160" width="132" height="92" rx="10"
-                  fill="#ffffff" stroke="#d5dee5"/>
-            <!-- Very light edges for realism (kept) -->
-            <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".02"/>
-            <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".018"/>
-
-            <!-- Text clipped to label -->
-            <g clip-path="url(#labelClip)">
-              <!-- Top line: totals -->
-              <text id="lblTop" x="100" y="190" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
-
-              <!-- TWO-LINE disclaimer -->
-              <text x="100" y="210" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
-                <tspan x="100" dy="0">For planning only —</tspan>
-                <tspan x="100" dy="14">not medical advice</tspan>
-              </text>
-
-              <!-- Lower line: mg/mL -->
-              <text id="lblSub" x="100" y="244" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
-            </g>
-          </g>
-
-          <!-- Glass highlights (flat whites with opacity) -->
-          <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
-          <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
-          <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
-        </svg>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
       </div>
 
-      <!-- Numeric outputs -->
-      <div class="kpis" style="margin:0;">
-        <div class="card kpi"><span class="muted">Vial strength</span><b id="kMgMl">—</b></div>
-        <div class="card kpi"><span class="muted">Vial strength (µg/mL)</span><b id="kUgMl">—</b></div>
-        <div class="card">
-          <span class="muted">Share / copy</span>
-          <div class="row" style="margin-top:8px;">
-            <button class="btn btn-ghost" id="copyBtn" type="button">Copy results</button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+      <!-- Burger for mobile -->
+      <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <div class="mobile-links" role="menu">
+        <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
+        <a href="/peptide.html" role="menuitem" aria-current="page">Peptide Reconstitution</a>
+        <a href="/contact.html" role="menuitem">Contact</a>
+        <a href="/about.html" role="menuitem">About</a>
+      </div>
+      <div class="mobile-cta">
+        <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+        <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="page-head">
+      <h1>Peptide Reconstitution — Vial Strength</h1>
+      <p class="sub">Enter your peptide amount and bacteriostatic water volume. The vial label updates live (e.g., <strong>1000&nbsp;mg / 10&nbsp;mL</strong> · <strong>100&nbsp;mg/mL</strong>).</p>
+    </section>
+
+    <section class="card" aria-labelledby="reconst-title">
+      <h2 id="reconst-title" style="margin-top:0;">Inputs</h2>
+
+      <div class="grid" style="margin-bottom:8px;">
+        <label>Peptide strength <span class="muted">(mg in vial)</span>
+          <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
+        </label>
+        <label>Bacteriostatic water <span class="muted">(mL added)</span>
+          <input id="bacMl" type="number" min="0" step="0.1" value="2" inputmode="decimal" />
+        </label>
+      </div>
+
+      <div class="vial-wrap">
+        <!-- SVG Vial -->
+        <div class="vial-card">
+          <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
+            <title id="vialTitle">Vial visualization with live label</title>
+            <desc id="vialDesc">Shows a vial with cap, glass, and a label that updates to reflect mg, mL, and mg per mL.</desc>
+
+            <defs>
+              <clipPath id="labelClip">
+                <rect x="34" y="160" width="132" height="92" rx="10"/>
+              </clipPath>
+            </defs>
+
+            <rect x="40" y="12" width="120" height="42" rx="8" fill="#2f3a44"/>
+            <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
+            <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
+            <rect x="30" y="80" width="140" height="240" rx="18" fill="#f4f7fb" stroke="#c9d3dd"/>
+
+            <!-- Liquid full -->
+            <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="#42b7ba" opacity="0.9"/>
+
+            <!-- Label -->
+            <g>
+              <rect x="34" y="160" width="132" height="92" rx="10" fill="#ffffff" stroke="#d5dee5"/>
+              <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".02"/>
+              <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".018"/>
+
+              <g clip-path="url(#labelClip)">
+                <text id="lblTop" x="100" y="190" text-anchor="middle" class="label-line" font-size="16">— mg / — mL</text>
+
+                <text x="100" y="210" text-anchor="middle" class="label-sub" font-size="11" fill="#64748b">
+                  <tspan x="100" dy="0">For planning only —</tspan>
+                  <tspan x="100" dy="14">not medical advice</tspan>
+                </text>
+
+                <text id="lblSub" x="100" y="244" text-anchor="middle" class="label-sub" font-size="13">— mg/mL</text>
+              </g>
+            </g>
+
+            <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
+            <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
+            <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
+          </svg>
+        </div>
+
+        <!-- Numeric outputs -->
+        <div class="kpis" style="margin:0;">
+          <div class="card kpi"><span class="muted">Vial strength</span><b id="kMgMl">—</b></div>
+          <div class="card kpi"><span class="muted">Vial strength (µg/mL)</span><b id="kUgMl">—</b></div>
+          <div class="card">
+            <span class="muted">Share / copy</span>
+            <div class="row" style="margin-top:8px;">
+              <button class="btn btn-ghost" id="copyBtn" type="button">Copy results</button>
+              <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+            </div>
           </div>
         </div>
       </div>
+
+      <p class="muted" style="margin-top:10px;">For planning only. Always follow your clinician’s instructions.</p>
+    </section>
+
+    <!-- Centered FAQ -->
+    <section class="section center-faq" aria-labelledby="pep-faq-title" style="margin-top:18px;">
+      <h2 id="pep-faq-title">Peptide Reconstitution FAQ</h2>
+      <p class="muted" style="margin-top:-4px;">For planning only — not medical advice.</p>
+
+      <div class="faq">
+        <details class="card">
+          <summary><strong>What is peptide reconstitution?</strong></summary>
+          <p>Most peptides arrive as lyophilized (freeze-dried) powder. Reconstitution means adding a diluent (commonly bacteriostatic water) to dissolve the powder so it can be drawn into a syringe.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>What is bacteriostatic water?</strong></summary>
+          <p><b>Bacteriostatic water (BaW)</b> is sterile water containing 0.9% benzyl alcohol. The preservative inhibits bacterial growth in multi-dose vials, allowing repeated withdrawals for up to 28 days once opened (if stored correctly). It is not the same as sterile water for injection (SWFI), which lacks a preservative.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>How much bacteriostatic water should I add?</strong></summary>
+          <p>It depends on the concentration you want. Example: 5&nbsp;mg peptide + 2&nbsp;mL BaW → 2.5&nbsp;mg/mL (2500&nbsp;µg/mL). Use the calculator above to target a per-mL strength that makes dosing simple.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>How do I calculate my draw volume after reconstitution?</strong></summary>
+          <p>Volume (mL) = Desired dose (mg) ÷ Vial strength (mg/mL).<br>
+          Example: If vial strength is 2.5&nbsp;mg/mL and you want 0.5&nbsp;mg: 0.5 ÷ 2.5 = <b>0.20&nbsp;mL</b>.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>Best practice to mix without damaging the peptide?</strong></summary>
+          <ul>
+            <li>Swab the stopper and your work area.</li>
+            <li>Angle the vial and let BaW run gently down the glass; avoid blasting the powder.</li>
+            <li>Let dissolve passively; swirl gently. Do <em>not</em> shake hard or foam.</li>
+          </ul>
+        </details>
+
+        <details class="card">
+          <summary><strong>My solution is cloudy or won’t dissolve—what now?</strong></summary>
+          <p>Warm the vial in clean hands for 1–2 minutes and swirl gently. If particulates persist or the solution stays cloudy/discolored, do not use—contact your supplier/clinician.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>Storage after reconstitution</strong></summary>
+          <ul>
+            <li>Refrigerate (2–8&nbsp;°C / 36–46&nbsp;°F) unless your product instructions state otherwise.</li>
+            <li>Label the vial with date and concentration (e.g., “5&nbsp;mg in 2&nbsp;mL = 2.5&nbsp;mg/mL”).</li>
+            <li>Minimize temperature cycling; keep out of light.</li>
+          </ul>
+        </details>
+
+        <details class="card">
+          <summary><strong>How long does reconstituted peptide last?</strong></summary>
+          <p>General practice: use within 28 days when mixed with BaW and refrigerated. Actual stability varies by peptide and manufacturer—follow your product’s guidance.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>Can I use sterile water instead of bacteriostatic water?</strong></summary>
+          <p>You can, but SWFI lacks a preservative. It’s typically intended for <em>single-use</em>; discard the remainder to reduce contamination risk. For multi-dose vials, BaW is generally preferred (follow your clinician’s instructions).</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>Injection route and needle size?</strong></summary>
+          <p>Follow your clinician’s directions. Commonly subcutaneous with 29–31G insulin syringes; intramuscular protocols vary. Site rotation and sterile technique are essential.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>How do I avoid contamination?</strong></summary>
+          <ul>
+            <li>Alcohol swab stoppers and skin; let dry.</li>
+            <li>Use new sterile needles/syringes each time.</li>
+            <li>Do not leave needles in the vial. Cap promptly; refrigerate.</li>
+          </ul>
+        </details>
+
+        <details class="card">
+          <summary><strong>Disposal of sharps and leftover solution</strong></summary>
+          <p>Use a sharps container for needles/syringes. Follow local regulations or pharmacy take-back for disposal. Don’t pour leftovers down the drain.</p>
+        </details>
+
+        <details class="card">
+          <summary><strong>Traveling with reconstituted peptides</strong></summary>
+          <p>Keep labeled, in original vials where possible, with cooling pack if needed. Check airline and destination rules. Carry a copy of your prescription or clinician note if applicable.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-meta">
+      <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
+      <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
     </div>
+  </footer>
 
-    <p class="muted" style="margin-top:10px;">For planning only. Always follow your clinician’s instructions.</p>
-  </section>
+  <!-- Burger/mobile menu JS (matches #burger / #mobile-menu) -->
+  <script>
+    (function(){
+      const burger = document.getElementById('burger');
+      const menu = document.getElementById('mobile-menu');
+      if (!burger || !menu) return;
+      burger.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+        menu.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+      }));
+    })();
+  </script>
 
-  <!-- Centered FAQ -->
-  <section class="section center-faq" aria-labelledby="pep-faq-title" style="margin-top:18px;">
-    <h2 id="pep-faq-title">Peptide Reconstitution FAQ</h2>
-    <p class="muted" style="margin-top:-4px;">For planning only — not medical advice.</p>
+  <!-- Peptide logic -->
+  <script>
+    (function(){
+      const $ = id => document.getElementById(id);
+      const mg = $('pepMg');
+      const ml = $('bacMl');
 
-    <div class="faq">
-      <details class="card">
-        <summary><strong>What is peptide reconstitution?</strong></summary>
-        <p>Most peptides arrive as lyophilized (freeze-dried) powder. Reconstitution means adding a diluent (commonly bacteriostatic water) to dissolve the powder so it can be drawn into a syringe.</p>
-      </details>
+      const kMgMl = $('kMgMl');
+      const kUgMl = $('kUgMl');
+      const copyBtn = $('copyBtn');
+      const resetBtn = $('resetBtn');
 
-      <details class="card">
-        <summary><strong>What is bacteriostatic water?</strong></summary>
-        <p><b>Bacteriostatic water (BaW)</b> is sterile water containing 0.9% benzyl alcohol. The preservative inhibits bacterial growth in multi-dose vials, allowing repeated withdrawals for up to 28 days once opened (if stored correctly). It is not the same as sterile water for injection (SWFI), which lacks a preservative.</p>
-      </details>
+      const lblTop = document.getElementById('lblTop');
+      const lblSub = document.getElementById('lblSub');
 
-      <details class="card">
-        <summary><strong>How much bacteriostatic water should I add?</strong></summary>
-        <p>It depends on the concentration you want. Example: 5&nbsp;mg peptide + 2&nbsp;mL BaW → 2.5&nbsp;mg/mL (2500&nbsp;µg/mL). Use the calculator above to target a per-mL strength that makes dosing simple.</p>
-      </details>
+      const LABEL_W = 132, PADDING = 12;
+      const MAX_W = LABEL_W - PADDING*2;
+      const TOP_MAX = 16, TOP_MIN = 11;
+      const SUB_MAX = 13, SUB_MIN = 10;
 
-      <details class="card">
-        <summary><strong>How do I calculate my draw volume after reconstitution?</strong></summary>
-        <p>Volume (mL) = Desired dose (mg) ÷ Vial strength (mg/mL).<br>
-        Example: If vial strength is 2.5&nbsp;mg/mL and you want 0.5&nbsp;mg: 0.5 ÷ 2.5 = <b>0.20&nbsp;mL</b>.</p>
-      </details>
+      function fmt(n, d=3){ return (!isFinite(n) ? '—' : (+n).toFixed(d).replace(/\.?0+$/,'')); }
 
-      <details class="card">
-        <summary><strong>Best practice to mix without damaging the peptide?</strong></summary>
-        <ul>
-          <li>Swab the stopper and your work area.</li>
-          <li>Angle the vial and let BaW run gently down the glass; avoid blasting the powder.</li>
-          <li>Let dissolve passively; swirl gently. Do <em>not</em> shake hard or foam.</li>
-        </ul>
-      </details>
+      function fitText(el, maxPx, maxSize, minSize){
+        let size = maxSize;
+        el.setAttribute('font-size', size);
+        let box = el.getBBox();
+        while (box.width > maxPx && size > minSize){
+          size -= 0.5;
+          el.setAttribute('font-size', size);
+          box = el.getBBox();
+        }
+      }
 
-      <details class="card">
-        <summary><strong>My solution is cloudy or won’t dissolve—what now?</strong></summary>
-        <p>Warm the vial in clean hands for 1–2 minutes and swirl gently. If particulates persist or the solution stays cloudy/discolored, do not use—contact your supplier/clinician.</p>
-      </details>
+      function compute(){
+        const mgVal = +mg.value || 0;
+        const mlVal = +ml.value || 0;
 
-      <details class="card">
-        <summary><strong>Storage after reconstitution</strong></summary>
-        <ul>
-          <li>Refrigerate (2–8&nbsp;°C / 36–46&nbsp;°F) unless your product instructions state otherwise.</li>
-          <li>Label the vial with date and concentration (e.g., “5&nbsp;mg in 2&nbsp;mL = 2.5&nbsp;mg/mL”).</li>
-          <li>Minimize temperature cycling; keep out of light.</li>
-        </ul>
-      </details>
+        if (mgVal <= 0 || mlVal <= 0){
+          kMgMl.textContent = '—';
+          kUgMl.textContent = '—';
+          lblTop.textContent = '— mg / — mL';
+          lblSub.textContent = '— mg/mL';
+          return;
+        }
 
-      <details class="card">
-        <summary><strong>How long does reconstituted peptide last?</strong></summary>
-        <p>General practice: use within 28 days when mixed with BaW and refrigerated. Actual stability varies by peptide and manufacturer—follow your product’s guidance.</p>
-      </details>
+        const mgPerMl = mgVal / mlVal;
+        const ugPerMl = mgPerMl * 1000;
 
-      <details class="card">
-        <summary><strong>Can I use sterile water instead of bacteriostatic water?</strong></summary>
-        <p>You can, but SWFI lacks a preservative. It’s typically intended for <em>single-use</em>; discard the remainder to reduce contamination risk. For multi-dose vials, BaW is generally preferred (follow your clinician’s instructions).</p>
-      </details>
+        kMgMl.textContent = `${fmt(mgPerMl,3)} mg/mL`;
+        kUgMl.textContent = `${fmt(ugPerMl,0)} µg/mL`;
 
-      <details class="card">
-        <summary><strong>Injection route and needle size?</strong></summary>
-        <p>Follow your clinician’s directions. Commonly subcutaneous with 29–31G insulin syringes; intramuscular protocols vary. Site rotation and sterile technique are essential.</p>
-      </details>
+        lblTop.textContent = `${fmt(mgVal,3)} mg / ${fmt(mlVal,3)} mL`;
+        lblSub.textContent = `${fmt(mgPerMl,3)} mg/mL`;
 
-      <details class="card">
-        <summary><strong>How do I avoid contamination?</strong></summary>
-        <ul>
-          <li>Alcohol swab stoppers and skin; let dry.</li>
-          <li>Use new sterile needles/syringes each time.</li>
-          <li>Do not leave needles in the vial. Cap promptly; refrigerate.</li>
-        </ul>
-      </details>
+        fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
+        fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
 
-      <details class="card">
-        <summary><strong>Disposal of sharps and leftover solution</strong></summary>
-        <p>Use a sharps container for needles/syringes. Follow local regulations or pharmacy take-back for disposal. Don’t pour leftovers down the drain.</p>
-      </details>
+        try{ localStorage.setItem('ib_pep_vial_v3', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
+      }
 
-      <details class="card">
-        <summary><strong>Traveling with reconstituted peptides</strong></summary>
-        <p>Keep labeled, in original vials where possible, with cooling pack if needed. Check airline and destination rules. Carry a copy of your prescription or clinician note if applicable.</p>
-      </details>
-    </div>
-  </section>
-</main>
+      ['input','change'].forEach(ev => { mg.addEventListener(ev, compute); ml.addEventListener(ev, compute); });
 
-<footer>
-  <div class="container footer-meta">
-    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
-    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
-  </div>
-</footer>
+      copyBtn.addEventListener('click', ()=>{
+        const text = [
+          `Peptide: ${mg.value} mg`,
+          `BAC water: ${ml.value} mL`,
+          `Vial strength: ${kMgMl.textContent} (${kUgMl.textContent})`,
+        ].join('\n');
+        navigator.clipboard?.writeText(text);
+      });
 
-<script>
-/* Mobile nav behavior */
-(function(){
-  const header = document.getElementById('siteHeader');
-  const btn = document.querySelector('.ib-toggle');
-  const nav = document.getElementById('ib-navlinks');
-  if (!header || !btn || !nav) return;
-  const closeNav = () => { nav.classList.remove('show'); document.body.classList.remove('nav-open'); btn.setAttribute('aria-expanded','false'); };
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('show');
-    document.body.classList.toggle('nav-open', open);
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeNav));
-  document.addEventListener('click',(e)=>{ if(nav.classList.contains('show') && !header.contains(e.target)) closeNav(); });
-  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeNav(); });
-  window.addEventListener('pageshow', closeNav);
-})();
-</script>
+      resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
 
-<script>
-/* Vial strength + label fit (liquid stays full) */
-(function(){
-  const $ = id => document.getElementById(id);
-  const mg = $('pepMg');
-  const ml = $('bacMl');
+      try{
+        const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v3')||'{}');
+        if (saved.mg) mg.value = saved.mg;
+        if (saved.ml) ml.value = saved.ml;
+      }catch(e){}
+      compute();
 
-  const kMgMl = $('kMgMl');
-  const kUgMl = $('kUgMl');
-  const copyBtn = $('copyBtn');
-  const resetBtn = $('resetBtn');
-
-  const lblTop = document.getElementById('lblTop');
-  const lblSub = document.getElementById('lblSub');
-
-  // Label sizing params (must match rect width)
-  const LABEL_W = 132, PADDING = 12;
-  const MAX_W = LABEL_W - PADDING*2;
-  const TOP_MAX = 16, TOP_MIN = 11;
-  const SUB_MAX = 13, SUB_MIN = 10;
-
-  function fmt(n, d=3){ return (!isFinite(n) ? '—' : (+n).toFixed(d).replace(/\.?0+$/,'')); }
-
-  function fitText(el, maxPx, maxSize, minSize){
-    let size = maxSize;
-    el.setAttribute('font-size', size);
-    let box = el.getBBox();
-    while (box.width > maxPx && size > minSize){
-      size -= 0.5;
-      el.setAttribute('font-size', size);
-      box = el.getBBox();
-    }
-  }
-
-  function compute(){
-    const mgVal = +mg.value || 0;
-    const mlVal = +ml.value || 0;
-
-    if (mgVal <= 0 || mlVal <= 0){
-      kMgMl.textContent = '—';
-      kUgMl.textContent = '—';
-      lblTop.textContent = '— mg / — mL';
-      lblSub.textContent = '— mg/mL';
-      return;
-    }
-
-    const mgPerMl = mgVal / mlVal;
-    const ugPerMl = mgPerMl * 1000;
-
-    kMgMl.textContent = `${fmt(mgPerMl,3)} mg/mL`;
-    kUgMl.textContent = `${fmt(ugPerMl,0)} µg/mL`;
-
-    lblTop.textContent = `${fmt(mgVal,3)} mg / ${fmt(mlVal,3)} mL`;
-    lblSub.textContent = `${fmt(mgPerMl,3)} mg/mL`;
-
-    fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
-    fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
-
-    try{ localStorage.setItem('ib_pep_vial_v3', JSON.stringify({mg: mgVal, ml: mlVal})); }catch(e){}
-  }
-
-  ['input','change'].forEach(ev => { mg.addEventListener(ev, compute); ml.addEventListener(ev, compute); });
-
-  copyBtn.addEventListener('click', ()=>{
-    const text = [
-      `Peptide: ${mg.value} mg`,
-      `BAC water: ${ml.value} mL`,
-      `Vial strength: ${kMgMl.textContent} (${kUgMl.textContent})`,
-    ].join('\n');
-    navigator.clipboard?.writeText(text);
-  });
-
-  resetBtn.addEventListener('click', ()=>{ mg.value = 5; ml.value = 2; compute(); });
-
-  try{
-    const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v3')||'{}');
-    if (saved.mg) mg.value = saved.mg;
-    if (saved.ml) ml.value = saved.ml;
-  }catch(e){}
-  compute();
-
-  // Refit on resize
-  window.addEventListener('resize', () => {
-    fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
-    fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
-  });
-})();
-</script>
+      window.addEventListener('resize', () => {
+        fitText(lblTop, MAX_W, TOP_MAX, TOP_MIN);
+        fitText(lblSub, MAX_W, SUB_MAX, SUB_MIN);
+      });
+    })();
+  </script>
 </body>
 </html>
