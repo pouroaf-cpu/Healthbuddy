@@ -15,26 +15,52 @@
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-<!-- InjectBuddy Header (mobile + desktop) -->
-<header class="ib-header">
-  <div class="ib-nav">
-    <a class="ib-brand" href="/">InjectBuddy</a>
+<!-- HEADER -->
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="InjectBuddy Home">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>InjectBuddy</h1>
+    </a>
 
-    <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-
-    <nav id="ib-navlinks" class="ib-links" role="navigation">
-      <a href="/" class="ib-link">Home</a>
-      <a href="/about.html" class="ib-link active">About</a>
-      <a href="/trt-peptide-calculator.html" class="ib-link">Calculator</a>
-      <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
-      <a href="/faq.html" class="ib-link">FAQ</a>
-      <a href="/contact.html" class="ib-link">Contact</a>
-      <a href="/privacy.html" class="ib-link">Privacy</a>
-      <a href="/privacy.html" class="ib-link">Privacy</a>
+    <!-- UPDATED NAV LINKS ONLY -->
+    <nav class="nav" aria-label="Primary">
+      <a href="/calculator.html">Dosage Calculator</a>
+      <a href="/peptide.html">Peptide Reconstitution</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
     </nav>
+
+    <!-- keep any existing CTA if you already had one; if not, leave this div empty or remove -->
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
+    </div>
+
+    <!-- Burger for mobile (unchanged) -->
+    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
   </div>
+</header>
+
+<!-- MOBILE MENU (links updated only) -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="container">
+    <div class="mobile-links" role="menu">
+      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
+      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
+      <a href="/contact.html" role="menuitem">Contact</a>
+      <a href="/about.html" role="menuitem">About</a>
+    </div>
+    <div class="mobile-cta">
+      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
+    </div>
+  </div>
+</div>
+
 </header>
 
 <style>
