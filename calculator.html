@@ -12,6 +12,12 @@
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
+
+  <!-- Load base/site CSS first -->
+  <link rel="stylesheet" href="/assets/site.css">
+  <!-- Load calculator CSS AFTER site.css so it can override where needed -->
+  <link rel="stylesheet" href="/assets/calculator.css">
+
   <style>
     :root{
       --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
@@ -31,7 +37,7 @@
     .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
     .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
 
-    /* Header (new shared nav) */
+    /* Header */
     .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
@@ -50,15 +56,6 @@
     .mobile-menu .container{padding:14px 20px 16px}
     .mobile-links{display:grid;gap:10px;margin-bottom:12px}
     .mobile-cta{display:grid;gap:10px}
-    .body-lock{overflow:hidden}
-
-    /* Hero */
-    .hero{background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%), radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%)}
-    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:64px 0}
-    .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
-    .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-    .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
 
     /* Reviews (marquee) */
     .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
@@ -70,27 +67,13 @@
     .review-card small{color:var(--muted)}
     .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
 
-    /* Sections — no whitespace between sections */
+    /* Sections (you set no whitespace between sections elsewhere) */
     .section{padding:0}
     .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
     .muted{color:var(--muted)}
 
-    /* Features (marquee like reviews) */
-    .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
-    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 32s linear infinite}
-    .features-mask:hover .features-rail{animation-play-state:paused}
-    .feature-card{
-      flex:0 0 320px;height:220px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;
-      background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)
-    }
-    .feature-card h4{margin:0 0 4px;font-size:1.05rem;color:var(--teal-900)}
-    .feature-card p{margin:0;color:var(--muted)}
-    .btn-feature{min-height:44px}
-    .badge{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:800;color:#6b7280;background:#f1f5f9;border:1px solid #e5e7eb;padding:3px 8px;border-radius:999px}
-    .is-disabled{pointer-events:none;opacity:.6;border-color:#cbd5e1;color:#64748b;background:#fff}
-
     /* Sticky bottom CTA */
-    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease;will-change:transform,opacity}
+    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease}
     .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
     .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
     .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
@@ -99,7 +82,6 @@
 
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
-    /* Responsive */
     @media (max-width:980px){
       .nav{display:none}
       .nav-cta{display:none}
@@ -116,14 +98,12 @@
     }
     @media (prefers-reduced-motion: reduce){
       .btn,.btn:hover{transition:none;transform:none}
-      .review-rail,.features-rail{animation:none}
+      .review-rail{animation:none}
       .cta-bar{transition:none}
     }
-    <link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/calculator.css">  <!-- after site.css -->
-
   </style>
 </head>
+
 <body>
 
 <!-- HEADER -->
