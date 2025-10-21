@@ -1,54 +1,103 @@
-/* ===== Calculator Styles ===== */
+/* ===== Calculator (Classic) =====
+   Keep the nav/site styles elsewhere. This file only affects the calculator.
+   JS assumes 200px barrel height — kept below.
+*/
 
-/* Layout */
+/* --- Layout & basic components --- */
 .form-container { padding: 20px 0 32px; }
 .calc-wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .calc-grid .full { grid-column: 1 / -1; }
 
-/* Segmented toggle */
-.seg-toggle { display:inline-flex; background:#fff; border:1px solid var(--border); border-radius:12px; padding:4px; gap:6px; }
-.seg-btn { appearance:none; border:0; background:transparent; font-weight:700; padding:10px 14px; border-radius:8px; cursor:pointer; }
-.seg-btn[aria-checked="true"] { background:var(--cta); color:#fff; }
+label { display:block; font-weight:700; margin-bottom:6px; color:var(--teal-900); }
+
+/* Segmented toggle (simple, flat) */
+.seg-toggle { display:inline-flex; border:1px solid var(--border); border-radius:12px; padding:4px; gap:6px; background:#fff; }
+.seg-btn {
+  appearance:none; border:0; background:transparent; font-weight:700;
+  padding:10px 14px; border-radius:8px; cursor:pointer; color:var(--teal-900);
+}
+.seg-btn[aria-checked="true"] { background:#e6fffe; color:#055; }
 .seg-btn:focus-visible { outline:0; box-shadow:0 0 0 4px var(--ring); }
 
-/* Labels + live chips */
-label { display:block; font-weight:700; margin-bottom:6px; color:var(--teal-900); }
+/* Live read chips (simple) */
 .live-reads { margin-top:8px; }
 .live-chip { display:inline-block; font-weight:700; padding:6px 10px; border-radius:999px; background:#f8fafc; border:1px solid var(--border); }
 
-/* Range inputs with filled track using --val set by JS */
-input[type="range"]{ width:100%; height:6px; border-radius:999px; background:linear-gradient(90deg, var(--cta) var(--val,0%), #e5e7eb var(--val,0%)); outline:0; -webkit-appearance:none; appearance:none; }
-input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:2px solid var(--cta); box-shadow:0 2px 6px rgba(2,6,23,.15); cursor:pointer; }
-input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background:#fff; border:2px solid var(--cta); box-shadow:0 2px 6px rgba(2,6,23,.15); cursor:pointer; }
+/* Range inputs (classic understated fill) */
+input[type="range"]{
+  width:100%; height:6px; border-radius:999px; background:#e5e7eb;
+  outline:0; -webkit-appearance:none; appearance:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%;
+  background:#fff; border:2px solid var(--teal); box-shadow:0 2px 6px rgba(2,6,23,.15); cursor:pointer;
+}
+input[type="range"]::-moz-range-thumb{
+  width:18px; height:18px; border-radius:50%; background:#fff; border:2px solid var(--teal);
+  box-shadow:0 2px 6px rgba(2,6,23,.15); cursor:pointer;
+}
 
-/* Output panel */
+/* Output panel (simple cards) */
 .out { border:1px solid var(--border); border-radius:16px; background:#fff; box-shadow:var(--shadow); padding:16px; }
 .out h3 { margin:0 0 12px; color:var(--teal-900); }
 .out-row { display:grid; gap:16px; }
 .kpi { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
-.kpi .card { border:1px solid var(--border); border-radius:12px; padding:12px; background:#fff; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:4px; }
+.kpi .card { border:1px solid var(--border); border-radius:12px; padding:12px; background:#fff; display:flex; flex-direction:column; gap:4px; }
 .kpi .card b { font-size:1.05rem; }
 
-/* Syringe visual (200px barrel height – must match JS) */
+/* --- Syringe Visual (classic) --- */
+/* 200px barrel height — must match JS constant */
 .syringe{ display:flex; align-items:center; justify-content:center; }
 .barrel-wrap{ width:140px; height:220px; display:flex; align-items:flex-end; justify-content:center; padding:10px 0; }
 .barrel-wrap.inactive{ opacity:.6; }
-.barrel{ position:relative; width:64px; height:200px; border:2px solid #cbd5e1; border-radius:10px; overflow:hidden; background:linear-gradient(180deg, #f8fafc, #fff); }
-.fill{ position:absolute; left:0; right:0; bottom:0; height:0; background:linear-gradient(180deg, rgba(0,178,181,.85), rgba(0,178,181,.65)); }
-.ticks{ position:absolute; left:0; right:0; top:0; bottom:0; pointer-events:none; }
-.tick-row{ position:absolute; left:0; right:0; height:1px; background:rgba(15,23,42,.15); }
+
+.barrel{ position:relative; width:64px; height:200px; /* JS expects 200px */
+  border:2px solid #cbd5e1; border-radius:10px; overflow:hidden;
+  background:linear-gradient(180deg, #f8fafc, #fff);
+}
+
+/* Fill + slosh effect (from the version you liked) */
+.fill{
+  position:absolute; left:0; right:0; bottom:0; height:0;
+  background: linear-gradient(180deg, rgba(0,178,181,.9), rgba(0,178,181,.6));
+  transition: height .38s cubic-bezier(.2,.8,.25,1);
+  z-index:1;
+}
+.ticks{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+.tick-row{ position:absolute; left:0; right:0; height:1px; background:rgba(15,23,42,.12); }
 .tick-row span{ position:absolute; left:70px; top:-7px; font-size:.75rem; color:#64748b; }
 
-/* Slosh animation */
-@keyframes sloshY { 0%{transform:skewY(0)} 20%{transform:skewY(4deg)} 40%{transform:skewY(-3deg)} 60%{transform:skewY(2deg)} 80%{transform:skewY(-1deg)} 100%{transform:skewY(0)} }
-.fill.slosh{ animation: sloshY 1.4s ease-out 3; }
+/* glossy ripple on top of the fill */
+.fill::after{
+  content:"";
+  position:absolute; left:-96px; right:-96px; top:-6px; height:14px;
+  border-radius:999px/12px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.25));
+  opacity:0; transform: translateX(0) translateY(-2px) skewX(0deg);
+  filter: saturate(120%) brightness(105%); pointer-events:none; z-index:4;
+  will-change: transform, opacity;
+}
+.fill.slosh::after{
+  opacity:.96;
+  animation: ib-slosh 1400ms ease-in-out 3, ib-settle 1000ms ease-out 1 forwards;
+}
+@keyframes ib-slosh{
+  0%{transform:translateX(-14px) translateY(-2px) skewX(-3deg)}
+  50%{transform:translateX(14px) translateY(-1px) skewX(3deg)}
+  100%{transform:translateX(-14px) translateY(-2px) skewX(-3deg)}
+}
+@keyframes ib-settle{ to{ opacity:0; transform: translateX(0) translateY(0) skewX(0deg);} }
+@media (prefers-reduced-motion: reduce){
+  .fill{ transition: height .2s linear; }
+  .fill::after{ display:none; }
+}
 
 /* Warnings / notices */
 .warn{ margin-top:8px; padding:10px 12px; border-radius:12px; background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; }
 .notice{ margin-top:14px; color:#64748b; font-size:.9rem; }
 
-/* Responsive */
+/* --- Responsive --- */
 @media (max-width:980px){
   .calc-wrap{ grid-template-columns: 1fr; }
   .calc-grid{ grid-template-columns: 1fr; }
