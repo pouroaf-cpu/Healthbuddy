@@ -76,22 +76,50 @@
   </style>
 </head>
 <body>
-<header class="ib-header" id="siteHeader">
-  <div class="ib-nav">
-    <a class="ib-brand" href="/">InjectBuddy</a>
-    <button class="ib-toggle" aria-expanded="false" aria-controls="ib-navlinks" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="ib-navlinks" class="ib-links" role="navigation">
-      <a href="/" class="ib-link">Home</a>
-      <a href="/calculator.html" class="ib-link">Calculator</a>
-      <a href="/peptides.html" class="ib-link active" aria-current="page">Peptides</a>
-      <a href="/questionnaire.html" class="ib-link">Questionnaire</a>
-      <a href="/faq.html" class="ib-link">FAQ</a>
-      <a href="/about.html" class="ib-link">About</a>
-      <a href="/contact.html" class="ib-link">Contact</a>
-      <a href="/privacy.html" class="ib-link">Privacy</a>
-    </nav>
+  <!-- HEADER (Home page nav) -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="InjectBuddy Home">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>InjectBuddy</h1>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="/#why">Why</a>
+        <a href="/#features">Features</a>
+        <a href="/#how">How it works</a>
+        <a href="/#reviews">Reviews</a>
+        <a href="/faq.html">FAQ</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+      </div>
+
+      <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="container">
+      <div class="mobile-links" role="menu">
+        <a href="/#why" role="menuitem">Why</a>
+        <a href="/#features" role="menuitem">Features</a>
+        <a href="/#how" role="menuitem">How it works</a>
+        <a href="/#reviews" role="menuitem">Reviews</a>
+        <a href="/faq.html" role="menuitem">FAQ</a>
+        <a href="/contact.html" role="menuitem">Contact</a>
+      </div>
+      <div class="mobile-cta">
+        <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+        <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
+      </div>
+    </div>
   </div>
 </header>
 
