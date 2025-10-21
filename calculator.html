@@ -3,61 +3,126 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dosage Calculator — InjectBuddy</title>
-  <meta name="description" content="Instantly calculate your TRT or testosterone injection dose. Choose vial strength, injection frequency, and see visual syringe fills — free and simple.">
-  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
-  <meta property="og:title" content="Dosage Calculator — InjectBuddy" />
-  <meta property="og:description" content="Fast, no-nonsense tools to plan testosterone and peptide injection volumes." />
+  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
+  <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
+  <link rel="canonical" href="https://www.injectbuddy.com/" />
+  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
+  <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/style.css" />
-
-  <!-- Calculator-only styles (kept local so Home stays light) -->
+  <link rel="icon" href="/assets/favicon.svg" />
   <style>
-    .barrel{ position:relative; overflow:hidden; }
-    .fill{
-      position:absolute; left:0; right:0; bottom:0; height:0;
-      transition: height .38s cubic-bezier(.2,.8,.25,1);
-      z-index:1;
+    :root{
+      --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
+      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
+      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06); --gold:#f5b301;
     }
-    .ticks{ position:absolute; inset:0; z-index:3; pointer-events:none; }
-    .fill::after{
-      content:"";
-      position:absolute; left:-96px; right:-96px; top:-6px; height:14px;
-      border-radius:999px/12px;
-      background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.25));
-      opacity:0; transform: translateX(0) translateY(-2px) skewX(0deg);
-      filter: saturate(120%) brightness(105%); pointer-events:none; z-index:4;
-      will-change: transform, opacity;
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
+    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .btn-primary{background:var(--cta);color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
+    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
+    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+
+    /* Header (new shared nav) */
+    .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{font-weight:600;color:var(--muted)}
+    .nav-cta .btn{padding:10px 16px;border-radius:12px}
+
+    /* Burger + Mobile menu */
+    .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .burger svg{width:22px;height:22px}
+    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px - env(safe-area-inset-top, 0px));overflow:auto}
+    .mobile-menu.open{display:block}
+    .mobile-menu .container{padding:14px 20px 16px}
+    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
+    .mobile-cta{display:grid;gap:10px}
+    .body-lock{overflow:hidden}
+
+    /* Hero */
+    .hero{background:radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%), radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%)}
+    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:64px 0}
+    .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
+    .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+    .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
+
+    /* Reviews (marquee) */
+    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
+    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
+    .review-mask:hover .review-rail{animation-play-state:paused}
+    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
+    .review-card small{color:var(--muted)}
+    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
+
+    /* Sections — no whitespace between sections */
+    .section{padding:0}
+    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
+    .muted{color:var(--muted)}
+
+    /* Features (marquee like reviews) */
+    .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
+    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 32s linear infinite}
+    .features-mask:hover .features-rail{animation-play-state:paused}
+    .feature-card{
+      flex:0 0 320px;height:220px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;
+      background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)
     }
-    .fill.slosh::after{
-      opacity:.96;
-      animation: ib-slosh 1400ms ease-in-out 3, ib-settle 1000ms ease-out 1 forwards;
+    .feature-card h4{margin:0 0 4px;font-size:1.05rem;color:var(--teal-900)}
+    .feature-card p{margin:0;color:var(--muted)}
+    .btn-feature{min-height:44px}
+    .badge{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:800;color:#6b7280;background:#f1f5f9;border:1px solid #e5e7eb;padding:3px 8px;border-radius:999px}
+    .is-disabled{pointer-events:none;opacity:.6;border-color:#cbd5e1;color:#64748b;background:#fff}
+
+    /* Sticky bottom CTA */
+    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease;will-change:transform,opacity}
+    .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
+    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
+    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+    .cta-bar-title{color:var(--teal-900);margin:0}
+    .cta-actions{display:flex;gap:10px;align-items:center}
+
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .nav{display:none}
+      .nav-cta{display:none}
+      .burger{display:inline-flex}
+      .mobile-menu{top:calc(56px + env(safe-area-inset-top, 0px))}
+      .hero-inner{grid-template-columns:1fr}
+      .hero .container{padding-left:24px;padding-right:24px}
+      .cta-row{justify-content:center}
+      .cta-row .btn{width:100%;max-width:520px}
+
+      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
+      .cta-actions{flex-direction:column;width:100%;max-width:520px}
+      .cta-actions .btn{width:100%}
     }
-    @keyframes ib-slosh{
-      0%{transform:translateX(-14px) translateY(-2px) skewX(-3deg)}
-      50%{transform:translateX(14px) translateY(-1px) skewX(3deg)}
-      100%{transform:translateX(-14px) translateY(-2px) skewX(-3deg)}
-    }
-    @keyframes ib-settle{ to{ opacity:0; transform: translateX(0) translateY(0) skewX(0deg);} }
     @media (prefers-reduced-motion: reduce){
-      .fill{ transition: height .2s linear; }
-      .fill::after{ display:none; }
+      .btn,.btn:hover{transition:none;transform:none}
+      .review-rail,.features-rail{animation:none}
+      .cta-bar{transition:none}
     }
   </style>
-
-  <!-- (Optional) Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "tlo6h3wt7s");
-  </script>
-  <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
 </head>
 <body>
+
 <!-- HEADER -->
 <header class="header" role="banner">
   <div class="container header-inner">
