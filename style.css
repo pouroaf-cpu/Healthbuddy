@@ -689,3 +689,55 @@ a.btn:visited { color: inherit; }
 .testimonial-card small {
   color: #475569;
 }
+/* === CTA Bar with Yellow Gradient and Contrasting Buttons === */
+.cta-bar {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 247, 200, 0.9) 0%,
+    rgba(255, 236, 140, 0.96) 40%,
+    #ffe156 100%
+  );
+  border-top: 2px solid #f5d000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.cta-bar-title {
+  color: #3b2900;
+  font-weight: 800;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Bright contrasting CTA buttons */
+.cta-actions .btn-primary {
+  background: #004c4d;          /* Dark teal for contrast */
+  color: #ffffff;
+  border: 2px solid transparent;
+  text-shadow: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.cta-actions .btn-primary:hover {
+  background: #006d6f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cta-actions .btn-secondary {
+  background: #ffffff;
+  color: #004c4d;
+  border: 2px solid #004c4d;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.cta-actions .btn-secondary:hover {
+  background: #004c4d;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Optional: smooth transition + better spacing */
+.cta-bar-inner {
+  transition: background 0.3s ease;
+  gap: 1rem;
+  padding: 1rem;
+}
