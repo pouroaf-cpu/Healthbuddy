@@ -741,3 +741,55 @@ a.btn:visited { color: inherit; }
   gap: 1rem;
   padding: 1rem;
 }
+/* === CTA Bar with Yellow Gradient and Contrasting Buttons (FINAL) === */
+/* Higher specificity so it overrides earlier rules */
+body .cta-bar {
+  background: #ffe156; /* fallback */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 247, 200, 0.92) 0%,
+    rgba(255, 236, 140, 0.98) 40%,
+    #ffe156 100%
+  );
+  border-top: 2px solid #f5d000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body .cta-bar-title {
+  color: #3b2900;
+  font-weight: 800;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+/* Buttons inside the CTA bar */
+body .cta-bar .cta-actions .btn-primary {
+  background: #004c4d;        /* dark teal: strong contrast on yellow */
+  color: #ffffff;
+  border: 2px solid transparent;
+  text-shadow: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+body .cta-bar .cta-actions .btn-primary:hover {
+  background: #006d6f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+body .cta-bar .cta-actions .btn-secondary {
+  background: #ffffff;
+  color: #004c4d;
+  border: 2px solid #004c4d;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+body .cta-bar .cta-actions .btn-secondary:hover {
+  background: #004c4d;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Optional: inner spacing/transition */
+body .cta-bar .cta-bar-inner {
+  transition: background 0.3s ease;
+  gap: 1rem;
+  padding: 1rem;
+}
