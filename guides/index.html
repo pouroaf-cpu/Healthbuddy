@@ -1,1 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Guides — InjectBuddy</title>
+  <meta name="description" content="Authoritative guides on TRT dosing, peptide preparation, bloodwork, and practical self-management. Linked to InjectBuddy calculators and tools." />
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Guides — InjectBuddy" />
+  <meta property="og:description" content="Authoritative guides on TRT dosing, peptide preparation, bloodwork, and practical self-management." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/guides/" />
+  <meta property="og:site_name" content="InjectBuddy" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    :root{
+      --teal-900:#004c4d;
+      --teal-700:#006d6f;
+      --teal-600:#009395;
+      --bg:#f0f4f5;
+      --card:#ffffff;
+      --ink-900:#112226;
+      --ink-700:#2b3a3f;
+      --ink-500:#4a5a61;
+      --muted:#e5ecee;
+      --ring:#cfe7e8;
+      --radius:16px;
+      --maxw:1100px;
+      --shadow:0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.04);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink-900);
+      line-height:1.6;
+    }
+
+    /* Header */
+    .ib-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6eef0}
+    .ib-nav{max-width:var(--maxw);margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--teal-900);text-decoration:none;font-weight:700}
+    .brand svg{width:28px;height:28px}
+    .navlinks{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+    .navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink-700)}
+    .navlinks a:hover{background:var(--muted);color:var(--ink-900)}
+
+    /* Page intro */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 16px}
+    .hero{
+      background:linear-gradient(180deg,#fff,rgba(255,255,255,.7)), radial-gradient(80% 60% at 20% 0%, #e7f6f6, transparent);
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 8px;font-size:28px;letter-spacing:.2px}
+    .hero p{margin:0;color:var(--ink-700)}
+    .hero .quick{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--ring);
+      text-decoration:none;color:var(--teal-900);font-weight:600;
+    }
+    .chip:hover{border-color:var(--teal-600)}
+
+    /* Layout */
+    .grid{display:grid;grid-template-columns:260px 1fr;gap:22px;margin-top:22px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+    .sidebar{
+      position:sticky;top:76px;align-self:start;background:#fff;border:1px solid var(--muted);
+      border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)
+    }
+    .sidebar h3{margin:4px 0 10px;font-size:15px;color:var(--ink-700)}
+    .side-list{display:flex;flex-direction:column;gap:8px}
+    .side-list a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--ink-700);border:1px solid transparent}
+    .side-list a:hover{background:var(--bg);border-color:var(--ring);color:var(--ink-900)}
+
+    /* Search */
+    .search{
+      display:flex;gap:10px;margin:0 0 16px;background:#fff;border:1px solid var(--muted);
+      border-radius:12px;padding:10px 12px;align-items:center;box-shadow:var(--shadow)
+    }
+    .search input{
+      width:100%;border:none;outline:none;background:transparent;font-size:15px;color:var(--ink-900)
+    }
+
+    /* Sections and cards */
+    .section{margin-bottom:24px}
+    .section h2{margin:0 0 6px;font-size:20px;color:var(--teal-900)}
+    .section p.kicker{margin:0 0 12px;color:var(--ink-500);font-size:14px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    @media (max-width:980px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:640px){.cards{grid-template-columns:1fr}}
+    .card{
+      background:var(--card);border:1px solid var(--muted);border-radius:14px;padding:14px;box-shadow:var(--shadow);
+      display:flex;flex-direction:column;gap:8px;min-height:132px
+    }
+    .card a.title{
+      text-decoration:none;font-weight:700;color:var(--ink-900);line-height:1.3
+    }
+    .card a.title:hover{color:var(--teal-700)}
+    .meta{font-size:12px;color:var(--ink-500)}
+    .tag{display:inline-block;font-size:11px;padding:4px 8px;border-radius:999px;background:#eef8f8;color:var(--teal-700);border:1px solid var(--ring);margin-right:6px}
+
+    /* Footer */
+    footer{margin:28px 0 36px;color:var(--ink-500);font-size:13px;text-align:center}
+  </style>
+
+  <!-- Structured data (ItemList of guides on the page; update as you add) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"InjectBuddy Guides",
+    "about":"TRT dosing, peptide preparation, bloodwork, and practical management.",
+    "mainEntity":{
+      "@type":"ItemList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"What Testosterone Does in the Body","url":"https://www.injectbuddy.com/guides/testosterone-basic-concepts.html"},
+        {"@type":"ListItem","position":2,"name":"How Testosterone Cypionate Dosing Works","url":"https://www.injectbuddy.com/guides/testosterone-cypionate-dosing.html"},
+        {"@type":"ListItem","position":3,"name":"Bloodwork for TRT: Full Panel and Timing","url":"https://www.injectbuddy.com/guides/trt-bloodwork-timing.html"},
+        {"@type":"ListItem","position":4,"name":"How to Reconstitute Peptides Safely","url":"https://www.injectbuddy.com/guides/how-to-reconstitute-peptides.html"},
+        {"@type":"ListItem","position":5,"name":"Build a Stable TRT Routine","url":"https://www.injectbuddy.com/guides/stable-trt-routine.html"}
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="ib-header" role="banner">
+    <nav class="ib-nav" aria-label="Primary">
+      <a class="brand" href="/" aria-label="InjectBuddy home">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="28" fill="var(--teal-600)"/><path d="M22 20h6v24h-6zM36 20h6v24h-6z" fill="#fff"/></svg>
+        <span>InjectBuddy</span>
+      </a>
+      <div class="navlinks">
+        <a href="/#calculator">Calculators</a>
+        <a href="/questionnaire.html">Questionnaire</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/guides/" aria-current="page" style="color:var(--teal-700);font-weight:700;">Guides</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Intro -->
+  <main class="wrap" id="content">
+    <section class="hero" aria-labelledby="h1">
+      <h1 id="h1">Guides</h1>
+      <p>Authoritative, plain-language explainers that link to the right calculator at the right time.</p>
+      <div class="quick" aria-label="Quick access">
+        <a class="chip" href="/#calculator">All Calculators</a>
+        <a class="chip" href="#pillar-dosing">Dosing & Protocols</a>
+        <a class="chip" href="#pillar-bloods">Bloodwork</a>
+        <a class="chip" href="#pillar-peptides">Peptide Prep</a>
+        <a class="chip" href="#pillar-practical">Practical TRT</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- Sidebar -->
+      <aside class="sidebar" aria-label="Sidebar">
+        <h3>Related Tools</h3>
+        <nav class="side-list" aria-label="Tools">
+          <!-- Update these hrefs to your live tool URLs -->
+          <a href="/#calculator">Testosterone Cypionate Dosage Calculator</a>
+          <a href="/#calculator">Injection Schedule Generator (Every N Days)</a>
+          <a href="/#calculator">Peptide Reconstitution Calculator</a>
+          <a href="/#calculator">Trough Estimator (Coming Soon)</a>
+          <a href="/#calculator">Bloodwork Log Graph (No Login)</a>
+        </nav>
+
+        <h3 style="margin-top:16px">Categories</h3>
+        <nav class="side-list" aria-label="Categories">
+          <a href="#pillar-fundamentals">Testosterone Fundamentals</a>
+          <a href="#pillar-dosing">Dosing & Protocols</a>
+          <a href="#pillar-bloods">Bloodwork & Monitoring</a>
+          <a href="#pillar-peptides">Peptide Preparation</a>
+          <a href="#pillar-practical">Practical Self-Management</a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <section>
+        <!-- Search -->
+        <div class="search" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12m8.32 12.9 3.39 3.39-1.41 1.41-3.39-3.39A8.96 8.96 0 0 1 10 20a9 9 0 1 1 0-18 9 9 0 0 1 8.32 14.9z"/></svg>
+          <input id="search" type="search" placeholder="Search guides (e.g., cypionate, half-life, hematocrit)..." aria-label="Search guides" />
+        </div>
+
+        <!-- Pillar: Fundamentals -->
+        <div class="section" id="pillar-fundamentals" data-section="Testosterone Fundamentals">
+          <h2>Testosterone Fundamentals</h2>
+          <p class="kicker">Plain-language basics to ground everything else.</p>
+          <div class="cards">
+            <article class="card" data-tags="fundamentals basics endocrine">
+              <a class="title" href="/guides/testosterone-basic-concepts.html">What Testosterone Does in the Body</a>
+              <div class="meta"><span class="tag">Fundamentals</span> ~8 min</div>
+              <p>Simple overview of roles, receptors, and why levels matter.</p>
+            </article>
+
+            <article class="card" data-tags="fundamentals shbg free total">
+              <a class="title" href="/guides/total-vs-free-testosterone-shbg.html">Total T vs Free T vs SHBG</a>
+              <div class="meta"><span class="tag">Fundamentals</span> ~7 min</div>
+              <p>What labs mean and which ones actually guide dosing.</p>
+            </article>
+
+            <article class="card" data-tags="fundamentals shutdown suppression">
+              <a class="title" href="/guides/trt-and-natural-production.html">Does TRT Shut Down Natural Production?</a>
+              <div class="meta"><span class="tag">Fundamentals</span> ~6 min</div>
+              <p>Plain-English explanation of HPTA suppression and recovery.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Pillar: Dosing -->
+        <div class="section" id="pillar-dosing" data-section="Dosing & Protocols">
+          <h2>Dosing & Protocols</h2>
+          <p class="kicker">Half-life, frequency, peaks/troughs, and needle-level detail.</p>
+          <div class="cards">
+            <article class="card" data-tags="dosing cypionate half-life frequency calculator">
+              <a class="title" href="/guides/testosterone-cypionate-dosing.html">How Testosterone Cypionate Dosing Works</a>
+              <div class="meta"><span class="tag">Dosing</span> ~9 min</div>
+              <p>Half-life, weekly vs split dosing, and expected symptom patterns.</p>
+            </article>
+
+            <article class="card" data-tags="dosing conversion mg ml calculator">
+              <a class="title" href="/guides/mg-to-ml-conversion.html">Convert mg to mL Accurately</a>
+              <div class="meta"><span class="tag">Dosing</span> ~5 min</div>
+              <p>Step-by-step with the <a href="/#calculator">dosage calculator</a>.</p>
+            </article>
+
+            <article class="card" data-tags="dosing injection technique sites glutes delts quads">
+              <a class="title" href="/guides/injection-site-rotation.html">Injection Site Rotation: Glutes, Delts, Quads</a>
+              <div class="meta"><span class="tag">Technique</span> ~7 min</div>
+              <p>Practical rotation maps to reduce irritation and variability.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Pillar: Bloodwork -->
+        <div class="section" id="pillar-bloods" data-section="Bloodwork & Monitoring">
+          <h2>Bloodwork & Monitoring</h2>
+          <p class="kicker">Timing, interpretation, and what to change based on labs.</p>
+          <div class="cards">
+            <article class="card" data-tags="bloodwork timing labs protocol">
+              <a class="title" href="/guides/trt-bloodwork-timing.html">Bloodwork for TRT: Full Panel and Timing</a>
+              <div class="meta"><span class="tag">Labs</span> ~8 min</div>
+              <p>Which markers, when to test, and how dosing changes results.</p>
+            </article>
+
+            <article class="card" data-tags="bloodwork estradiol e2 symptoms">
+              <a class="title" href="/guides/estradiol-on-trt.html">Estradiol on TRT: Too High vs Too Low</a>
+              <div class="meta"><span class="tag">Labs</span> ~6 min</div>
+              <p>How aromatization interacts with dose and frequency.</p>
+            </article>
+
+            <article class="card" data-tags="bloodwork hematocrit thick blood donate">
+              <a class="title" href="/guides/high-hematocrit-trt.html">High Hematocrit on TRT: Causes and Options</a>
+              <div class="meta"><span class="tag">Labs</span> ~6 min</div>
+              <p>Why it happens and levers to bring it down safely.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Pillar: Peptides -->
+        <div class="section" id="pillar-peptides" data-section="Peptide Preparation">
+          <h2>Peptide Preparation</h2>
+          <p class="kicker">Sterile handling, reconstitution, storage, and dosing units.</p>
+          <div class="cards">
+            <article class="card" data-tags="peptides reconstitution bacteriostatic water sterile">
+              <a class="title" href="/guides/how-to-reconstitute-peptides.html">How to Reconstitute Peptides Safely</a>
+              <div class="meta"><span class="tag">Peptides</span> ~7 min</div>
+              <p>Measured steps and common pitfalls; links to the <a href="/#calculator">reconstitution calculator</a>.</p>
+            </article>
+
+            <article class="card" data-tags="peptides storage refrigeration potency">
+              <a class="title" href="/guides/peptide-storage.html">How to Store Peptides Correctly</a>
+              <div class="meta"><span class="tag">Peptides</span> ~5 min</div>
+              <p>Temperature, light exposure, and contamination risks.</p>
+            </article>
+
+            <article class="card" data-tags="peptides iu units conversion mg ml">
+              <a class="title" href="/guides/what-is-an-iu.html">What “IU” Means and How to Convert</a>
+              <div class="meta"><span class="tag">Peptides</span> ~6 min</div>
+              <p>IU vs mg/mL with clear examples and calculator tie-ins.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Pillar: Practical -->
+        <div class="section" id="pillar-practical" data-section="Practical Self-Management">
+          <h2>Practical TRT Self-Management</h2>
+          <p class="kicker">Keep life simple: routines, travel, misses, and doctor chats.</p>
+          <div class="cards">
+            <article class="card" data-tags="routine adherence microdosing weekly">
+              <a class="title" href="/guides/stable-trt-routine.html">Build a Stable TRT Routine</a>
+              <div class="meta"><span class="tag">Practical</span> ~5 min</div>
+              <p>Routines that reduce peaks/troughs and decision fatigue.</p>
+            </article>
+
+            <article class="card" data-tags="travel storage airport security">
+              <a class="title" href="/guides/traveling-with-trt.html">Traveling with TRT</a>
+              <div class="meta"><span class="tag">Practical</span> ~5 min</div>
+              <p>Packing, refrigeration, and keeping your schedule on the road.</p>
+            </article>
+
+            <article class="card" data-tags="missed dose protocol timing">
+              <a class="title" href="/guides/missed-dose-trt.html">What To Do If You Miss a Dose</a>
+              <div class="meta"><span class="tag">Practical</span> ~4 min</div>
+              <p>Simple flow: skip, shift, or split based on timing.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="y"></span> InjectBuddy. Educational content only.
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Client-side search filter (title + tags + section)
+    (function(){
+      const input = document.getElementById('search');
+      const sections = Array.from(document.querySelectorAll('.section'));
+      const cards = Array.from(document.querySelectorAll('.card'));
+
+      function norm(s){ return (s||'').toLowerCase().trim(); }
+
+      input.addEventListener('input', function(){
+        const q = norm(this.value);
+        let anyVisibleInSection = new Map();
+
+        cards.forEach(card=>{
+          const title = norm(card.querySelector('.title')?.textContent);
+          const tags  = norm(card.getAttribute('data-tags'));
+          const parentSection = card.closest('.section');
+          const sectionLabel = norm(parentSection?.dataset.section);
+          const match = !q || title.includes(q) || tags.includes(q) || sectionLabel.includes(q);
+          card.style.display = match ? '' : 'none';
+          if(match){
+            anyVisibleInSection.set(parentSection, true);
+          }
+        });
+
+        sections.forEach(sec=>{
+          const visible = anyVisibleInSection.get(sec) || !q;
+          sec.style.display = visible ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
 
