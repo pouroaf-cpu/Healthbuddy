@@ -29,7 +29,10 @@
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
-    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+    /* Page container with safer mobile padding */
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    @media (max-width:640px){ .container{padding:0 20px} }
 
     /* Header (shared) */
     .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
@@ -59,9 +62,10 @@
 
     /* Calculator layout */
     main.container{padding:28px 0}
+    @media (max-width:640px){ main.container{padding:20px 0} }
     .form-container h1{margin:0 0 8px}
-    .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
-    @media (max-width:980px){.calc-wrap{grid-template-columns:1fr}}
+    .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+    @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
     .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
     label{font-weight:700}
     input[type=range]{width:100%}
@@ -74,32 +78,29 @@
 
     .out h3{margin:0 0 10px}
     .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+    @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
     .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
     .card .muted{color:#64748b}
     .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
 
-    /* Syringe wrapper card */
+    /* Syringe wrapper card — bigger on desktop */
     .syringe-wrap{display:flex;align-items:center;justify-content:center}
     .syringe-card{
-      width:100%;max-width:1100px;background:#fff;border:1px solid var(--border);
-      border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:22px;overflow:hidden
+      width:100%;max-width:1300px;background:#fff;border:1px solid var(--border);
+      border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:24px;overflow:hidden
     }
     .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .syringe-head b{color:#004c4d}
-    .syringe-svg{width:100%;height:auto;display:block}
+    .syringe-svg{width:100%;height:auto;display:block;transform-origin:center}
+    /* Scale up syringe visuals on larger screens */
+    @media (min-width:1100px){ .syringe-svg{transform:scale(1.3)} }
+    @media (max-width:640px){ .syringe-card{padding:16px} }
+
     .is-hidden{display:none}
     .syringe-label{font:600 12px/1 Inter,system-ui,Segoe UI,Roboto,Arial}
 
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
-    /* Mobile padding & spacing */
-    @media (max-width:640px){
-      .container{padding:0 16px}
-      main.container{padding:18px 0}
-      .calc-wrap{gap:16px}
-      .syringe-card{padding:16px}
-      .kpi{grid-template-columns:1fr;gap:10px}
-    }
     @media (max-width:980px){
       .nav{display:none}
       .nav-cta{display:none}
@@ -214,17 +215,17 @@
                   </div>
                 </div>
 
-                <!-- 1 mL INSULIN — thinner, centered cap/hub, oil gradient, T-handle -->
+                <!-- 1 mL INSULIN — cap thickness == barrel height; centered; T-handle -->
                 <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 1200 220" role="img" aria-label="1 mL insulin syringe, U-100 scale">
                   <!-- Barrel -->
                   <rect x="198" y="92" width="900" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip1ml"><rect x="198" y="92" width="900" height="56" rx="0"/></clipPath>
 
-                  <!-- Orange cap (centered on barrel midline y=120), ends flush at hub -->
-                  <!-- hubX=168, capX=6 → width=162 -->
-                  <rect x="6" y="110" width="162" height="20" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
-                  <!-- Hub (26x26, centered at y=120) -->
-                  <rect x="168" y="107" width="26" height="26" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <!-- Orange cap (same thickness as barrel; flush with hub) -->
+                  <!-- Hub at x=168 (26 wide); cap from x=6 up to x=168 => width=162; y equals barrel y; height equals barrel height -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
+                  <!-- Hub (centered on barrel) -->
+                  <rect x="168" y="92" width="26" height="56" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
                   <!-- Liquid (lighter amber) -->
                   <defs>
@@ -234,10 +235,8 @@
                   </defs>
                   <rect id="fill1ml" x="198" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
 
-                  <!-- T-handle: horizontal bar centered on barrel midline; thin stem moves with plunger -->
-                  <!-- Horizontal bar -->
+                  <!-- T-handle (horizontal bar + centered thin stem) -->
                   <rect x="1084" y="112" width="116" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <!-- Stem (moved in JS) -->
                   <rect id="plunger1ml" x="1138" y="92" width="6" height="56" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
 
                   <!-- Ticks + Labels -->
@@ -245,18 +244,19 @@
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </svg>
 
-                <!-- 3 mL STANDARD — thinner, centered cap/hub, oil gradient, T-handle -->
+                <!-- 3 mL STANDARD — cap thickness == barrel height; centered; T-handle -->
                 <svg id="syringe-3ml" class="syringe-svg is-hidden" viewBox="0 0 1200 230" role="img" aria-label="3 mL syringe, milliliter scale">
                   <!-- Barrel -->
                   <rect x="208" y="98" width="920" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip3ml"><rect x="208" y="98" width="920" height="56" rx="0"/></clipPath>
 
-                  <!-- Orange cap (center y=126): hubX=176, capX=6 → width=170 -->
-                  <rect x="6" y="116" width="170" height="20" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
-                  <!-- Hub (26x26, centered at y=126) -->
-                  <rect x="176" y="113" width="26" height="26" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <!-- Orange cap (same thickness as barrel; flush with hub) -->
+                  <!-- Hub at x=176; cap from x=6 to x=176 => width=170; y equals barrel y; height equals barrel height -->
+                  <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
+                  <!-- Hub -->
+                  <rect x="176" y="98" width="26" height="56" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
-                  <!-- Liquid (lighter amber) -->
+                  <!-- Liquid -->
                   <defs>
                     <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
                       <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
@@ -343,7 +343,7 @@
     function buildInsulinTicks(){
       const g = oneML.ticksGroup, l = oneML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
-      const H = oneML.height, longLen = H/2.6, shortLen = H/5.2;
+      const H = oneML.height, longLen = H/2.4, shortLen = H/5;
 
       for (let u = 0; u <= 100; u += 2) {
         const ml = u / 100;
@@ -373,7 +373,7 @@
     function buildThreeMlTicks(){
       const g = threeML.ticksGroup, l = threeML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
-      const H = threeML.height, longLen = H/2.6, shortLen = H/5.2;
+      const H = threeML.height, longLen = H/2.4, shortLen = H/5;
 
       for(let i=0;i<=30;i++){
         const ml = i/10;
@@ -418,8 +418,8 @@
         const capped = Math.min(selectedCapacityMl, v);
         const w = oneML.mlToPx(capped);
         oneML.fill.setAttribute('width', w);
-        // Move T-stem with fluid front; keep stem centered on barrel midline
-        const px = oneML.x0 + Math.max(0, w) - 3; // stem width 6 → half = 3
+        // Move T-stem with fluid front; keep stem centered
+        const px = oneML.x0 + Math.max(0, w) - 3; // stem width 6 → half
         oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 6, Math.max(oneML.x0, px))));
       }else{
         elMode.textContent = 'Standard 3 mL';
@@ -572,6 +572,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('burger')?.addEventListener('click', function () {
+      const m = document.getElementById('mobile-menu');
+      const open = m.classList.toggle('open');
+      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('nav-open', open);
+    });
+
     initSyringeToggle();              // default 1 mL (locked)
     initLiveSliders();
     ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
