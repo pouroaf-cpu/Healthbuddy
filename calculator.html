@@ -335,6 +335,8 @@
     const pct = ((val - min) * 100) / (max - min);
     el.style.setProperty('--val', pct + '%');
   }
+// Disable bubble positioning logic globally (keeps old code harmless)
+window.positionChip = function(){ /* no-op */ };
 
   /* Mobile positioner for value chips (bubbles) */
   function positionChip(inputEl, chipEl, offsetPx = 10){
