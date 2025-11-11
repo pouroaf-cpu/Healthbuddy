@@ -25,11 +25,10 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
 
-    /* Container */
     .container{max-width:1200px;margin:0 auto;padding:0 24px}
     @media (max-width:640px){ .container{padding:0 20px} }
 
-    /* Header (shared) */
+    /* Header */
     .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
@@ -37,14 +36,14 @@
     .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
     .nav{display:flex;gap:12px;align-items:center}
     .nav a{font-weight:600;color:var(--muted)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:10px 16px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
+    .nav-cta .btn{padding:10px 16px;border-radius:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
     .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
     .btn-primary{background:var(--cta);color:#fff}
     .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
     .btn-secondary{background:#fff;color:#004c4d;border-color:#004c4d}
     .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
 
-    /* Mobile menu */
     .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
     .burger svg{width:22px;height:22px}
     .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px);overflow:auto}
@@ -52,10 +51,8 @@
     .mobile-menu .container{padding:14px 20px 16px}
     .mobile-links{display:grid;gap:10px;margin-bottom:12px}
     .mobile-cta{display:grid;gap:10px}
-    @media (max-width:980px){
-      .nav{display:none}
-      .burger{display:inline-flex}
-    }
+
+    @media (max-width:980px){ .nav,.nav-cta{display:none} .burger{display:inline-flex} }
 
     /* Page layout */
     main.container{padding:28px 0}
@@ -65,64 +62,47 @@
     .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
     @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
 
-    /* Inputs */
     .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
+    .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
+
     label{font-weight:700}
     input[type=range]{width:100%}
+    .live-reads{margin-top:6px}
+    .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff;white-space:nowrap;font-weight:700}
 
-    /* Value to the right of label; slider beneath */
+    /* Keep value to the right of the label on mobile & desktop */
     .calc-grid .full{
-      display:grid;
-      grid-template-columns:1fr auto;
-      grid-template-areas:
-        "label chip"
-        "slider slider";
-      align-items:center;
-      gap:6px 12px;
+      display:grid;grid-template-columns:1fr auto;grid-template-areas:
+      "label chip"
+      "slider slider";align-items:center;gap:6px 12px
     }
     .calc-grid .full > label{grid-area:label;margin:0}
     .calc-grid .full > .live-reads{grid-area:chip;margin:0}
     .calc-grid .full > input[type="range"]{grid-area:slider;margin-top:2px}
 
-    .live-reads .live-chip{
-      position:static;transform:none;pointer-events:none;white-space:nowrap;
-      font-weight:700;border:1px solid var(--border);border-radius:10px;padding:4px 8px;background:#fff;color:#475569;
-    }
-    @media (max-width:400px){
-      .live-reads .live-chip{max-width:40vw;text-overflow:ellipsis;overflow:hidden}
-    }
-
-    .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-    .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
-    .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
-
     /* KPIs */
     .out h3{margin:0 0 10px}
-    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
     @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
     .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
     .card .muted{color:#64748b}
     .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
 
-    /* Syringe card */
+    /* Syringe container (wider, not taller) */
     .syringe-wrap{display:flex;align-items:center;justify-content:center}
     .syringe-card{
-      width:100%;
-      max-width:1300px;
-      background:#fff;border:1px solid var(--border);
-      border-radius:16px;box-shadow:var(--shadow);
-      padding:24px;overflow:hidden
+      width:100%;max-width:1350px;background:#fff;border:1px solid var(--border);
+      border-radius:16px;box-shadow:var(--shadow);padding:22px 28px;overflow:hidden
     }
-    @media (max-width:640px){ .syringe-card{padding:16px} }
-
     .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .syringe-head b{color:#004c4d}
-    .syringe-svg{display:block;width:100%;height:auto;transform:none;transform-origin:left center}
-
-    .is-hidden{display:none}
-    .syringe-label{font:600 12px/1 Inter,system-ui,Segoe UI,Roboto,Arial}
+    .syringe-svg{display:block;width:100%;height:auto;transform-origin:left center}
 
     footer{padding:36px 0;color:#64748b;border-top:1px solid var(--border)}
+
+    @media (prefers-reduced-motion: reduce){ .btn,.btn:hover{transition:none;transform:none} }
   </style>
 </head>
 <body>
@@ -141,6 +121,10 @@
       <a href="/contact.html">Contact</a>
       <a href="/about.html">About</a>
     </nav>
+
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+    </div>
 
     <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -167,12 +151,11 @@
 </nav>
 
 <main class="container">
-  <!-- ===== CALCULATOR ===== -->
   <section id="calculator" class="form-container" aria-labelledby="calc-title">
     <h1 id="calc-title">TRT / Peptide Dosage Calculator</h1>
 
     <div class="calc-wrap">
-      <!-- Left: inputs -->
+      <!-- LEFT: inputs -->
       <div class="calc-grid">
         <div class="full">
           <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
@@ -183,35 +166,29 @@
 
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
-          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
           <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
+          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
         </div>
 
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
           <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
+          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
         </div>
 
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
           <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
         </div>
       </div>
 
-      <!-- Right: results + syringe -->
+      <!-- RIGHT: syringe first, then KPIs -->
       <aside id="out" class="out">
         <h3>Dose & Volume per Injection</h3>
 
-        <div class="kpi">
-          <div class="card"><span class="muted">Injections / week</span><b id="kpi_inj">—</b></div>
-          <div class="card"><span class="muted">Dose per injection</span><b id="kpi_dose">—</b></div>
-          <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
-        </div>
-
-        <!-- === SYRINGE VISUAL === -->
-        <div class="syringe" aria-label="Syringe visual">
+        <!-- SYRINGE VISUAL (above KPIs) -->
+        <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
           <div class="syringe-wrap">
             <div class="syringe-card" aria-live="polite">
               <div class="syringe-head">
@@ -221,17 +198,17 @@
                 </div>
               </div>
 
-              <!-- 1 mL INSULIN (U-100) -->
+              <!-- 1 mL INSULIN -->
               <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 1280 220" role="img" aria-label="1 mL insulin syringe, U-100 scale">
                 <!-- Barrel -->
                 <rect x="198" y="92" width="900" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
                 <clipPath id="clip1ml"><rect x="198" y="92" width="900" height="56" rx="0"/></clipPath>
 
-                <!-- Cap + hub -->
+                <!-- Orange cap and hub -->
                 <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
                 <rect x="168" y="92" width="26" height="56" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
-                <!-- Fluid -->
+                <!-- Liquid -->
                 <defs>
                   <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
                     <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
@@ -239,11 +216,7 @@
                 </defs>
                 <rect id="fill1ml" x="198" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
 
-                <!-- Static internal plunger bar (subtle) -->
-                <rect x="198" y="92" width="900" height="56" fill="transparent"/>
-                <rect id="plungerBar1" x="980" y="92" width="90" height="56" fill="#8ea4aa" opacity="0.22"/>
-
-                <!-- Units box (between barrel and flange) -->
+                <!-- Unit box (UNITS) -->
                 <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                 <text x="1126" y="120"
                       font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
@@ -254,7 +227,7 @@
                 <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                 <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
 
-                <!-- Ticks + Labels -->
+                <!-- Ticks & Labels -->
                 <g id="ticks1ml" stroke="#1f2937"></g>
                 <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
               </svg>
@@ -265,11 +238,11 @@
                 <rect x="208" y="98" width="920" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
                 <clipPath id="clip3ml"><rect x="208" y="98" width="920" height="56" rx="0"/></clipPath>
 
-                <!-- Cap + hub -->
+                <!-- Orange cap + hub -->
                 <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
                 <rect x="176" y="98" width="26" height="56" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
-                <!-- Fluid -->
+                <!-- Liquid -->
                 <defs>
                   <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
                     <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
@@ -277,11 +250,7 @@
                 </defs>
                 <rect id="fill3ml" x="208" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
 
-                <!-- Static internal plunger bar -->
-                <rect x="208" y="98" width="920" height="56" fill="transparent"/>
-                <rect id="plungerBar3" x="1008" y="98" width="100" height="56" fill="#8ea4aa" opacity="0.22"/>
-
-                <!-- mL box (between barrel and flange) -->
+                <!-- mL box -->
                 <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                 <text x="1156" y="126"
                       font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
@@ -292,14 +261,20 @@
                 <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                 <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
 
-                <!-- Ticks + Labels -->
+                <!-- Ticks & Labels -->
                 <g id="ticks3ml" stroke="#1f2937"></g>
                 <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
               </svg>
             </div>
           </div>
         </div>
-        <!-- === /SYRINGE VISUAL === -->
+
+        <!-- KPIs BELOW SYRINGE -->
+        <div class="kpi">
+          <div class="card"><span class="muted">Injections / week</span><b id="kpi_inj">—</b></div>
+          <div class="card"><span class="muted">Dose per injection</span><b id="kpi_dose">—</b></div>
+          <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
+        </div>
 
         <div id="warn" class="warn" hidden></div>
       </aside>
@@ -309,7 +284,6 @@
       This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
     </div>
   </section>
-  <!-- ===== /CALCULATOR ===== -->
 </main>
 
 <footer>
@@ -330,7 +304,6 @@
 
   const $ = id => document.getElementById(id);
 
-  // Paint slider track (optional visual hook)
   function paintRange(el){
     if(!el) return;
     const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
@@ -338,7 +311,7 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // ===== Syringe rendering (locked to selected size) =====
+  /* ===== Syringe rendering (locked to selected size) ===== */
   (function(){
     const elVol   = $('syrVol');
     const elMode  = $('syrMode');
@@ -361,7 +334,7 @@
       mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
     };
 
-    // 1 mL: ticks every 2 units; labels 10..100; 100 nudged left so it doesn't collide
+    // 1 mL insulin ticks every 2 units; label 10..100 (100 nudged left)
     function buildInsulinTicks(){
       const g = oneML.ticksGroup, l = oneML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -372,10 +345,12 @@
         const x = oneML.x0 + oneML.mlToPx(ml);
         const isLong = (u % 10 === 0);
 
+        const y1 = oneML.yTop;
+        const y2 = oneML.yTop + (isLong ? longLen : shortLen);
+
         const line = document.createElementNS('http://www.w3.org/2000/svg','line');
         line.setAttribute('x1', x); line.setAttribute('x2', x);
-        line.setAttribute('y1', oneML.yTop);
-        line.setAttribute('y2', oneML.yTop + (isLong ? longLen : shortLen));
+        line.setAttribute('y1', y1); line.setAttribute('y2', y2);
         line.setAttribute('stroke-width', isLong ? 2 : 1);
         g.appendChild(line);
 
@@ -389,7 +364,7 @@
       }
     }
 
-    // 3 mL: minor ticks 0.1 mL; labels 0.5..3.0; 3.0 nudged left
+    // 3 mL: minor ticks 0.1 mL; labels 0.5..3.0 (3.0 nudged left; no 0.0)
     function buildThreeMlTicks(){
       const g = threeML.ticksGroup, l = threeML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -400,10 +375,11 @@
         const x = threeML.x0 + threeML.mlToPx(ml);
         const isLong = (i % 5 === 0);
 
+        const y1 = threeML.yTop;
+        const y2 = threeML.yTop + (isLong ? longLen : shortLen);
         const line = document.createElementNS('http://www.w3.org/2000/svg','line');
         line.setAttribute('x1', x); line.setAttribute('x2', x);
-        line.setAttribute('y1', threeML.yTop);
-        line.setAttribute('y2', threeML.yTop + (isLong ? longLen : shortLen));
+        line.setAttribute('y1', y1); line.setAttribute('y2', y2);
         line.setAttribute('stroke-width', isLong ? 2 : 1);
         g.appendChild(line);
 
@@ -450,8 +426,8 @@
     updateSyringe(0.25);
   })();
 
-  // ===== Calculator state + compute =====
-  let currentSyringeMl = 1; // 1 or 3 (default 1)
+  /* ===== Calculator state + compute ===== */
+  let currentSyringeMl = 1; // 1 or 3
 
   function setSyringe(ml){
     currentSyringeMl = (ml === 3 ? 3 : 1);
@@ -481,17 +457,6 @@
     });
     const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
     setSyringe(saved===3 ? 3 : 1);
-  }
-
-  // Slider visuals (optional)
-  function paintAll(){
-    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
-      const el = document.getElementById(id);
-      if(!el) return;
-      paintRange(el);
-      el.addEventListener('input', ()=>paintRange(el));
-      el.addEventListener('change', ()=>paintRange(el));
-    });
   }
 
   function compute(){
@@ -540,6 +505,11 @@
     }catch(e){}
   }
 
+  function positionChip(rangeEl, chipEl){
+    if(!rangeEl || !chipEl) return;
+    // Not needed now that chip is fixed beside label; keep NO-OP for safety
+  }
+
   function initLiveSliders(){
     const concSlider   = $('conc-slider');
     const weeklySlider = $('weekly-slider');
@@ -584,7 +554,13 @@
   document.addEventListener('DOMContentLoaded', ()=>{
     initSyringeToggle();
     initLiveSliders();
-    paintAll();
+    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      paintRange(el);
+      el.addEventListener('input', ()=>paintRange(el));
+      el.addEventListener('change', ()=>paintRange(el));
+    });
   });
 </script>
 </body>
