@@ -85,3 +85,31 @@
   /* Optional: tighten slider spacing now that chip isn't above it */
   .calc-grid .full > input[type="range"]{ margin-top: 2px; }
 }
+/* Mobile: lock value to the right of the label — force it */
+@media (max-width: 640px){
+  .calc-grid .full{
+    display: grid !important;
+    grid-template-columns: 1fr auto !important; /* label | value */
+    grid-template-areas:
+      "label chip"
+      "slider slider";
+    align-items: center !important;
+    gap: 8px 12px !important;
+  }
+  .calc-grid .full > label{ grid-area: label !important; }
+  .calc-grid .full > input[type="range"]{
+    grid-area: slider !important;
+    margin-top: 2px !important;
+  }
+  .calc-grid .full > .live-reads{
+    grid-area: chip !important;
+    margin: 0 !important;
+    position: static !important;
+    height: auto !important;
+  }
+  .live-reads .live-chip{
+    position: static !important;
+    transform: none !important;
+    pointer-events: none !important;
+  }
+}
