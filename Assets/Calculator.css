@@ -60,3 +60,28 @@
   /* give sliders breathing room so the bubble doesn't overlap */
   input[type="range"]{ margin-top: 22px; }
 }
+/* Mobile: keep value fixed to the right of the label */
+@media (max-width: 640px){
+  .calc-grid .full{
+    display: grid;
+    grid-template-columns: 1fr auto;       /* label | value */
+    grid-template-areas:
+      "label chip"
+      "slider slider";
+    align-items: center;
+    gap: 8px 12px;
+  }
+  .calc-grid .full > label{ grid-area: label; }
+  .calc-grid .full > input[type="range"]{ grid-area: slider; }
+  .calc-grid .full > .live-reads{
+    grid-area: chip;
+    margin: 0;           /* override previous margin */
+  }
+  .live-reads .live-chip{
+    position: static;    /* ensure it sits inline */
+    transform: none;
+    pointer-events: none;
+  }
+  /* Optional: tighten slider spacing now that chip isn't above it */
+  .calc-grid .full > input[type="range"]{ margin-top: 2px; }
+}
