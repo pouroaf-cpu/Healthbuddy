@@ -1,35 +1,70 @@
-/* Syringe container: wider, not taller */
+/* === Corrected syringe container + scale === */
+
+/* Make the rectangle wider but not taller */
 .syringe-card{
-  max-width: 1350px;
+  max-width: 1350px !important;   /* was too small, now just wider */
   width: 100%;
-  padding: 22px 28px;
-  overflow: hidden;   /* keep syringe inside the card */
+  padding: 24px 28px !important;  /* moderate padding */
+  overflow: visible !important;   /* prevents syringe clipping */
 }
 
-/* SVG fits the card; no scaling transforms */
-.syringe-svg{
-  width: 100%;
-  height: auto;
-  transform: none;
-  transform-origin: left center;
+/* Slight scale increase on desktop (NOT huge) */
+@media (min-width:1100px){
+  .syringe-svg{
+    transform: scale(1.18) !important; /* slightly larger, not oversized */
+    transform-origin: left center !important; /* keeps it aligned, not pushed */
+  }
 }
 
-/* Mobile gutters + tighter card padding */
-@media (max-width: 640px){
+/* Mobile layout fix: more side padding so nothing touches screen edges */
+@media (max-width:640px){
   .container{
-    padding-left: 26px;
-    padding-right: 26px;
+    padding-left: 26px !important;
+    padding-right: 26px !important;
   }
+
   .syringe-card{
-    padding: 18px 22px;
+    padding: 20px 22px !important; /* balanced mobile spacing */
   }
 }
+/* Keep syringe fully inside the rectangle */
+.syringe-card{
+  max-width: 1350px !important;   /* wider, not taller */
+  padding: 22px 28px !important;   /* modest, no extra height */
+  overflow: hidden !important;     /* clip anything that would spill */
+}
 
-/* Mobile: value fixed to the right of the label (for all three sliders) */
+/* Make SVG fit container (no manual scale) */
+.syringe-svg{
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;          /* kill previous scaling */
+  transform-origin: left center !important;
+}
+
+/* Safer mobile gutters so sliders/syringe don’t touch edges */
+@media (max-width:640px){
+  .container{ padding-left: 26px !important; padding-right: 26px !important; }
+  .syringe-card{ padding: 18px 22px !important; }
+}
+/* Mobile: show the value bubble above the slider, nudged to the right */
+@media (max-width: 640px){
+  .live-reads{ position: relative; height: 0; }
+  .live-reads .live-chip{
+    position: absolute;
+    top: -34px;                  /* sits above the track */
+    transform: translateX(-50%); /* center on computed left */
+    pointer-events: none;
+    z-index: 2;
+  }
+  /* give sliders breathing room so the bubble doesn't overlap */
+  input[type="range"]{ margin-top: 22px; }
+}
+/* Mobile: keep value fixed to the right of the label */
 @media (max-width: 640px){
   .calc-grid .full{
     display: grid;
-    grid-template-columns: 1fr auto;    /* label | value */
+    grid-template-columns: 1fr auto;       /* label | value */
     grid-template-areas:
       "label chip"
       "slider slider";
@@ -37,17 +72,16 @@
     gap: 8px 12px;
   }
   .calc-grid .full > label{ grid-area: label; }
-  .calc-grid .full > input[type="range"]{
-    grid-area: slider;
-    margin-top: 2px;                    /* small breathing room */
-  }
+  .calc-grid .full > input[type="range"]{ grid-area: slider; }
   .calc-grid .full > .live-reads{
     grid-area: chip;
-    margin: 0;
+    margin: 0;           /* override previous margin */
   }
   .live-reads .live-chip{
-    position: static;
+    position: static;    /* ensure it sits inline */
     transform: none;
     pointer-events: none;
   }
+  /* Optional: tighten slider spacing now that chip isn't above it */
+  .calc-grid .full > input[type="range"]{ margin-top: 2px; }
 }
