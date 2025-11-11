@@ -335,20 +335,6 @@
     const pct = ((val - min) * 100) / (max - min);
     el.style.setProperty('--val', pct + '%');
   }
-// Disable bubble positioning logic globally (keeps old code harmless)
-window.positionChip = function(){ /* no-op */ };
-
-  /* Mobile positioner for value chips (bubbles) */
-  function positionChip(inputEl, chipEl, offsetPx = 10){
-    if(!inputEl || !chipEl) return;
-    const min = +inputEl.min || 0;
-    const max = +inputEl.max || 100;
-    const val = +inputEl.value || 0;
-    const p = (val - min) / (max - min);
-    const trackW = inputEl.offsetWidth;
-    const x = (p * trackW) + offsetPx;  // nudge to right
-    chipEl.style.left = x + 'px';
-  }
 
   /* Syringe rendering (locked to selected size) */
   (function(){
