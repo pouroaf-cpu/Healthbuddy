@@ -27,3 +27,23 @@
     padding: 20px 22px !important; /* balanced mobile spacing */
   }
 }
+/* Keep syringe fully inside the rectangle */
+.syringe-card{
+  max-width: 1350px !important;   /* wider, not taller */
+  padding: 22px 28px !important;   /* modest, no extra height */
+  overflow: hidden !important;     /* clip anything that would spill */
+}
+
+/* Make SVG fit container (no manual scale) */
+.syringe-svg{
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;          /* kill previous scaling */
+  transform-origin: left center !important;
+}
+
+/* Safer mobile gutters so sliders/syringe don’t touch edges */
+@media (max-width:640px){
+  .container{ padding-left: 26px !important; padding-right: 26px !important; }
+  .syringe-card{ padding: 18px 22px !important; }
+}
