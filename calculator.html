@@ -202,7 +202,7 @@
                   </div>
                 </div>
 
-                <!-- 1 mL INSULIN -->
+                <!-- 1 mL INSULIN (unit box BETWEEN barrel and flange) -->
                 <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 1280 220" role="img" aria-label="1 mL insulin syringe, U-100 scale">
                   <!-- Barrel -->
                   <rect x="198" y="92" width="900" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
@@ -220,28 +220,28 @@
                   </defs>
                   <rect id="fill1ml" x="198" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
 
-                  <!-- INTERNAL PLUNGER BAR (static, semi-transparent, above liquid, behind text) -->
-                  <!-- Place near right-inside of barrel -->
-                  <rect x="198" y="92" width="900" height="56" fill="transparent"/>
-                  <rect id="plungerBar1" x="980" y="92" width="90" height="56" fill="#8ea4aa" opacity="0.22"/>
+                  <!-- T-handle + plunger (UNDER flange) -->
+                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                  <rect id="plunger1ml" x="1138" y="92" width="6" height="56" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
 
-                  <!-- Unit box (between barrel and flange) -->
+                  <!-- STATIC Unit box (between barrel and flange) -->
+                  <!-- Barrel right edge: 1098. Unit box follows: width 56 => 1098..1154 -->
                   <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1126" y="120"
                         font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
                         fill="#334155" text-anchor="middle" dominant-baseline="middle"
                         transform="rotate(-90 1126 120)">UNITS</text>
 
-                  <!-- Flange (top) + external T-handle -->
+                  <!-- Flange (to the right of unit box; ON TOP) -->
+                  <!-- Start after unit box: 1154 -->
                   <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
 
-                  <!-- Ticks + Labels (include 100; end label nudged left) -->
+                  <!-- Ticks + Labels (10..100; 100 included; nudge end label left) -->
                   <g id="ticks1ml" stroke="#1f2937"></g>
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </svg>
 
-                <!-- 3 mL STANDARD -->
+                <!-- 3 mL STANDARD (unit box BETWEEN barrel and flange) -->
                 <svg id="syringe-3ml" class="syringe-svg is-hidden" viewBox="0 0 1280 230" role="img" aria-label="3 mL syringe, milliliter scale">
                   <!-- Barrel -->
                   <rect x="208" y="98" width="920" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
@@ -259,22 +259,22 @@
                   </defs>
                   <rect id="fill3ml" x="208" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
 
-                  <!-- INTERNAL PLUNGER BAR (static) -->
-                  <rect x="208" y="98" width="920" height="56" fill="transparent"/>
-                  <rect id="plungerBar3" x="1008" y="98" width="100" height="56" fill="#8ea4aa" opacity="0.22"/>
+                  <!-- T-handle + plunger (UNDER flange) -->
+                  <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                  <rect id="plunger3ml" x="1164" y="98" width="6" height="56" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
 
-                  <!-- Unit box (between barrel and flange) -->
+                  <!-- STATIC Unit box (between barrel and flange) -->
+                  <!-- Barrel right edge: 1128. Unit box: 1128..1184 -->
                   <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1156" y="126"
                         font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
                         fill="#334155" text-anchor="middle" dominant-baseline="middle"
                         transform="rotate(-90 1156 126)">mL</text>
 
-                  <!-- Flange + external T-handle -->
+                  <!-- Flange (to the right of unit box; ON TOP) -->
                   <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
 
-                  <!-- Ticks + Labels (include 3.0; end label nudged left) -->
+                  <!-- Ticks + Labels (0.5..3.0; 3.0 included; nudge end label left) -->
                   <g id="ticks3ml" stroke="#1f2937"></g>
                   <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </svg>
@@ -325,6 +325,7 @@
     const oneML = {
       svg: $('syringe-1ml'),
       fill: $('fill1ml'),
+      plunger: $('plunger1ml'),
       ticksGroup: $('ticks1ml'),
       labelsGroup: $('labels1ml'),
       x0: 198, width: 900, yTop: 92, height: 56,
@@ -334,13 +335,14 @@
     const threeML = {
       svg: $('syringe-3ml'),
       fill: $('fill3ml'),
+      plunger: $('plunger3ml'),
       ticksGroup: $('ticks3ml'),
       labelsGroup: $('labels3ml'),
       x0: 208, width: 920, yTop: 98, height: 56,
       mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
     };
 
-    // 1 mL insulin: ticks every 2 units; labels 10..100 (100 nudged left)
+    // 1 mL insulin: ticks every 2 units; labels 10..100 (100 included; shift left)
     function buildInsulinTicks(){
       const g = oneML.ticksGroup, l = oneML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -362,6 +364,7 @@
 
         if (isLong && u > 0) {
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          // nudge the terminal label left by 12px so it stays inside barrel
           t.setAttribute('x', u === 100 ? (x - 12) : x);
           t.setAttribute('y', oneML.yTop + H - 6);
           t.textContent = String(u);
@@ -370,7 +373,7 @@
       }
     }
 
-    // 3 mL: minor 0.1 mL; labels 0.5..3.0 (3.0 nudged left)
+    // 3 mL: minor 0.1 mL; labels 0.5..3.0 (3.0 included; shift left)
     function buildThreeMlTicks(){
       const g = threeML.ticksGroup, l = threeML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -391,9 +394,9 @@
 
         if(isLong && ml !== 0){
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-          t.setAttribute('x', ml === 3.0 ? (x - 12) : x);
+          t.setAttribute('x', ml === 3.0 ? (x - 12) : x); // nudge terminal label
           t.setAttribute('y', threeML.yTop + H - 6);
-          t.textContent = ml.toFixed(1);
+          t.textContent = ml.toFixed(1); // 0.5,1.0,...,3.0
           l.appendChild(t);
         }
       }
@@ -416,12 +419,15 @@
         elMode.textContent = 'Insulin (U-100)';
         const w = oneML.mlToPx(Math.min(selectedCapacityMl, v));
         oneML.fill.setAttribute('width', w);
+        const px = oneML.x0 + Math.max(0, w) - 3; // plunger stem follows fluid
+        oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 6, Math.max(oneML.x0, px))));
       }else{
         elMode.textContent = 'Standard 3 mL';
         const w = threeML.mlToPx(Math.min(selectedCapacityMl, v));
         threeML.fill.setAttribute('width', w);
+        const px = threeML.x0 + Math.max(0, w) - 3;
+        threeML.plunger.setAttribute('x', String(Math.min(threeML.x0 + threeML.width - 6, Math.max(threeML.x0, px))));
       }
-      // Plunger bars are static; no updates needed.
     };
 
     window.__setSyringeCapacity = function(ml){
