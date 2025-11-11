@@ -113,3 +113,20 @@
     pointer-events: none !important;
   }
 }
+/* The card defines the box; the SVG must fill it */
+.syringe-card{
+  width: 100% !important;
+  max-width: 1350px !important;
+  padding: 22px 28px !important;
+  overflow: hidden !important;  /* avoid spillover */
+}
+
+/* Scale the SVG to the card’s width */
+.syringe-svg{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  transform-origin: left center !important;
+}
