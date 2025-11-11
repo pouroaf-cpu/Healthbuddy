@@ -104,3 +104,33 @@ input[type="range"]::-moz-range-thumb{
   .kpi{ grid-template-columns: 1fr; }
   .barrel-wrap{ height:200px; }
 }
+/* === InjectBuddy overrides: syringe container + mobile padding === */
+
+/* More room on all pages; stronger padding on small screens */
+.container{max-width:1280px}
+@media (max-width:640px){
+  .container{padding:0 24px !important;}          /* was ~16–20px */
+  main.container{padding:24px 0 !important;}
+}
+
+/* Make the syringe card bigger and ensure the scaled SVG fits */
+.syringe-card{
+  max-width:1500px !important;                     /* was ~1100–1300px */
+  padding:32px 40px !important;                    /* more breathing room */
+  min-height:360px !important;                     /* prevents clipping */
+  overflow:visible !important;                     /* allow large SVG to breathe */
+}
+
+/* Scale up the syringe itself a bit more on desktop */
+@media (min-width:1100px){
+  .syringe-svg{transform:scale(1.45) !important;}  /* was 1.3 */
+}
+
+/* Tighten spacing inside the KPI + ensure sliders never touch edges */
+.kpi{gap:14px}
+input[type="range"]{width:100%; margin:0;}         /* relies on container padding */
+
+/* Optional: add a tiny inner gutter to the calc column on narrow phones */
+@media (max-width:480px){
+  .calc-grid{padding:0 2px;}
+}
