@@ -1,27 +1,29 @@
-/* === Corrected syringe container sizing === */
+/* === Corrected syringe container + scale === */
 
-/* Wider container, no extra height */
+/* Make the rectangle wider but not taller */
 .syringe-card{
-  max-width:1500px !important;     /* widen only */
-  padding:24px 32px !important;    /* moderate padding (not vertical-heavy) */
-  overflow:visible !important;     /* prevent clipping when scaling syringe */
+  max-width: 1350px !important;   /* was too small, now just wider */
+  width: 100%;
+  padding: 24px 28px !important;  /* moderate padding */
+  overflow: visible !important;   /* prevents syringe clipping */
 }
 
-/* Slightly larger syringe visual on desktop without affecting height */
+/* Slight scale increase on desktop (NOT huge) */
 @media (min-width:1100px){
   .syringe-svg{
-    transform:scale(1.4) !important; /* purely width/overall scale (SVG aspect keeps height controlled) */
-    transform-origin:left center;    /* aligns syringe visually instead of pushing it down */
+    transform: scale(1.18) !important; /* slightly larger, not oversized */
+    transform-origin: left center !important; /* keeps it aligned, not pushed */
   }
 }
 
-/* Mobile: just safer gutter padding so sliders + syringe don't hit screen edges */
+/* Mobile layout fix: more side padding so nothing touches screen edges */
 @media (max-width:640px){
   .container{
-    padding:0 26px !important;
+    padding-left: 26px !important;
+    padding-right: 26px !important;
   }
 
   .syringe-card{
-    padding:20px 24px !important;   /* balanced, thinner vertical space */
+    padding: 20px 22px !important; /* balanced mobile spacing */
   }
 }
