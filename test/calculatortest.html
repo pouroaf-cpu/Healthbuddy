@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
-  <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
-  <link rel="canonical" href="https://www.injectbuddy.com/" />
-  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
-  <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
+  <title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
+  <meta name="description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume. Free, no login." />
+  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
+  <meta property="og:description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/" />
+  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
-  <!-- Load base/site CSS first -->
+  <!-- Optional external CSS (keep if you already have these files) -->
   <link rel="stylesheet" href="/assets/site.css">
-  <!-- Load calculator CSS AFTER site.css so it can override where needed -->
   <link rel="stylesheet" href="/assets/calculator.css">
 
   <style>
@@ -29,15 +28,7 @@
     a{color:inherit;text-decoration:none}
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-    /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
-    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
-    .btn-primary{background:var(--cta);color:#fff}
-    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
-    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
-    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
-
-    /* Header */
+    /* Header (global) */
     .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
@@ -46,6 +37,12 @@
     .nav{display:flex;gap:12px;align-items:center}
     .nav a{font-weight:600;color:var(--muted)}
     .nav-cta .btn{padding:10px 16px;border-radius:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
+    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .btn-primary{background:var(--cta);color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
+    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
+    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
 
     /* Burger + Mobile menu */
     .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
@@ -57,28 +54,38 @@
     .mobile-links{display:grid;gap:10px;margin-bottom:12px}
     .mobile-cta{display:grid;gap:10px}
 
-    /* Reviews (marquee) */
-    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
-    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
-    .review-mask:hover .review-rail{animation-play-state:paused}
-    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
-    .review-card small{color:var(--muted)}
-    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
+    /* Calculator layout */
+    main.container{padding:28px 0}
+    .form-container h1{margin:0 0 8px}
+    .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+    @media (max-width:980px){.calc-wrap{grid-template-columns:1fr}}
+    .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    label{font-weight:700}
+    input[type=range]{width:100%}
+    .live-reads{margin-top:6px}
+    .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff}
 
-    /* Sections (you set no whitespace between sections elsewhere) */
-    .section{padding:0}
-    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
-    .muted{color:var(--muted)}
+    .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
+    .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
 
-    /* Sticky bottom CTA */
-    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease}
-    .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
-    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
-    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-    .cta-bar-title{color:var(--teal-900);margin:0}
-    .cta-actions{display:flex;gap:10px;align-items:center}
+    .out h3{margin:0 0 10px}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
+    .card .muted{color:#64748b}
+    .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+
+    /* Syringe wrapper card */
+    .syringe-wrap{display:flex;align-items:center;justify-content:center}
+    .syringe-card{
+      width:100%;max-width:720px;background:#fff;border:1px solid var(--border);
+      border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:16px
+    }
+    .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .syringe-head b{color:var(--teal-900)}
+    .syringe-svg{width:100%;height:auto;display:block}
+    .is-hidden{display:none}
+    .syringe-label{font:600 12px/1 Inter,system-ui,Segoe UI,Roboto,Arial}
 
     footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
@@ -87,23 +94,14 @@
       .nav-cta{display:none}
       .burger{display:inline-flex}
       .mobile-menu{top:calc(56px + env(safe-area-inset-top, 0px))}
-      .hero-inner{grid-template-columns:1fr}
-      .hero .container{padding-left:24px;padding-right:24px}
-      .cta-row{justify-content:center}
-      .cta-row .btn{width:100%;max-width:520px}
-
-      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
-      .cta-actions{flex-direction:column;width:100%;max-width:520px}
-      .cta-actions .btn{width:100%}
     }
     @media (prefers-reduced-motion: reduce){
       .btn,.btn:hover{transition:none;transform:none}
-      .review-rail{animation:none}
-      .cta-bar{transition:none}
     }
   </style>
-</head>
 
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
+</head>
 <body>
 
 <!-- HEADER -->
@@ -114,20 +112,17 @@
       <h1>InjectBuddy</h1>
     </a>
 
-    <!-- UPDATED NAV LINKS ONLY -->
     <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html">Dosage Calculator</a>
+      <a href="/calculator.html" aria-current="page">Dosage Calculator</a>
       <a href="/peptide.html">Peptide Reconstitution</a>
       <a href="/contact.html">Contact</a>
       <a href="/about.html">About</a>
     </nav>
 
-    <!-- keep any existing CTA if you already had one; if not, leave this div empty or remove -->
     <div class="nav-cta">
       <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
     </div>
 
-    <!-- Burger for mobile (unchanged) -->
     <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
@@ -136,8 +131,8 @@
   </div>
 </header>
 
-<!-- MOBILE MENU (links updated only) -->
-<div class="mobile-menu" id="mobile-menu">
+<!-- MOBILE MENU -->
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
   <div class="container">
     <div class="mobile-links" role="menu">
       <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
@@ -150,13 +145,12 @@
       <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
     </div>
   </div>
-</div>
+</nav>
 
-</header>
 <main class="container">
   <!-- ===== CALCULATOR ===== -->
   <section id="calculator" class="form-container" aria-labelledby="calc-title">
-    <h1 id="calc-title">Testosterone/Peptide Dosage Calculator</h1>
+    <h1 id="calc-title">TRT / Peptide Dosage Calculator</h1>
 
     <div class="calc-wrap">
       <!-- Left column: inputs -->
@@ -198,55 +192,90 @@
             <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
           </div>
 
+          <!-- === NEW SYRINGE VISUAL === -->
           <div class="syringe" aria-label="Syringe visual">
-            <div class="barrel-wrap inactive">
-              <div class="barrel">
-                <div class="fill" id="fill"></div>
-                <div class="ticks" id="ticks"></div>
+            <div class="syringe-wrap">
+              <div class="syringe-card" aria-live="polite">
+                <div class="syringe-head">
+                  <div class="syringe-label">Visual Syringe</div>
+                  <div class="syringe-label">
+                    Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100)</b>
+                  </div>
+                </div>
+
+                <!-- 1 mL INSULIN (U-100) -->
+                <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 860 140" role="img" aria-label="1 mL insulin syringe, U-100 scale">
+                  <line x1="20" y1="70" x2="110" y2="70" stroke="#9aa4ab" stroke-width="2"/>
+                  <rect x="110" y="56" width="20" height="28" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <rect x="130" y="40" width="600" height="60" rx="10" fill="#fff" stroke="#ccd6da"/>
+                  <clipPath id="clip1ml"><rect x="130" y="40" width="600" height="60" rx="10"/></clipPath>
+                  <rect id="fill1ml" x="130" y="40" width="0" height="60" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
+                  <defs>
+                    <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
+                      <stop offset="0" stop-color="var(--teal)"/>
+                      <stop offset="1" stop-color="#22d3ee"/>
+                    </linearGradient>
+                  </defs>
+                  <g id="ticks1ml" stroke="#1f2937"></g>
+                  <rect id="plunger1ml" x="730" y="38" width="14" height="64" rx="6" fill="#8ea4aa" stroke="#6e838a"/>
+                  <rect x="744" y="52" width="70" height="34" rx="6" fill="#e8eef0" stroke="#cbd5db"/>
+                  <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="12" fill="#334155" text-anchor="middle"></g>
+                </svg>
+
+                <!-- 3 mL STANDARD -->
+                <svg id="syringe-3ml" class="syringe-svg is-hidden" viewBox="0 0 900 160" role="img" aria-label="3 mL syringe, milliliter scale">
+                  <line x1="20" y1="80" x2="120" y2="80" stroke="#9aa4ab" stroke-width="2"/>
+                  <rect x="120" y="66" width="20" height="28" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <rect x="140" y="50" width="620" height="60" rx="10" fill="#fff" stroke="#ccd6da"/>
+                  <clipPath id="clip3ml"><rect x="140" y="50" width="620" height="60" rx="10"/></clipPath>
+                  <rect id="fill3ml" x="140" y="50" width="0" height="60" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
+                  <defs>
+                    <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
+                      <stop offset="0" stop-color="var(--teal)"/>
+                      <stop offset="1" stop-color="#22d3ee"/>
+                    </linearGradient>
+                  </defs>
+                  <g id="ticks3ml" stroke="#1f2937"></g>
+                  <rect id="plunger3ml" x="760" y="48" width="14" height="64" rx="6" fill="#8ea4aa" stroke="#6e838a"/>
+                  <rect x="774" y="62" width="80" height="36" rx="6" fill="#e8eef0" stroke="#cbd5db"/>
+                  <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="12" fill="#334155" text-anchor="middle"></g>
+                </svg>
               </div>
             </div>
           </div>
+          <!-- === /NEW SYRINGE VISUAL === -->
         </div>
 
         <div id="warn" class="warn" hidden></div>
       </aside>
     </div>
 
-    <div class="notice">
-      This tool is provided for informational purposes only. Always follow your clinician’s instructions.
+    <div class="notice" style="margin-top:8px;color:#64748b">
+      This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
     </div>
   </section>
   <!-- ===== /CALCULATOR ===== -->
 </main>
 
+<footer>
+  <div class="container footer-meta">
+    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
+    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  </div>
+</footer>
 
-
+<!-- ===== SCRIPTS ===== -->
 <script>
-  // ---------- Helpers ----------
+  // Mobile menu
+  document.getElementById('burger')?.addEventListener('click', function () {
+    const m = document.getElementById('mobile-menu');
+    const open = m.classList.toggle('open');
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('nav-open', open);
+  });
+
+  // Helpers
   const $ = id => document.getElementById(id);
-
-  // Header toggle + sticky offset
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const btn = document.querySelector('.ib-toggle');
-    const nav = document.getElementById('ib-navlinks');
-    const setHeaderH = () => document.documentElement.style.setProperty('--header-h', (header?.offsetHeight || 56) + 'px');
-    setHeaderH(); window.addEventListener('resize', setHeaderH);
-    if (!btn || !nav) return;
-    btn.addEventListener('click', ()=>{
-      const open = nav.classList.toggle('show');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    nav.querySelectorAll('a').forEach(a=>{
-      a.addEventListener('click', ()=>{
-        if (nav.classList.contains('show')) {
-          nav.classList.remove('show');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  })();
-
   function paintRange(el){
     if(!el) return;
     const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
@@ -254,73 +283,118 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // ---------- State ----------
-  let currentSyringeMl = 1; // 1 | 3
-  let barrelWrap=null, fillEl=null;
+  // Syringe rendering (auto 1 mL insulin ↔ 3 mL standard)
+  (function(){
+    const elVol   = $('syrVol');
+    const elMode  = $('syrMode');
 
-  function setInactive(){
-    if(!barrelWrap) return;
-    barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive');
-    if (fillEl) fillEl.style.height='0px';
-  }
-  function setActive(){
-    if(!barrelWrap) return;
-    barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active');
-  }
-
-  function buildTicks(maxMl){
-    const ticks=$('ticks'); if(!ticks) return;
-    ticks.innerHTML='';
-    const step=(maxMl<=1)?0.1:0.5;
-    const barrelPx=200; // must match CSS barrel height
-    for(let v=0; v<=maxMl+1e-9; v+=step){
-      const row=document.createElement('div');
-      row.className='tick-row';
-      row.style.bottom=(v/maxMl)*barrelPx+'px';
-      row.innerHTML='<span>'+v.toFixed(1)+' mL</span>';
-      ticks.appendChild(row);
-    }
-  }
-
-  let sloshTimer = null;
-  function kickSlosh(){
-    if(!fillEl) return;
-    fillEl.classList.remove('slosh');
-    void fillEl.offsetWidth;
-    fillEl.classList.add('slosh');
-    clearTimeout(sloshTimer);
-    sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), (1400*3)+1000+50);
-  }
-
-  function setSyringeUI(volumeMl, syringeMaxMl){
-    const vol = Math.max(0, Math.min(volumeMl, syringeMaxMl));
-    const ratio = Math.min(vol / syringeMaxMl, 1);
-    const px = ratio * 200; // 200px = barrel height in CSS
-    if (fillEl) {
-      fillEl.style.height = px + 'px';
-      if (px > 0) kickSlosh();
-    }
-    buildTicks(syringeMaxMl);
-    if(vol>0) setActive(); else setInactive();
-  }
-
-  let __computeTimer = null;
-  function debounce(fn, delay=80){
-    return (...args)=>{
-      clearTimeout(__computeTimer);
-      __computeTimer = setTimeout(()=>fn(...args), delay);
+    const oneML = {
+      svg: $('syringe-1ml'),
+      fill: $('fill1ml'),
+      plunger: $('plunger1ml'),
+      ticksGroup: $('ticks1ml'),
+      labelsGroup: $('labels1ml'),
+      x0: 130, width: 600, yTop: 40, height: 60,
+      mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 1.0))); }
     };
-  }
-  const computeDebounced = debounce(compute, 80);
 
+    const threeML = {
+      svg: $('syringe-3ml'),
+      fill: $('fill3ml'),
+      plunger: $('plunger3ml'),
+      ticksGroup: $('ticks3ml'),
+      labelsGroup: $('labels3ml'),
+      x0: 140, width: 620, yTop: 50, height: 60,
+      mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
+    };
+
+    function buildInsulinTicks(){
+      const g = oneML.ticksGroup, l = oneML.labelsGroup;
+      g.innerHTML = ''; l.innerHTML = '';
+      for(let u=0; u<=100; u++){
+        const ml = u/100;
+        const x = oneML.x0 + oneML.mlToPx(ml);
+        const long = (u % 10 === 0);
+        const y1 = long ? 38 : 44, y2 = 100;
+        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', x); line.setAttribute('x2', x);
+        line.setAttribute('y1', y1); line.setAttribute('y2', y2);
+        line.setAttribute('stroke-width', long ? 2 : 1);
+        g.appendChild(line);
+        if(long && u>0){
+          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          t.setAttribute('x', x); t.setAttribute('y', 118);
+          t.textContent = String(u);
+          l.appendChild(t);
+        }
+      }
+      const t0 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t0.setAttribute('x', oneML.x0); t0.setAttribute('y', 118); t0.textContent = '0';
+      l.appendChild(t0);
+    }
+
+    function buildThreeMlTicks(){
+      const g = threeML.ticksGroup, l = threeML.labelsGroup;
+      g.innerHTML = ''; l.innerHTML = '';
+      for(let i=0;i<=30;i++){
+        const ml = i/10;
+        const x = threeML.x0 + threeML.mlToPx(ml);
+        const long = (i % 5 === 0);
+        const y1 = long ? 48 : 56, y2 = 110;
+        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+        line.setAttribute('x1', x); line.setAttribute('x2', x);
+        line.setAttribute('y1', y1); line.setAttribute('y2', y2);
+        line.setAttribute('stroke-width', long ? 2 : 1);
+        g.appendChild(line);
+        if(long){
+          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          t.setAttribute('x', x); t.setAttribute('y', 130);
+          t.textContent = ml.toFixed(1);
+          l.appendChild(t);
+        }
+      }
+    }
+
+    buildInsulinTicks();
+    buildThreeMlTicks();
+
+    window.updateSyringe = function(volumeMl){
+      const v = Math.max(0, Number(volumeMl) || 0);
+      elVol.textContent = v.toFixed(2) + ' mL';
+
+      const usingInsulin = v <= 1.0;
+      oneML.svg.classList.toggle('is-hidden', !usingInsulin);
+      threeML.svg.classList.toggle('is-hidden', usingInsulin);
+
+      if(usingInsulin){
+        elMode.textContent = 'Insulin (U-100)';
+        const w = oneML.mlToPx(v);
+        oneML.fill.setAttribute('width', w);
+        const px = oneML.x0 + w - 7;
+        oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 14, Math.max(oneML.x0, px))));
+      }else{
+        elMode.textContent = 'Standard 3 mL';
+        const capped = Math.min(3.0, v);
+        const w = threeML.mlToPx(capped);
+        threeML.fill.setAttribute('width', w);
+        const px = threeML.x0 + w - 7;
+        threeML.plunger.setAttribute('x', String(Math.min(threeML.x0 + threeML.width - 14, Math.max(threeML.x0, px))));
+      }
+    };
+
+    // Default preview
+    updateSyringe(0.25);
+  })();
+
+  // Calculator state + compute
+  let currentSyringeMl = 1; // capacity for warning logic (UI toggle)
   function setSyringe(ml){
     currentSyringeMl = ml;
     const group = $('syringeToggle');
     const btns = group.querySelectorAll('.seg-btn');
     btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === ml)));
-    buildTicks(currentSyringeMl);
-    computeDebounced();
     try{ localStorage.setItem('hb_syr_ml', String(ml)); }catch(e){}
+    compute(); // recompute to refresh warning
   }
 
   function initSyringeToggle(){
@@ -343,6 +417,52 @@
     setSyringe(saved===3 ? 3 : 1);
   }
 
+  function compute(){
+    const conc       = parseFloat(($('conc-slider')||{}).value);
+    const weekly     = parseFloat(($('weekly-slider')||{}).value);
+    const injPerWeek = parseFloat(($('count-slider')||{}).value);
+
+    const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
+    if (!valid){
+      const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
+      if(k1) k1.textContent='—';
+      if(k2) k2.textContent='—';
+      if(k3) k3.textContent='—';
+      updateSyringe(0);
+      const warn = $('warn'); if (warn) { warn.hidden = true; warn.textContent = ''; }
+      return;
+    }
+
+    const dosePerInj   = weekly / injPerWeek;   // mg
+    const volPerInj_ml = dosePerInj / conc;     // mL
+
+    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
+    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
+    $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
+
+    updateSyringe(volPerInj_ml);
+
+    const warn = $('warn');
+    if (warn){
+      if (volPerInj_ml > currentSyringeMl){
+        warn.hidden=false;
+        warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
+      } else {
+        warn.hidden=true; warn.textContent='';
+      }
+    }
+
+    try{
+      localStorage.setItem('hb_last_calc', JSON.stringify({
+        inj: injPerWeek,
+        dose: dosePerInj,
+        unit: 'mg',
+        ml:  volPerInj_ml,
+        syr: currentSyringeMl
+      }));
+    }catch(e){}
+  }
+
   function initLiveSliders(){
     const concSlider   = $('conc-slider');
     const weeklySlider = $('weekly-slider');
@@ -360,7 +480,7 @@
         concSlider.value = n;
         lrConc.textContent = n.toFixed(0) + ' mg/mL';
         paintRange(concSlider);
-        computeDebounced();
+        compute();
       };
       concSlider.addEventListener('input', ()=> setConc(concSlider.value));
       setConc(concSlider.value || 200);
@@ -374,7 +494,7 @@
         weeklySlider.value = n;
         lrWeekly.textContent = n.toFixed(0) + ' mg/week';
         paintRange(weeklySlider);
-        computeDebounced();
+        compute();
       };
       weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
       setWeekly(weeklySlider.value || 140);
@@ -387,69 +507,16 @@
         countSlider.value = n;
         lrCount.textContent = n + ' / week';
         paintRange(countSlider);
-        computeDebounced();
+        compute();
       };
       countSlider.addEventListener('input', ()=> setCount(countSlider.value));
       setCount(countSlider.value || 2);
     }
   }
 
-  function compute(){
-    const conc       = parseFloat(($('conc-slider')||{}).value);
-    const weekly     = parseFloat(($('weekly-slider')||{}).value);
-    const injPerWeek = parseFloat(($('count-slider')||{}).value);
-
-    const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
-    if (!valid){
-      const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
-      if(k1) k1.textContent='—';
-      if(k2) k2.textContent='—';
-      if(k3) k3.textContent='—';
-      setSyringeUI(0, currentSyringeMl);
-      const warn = $('warn'); if (warn) { warn.hidden = true; warn.textContent = ''; }
-      return;
-    }
-
-    const dosePerInj   = weekly / injPerWeek;   // mg
-    const volPerInj_ml = dosePerInj / conc;     // mL
-
-    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
-    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
-    $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
-
-    setSyringeUI(volPerInj_ml, currentSyringeMl);
-
-    const warn = $('warn');
-    if (warn){
-      if (volPerInj_ml > currentSyringeMl){
-        warn.hidden=false;
-        warn.textContent='Volume exceeds syringe capacity. Choose a larger syringe or adjust schedule.';
-      } else {
-        warn.hidden=true; warn.textContent='';
-      }
-    }
-
-    try{
-      localStorage.setItem('hb_last_calc', JSON.stringify({
-        inj: injPerWeek,
-        dose: dosePerInj,
-        unit: 'mg',
-        ml:  volPerInj_ml,
-        syr: currentSyringeMl
-      }));
-    }catch(e){}
-  }
-
   document.addEventListener('DOMContentLoaded', ()=>{
-    barrelWrap = document.querySelector('.barrel-wrap');
-    fillEl     = $('fill');
-
     initSyringeToggle();
     initLiveSliders();
-
-    buildTicks(currentSyringeMl);
-    compute();
-
     ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
       const el = document.getElementById(id);
       if(!el) return;
@@ -459,209 +526,6 @@
     });
   });
 </script>
-  <!-- ===== FAQ (Collapsible) ===== -->
-<section id="faq" class="faq container" aria-labelledby="faq-title">
-  <h2 id="faq-title">Calculator FAQ</h2>
-
-  <details class="faq-item">
-    <summary>How do I use the calculator?</summary>
-    <div class="faq-body">
-      Set your vial strength (mg/mL), your prescribed total per week (mg/week), and how many injections you do per week. The cards show dose per injection and the mL to draw. The syringe visual updates in real time.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>What does “vial strength (mg/mL)” mean?</summary>
-    <div class="faq-body">
-      It’s the concentration printed on your vial label (e.g., 200&nbsp;mg/mL). The calculator uses this to convert mg to mL.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>How do I change syringe size?</summary>
-    <div class="faq-body">
-      Use the “1&nbsp;mL” or “3&nbsp;mL” toggle at the top of the inputs. The visual and tick marks adjust to that capacity.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Why do I see “Volume exceeds syringe capacity”?</summary>
-    <div class="faq-body">
-      Your per-injection volume is larger than the selected syringe can hold. Choose a larger syringe or increase injections per week so each shot is smaller.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>What’s the difference between mL and insulin “units”?</summary>
-    <div class="faq-body">
-      Insulin syringes often mark “units” where 100&nbsp;units = 1&nbsp;mL. This tool displays volume in mL; if your syringe is U-100, multiply mL × 100 to get units (e.g., 0.25&nbsp;mL = 25&nbsp;units).
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Can I split my weekly dose differently?</summary>
-    <div class="faq-body">
-      Yes. Change “Injections per week” to your schedule (e.g., 2×/week, 3×/week). The tool recalculates the per-injection mL automatically.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Does this tell me what dose I should take?</summary>
-    <div class="faq-body">
-      No. It converts a prescribed weekly dose into per-injection volume. Always follow your clinician’s instructions.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Does the calculator save my settings?</summary>
-    <div class="faq-body">
-      The syringe size and last inputs may be stored locally in your browser so you don’t have to re-enter them. Clearing site data resets this.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Does this send any data to a server?</summary>
-    <div class="faq-body">
-      The calculation runs in your browser. If you’ve enabled analytics (e.g., Microsoft Clarity), page usage may be tracked, but the calculator inputs aren’t sent by this tool.
-    </div>
-  </details>
-
-  <details class="faq-item">
-    <summary>Which browsers and devices are supported?</summary>
-    <div class="faq-body">
-      Modern Chromium, Firefox, and Safari on mobile and desktop. If the sliders look odd, update your browser or try another device.
-    </div>
-  </details>
-</section>
-
-<!-- Minimal FAQ styles -->
-<style>
-  .faq { margin-top: 32px; }
-  .faq h2 { margin-bottom: 12px; }
-  .faq-item {
-    border: 1px solid rgba(0,0,0,.08);
-    border-radius: 12px;
-    background: #fff;
-    margin: 10px 0;
-    overflow: hidden;
-  }
-  .faq-item > summary {
-    cursor: pointer;
-    padding: 14px 16px;
-    list-style: none;
-    font-weight: 600;
-    position: relative;
-  }
-  .faq-item > summary::-webkit-details-marker { display: none; }
-  .faq-item > summary:after {
-    content: "▸";
-    position: absolute;
-    right: 16px; top: 50%;
-    transform: translateY(-50%) rotate(0deg);
-    transition: transform .2s ease;
-  }
-  .faq-item[open] > summary:after { transform: translateY(-50%) rotate(90deg); }
-  .faq-body {
-    padding: 0 16px 16px 16px;
-    color: var(--ink-700, #444);
-    line-height: 1.5;
-  }
-</style>
-
-<!-- Optional: only one open at a time -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const items = Array.from(document.querySelectorAll('#faq .faq-item'));
-    items.forEach(d => d.addEventListener('toggle', () => {
-      if (d.open) items.forEach(other => { if (other !== d) other.removeAttribute('open'); });
-    }));
-  });
-</script>
-
-<!-- SEO: FAQ structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type":"Question","name":"How do I use the calculator?","acceptedAnswer":{"@type":"Answer","text":"Set vial strength (mg/mL), weekly dose (mg/week), and injections per week. The tool outputs dose per injection and mL to draw, with a live syringe visual."}},
-    {"@type":"Question","name":"What does vial strength mean?","acceptedAnswer":{"@type":"Answer","text":"Vial strength is the concentration on your vial label (e.g., 200 mg/mL). The calculator uses it to convert mg to mL."}},
-    {"@type":"Question","name":"How do I change syringe size?","acceptedAnswer":{"@type":"Answer","text":"Use the 1 mL or 3 mL toggle above the inputs. The syringe visual and tick marks adjust to that capacity."}},
-    {"@type":"Question","name":"Why do I see a capacity warning?","acceptedAnswer":{"@type":"Answer","text":"Your per-injection volume exceeds the selected syringe size. Choose a larger syringe or increase the number of injections per week to reduce volume per shot."}},
-    {"@type":"Question","name":"mL vs insulin units","acceptedAnswer":{"@type":"Answer","text":"On U-100 syringes, 100 units = 1 mL. Multiply mL by 100 to get units (e.g., 0.25 mL = 25 units)."}},
-    {"@type":"Question","name":"Can I split my weekly dose differently?","acceptedAnswer":{"@type":"Answer","text":"Yes. Adjust injections per week; the calculator recomputes per-injection mL automatically."}},
-    {"@type":"Question","name":"Does this set my medical dose?","acceptedAnswer":{"@type":"Answer","text":"No. It converts a prescribed weekly dose into per-injection volume. Follow your clinician’s instructions."}},
-    {"@type":"Question","name":"Are my settings saved?","acceptedAnswer":{"@type":"Answer","text":"Some preferences may be saved locally in your browser for convenience. Clearing site data resets them."}},
-    {"@type":"Question","name":"Is any data sent to a server?","acceptedAnswer":{"@type":"Answer","text":"The calculation runs in your browser. If analytics are enabled, page usage may be tracked, but calculator inputs are not transmitted by this tool."}},
-    {"@type":"Question","name":"What browsers are supported?","acceptedAnswer":{"@type":"Answer","text":"Current versions of Chromium, Firefox, and Safari on mobile and desktop. Update your browser if UI elements don’t render correctly."}}
-  ]
-}
-</script>
-<!-- ===== /FAQ ===== -->
-<footer>
-  <div class="container footer-meta">
-    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
-    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
-  </div>
-</footer>
-  <script>
-(function(){
-  const header = document.getElementById('siteHeader');
-  const btn = document.querySelector('.ib-toggle');
-  const nav = document.getElementById('ib-navlinks');
-  if (!header || !btn || !nav) return;
-
-  const closeNav = () => {
-    nav.classList.remove('show');
-    document.body.classList.remove('nav-open');
-    btn.setAttribute('aria-expanded', 'false');
-  };
-  const openNav = () => {
-    nav.classList.add('show');
-    document.body.classList.add('nav-open');
-    btn.setAttribute('aria-expanded', 'true');
-  };
-
-  // Toggle on button
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('show');
-    document.body.classList.toggle('nav-open', open);
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  // Close when any nav link is clicked
-  nav.querySelectorAll('a').forEach(a=>{
-    a.addEventListener('click', closeNav);
-  });
-
-  // Close on outside click
-  document.addEventListener('click', (e)=>{
-    if (!nav.classList.contains('show')) return;
-    const withinHeader = header.contains(e.target);
-    if (!withinHeader) closeNav();
-  });
-
-  // Close on Esc
-  document.addEventListener('keydown', (e)=>{
-    if (e.key === 'Escape') closeNav();
-  });
-
-  // Close if viewport grows beyond mobile breakpoint
-  const mq = window.matchMedia('(min-width: 901px)');
-  mq.addEventListener?.('change', e => { if (e.matches) closeNav(); });
-
-  // Handle bfcache/back-forward: ensure menu starts closed
-  window.addEventListener('pageshow', () => closeNav());
-
-  // Optional: close on scroll (mobile UX nicety)
-  let lastY = window.scrollY;
-  window.addEventListener('scroll', ()=>{
-    if (Math.abs(window.scrollY - lastY) > 10 && nav.classList.contains('show')) closeNav();
-    lastY = window.scrollY;
-  });
-})();
-</script>
-
+<!-- ===== /SCRIPTS ===== -->
 </body>
 </html>
-
