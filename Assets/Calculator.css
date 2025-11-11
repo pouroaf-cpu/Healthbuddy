@@ -47,3 +47,16 @@
   .container{ padding-left: 26px !important; padding-right: 26px !important; }
   .syringe-card{ padding: 18px 22px !important; }
 }
+/* Mobile: show the value bubble above the slider, nudged to the right */
+@media (max-width: 640px){
+  .live-reads{ position: relative; height: 0; }
+  .live-reads .live-chip{
+    position: absolute;
+    top: -34px;                  /* sits above the track */
+    transform: translateX(-50%); /* center on computed left */
+    pointer-events: none;
+    z-index: 2;
+  }
+  /* give sliders breathing room so the bubble doesn't overlap */
+  input[type="range"]{ margin-top: 22px; }
+}
