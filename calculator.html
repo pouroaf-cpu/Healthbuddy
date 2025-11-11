@@ -170,13 +170,13 @@
 
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
-          <input id="conc-slider" type="range" min="50" max="500" step="10" value="200" />
+          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
           <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
         </div>
 
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <input id="weekly-slider" type="range" min="50" max="500" step="10" value="140" />
+          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
           <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
         </div>
 
@@ -356,7 +356,7 @@
       const setConc = (v)=>{
         let n = parseFloat(v);
         if(!isFinite(n)) n = 200;
-        n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 10) * 10));
+        n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 5) * 5));
         concSlider.value = n;
         lrConc.textContent = n.toFixed(0) + ' mg/mL';
         paintRange(concSlider);
@@ -370,7 +370,7 @@
       const setWeekly = (v)=>{
         let n = parseFloat(v);
         if (!isFinite(n)) n = 140;
-        n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 10) * 10));
+        n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 5) * 5));
         weeklySlider.value = n;
         lrWeekly.textContent = n.toFixed(0) + ' mg/week';
         paintRange(weeklySlider);
