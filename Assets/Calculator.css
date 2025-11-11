@@ -130,3 +130,51 @@
   transform: none !important;
   transform-origin: left center !important;
 }
+/* Labels on the left, live value on the right, slider on its own row */
+.calc-grid .full{
+  display: grid;
+  grid-template-columns: 1fr auto;        /* label | value */
+  grid-template-areas:
+    "label chip"
+    "slider slider";
+  align-items: center;
+  gap: 6px 12px;
+}
+
+.calc-grid .full > label{
+  grid-area: label;
+  margin: 0;                               /* keep the row tight */
+}
+
+.calc-grid .full > .live-reads{
+  grid-area: chip;
+  margin: 0;
+}
+
+.live-reads .live-chip{
+  position: static;                         /* ensure inline, not absolute */
+  transform: none;
+  pointer-events: none;
+  white-space: nowrap;                      /* avoid wrapping the number */
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px 8px;
+  background: #fff;
+  color: #475569;
+}
+
+/* Slider row */
+.calc-grid .full > input[type="range"]{
+  grid-area: slider;
+  margin-top: 2px;
+}
+
+/* Small screens: allow the value to shrink rather than wrap under the label */
+@media (max-width: 400px){
+  .live-reads .live-chip{
+    max-width: 40vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
