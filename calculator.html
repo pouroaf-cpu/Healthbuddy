@@ -101,6 +101,27 @@
     footer{padding:36px 0;color:#64748b;border-top:1px solid var(--border)}
 
     @media (prefers-reduced-motion: reduce){ .btn,.btn:hover{transition:none;transform:none} }
+    /* Increase horizontal padding on all mobile layout */
+@media (max-width:640px){
+  body,
+  .container,
+  main.container,
+  .calc-wrap,
+  .calc-grid,
+  .syringe-card,
+  .syringe-wrap,
+  .out,
+  #calculator {
+    padding-left: 26px !important;
+    padding-right: 26px !important;
+  }
+
+  /* Prevent squeeze of inputs */
+  input[type=range] {
+    width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
