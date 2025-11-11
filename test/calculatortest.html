@@ -13,7 +13,6 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
-  <!-- Optional external CSS -->
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/calculator.css">
 
@@ -76,13 +75,13 @@
     .card .muted{color:#64748b}
     .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
 
-    /* Syringe wrapper card (bigger) */
+    /* Syringe wrapper card — BIGGER */
     .syringe-wrap{display:flex;align-items:center;justify-content:center}
     .syringe-card{
-      width:100%;max-width:880px;background:#fff;border:1px solid var(--border);
-      border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:18px
+      width:100%;max-width:1100px;background:#fff;border:1px solid var(--border);
+      border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:22px
     }
-    .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .syringe-head b{color:var(--teal-900)}
     .syringe-svg{width:100%;height:auto;display:block}
     .is-hidden{display:none}
@@ -204,54 +203,55 @@
                   </div>
                 </div>
 
-                <!-- 1 mL INSULIN (U-100) — bigger, square barrel, FULL ORANGE CAP, thin plunger -->
-                <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 980 180" role="img" aria-label="1 mL insulin syringe, U-100 scale">
-                  <!-- Orange safety cap fully covering needle up to hub (no metal visible) -->
-                  <rect x="6" y="70" width="134" height="24" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
+                <!-- 1 mL INSULIN — bigger; square barrel; full orange cap; thin plunger; printed labels INSIDE -->
+                <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 1200 240" role="img" aria-label="1 mL insulin syringe, U-100 scale">
+                  <!-- Orange cap fully covering needle up to the hub -->
+                  <rect x="6" y="98" width="164" height="28" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
                   <!-- Hub -->
-                  <rect x="140" y="68" width="24" height="28" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <rect x="170" y="92" width="28" height="36" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <!-- Barrel (square corners) -->
-                  <rect x="164" y="50" width="720" height="80" rx="0" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip1ml"><rect x="164" y="50" width="720" height="80" rx="0"/></clipPath>
+                  <rect x="198" y="72" width="900" height="100" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <clipPath id="clip1ml"><rect x="198" y="72" width="900" height="100" rx="0"/></clipPath>
                   <!-- Liquid (marker) -->
-                  <rect id="fill1ml" x="164" y="50" width="0" height="80" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
+                  <rect id="fill1ml" x="198" y="72" width="0" height="100" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
                   <defs>
                     <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
-                      <stop offset="0" stop-color="var(--teal)"/>
-                      <stop offset="1" stop-color="#22d3ee"/>
+                      <stop offset="0" stop-color="var(--teal)"/><stop offset="1" stop-color="#22d3ee"/>
                     </linearGradient>
                   </defs>
                   <!-- Thin plunger -->
-                  <rect id="plunger1ml" x="884" y="48" width="8" height="84" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
-                  <rect x="892" y="62" width="78" height="44" rx="8" fill="#e8eef0" stroke="#cbd5db"/>
+                  <rect id="plunger1ml" x="1090" y="70" width="10" height="104" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
+                  <rect x="1102" y="86" width="86" height="56" rx="8" fill="#e8eef0" stroke="#cbd5db"/>
+
                   <!-- Ticks + Labels -->
                   <g id="ticks1ml" stroke="#1f2937"></g>
-                  <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="11" fill="#334155" text-anchor="middle"></g>
+                  <!-- printed-look labels INSIDE the barrel -->
+                  <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="18" font-weight="700" fill="#0f172a" opacity="0.9" text-anchor="middle"></g>
                 </svg>
 
-                <!-- 3 mL STANDARD — bigger, square barrel, FULL ORANGE CAP, thin plunger -->
-                <svg id="syringe-3ml" class="syringe-svg is-hidden" viewBox="0 0 1000 200" role="img" aria-label="3 mL syringe, milliliter scale">
-                  <!-- Orange safety cap fully covering needle up to hub -->
-                  <rect x="6" y="90" width="144" height="24" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
+                <!-- 3 mL STANDARD — bigger; square barrel; full orange cap; thin plunger; labels INSIDE -->
+                <svg id="syringe-3ml" class="syringe-svg is-hidden" viewBox="0 0 1200 260" role="img" aria-label="3 mL syringe, milliliter scale">
+                  <!-- Orange cap -->
+                  <rect x="6" y="110" width="174" height="28" rx="3" fill="var(--orange)" stroke="#cc5f00"/>
                   <!-- Hub -->
-                  <rect x="150" y="88" width="24" height="28" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <!-- Barrel (square corners) -->
-                  <rect x="174" y="70" width="740" height="80" rx="0" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip3ml"><rect x="174" y="70" width="740" height="80" rx="0"/></clipPath>
-                  <!-- Liquid (marker) -->
-                  <rect id="fill3ml" x="174" y="70" width="0" height="80" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
+                  <rect x="180" y="104" width="28" height="36" rx="4" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <!-- Barrel -->
+                  <rect x="208" y="84" width="920" height="100" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <clipPath id="clip3ml"><rect x="208" y="84" width="920" height="100" rx="0"/></clipPath>
+                  <!-- Liquid -->
+                  <rect id="fill3ml" x="208" y="84" width="0" height="100" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
                   <defs>
                     <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
-                      <stop offset="0" stop-color="var(--teal)"/>
-                      <stop offset="1" stop-color="#22d3ee"/>
+                      <stop offset="0" stop-color="var(--teal)"/><stop offset="1" stop-color="#22d3ee"/>
                     </linearGradient>
                   </defs>
                   <!-- Thin plunger -->
-                  <rect id="plunger3ml" x="914" y="68" width="8" height="84" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
-                  <rect x="922" y="82" width="78" height="44" rx="8" fill="#e8eef0" stroke="#cbd5db"/>
+                  <rect id="plunger3ml" x="1108" y="82" width="10" height="104" rx="3" fill="#8ea4aa" stroke="#6e838a"/>
+                  <rect x="1120" y="98" width="86" height="56" rx="8" fill="#e8eef0" stroke="#cbd5db"/>
+
                   <!-- Ticks + Labels -->
                   <g id="ticks3ml" stroke="#1f2937"></g>
-                  <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="11" fill="#334155" text-anchor="middle"></g>
+                  <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="18" font-weight="700" fill="#0f172a" opacity="0.9" text-anchor="middle"></g>
                 </svg>
               </div>
             </div>
@@ -301,14 +301,14 @@
     const elVol   = $('syrVol');
     const elMode  = $('syrMode');
 
-    // Geometry (bigger barrels)
+    // Geometry — scaled up
     const oneML = {
       svg: $('syringe-1ml'),
       fill: $('fill1ml'),
       plunger: $('plunger1ml'),
       ticksGroup: $('ticks1ml'),
       labelsGroup: $('labels1ml'),
-      x0: 164, width: 720, yTop: 50, height: 80,
+      x0: 198, width: 900, yTop: 72, height: 100,
       mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 1.0))); }
     };
 
@@ -318,14 +318,11 @@
       plunger: $('plunger3ml'),
       ticksGroup: $('ticks3ml'),
       labelsGroup: $('labels3ml'),
-      x0: 174, width: 740, yTop: 70, height: 80,
+      x0: 208, width: 920, yTop: 84, height: 100,
       mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
     };
 
-    // 1 mL insulin ticks:
-    // - ticks every 2 units
-    // - long & labeled only at 10s (10,20,...,100)
-    // - long ≈ 1/3 height; short ≈ 1/6 height
+    // 1 mL insulin ticks every 2 units; label 10/20/.../100; printed-look labels INSIDE
     function buildInsulinTicks(){
       const g = oneML.ticksGroup, l = oneML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -334,7 +331,7 @@
       for (let u = 0; u <= 100; u += 2) {
         const ml = u / 100;
         const x = oneML.x0 + oneML.mlToPx(ml);
-        const isLong = (u % 10 === 0); // long & labeled at 10s
+        const isLong = (u % 10 === 0);
 
         const y1 = oneML.yTop;
         const y2 = oneML.yTop + (isLong ? longLen : shortLen);
@@ -345,17 +342,18 @@
         line.setAttribute('stroke-width', isLong ? 2 : 1);
         g.appendChild(line);
 
-        if (isLong && u > 0) { // labels 10..100
+        if (isLong && u > 0) {
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
           t.setAttribute('x', x);
-          t.setAttribute('y', oneML.yTop + H + 20);
+          // place text INSIDE at lower area of barrel
+          t.setAttribute('y', oneML.yTop + H - 8);
           t.textContent = String(u);
           l.appendChild(t);
         }
       }
     }
 
-    // 3 mL ticks: minor every 0.1 mL, long & labeled every 0.5 mL
+    // 3 mL: minor 0.1 mL; label every 0.5 mL; labels INSIDE
     function buildThreeMlTicks(){
       const g = threeML.ticksGroup, l = threeML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -365,6 +363,7 @@
         const ml = i/10;
         const x = threeML.x0 + threeML.mlToPx(ml);
         const isLong = (i % 5 === 0);
+
         const y1 = threeML.yTop;
         const y2 = threeML.yTop + (isLong ? longLen : shortLen);
         const line = document.createElementNS('http://www.w3.org/2000/svg','line');
@@ -375,7 +374,8 @@
 
         if(isLong){
           const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-          t.setAttribute('x', x); t.setAttribute('y', threeML.yTop + H + 22);
+          t.setAttribute('x', x);
+          t.setAttribute('y', threeML.yTop + H - 8); // inside lower edge
           t.textContent = ml.toFixed(1);
           l.appendChild(t);
         }
@@ -402,16 +402,15 @@
         const capped = Math.min(selectedCapacityMl, v);
         const w = oneML.mlToPx(capped);
         oneML.fill.setAttribute('width', w);
-        // thin plunger sits just after fill edge
-        const px = oneML.x0 + Math.max(0, w) - 4; // 8px plunger -> half width
-        oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 8, Math.max(oneML.x0, px))));
+        const px = oneML.x0 + Math.max(0, w) - 5; // 10px plunger width → half
+        oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 10, Math.max(oneML.x0, px))));
       }else{
         elMode.textContent = 'Standard 3 mL';
         const capped = Math.min(selectedCapacityMl, v);
         const w = threeML.mlToPx(capped);
         threeML.fill.setAttribute('width', w);
-        const px = threeML.x0 + Math.max(0, w) - 4;
-        threeML.plunger.setAttribute('x', String(Math.min(threeML.x0 + threeML.width - 8, Math.max(threeML.x0, px))));
+        const px = threeML.x0 + Math.max(0, w) - 5;
+        threeML.plunger.setAttribute('x', String(Math.min(threeML.x0 + threeML.width - 10, Math.max(threeML.x0, px))));
       }
     };
 
