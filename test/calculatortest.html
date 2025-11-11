@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
+  <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
+  <link rel="canonical" href="https://www.injectbuddy.com/" />
+  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
+  <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/" />
+  <meta property="og:site_name" content="InjectBuddy" />
+  <link rel="icon" href="/assets/favicon.svg" />
+
+  <!-- Load base/site CSS first -->
+  <link rel="stylesheet" href="/assets/site.css">
+  <!-- Load calculator CSS AFTER site.css so it can override where needed -->
+  <link rel="stylesheet" href="/assets/calculator.css">
+
+  <style>
+    :root{
+      --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
+      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
+      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06); --gold:#f5b301;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
+    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .btn-primary{background:var(--cta);color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
+    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
+    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+
+    /* Header */
+    .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{font-weight:600;color:var(--muted)}
+    .nav-cta .btn{padding:10px 16px;border-radius:12px}
+
+    /* Burger + Mobile menu */
+    .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
+    .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
+    .burger svg{width:22px;height:22px}
+    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px - env(safe-area-inset-top, 0px));overflow:auto}
+    .mobile-menu.open{display:block}
+    .mobile-menu .container{padding:14px 20px 16px}
+    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
+    .mobile-cta{display:grid;gap:10px}
+
+    /* Reviews (marquee) */
+    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
+    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
+    .review-mask:hover .review-rail{animation-play-state:paused}
+    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
+    .review-card small{color:var(--muted)}
+    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
+
+    /* Sections (you set no whitespace between sections elsewhere) */
+    .section{padding:0}
+    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
+    .muted{color:var(--muted)}
+
+    /* Sticky bottom CTA */
+    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease}
+    .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
+    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
+    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+    .cta-bar-title{color:var(--teal-900);margin:0}
+    .cta-actions{display:flex;gap:10px;align-items:center}
+
+    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
+
+    @media (max-width:980px){
+      .nav{display:none}
+      .nav-cta{display:none}
+      .burger{display:inline-flex}
+      .mobile-menu{top:calc(56px + env(safe-area-inset-top, 0px))}
+      .hero-inner{grid-template-columns:1fr}
+      .hero .container{padding-left:24px;padding-right:24px}
+      .cta-row{justify-content:center}
+      .cta-row .btn{width:100%;max-width:520px}
+
+      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
+      .cta-actions{flex-direction:column;width:100%;max-width:520px}
+      .cta-actions .btn{width:100%}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn,.btn:hover{transition:none;transform:none}
+      .review-rail{animation:none}
+      .cta-bar{transition:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="InjectBuddy Home">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>InjectBuddy</h1>
+    </a>
+
+    <!-- UPDATED NAV LINKS ONLY -->
+    <nav class="nav" aria-label="Primary">
+      <a href="/calculator.html">Dosage Calculator</a>
+      <a href="/peptide.html">Peptide Reconstitution</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
+    </nav>
+
+    <!-- keep any existing CTA if you already had one; if not, leave this div empty or remove -->
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/calculator.html" aria-label="Open the calculator">Open Calculator</a>
+    </div>
+
+    <!-- Burger for mobile (unchanged) -->
+    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU (links updated only) -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="container">
+    <div class="mobile-links" role="menu">
+      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
+      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
+      <a href="/contact.html" role="menuitem">Contact</a>
+      <a href="/about.html" role="menuitem">About</a>
+    </div>
+    <div class="mobile-cta">
+      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
+    </div>
+  </div>
+</div>
+
+</header>
+<main class="container">
+  <!-- ===== CALCULATOR ===== -->
+  <section id="calculator" class="form-container" aria-labelledby="calc-title">
+    <h1 id="calc-title">Testosterone/Peptide Dosage Calculator</h1>
+
+    <div class="calc-wrap">
+      <!-- Left column: inputs -->
+      <div class="calc-grid">
+        <div class="full">
+          <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
+            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
+          </div>
+        </div>
+
+        <div class="full">
+          <label for="conc-slider">Vial strength (mg per mL)</label>
+          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
+          <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
+        </div>
+
+        <div class="full">
+          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
+          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
+          <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
+        </div>
+
+        <div id="count-wrap" class="full">
+          <label for="count-slider">Injections per week</label>
+          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
+          <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
+        </div>
+      </div>
+
+      <!-- Right column: results -->
+      <aside id="out" class="out">
+        <h3>Dose & Volume per Injection</h3>
+
+        <div class="out-row">
+          <div class="kpi">
+            <div class="card"><span class="muted">Injections / week</span><b id="kpi_inj">—</b></div>
+            <div class="card"><span class="muted">Dose per injection</span><b id="kpi_dose">—</b></div>
+            <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
+          </div>
+
+          <div class="syringe" aria-label="Syringe visual">
+            <div class="barrel-wrap inactive">
+              <div class="barrel">
+                <div class="fill" id="fill"></div>
+                <div class="ticks" id="ticks"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="warn" class="warn" hidden></div>
+      </aside>
+    </div>
+
+    <div class="notice">
+      This tool is provided for informational purposes only. Always follow your clinician’s instructions.
+    </div>
+  </section>
+  <!-- ===== /CALCULATOR ===== -->
+</main>
+
+
+
+<script>
+  // ---------- Helpers ----------
+  const $ = id => document.getElementById(id);
+
+  // Header toggle + sticky offset
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const btn = document.querySelector('.ib-toggle');
+    const nav = document.getElementById('ib-navlinks');
+    const setHeaderH = () => document.documentElement.style.setProperty('--header-h', (header?.offsetHeight || 56) + 'px');
+    setHeaderH(); window.addEventListener('resize', setHeaderH);
+    if (!btn || !nav) return;
+    btn.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('show');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', ()=>{
+        if (nav.classList.contains('show')) {
+          nav.classList.remove('show');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  })();
+
+  function paintRange(el){
+    if(!el) return;
+    const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
+    const pct = ((val - min) * 100) / (max - min);
+    el.style.setProperty('--val', pct + '%');
+  }
+
+  // ---------- State ----------
+  let currentSyringeMl = 1; // 1 | 3
+  let barrelWrap=null, fillEl=null;
+
+  function setInactive(){
+    if(!barrelWrap) return;
+    barrelWrap.classList.remove('active'); barrelWrap.classList.add('inactive');
+    if (fillEl) fillEl.style.height='0px';
+  }
+  function setActive(){
+    if(!barrelWrap) return;
+    barrelWrap.classList.remove('inactive'); barrelWrap.classList.add('active');
+  }
+
+  function buildTicks(maxMl){
+    const ticks=$('ticks'); if(!ticks) return;
+    ticks.innerHTML='';
+    const step=(maxMl<=1)?0.1:0.5;
+    const barrelPx=200; // must match CSS barrel height
+    for(let v=0; v<=maxMl+1e-9; v+=step){
+      const row=document.createElement('div');
+      row.className='tick-row';
+      row.style.bottom=(v/maxMl)*barrelPx+'px';
+      row.innerHTML='<span>'+v.toFixed(1)+' mL</span>';
+      ticks.appendChild(row);
+    }
+  }
+
+  let sloshTimer = null;
+  function kickSlosh(){
+    if(!fillEl) return;
+    fillEl.classList.remove('slosh');
+    void fillEl.offsetWidth;
+    fillEl.classList.add('slosh');
+    clearTimeout(sloshTimer);
+    sloshTimer = setTimeout(()=> fillEl.classList.remove('slosh'), (1400*3)+1000+50);
+  }
+
+  function setSyringeUI(volumeMl, syringeMaxMl){
+    const vol = Math.max(0, Math.min(volumeMl, syringeMaxMl));
+    const ratio = Math.min(vol / syringeMaxMl, 1);
+    const px = ratio * 200; // 200px = barrel height in CSS
+    if (fillEl) {
+      fillEl.style.height = px + 'px';
+      if (px > 0) kickSlosh();
+    }
+    buildTicks(syringeMaxMl);
+    if(vol>0) setActive(); else setInactive();
+  }
+
+  let __computeTimer = null;
+  function debounce(fn, delay=80){
+    return (...args)=>{
+      clearTimeout(__computeTimer);
+      __computeTimer = setTimeout(()=>fn(...args), delay);
+    };
+  }
+  const computeDebounced = debounce(compute, 80);
+
+  function setSyringe(ml){
+    currentSyringeMl = ml;
+    const group = $('syringeToggle');
+    const btns = group.querySelectorAll('.seg-btn');
+    btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === ml)));
+    buildTicks(currentSyringeMl);
+    computeDebounced();
+    try{ localStorage.setItem('hb_syr_ml', String(ml)); }catch(e){}
+  }
+
+  function initSyringeToggle(){
+    const group = $('syringeToggle');
+    const btns = group.querySelectorAll('.seg-btn');
+    group.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.seg-btn'); if(!btn) return;
+      setSyringe(Number(btn.dataset.ml));
+    });
+    group.addEventListener('keydown', (e)=>{
+      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+      e.preventDefault();
+      const arr=[...btns];
+      const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
+      const next = current===0 ? 1 : 0;
+      setSyringe(Number(arr[next].dataset.ml));
+      arr[next].focus();
+    });
+    const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
+    setSyringe(saved===3 ? 3 : 1);
+  }
+
+  function initLiveSliders(){
+    const concSlider   = $('conc-slider');
+    const weeklySlider = $('weekly-slider');
+    const countSlider  = $('count-slider');
+
+    const lrConc   = $('lr-conc');
+    const lrWeekly = $('lr-weekly');
+    const lrCount  = $('lr-count');
+
+    if(concSlider && lrConc){
+      const setConc = (v)=>{
+        let n = parseFloat(v);
+        if(!isFinite(n)) n = 200;
+        n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 5) * 5));
+        concSlider.value = n;
+        lrConc.textContent = n.toFixed(0) + ' mg/mL';
+        paintRange(concSlider);
+        computeDebounced();
+      };
+      concSlider.addEventListener('input', ()=> setConc(concSlider.value));
+      setConc(concSlider.value || 200);
+    }
+
+    if(weeklySlider && lrWeekly){
+      const setWeekly = (v)=>{
+        let n = parseFloat(v);
+        if (!isFinite(n)) n = 140;
+        n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 5) * 5));
+        weeklySlider.value = n;
+        lrWeekly.textContent = n.toFixed(0) + ' mg/week';
+        paintRange(weeklySlider);
+        computeDebounced();
+      };
+      weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
+      setWeekly(weeklySlider.value || 140);
+    }
+
+    if(countSlider && lrCount){
+      const setCount = (v)=>{
+        let n = Math.round(parseFloat(v)||2);
+        n = Math.min(+countSlider.max, Math.max(+countSlider.min, n));
+        countSlider.value = n;
+        lrCount.textContent = n + ' / week';
+        paintRange(countSlider);
+        computeDebounced();
+      };
+      countSlider.addEventListener('input', ()=> setCount(countSlider.value));
+      setCount(countSlider.value || 2);
+    }
+  }
+
+  function compute(){
+    const conc       = parseFloat(($('conc-slider')||{}).value);
+    const weekly     = parseFloat(($('weekly-slider')||{}).value);
+    const injPerWeek = parseFloat(($('count-slider')||{}).value);
+
+    const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
+    if (!valid){
+      const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
+      if(k1) k1.textContent='—';
+      if(k2) k2.textContent='—';
+      if(k3) k3.textContent='—';
+      setSyringeUI(0, currentSyringeMl);
+      const warn = $('warn'); if (warn) { warn.hidden = true; warn.textContent = ''; }
+      return;
+    }
+
+    const dosePerInj   = weekly / injPerWeek;   // mg
+    const volPerInj_ml = dosePerInj / conc;     // mL
+
+    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
+    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
+    $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
+
+    setSyringeUI(volPerInj_ml, currentSyringeMl);
+
+    const warn = $('warn');
+    if (warn){
+      if (volPerInj_ml > currentSyringeMl){
+        warn.hidden=false;
+        warn.textContent='Volume exceeds syringe capacity. Choose a larger syringe or adjust schedule.';
+      } else {
+        warn.hidden=true; warn.textContent='';
+      }
+    }
+
+    try{
+      localStorage.setItem('hb_last_calc', JSON.stringify({
+        inj: injPerWeek,
+        dose: dosePerInj,
+        unit: 'mg',
+        ml:  volPerInj_ml,
+        syr: currentSyringeMl
+      }));
+    }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    barrelWrap = document.querySelector('.barrel-wrap');
+    fillEl     = $('fill');
+
+    initSyringeToggle();
+    initLiveSliders();
+
+    buildTicks(currentSyringeMl);
+    compute();
+
+    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      paintRange(el);
+      el.addEventListener('input', ()=>paintRange(el));
+      el.addEventListener('change', ()=>paintRange(el));
+    });
+  });
+</script>
+  <!-- ===== FAQ (Collapsible) ===== -->
+<section id="faq" class="faq container" aria-labelledby="faq-title">
+  <h2 id="faq-title">Calculator FAQ</h2>
+
+  <details class="faq-item">
+    <summary>How do I use the calculator?</summary>
+    <div class="faq-body">
+      Set your vial strength (mg/mL), your prescribed total per week (mg/week), and how many injections you do per week. The cards show dose per injection and the mL to draw. The syringe visual updates in real time.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What does “vial strength (mg/mL)” mean?</summary>
+    <div class="faq-body">
+      It’s the concentration printed on your vial label (e.g., 200&nbsp;mg/mL). The calculator uses this to convert mg to mL.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>How do I change syringe size?</summary>
+    <div class="faq-body">
+      Use the “1&nbsp;mL” or “3&nbsp;mL” toggle at the top of the inputs. The visual and tick marks adjust to that capacity.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Why do I see “Volume exceeds syringe capacity”?</summary>
+    <div class="faq-body">
+      Your per-injection volume is larger than the selected syringe can hold. Choose a larger syringe or increase injections per week so each shot is smaller.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>What’s the difference between mL and insulin “units”?</summary>
+    <div class="faq-body">
+      Insulin syringes often mark “units” where 100&nbsp;units = 1&nbsp;mL. This tool displays volume in mL; if your syringe is U-100, multiply mL × 100 to get units (e.g., 0.25&nbsp;mL = 25&nbsp;units).
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Can I split my weekly dose differently?</summary>
+    <div class="faq-body">
+      Yes. Change “Injections per week” to your schedule (e.g., 2×/week, 3×/week). The tool recalculates the per-injection mL automatically.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this tell me what dose I should take?</summary>
+    <div class="faq-body">
+      No. It converts a prescribed weekly dose into per-injection volume. Always follow your clinician’s instructions.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does the calculator save my settings?</summary>
+    <div class="faq-body">
+      The syringe size and last inputs may be stored locally in your browser so you don’t have to re-enter them. Clearing site data resets this.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Does this send any data to a server?</summary>
+    <div class="faq-body">
+      The calculation runs in your browser. If you’ve enabled analytics (e.g., Microsoft Clarity), page usage may be tracked, but the calculator inputs aren’t sent by this tool.
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary>Which browsers and devices are supported?</summary>
+    <div class="faq-body">
+      Modern Chromium, Firefox, and Safari on mobile and desktop. If the sliders look odd, update your browser or try another device.
+    </div>
+  </details>
+</section>
+
+<!-- Minimal FAQ styles -->
+<style>
+  .faq { margin-top: 32px; }
+  .faq h2 { margin-bottom: 12px; }
+  .faq-item {
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 12px;
+    background: #fff;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .faq-item > summary {
+    cursor: pointer;
+    padding: 14px 16px;
+    list-style: none;
+    font-weight: 600;
+    position: relative;
+  }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary:after {
+    content: "▸";
+    position: absolute;
+    right: 16px; top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform .2s ease;
+  }
+  .faq-item[open] > summary:after { transform: translateY(-50%) rotate(90deg); }
+  .faq-body {
+    padding: 0 16px 16px 16px;
+    color: var(--ink-700, #444);
+    line-height: 1.5;
+  }
+</style>
+
+<!-- Optional: only one open at a time -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = Array.from(document.querySelectorAll('#faq .faq-item'));
+    items.forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) items.forEach(other => { if (other !== d) other.removeAttribute('open'); });
+    }));
+  });
+</script>
+
+<!-- SEO: FAQ structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How do I use the calculator?","acceptedAnswer":{"@type":"Answer","text":"Set vial strength (mg/mL), weekly dose (mg/week), and injections per week. The tool outputs dose per injection and mL to draw, with a live syringe visual."}},
+    {"@type":"Question","name":"What does vial strength mean?","acceptedAnswer":{"@type":"Answer","text":"Vial strength is the concentration on your vial label (e.g., 200 mg/mL). The calculator uses it to convert mg to mL."}},
+    {"@type":"Question","name":"How do I change syringe size?","acceptedAnswer":{"@type":"Answer","text":"Use the 1 mL or 3 mL toggle above the inputs. The syringe visual and tick marks adjust to that capacity."}},
+    {"@type":"Question","name":"Why do I see a capacity warning?","acceptedAnswer":{"@type":"Answer","text":"Your per-injection volume exceeds the selected syringe size. Choose a larger syringe or increase the number of injections per week to reduce volume per shot."}},
+    {"@type":"Question","name":"mL vs insulin units","acceptedAnswer":{"@type":"Answer","text":"On U-100 syringes, 100 units = 1 mL. Multiply mL by 100 to get units (e.g., 0.25 mL = 25 units)."}},
+    {"@type":"Question","name":"Can I split my weekly dose differently?","acceptedAnswer":{"@type":"Answer","text":"Yes. Adjust injections per week; the calculator recomputes per-injection mL automatically."}},
+    {"@type":"Question","name":"Does this set my medical dose?","acceptedAnswer":{"@type":"Answer","text":"No. It converts a prescribed weekly dose into per-injection volume. Follow your clinician’s instructions."}},
+    {"@type":"Question","name":"Are my settings saved?","acceptedAnswer":{"@type":"Answer","text":"Some preferences may be saved locally in your browser for convenience. Clearing site data resets them."}},
+    {"@type":"Question","name":"Is any data sent to a server?","acceptedAnswer":{"@type":"Answer","text":"The calculation runs in your browser. If analytics are enabled, page usage may be tracked, but calculator inputs are not transmitted by this tool."}},
+    {"@type":"Question","name":"What browsers are supported?","acceptedAnswer":{"@type":"Answer","text":"Current versions of Chromium, Firefox, and Safari on mobile and desktop. Update your browser if UI elements don’t render correctly."}}
+  ]
+}
+</script>
+<!-- ===== /FAQ ===== -->
+<footer>
+  <div class="container footer-meta">
+    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
+    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  </div>
+</footer>
+  <script>
+(function(){
+  const header = document.getElementById('siteHeader');
+  const btn = document.querySelector('.ib-toggle');
+  const nav = document.getElementById('ib-navlinks');
+  if (!header || !btn || !nav) return;
+
+  const closeNav = () => {
+    nav.classList.remove('show');
+    document.body.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded', 'false');
+  };
+  const openNav = () => {
+    nav.classList.add('show');
+    document.body.classList.add('nav-open');
+    btn.setAttribute('aria-expanded', 'true');
+  };
+
+  // Toggle on button
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('show');
+    document.body.classList.toggle('nav-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Close when any nav link is clicked
+  nav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', closeNav);
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e)=>{
+    if (!nav.classList.contains('show')) return;
+    const withinHeader = header.contains(e.target);
+    if (!withinHeader) closeNav();
+  });
+
+  // Close on Esc
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') closeNav();
+  });
+
+  // Close if viewport grows beyond mobile breakpoint
+  const mq = window.matchMedia('(min-width: 901px)');
+  mq.addEventListener?.('change', e => { if (e.matches) closeNav(); });
+
+  // Handle bfcache/back-forward: ensure menu starts closed
+  window.addEventListener('pageshow', () => closeNav());
+
+  // Optional: close on scroll (mobile UX nicety)
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', ()=>{
+    if (Math.abs(window.scrollY - lastY) > 10 && nav.classList.contains('show')) closeNav();
+    lastY = window.scrollY;
+  });
+})();
+</script>
+
+</body>
+</html>
+
