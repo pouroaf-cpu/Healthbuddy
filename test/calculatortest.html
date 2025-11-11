@@ -29,11 +29,9 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
 
-    /* Page container with safer mobile padding */
     .container{max-width:1200px;margin:0 auto;padding:0 24px}
     @media (max-width:640px){ .container{padding:0 20px} }
 
-    /* Header (shared) */
     .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;gap:.75rem;align-items:center}
@@ -49,7 +47,6 @@
     .btn-secondary{background:#fff;color:#004c4d;border-color:#004c4d}
     .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
 
-    /* Burger + Mobile menu */
     .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
     .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
     .burger svg{width:22px;height:22px}
@@ -59,7 +56,6 @@
     .mobile-links{display:grid;gap:10px;margin-bottom:12px}
     .mobile-cta{display:grid;gap:10px}
 
-    /* Calculator layout */
     main.container{padding:28px 0}
     @media (max-width:640px){ main.container{padding:20px 0} }
     .form-container h1{margin:0 0 8px}
@@ -82,7 +78,6 @@
     .card .muted{color:#64748b}
     .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
 
-    /* Syringe wrapper card */
     .syringe-wrap{display:flex;align-items:center;justify-content:center}
     .syringe-card{
       width:100%;max-width:1300px;background:#fff;border:1px solid var(--border);
@@ -91,7 +86,7 @@
     .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .syringe-head b{color:#004c4d}
     .syringe-svg{width:100%;height:auto;display:block;transform-origin:center}
-    @media (min-width:1100px){ .syringe-svg{transform:scale(1.3)} } /* keep if you still want the slight boost */
+    @media (min-width:1100px){ .syringe-svg{transform:scale(1.3)} }
     @media (max-width:640px){ .syringe-card{padding:16px} }
 
     .is-hidden{display:none}
@@ -114,7 +109,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header" role="banner">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="InjectBuddy Home">
@@ -141,7 +135,6 @@
   </div>
 </header>
 
-<!-- MOBILE MENU -->
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
   <div class="container">
     <div class="mobile-links" role="menu">
@@ -158,12 +151,10 @@
 </nav>
 
 <main class="container">
-  <!-- ===== CALCULATOR ===== -->
   <section id="calculator" class="form-container" aria-labelledby="calc-title">
     <h1 id="calc-title">TRT / Peptide Dosage Calculator</h1>
 
     <div class="calc-wrap">
-      <!-- Left column: inputs -->
       <div class="calc-grid">
         <div class="full">
           <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
@@ -191,7 +182,6 @@
         </div>
       </div>
 
-      <!-- Right column: results -->
       <aside id="out" class="out">
         <h3>Dose & Volume per Injection</h3>
 
@@ -202,7 +192,7 @@
             <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
           </div>
 
-          <!-- === SYRINGE VISUAL (locked to selected size) === -->
+          <!-- === SYRINGE VISUAL === -->
           <div class="syringe" aria-label="Syringe visual">
             <div class="syringe-wrap">
               <div class="syringe-card" aria-live="polite">
@@ -232,7 +222,14 @@
                   </defs>
                   <rect id="fill1ml" x="198" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
 
-                  <!-- NEW: Right-end flange (26 wide, 2x barrel height, centered) -->
+                  <!-- Spacer (square) with vertical text "UNITS" -->
+                  <rect x="1042" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                  <text x="1070" y="120"
+                        font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
+                        fill="#334155" text-anchor="middle" dominant-baseline="middle"
+                        transform="rotate(-90 1070 120)">UNITS</text>
+
+                  <!-- Right-end flange (26 wide, 2x barrel height) -->
                   <rect x="1098" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
                   <!-- T-handle -->
@@ -263,7 +260,14 @@
                   </defs>
                   <rect id="fill3ml" x="208" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
 
-                  <!-- NEW: Right-end flange (26 wide, 2x barrel height, centered) -->
+                  <!-- Spacer (square) with vertical text "mL" -->
+                  <rect x="1072" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                  <text x="1100" y="126"
+                        font-family="Inter,system-ui,Arial" font-size="16" font-weight="800"
+                        fill="#334155" text-anchor="middle" dominant-baseline="middle"
+                        transform="rotate(-90 1100 126)">mL</text>
+
+                  <!-- Right-end flange (26 wide, 2x barrel height) -->
                   <rect x="1128" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
 
                   <!-- T-handle -->
@@ -288,7 +292,6 @@
       This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
     </div>
   </section>
-  <!-- ===== /CALCULATOR ===== -->
 </main>
 
 <footer>
@@ -298,7 +301,6 @@
   </div>
 </footer>
 
-<!-- ===== SCRIPTS ===== -->
 <script>
   // Mobile menu
   document.getElementById('burger')?.addEventListener('click', function () {
@@ -316,7 +318,6 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // ===== Syringe rendering (LOCKED to selected size) =====
   (function(){
     const elVol   = $('syrVol');
     const elMode  = $('syrMode');
@@ -341,7 +342,6 @@
       mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
     };
 
-    // 1 mL insulin ticks every 2 units; label 10/20/.../100; labels inside
     function buildInsulinTicks(){
       const g = oneML.ticksGroup, l = oneML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -371,7 +371,6 @@
       }
     }
 
-    // 3 mL: minor 0.1 mL; label every 0.5 mL; labels inside; skip 0.0
     function buildThreeMlTicks(){
       const g = threeML.ticksGroup, l = threeML.labelsGroup;
       g.innerHTML = ''; l.innerHTML = '';
@@ -403,10 +402,8 @@
     buildInsulinTicks();
     buildThreeMlTicks();
 
-    // Selected syringe capacity (locked)
     let selectedCapacityMl = 1.0; // default 1 mL
 
-    // Public hook
     window.updateSyringe = function(volumeMl){
       const v = Math.max(0, Number(volumeMl) || 0);
       elVol.textContent = v.toFixed(2) + ' mL';
@@ -420,8 +417,7 @@
         const capped = Math.min(selectedCapacityMl, v);
         const w = oneML.mlToPx(capped);
         oneML.fill.setAttribute('width', w);
-        // Move T-stem with fluid front; keep stem centered
-        const px = oneML.x0 + Math.max(0, w) - 3; // stem width 6 → half
+        const px = oneML.x0 + Math.max(0, w) - 3;
         oneML.plunger.setAttribute('x', String(Math.min(oneML.x0 + oneML.width - 6, Math.max(oneML.x0, px))));
       }else{
         elMode.textContent = 'Standard 3 mL';
@@ -433,18 +429,15 @@
       }
     };
 
-    // Expose setter for toggle
     window.__setSyringeCapacity = function(ml){
       selectedCapacityMl = ml <= 1 ? 1 : 3;
       updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
     };
 
-    // Default preview
     updateSyringe(0.25);
   })();
 
-  // ===== Calculator state + compute =====
-  let currentSyringeMl = 1; // capacity for warnings and rendering (locked)
+  let currentSyringeMl = 1;
 
   function setSyringe(ml){
     currentSyringeMl = (ml === 3 ? 3 : 1);
@@ -453,7 +446,7 @@
     btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === currentSyringeMl)));
     try{ localStorage.setItem('hb_syr_ml', String(currentSyringeMl)); }catch(e){}
     window.__setSyringeCapacity(currentSyringeMl);
-    compute(); // refresh warning
+    compute();
   }
 
   function initSyringeToggle(){
@@ -541,7 +534,7 @@
         paintRange(concSlider);
         compute();
       };
-      concSlider.addEventListener('input', ()=> setConc(concSlider.value));
+      concSlider.addEventListener('input', ()=> setConc(conc-slider.value));
       setConc(concSlider.value || 200);
     }
 
@@ -555,7 +548,7 @@
         paintRange(weeklySlider);
         compute();
       };
-      weeklySlider.addEventListener('input', ()=> setWeekly(weeklySlider.value));
+      weeklySlider.addEventListener('input', ()=> setWeekly(weekly-slider.value));
       setWeekly(weeklySlider.value || 140);
     }
 
@@ -581,7 +574,7 @@
       document.body.classList.toggle('nav-open', open);
     });
 
-    initSyringeToggle();              // default 1 mL (locked)
+    initSyringeToggle();
     initLiveSliders();
     ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
       const el = document.getElementById(id);
@@ -592,6 +585,5 @@
     });
   });
 </script>
-<!-- ===== /SCRIPTS ===== -->
 </body>
 </html>
