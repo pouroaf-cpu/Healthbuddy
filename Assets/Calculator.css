@@ -178,3 +178,27 @@
     overflow: hidden;
   }
 }
+/* Extra bottom padding stays, but the status block now holds space */
+.syringe-card{
+  padding:22px 28px 40px; /* keep your existing values, ensure extra bottom pad */
+}
+
+/* Reserve space so syringe graphic doesn't move when warn/tip toggles */
+.syringe-status{
+  margin-top:12px;
+  min-height:72px;        /* ← adjust to your content height (64–88px typical) */
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+/* Remove extra margins inside the reserved area */
+.syringe-status .warn,
+.syringe-status .advice{
+  margin:0;
+}
+
+/* (Optional) Keep space even when both are hidden, without showing boxes */
+.syringe-status > [hidden]{
+  display:none;           /* children can hide; wrapper still holds min-height */
+}
