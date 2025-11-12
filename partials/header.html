@@ -1,19 +1,42 @@
-<header class="ib-header" aria-label="Site header">
-  <nav class="ib-nav">
-    <a class="ib-brand" href="/">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" rx="5" stroke="var(--teal-600)" stroke-width="2"/>
-        <path d="M8 7v10M12 9.5h4.5M12 14.5h4.5" stroke="var(--teal-600)" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span>InjectBuddy</span>
+<!-- HEADER -->
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="InjectBuddy Home">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>InjectBuddy</h1>
     </a>
-    <div class="ib-links" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/calculator.html">Calculator</a>
-      <a href="/peptide.html">Peptides</a>
-      <a href="/faq.html">FAQ</a>
-      <a href="/about.html">About</a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="/calculator.html">Dosage Calculator</a>
+      <a href="/peptide.html">Peptide Reconstitution</a>
       <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
     </div>
-  </nav>
+
+    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </div>
 </header>
+
+<!-- MOBILE MENU -->
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile" hidden>
+  <div class="container">
+    <div class="mobile-links" role="menu">
+      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
+      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
+      <a href="/contact.html" role="menuitem">Contact</a>
+      <a href="/about.html" role="menuitem">About</a>
+    </div>
+    <div class="mobile-cta">
+      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
+    </div>
+  </div>
+</nav>
