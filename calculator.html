@@ -261,12 +261,7 @@
 
 <script>
   // Burger / mobile menu
-  document.getElementById('burger')?.addEventListener('click', function () {
-    const m = document.getElementById('mobile-menu');
-    const open = m.classList.toggle('open');
-    this.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.classList.toggle('nav-open', open);
-  });
+ 
 
   const $ = id => document.getElementById(id);
 
