@@ -1,85 +1,44 @@
 <script>
-(async () => {
-  // 1) Fetch & inject shared header partial
+document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch('/partials/header.html', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('Failed to load /partials/header.html');
+    if (!res.ok) throw new Error('Header not found at /partials/header.html');
     const html = await res.text();
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = html;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
 
-    // Insert header at top of <body> and mobile menu right after it
-    const headerEl = wrapper.querySelector('header.header');
-    const mobileEl = wrapper.querySelector('#mobile-menu');
-    if (headerEl) document.body.insertAdjacentElement('afterbegin', headerEl);
-    if (mobileEl) headerEl.insertAdjacentElement('afterend', mobileEl);
+    const header = tmp.querySelector('header.header');
+    const mobile = tmp.querySelector('#mobile-menu');
+    if (!header) throw new Error('No <header> found in partial');
 
-    // 2) Active link highlighting (desktop + mobile)
-    const current = location.pathname.replace(/index\.html$/,'') || '/';
-    const setActive = (root) => {
+    // Inject at top of body
+    document.body.insertAdjacentElement('afterbegin', header);
+    if (mobile) header.insertAdjacentElement('afterend', mobile);
+
+    // Active link
+    const current = location.pathname.replace(/index\\.html$/, '') || '/';
+    const highlight = (root) => {
       root.querySelectorAll('a[href]').forEach(a => {
-        const href = a.getAttribute('href');
-        // Normalize href (treat "/" and "/index.html" as same)
-        const norm = href.replace(/index\.html$/,'') || '/';
-        if (norm === current) a.setAttribute('aria-current', 'page');
+        const href = a.getAttribute('href').replace(/index\\.html$/, '') || '/';
+        if (href === current) a.setAttribute('aria-current', 'page');
       });
     };
-    setActive(document);
-    setActive(mobileEl || document);
+    highlight(header);
+    if (mobile) highlight(mobile);
 
-    // 3) Burger menu logic (accessible)
+    // Burger toggle
     const burger = document.getElementById('burger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    const openMenu = () => {
-      burger.setAttribute('aria-expanded', 'true');
-      burger.setAttribute('aria-label', 'Close menu');
-      mobileMenu.hidden = false;
-      document.body.classList.add('menu-open'); // optional hook for your CSS
-      // focus first link for accessibility
-      const firstLink = mobileMenu.querySelector('a[href]');
-      firstLink && firstLink.focus({ preventScroll: true });
-    };
-
-    const closeMenu = () => {
-      burger.setAttribute('aria-expanded', 'false');
-      burger.setAttribute('aria-label', 'Open menu');
-      mobileMenu.hidden = true;
-      document.body.classList.remove('menu-open');
-      burger.focus({ preventScroll: true });
-    };
-
-    const toggleMenu = () => {
+    const menu = document.getElementById('mobile-menu');
+    burger?.addEventListener('click', () => {
       const expanded = burger.getAttribute('aria-expanded') === 'true';
-      expanded ? closeMenu() : openMenu();
-    };
-
-    burger?.addEventListener('click', toggleMenu);
-
-    // Close on ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') closeMenu();
+      burger.setAttribute('aria-expanded', String(!expanded));
+      menu.hidden = expanded;
+      document.body.classList.toggle('nav-open', !expanded);
     });
 
-    // Close when clicking a link in the mobile menu
-    mobileMenu?.addEventListener('click', (e) => {
-      const el = e.target.closest('a[href]');
-      if (el) closeMenu();
-    });
-
-    // Optional: close on outside click
-    document.addEventListener('click', (e) => {
-      if (burger.getAttribute('aria-expanded') !== 'true') return;
-      if (e.target.closest('#mobile-menu') || e.target.closest('#burger')) return;
-      closeMenu();
-    });
-
-    // Optional: close on resize to desktop
-    const MQ = window.matchMedia('(min-width: 960px)');
-    MQ.addEventListener?.('change', () => { if (MQ.matches) closeMenu(); });
-
+    console.info('✅ InjectBuddy header loaded');
   } catch (err) {
-    console.warn(err);
+    console.error('❌ nav.js error:', err);
   }
-})();
+});
 </script>
