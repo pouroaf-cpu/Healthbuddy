@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
-  <meta name="description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume. Free, no login." />
+  <meta name="description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume. Free, no login." />
   <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
   <meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
-  <meta property="og:description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume." />
+  <meta property="og:description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
   <meta property="og:site_name" content="InjectBuddy" />
@@ -102,19 +102,62 @@
 </head>
 <body>
 
+<!-- HEADER -->
+<header class="header" role="banner">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="InjectBuddy Home">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>InjectBuddy</h1>
+    </a>
 
+    <nav class="nav" aria-label="Primary">
+      <a href="/calculator.html" aria-current="page">Dosage Calculator</a>
+      <a href="/peptide.html">Peptide Reconstitution</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
+  <div class="container">
+    <div class="mobile-links" role="menu">
+      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
+      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
+      <a href="/contact.html" role="menuitem">Contact</a>
+      <a href="/about.html" role="menuitem">About</a>
+    </div>
+    <div class="mobile-cta">
+      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
+    </div>
+  </div>
+</nav>
 
 <main class="container">
   <section id="calculator" class="form-container" aria-labelledby="calc-title">
-    <h1 id="calc-title">Testosterone Dosage Calculator</h1>
+    <h1 id="calc-title">TRT / Peptide Dosage Calculator</h1>
 
     <div class="calc-wrap">
       <!-- LEFT: inputs -->
       <div class="calc-grid">
-        <!-- Syringe size -->
+        <!-- Syringe size: now includes 0.3 mL and 0.5 mL -->
         <div class="full">
           <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.5">0.5 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-ml="1">1 mL</button>
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
           </div>
         </div>
@@ -134,11 +177,11 @@
           <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
         </div>
 
-        <!-- Prescribed total per week -->
+        <!-- Prescribed total per week (MIN LOWERED TO 15 mg) -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
-          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
+          <input id="weekly-slider" type="range" min="15" max="500" step="5" value="140" />
         </div>
 
         <!-- Injections per week (visible only in Per week mode) -->
@@ -166,10 +209,10 @@
             <div class="syringe-card" aria-live="polite">
               <div class="syringe-head">
                 <div class="syringe-label">Visual Syringe</div>
-                <div class="syringe-label">Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100)</b></div>
+                <div class="syringe-label">Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b></div>
               </div>
 
-              <!-- SINGLE SVG with 1mL and 3mL groups -->
+              <!-- SINGLE SVG; four groups (0.3 / 0.5 / 1 mL insulin, 3 mL standard) -->
               <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
                 <defs>
                   <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
@@ -177,55 +220,93 @@
                   </linearGradient>
                 </defs>
 
-                <!-- 1 mL group (default on) -->
-                <g id="g1ml">
+                <!-- Reusable pieces:
+                     - All insulin barrels share same geometry; tick math scales by capacity (0.3 / 0.5 / 1.0 mL).
+                     - 3 mL is its own geometry with mL ticks. -->
+
+                <!-- 0.3 mL (U-100, 30 units) -->
+                <g id="g03ml" class="is-hidden">
                   <!-- Cap -->
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub (no stroke, zero gap) -->
+                  <!-- Hub (no stroke, no gap) -->
                   <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-
                   <!-- Flange + T-handle -->
                   <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-
-                  <!-- Barrel starts exactly at x=194 (hub-right) -->
+                  <!-- Barrel -->
                   <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-
+                  <clipPath id="clip03ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
                   <!-- Liquid -->
-                  <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
-
+                  <rect id="fill03ml" x="194" y="92" width="0" height="56" clip-path="url(#clip03ml)" fill="url(#gradOil)"/>
                   <!-- Unit box -->
                   <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+                  <!-- Ticks & Labels -->
+                  <g id="ticks03" stroke="#1f2937"></g>
+                  <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                </g>
 
+                <!-- 0.5 mL (U-100, 50 units) -->
+                <g id="g05ml" class="is-hidden">
+                  <!-- Cap -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
+                  <!-- Hub -->
+                  <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
+                  <!-- Flange + T-handle -->
+                  <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                  <!-- Barrel -->
+                  <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <clipPath id="clip05ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
+                  <!-- Liquid -->
+                  <rect id="fill05ml" x="194" y="92" width="0" height="56" clip-path="url(#clip05ml)" fill="url(#gradOil)"/>
+                  <!-- Unit box -->
+                  <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                  <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+                  <!-- Ticks & Labels -->
+                  <g id="ticks05" stroke="#1f2937"></g>
+                  <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                </g>
+
+                <!-- 1 mL (U-100, 100 units) -->
+                <g id="g1ml">
+                  <!-- Cap -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
+                  <!-- Hub -->
+                  <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
+                  <!-- Flange + T-handle -->
+                  <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                  <!-- Barrel -->
+                  <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
+                  <!-- Liquid -->
+                  <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
+                  <!-- Unit box -->
+                  <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                  <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
                   <!-- Ticks & Labels -->
                   <g id="ticks1ml" stroke="#1f2937"></g>
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 3 mL group (hidden initially) -->
+                <!-- 3 mL standard (mL scale) -->
                 <g id="g3ml" class="is-hidden">
                   <!-- Cap -->
-                  <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub (no stroke, zero gap) -->
-                  <rect x="176" y="98" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-
+                  <rect x="6"  y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="none"/>
+                  <!-- Hub -->
+                  <rect x="176" y="98" width="26"  height="56" rx="0" fill="#d7e3e6" stroke="none"/>
                   <!-- Flange + T-handle -->
                   <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-
-                  <!-- Barrel starts exactly at x=202 (hub-right) -->
+                  <!-- Barrel -->
                   <rect x="202" y="98" width="926" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56"/></clipPath>
-
                   <!-- Liquid -->
                   <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#gradOil)"/>
-
                   <!-- mL box -->
                   <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
-
                   <!-- Ticks & Labels -->
                   <g id="ticks3ml" stroke="#1f2937"></g>
                   <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
@@ -261,7 +342,12 @@
 
 <script>
   // Burger / mobile menu
- 
+  document.getElementById('burger')?.addEventListener('click', function () {
+    const m = document.getElementById('mobile-menu');
+    const open = m.classList.toggle('open');
+    this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('nav-open', open);
+  });
 
   const $ = id => document.getElementById(id);
 
@@ -272,94 +358,115 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  /* ===== Single-SVG syringe rendering ===== */
+  /* ===== Single-SVG syringe rendering (0.3 / 0.5 / 1 mL insulin, 3 mL std) ===== */
   (function(){
     const elVol  = $('syrVol');
     const elMode = $('syrMode');
 
-    // Geometry (barrel starts flush at hub-right)
-    const oneML  = { x0:194, width:904, yTop:92,  height:56, mlToPx(v){ return Math.max(0, Math.min(this.width, v*(this.width/1.0))); } };
-    const threeML= { x0:202, width:926, yTop:98,  height:56, mlToPx(v){ return Math.max(0, Math.min(this.width, v*(this.width/3.0))); } };
+    // Geometry (insulin barrels share same pixels; mapping changes with capacity)
+    const INSULIN = { x0:194, width:904, yTop:92, height:56 };
+    const ML3     = { x0:202, width:926, yTop:98, height:56 };
 
-    const g1 = document.getElementById('g1ml');
-    const g3 = document.getElementById('g3ml');
-    const fill1 = document.getElementById('fill1ml');
-    const fill3 = document.getElementById('fill3ml');
+    // Groups and fills
+    const groups = {
+      0.3: { g: $('g03ml'), fill: $('fill03ml'), ticks: $('ticks03'), labels: $('labels03'), cap: 0.3 },
+      0.5: { g: $('g05ml'), fill: $('fill05ml'), ticks: $('ticks05'), labels: $('labels05'), cap: 0.5 },
+      1:   { g: $('g1ml'),  fill: $('fill1ml'),  ticks: $('ticks1ml'), labels: $('labels1ml'), cap: 1.0 },
+      3:   { g: $('g3ml'),  fill: $('fill3ml'),  ticks: $('ticks3ml'), labels: $('labels3ml'), cap: 3.0 }
+    };
 
-    const ticks1 = document.getElementById('ticks1ml');
-    const labels1 = document.getElementById('labels1ml');
-    const ticks3 = document.getElementById('ticks3ml');
-    const labels3 = document.getElementById('labels3ml');
+    function mlToPxInsulin(v, capMl){
+      const wPerMl = INSULIN.width / capMl;
+      return Math.max(0, Math.min(INSULIN.width, v * wPerMl));
+    }
+    function mlToPx3ml(v){
+      const wPerMl = ML3.width / 3.0;
+      return Math.max(0, Math.min(ML3.width, v * wPerMl));
+    }
 
-    // Build 1mL ticks (every 2 units; labels 10..100; 100 nudged left)
-    function buildInsulinTicks(){
-      ticks1.innerHTML=''; labels1.innerHTML='';
-      const H=oneML.height, longLen=H/2.4, shortLen=H/5;
-      for(let u=0; u<=100; u+=2){
-        const ml=u/100, x=oneML.x0 + oneML.mlToPx(ml), isLong=(u%10===0);
+    // Build insulin ticks generically by capacity (0.3 => 30u; 0.5 => 50u; 1 => 100u)
+    function buildInsulinTicks(ticksEl, labelsEl, capMl){
+      ticksEl.innerHTML=''; labelsEl.innerHTML='';
+      const H=INSULIN.height, longLen=H/2.4, shortLen=H/5;
+      const maxUnits = Math.round(capMl * 100); // U-100
+      for(let u=0; u<=maxUnits; u+=2){
+        const ml = u/100;
+        const x  = INSULIN.x0 + mlToPxInsulin(ml, capMl);
+        const isLong = (u % 10 === 0);
         const line=document.createElementNS('http://www.w3.org/2000/svg','line');
         line.setAttribute('x1',x); line.setAttribute('x2',x);
-        line.setAttribute('y1',oneML.yTop); line.setAttribute('y2',oneML.yTop + (isLong?longLen:shortLen));
+        line.setAttribute('y1',INSULIN.yTop); line.setAttribute('y2',INSULIN.yTop + (isLong?longLen:shortLen));
         line.setAttribute('stroke-width', isLong?2:1);
-        ticks1.appendChild(line);
+        ticksEl.appendChild(line);
+
         if(isLong && u>0){
           const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-          t.setAttribute('x', u===100 ? (x-12) : x);
-          t.setAttribute('y', oneML.yTop + H - 6);
+          // nudge the last label slightly left
+          t.setAttribute('x', u===maxUnits ? (x - 12) : x);
+          t.setAttribute('y', INSULIN.yTop + H - 6);
           t.textContent=String(u);
-          labels1.appendChild(t);
+          labelsEl.appendChild(t);
         }
       }
     }
 
-    // Build 3mL ticks (minor 0.1 mL; labels 0.5..3.0; 3.0 nudged left; no 0.0)
-    function buildThreeMlTicks(){
-      ticks3.innerHTML=''; labels3.innerHTML='';
-      const H=threeML.height, longLen=H/2.4, shortLen=H/5;
+    // Build 3 mL ticks (0.1 mL minors; labels 0.5..3.0)
+    function buildThreeMlTicks(ticksEl, labelsEl){
+      ticksEl.innerHTML=''; labelsEl.innerHTML='';
+      const H=ML3.height, longLen=H/2.4, shortLen=H/5;
       for(let i=0;i<=30;i++){
-        const ml=i/10, x=threeML.x0 + threeML.mlToPx(ml), isLong=(i%5===0);
+        const ml=i/10;
+        const x=ML3.x0 + mlToPx3ml(ml);
+        const isLong=(i%5===0);
         const line=document.createElementNS('http://www.w3.org/2000/svg','line');
         line.setAttribute('x1',x); line.setAttribute('x2',x);
-        line.setAttribute('y1',threeML.yTop); line.setAttribute('y2',threeML.yTop + (isLong?longLen:shortLen));
+        line.setAttribute('y1',ML3.yTop); line.setAttribute('y2',ML3.yTop + (isLong?longLen:shortLen));
         line.setAttribute('stroke-width', isLong?2:1);
-        ticks3.appendChild(line);
+        ticksEl.appendChild(line);
         if(isLong && ml!==0){
           const t=document.createElementNS('http://www.w3.org/2000/svg','text');
           t.setAttribute('x', ml===3.0 ? (x-12) : x);
-          t.setAttribute('y', threeML.yTop + H - 6);
+          t.setAttribute('y', ML3.yTop + H - 6);
           t.textContent=ml.toFixed(1);
-          labels3.appendChild(t);
+          labelsEl.appendChild(t);
         }
       }
     }
 
-    buildInsulinTicks();
-    buildThreeMlTicks();
+    // Build all scales once
+    buildInsulinTicks(groups[0.3].ticks, groups[0.3].labels, 0.3);
+    buildInsulinTicks(groups[0.5].ticks, groups[0.5].labels, 0.5);
+    buildInsulinTicks(groups[1].ticks,   groups[1].labels,   1.0);
+    buildThreeMlTicks(groups[3].ticks,   groups[3].labels);
 
     let selectedCapacityMl = 1.0; // default 1 mL
 
     window.updateSyringe = function(volumeMl){
-      const v=Math.max(0, Number(volumeMl)||0);
+      const v = Math.max(0, Number(volumeMl) || 0);
       if (elVol) elVol.textContent = v.toFixed(2) + ' mL';
 
-      const useInsulin = selectedCapacityMl <= 1.0;
-      if(useInsulin){
-        g1.classList.remove('is-hidden');
-        g3.classList.add('is-hidden');
-        if (elMode) elMode.textContent = 'Insulin (U-100)';
-        const w = oneML.mlToPx(Math.min(selectedCapacityMl, v));
-        fill1.setAttribute('width', w);
-      }else{
-        g3.classList.remove('is-hidden');
-        g1.classList.add('is-hidden');
-        if (elMode) elMode.textContent = 'Standard 3 mL';
-        const w = threeML.mlToPx(Math.min(selectedCapacityMl, v));
-        fill3.setAttribute('width', w);
+      // Hide all groups, then show the active one
+      Object.values(groups).forEach(o => o.g.classList.add('is-hidden'));
+
+      if (selectedCapacityMl === 3){
+        groups[3].g.classList.remove('is-hidden');
+        if (elMode) elMode.textContent = 'Standard — 3 mL';
+        const w = mlToPx3ml(Math.min(3, v));
+        groups[3].fill.setAttribute('width', w);
+      } else {
+        // Insulin variants
+        const cap = (selectedCapacityMl <= 0.31) ? 0.3 : (selectedCapacityMl <= 0.51 ? 0.5 : 1.0);
+        const active = groups[cap];
+        active.g.classList.remove('is-hidden');
+        if (elMode) elMode.textContent = `Insulin (U-100) — ${cap} mL`;
+        const w = mlToPxInsulin(Math.min(cap, v), cap);
+        active.fill.setAttribute('width', w);
       }
     };
 
     window.__setSyringeCapacity = function(ml){
-      selectedCapacityMl = ml <= 1 ? 1 : 3;
+      // Accepts 0.3, 0.5, 1, 3
+      selectedCapacityMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
       updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
     };
 
@@ -367,17 +474,18 @@
     updateSyringe(0.25);
   })();
 
-  /* ===== Calculator state + compute (Per week path stays intact) ===== */
-  let currentSyringeMl = 1; // 1 or 3
+  /* ===== Calculator state + compute (Per week path intact) ===== */
+  let currentSyringeMl = 1; // 0.3 | 0.5 | 1 | 3
 
   function setSyringe(ml){
-    currentSyringeMl = (ml === 3 ? 3 : 1);
+    currentSyringeMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
     const group = $('syringeToggle');
     const btns = group.querySelectorAll('.seg-btn');
-    btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === currentSyringeMl)));
+    btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === (ml))));
     try{ localStorage.setItem('hb_syr_ml', String(currentSyringeMl)); }catch(e){}
     window.__setSyringeCapacity(currentSyringeMl);
-    compute(); // recompute current mode safely later
+    // Recompute based on current mode
+    if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
   }
 
   function initSyringeToggle(){
@@ -392,25 +500,24 @@
       e.preventDefault();
       const arr=[...btns];
       const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-      const next = current===0 ? 1 : 0;
+      const next = (e.key==='ArrowRight')
+        ? (current+1) % arr.length
+        : (current-1+arr.length) % arr.length;
       setSyringe(Number(arr[next].dataset.ml));
       arr[next].focus();
     });
     const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
-    setSyringe(saved===3 ? 3 : 1);
+    setSyringe( (saved===0.3||saved===0.5||saved===1||saved===3) ? saved : 1 );
   }
 
-  // Original per-week compute (untouched logic)
+  // Original per-week compute (unchanged except min weekly now 15 mg)
   function compute(){
-    if (window.__mode === 'everyNDays') { // if in N-days mode, defer
-      computeEveryNDays();
-      return;
-    }
+    if (window.__mode === 'everyNDays') { computeEveryNDays(); return; }
     const conc       = parseFloat(($('conc-slider')||{}).value);
     const weekly     = parseFloat(($('weekly-slider')||{}).value);
     const injPerWeek = parseFloat(($('count-slider')||{}).value);
 
-    const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
+    const valid = (conc > 0) && (weekly >= 15) && (injPerWeek > 0);
     if (!valid){
       const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
       if(k1) k1.textContent='—';
@@ -429,24 +536,28 @@
     $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
 
     updateSyringe(volPerInj_ml);
+    applyCapacityWarning(volPerInj_ml);
+    persist(volPerInj_ml, injPerWeek, dosePerInj);
+  }
 
+  function applyCapacityWarning(volMl){
     const warn = $('warn');
-    if (warn){
-      if (volPerInj_ml > currentSyringeMl){
-        warn.hidden=false;
-        warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
-      } else {
-        warn.hidden=true; warn.textContent='';
-      }
+    if (!warn) return;
+    const syr = (()=>{
+      try { return Number(localStorage.getItem('hb_syr_ml')) || 1; } catch(e){ return 1; }
+    })();
+    if (volMl > syr){
+      warn.hidden=false;
+      warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
+    } else {
+      warn.hidden=true; warn.textContent='';
     }
+  }
 
+  function persist(ml, inj, dose){
     try{
       localStorage.setItem('hb_last_calc', JSON.stringify({
-        inj: injPerWeek,
-        dose: dosePerInj,
-        unit: 'mg',
-        ml:  volPerInj_ml,
-        syr: currentSyringeMl
+        inj: inj, dose: dose, unit: 'mg', ml: ml, syr: Number(localStorage.getItem('hb_syr_ml'))||1
       }));
     }catch(e){}
   }
@@ -467,7 +578,7 @@
       concSlider.value = n;
       lrConc.textContent = n.toFixed(0) + ' mg/mL';
       paintRange(concSlider);
-      compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
     const syncWeekly = ()=>{
       let n = parseFloat(weeklySlider.value);
@@ -476,7 +587,7 @@
       weeklySlider.value = n;
       lrWeekly.textContent = n.toFixed(0) + ' mg/week';
       paintRange(weeklySlider);
-      compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
     const syncCount = ()=>{
       let n = Math.round(parseFloat(countSlider.value)||2);
@@ -484,7 +595,7 @@
       countSlider.value = n;
       lrCount.textContent = n + ' / week';
       paintRange(countSlider);
-      compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
 
     if(concSlider){ concSlider.addEventListener('input', syncConc);  syncConc(); }
@@ -492,7 +603,7 @@
     if(countSlider){ countSlider.addEventListener('input', syncCount);  syncCount(); }
   }
 
-  /* ===== Additive "Every N days" mode (keeps per-week logic intact) ===== */
+  /* ===== "Every N days" mode (additive) ===== */
   (function(){
     const modeToggle   = $('modeToggle');
     const perWeekWrap  = $('count-wrap');
@@ -518,27 +629,13 @@
       if (window.__mode === 'perWeek') compute(); else computeEveryNDays();
     }
 
-    function applyCapacityWarning(volMl){
-      const warnEl = $('warn');
-      const syr = (()=>{
-        try { return Number(localStorage.getItem('hb_syr_ml')) || 1; } catch(e){ return 1; }
-      })();
-      if (!warnEl) return;
-      if (volMl > syr){
-        warnEl.hidden=false;
-        warnEl.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
-      } else {
-        warnEl.hidden=true; warnEl.textContent='';
-      }
-    }
-
     window.computeEveryNDays = function(){
       const C = parseFloat(concSlider?.value);
       const W = parseFloat(weeklySlider?.value);
       const N = Math.max(1, Math.min(14, Math.round(parseFloat(nDaysSlider?.value)||3)));
       if (lrNDays) lrNDays.textContent = N + ' day' + (N===1?'':'s');
 
-      if (!(C>0 && W>0 && N>0)) return;
+      if (!(C>0 && W>=15 && N>0)) return;
 
       const injPerWeek = 7 / N;
       const dose       = (W * N) / 7;  // mg per injection
@@ -549,10 +646,22 @@
       $('kpi_ml').textContent   = vol.toFixed(3);
 
       updateSyringe(vol);
-      applyCapacityWarning(vol);
+      (function applyCapacityWarning(volMl){
+        const warnEl = $('warn');
+        const syr = (()=>{
+          try { return Number(localStorage.getItem('hb_syr_ml')) || 1; } catch(e){ return 1; }
+        })();
+        if (!warnEl) return;
+        if (volMl > syr){
+          warnEl.hidden=false;
+          warnEl.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
+        } else {
+          warnEl.hidden=true; warnEl.textContent='';
+        }
+      })(vol);
     };
 
-    // Wire up toggle and N-days slider
+    // Toggle events
     modeToggle?.addEventListener('click', (e)=>{
       const btn = e.target.closest('.seg-btn'); if (!btn) return;
       setMode(btn.dataset.mode);
@@ -577,7 +686,7 @@
       if (window.__mode==='everyNDays') window.computeEveryNDays();
     });
 
-    // Initialize
+    // Init
     setMode(window.__mode);
   })();
 
@@ -592,16 +701,12 @@
       el.addEventListener('input', ()=>paintRange(el));
       el.addEventListener('change', ()=>paintRange(el));
     });
-    // Ensure initial compute reflects current mode
     if (window.__mode === 'everyNDays') {
       window.computeEveryNDays();
     } else {
       compute();
     }
   });
-
 </script>
-    <script src="/assets/nav.js" defer></script>
-
 </body>
 </html>
