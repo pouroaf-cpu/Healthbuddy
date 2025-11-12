@@ -1,534 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
-<meta name="description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume. Free, no login." />
-<link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
-<meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
-<meta property="og:description" content="Convert mg to mL instantly, set injection frequency, and see a realistic syringe fill with exact volume." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
-<meta property="og:site_name" content="InjectBuddy" />
-<link rel="icon" href="/assets/favicon.svg" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<style>
-  :root{
-    --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-    --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-    --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
-    --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
-  }
+  <title>About InjectBuddy — Understanding TRT & Testosterone Esters</title>
+  <meta name="description" content="Learn what Testosterone Replacement Therapy (TRT) is, the differences between testosterone cypionate, enanthate, and propionate, and how InjectBuddy helps with accurate dosing." />
+  <link rel="canonical" href="https://www.injectbuddy.com/about.html" />
 
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  a{color:inherit;text-decoration:none}
+  <!-- Open Graph -->
+  <meta property="og:title" content="About InjectBuddy — Understanding TRT & Testosterone Esters" />
+  <meta property="og:description" content="A practical explanation of Testosterone Replacement Therapy (TRT) and the key differences between popular testosterone esters: cypionate, enanthate, and propionate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/about.html" />
+  <meta property="og:site_name" content="InjectBuddy" />
 
-  .container{max-width:1200px;margin:0 auto;padding:0 24px}
-  @media (max-width:640px){ .container{padding:0 22px} }
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#009395" />
 
-  /* Header */
-  .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
-  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-  .brand{display:flex;gap:.75rem;align-items:center}
-  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#009395,#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
-  .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
-  .nav{display:flex;gap:12px;align-items:center}
-  .nav a{font-weight:600;color:var(--muted)}
-  .nav-cta .btn{padding:10px 16px;border-radius:12px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
-  .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
-  .btn-primary{background:var(--cta);color:#fff}
-  .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
-  .btn-secondary{background:#fff;color:#004c4d;border-color:#004c4d}
-  .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
-  .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
-  .burger svg{width:22px;height:22px}
-  .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px);overflow:auto}
-  .mobile-menu.open{display:block}
-  .mobile-menu .container{padding:14px 20px 16px}
-  .mobile-links{display:grid;gap:10px;margin-bottom:12px}
-  .mobile-cta{display:grid;gap:10px}
-  @media (max-width:980px){ .nav,.nav-cta{display:none} .burger{display:inline-flex} }
-
-  /* Page layout */
-  main.container{padding:28px 0}
-  @media (max-width:640px){ main.container{padding:20px 0} }
-  .form-container h1{margin:0 0 10px}
-  .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
-  @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
-  .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
-  .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
-  .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
-  label{font-weight:700}
-  input[type=range]{width:100%}
-  .live-reads{margin-top:6px}
-  .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff;white-space:nowrap;font-weight:700}
-
-  /* Value to the right of the label */
-  .calc-grid .full{
-    display:grid;grid-template-columns:1fr auto;
-    grid-template-areas:"label chip" "slider slider";
-    align-items:center;gap:6px 12px
-  }
-  .calc-grid .full > label{grid-area:label;margin:0}
-  .calc-grid .full > .live-reads{grid-area:chip;margin:0}
-  .calc-grid .full > input[type="range"]{grid-area:slider;margin-top:2px}
-
-  .out h3{margin:0 0 10px}
-  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-  @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
-  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
-  .card .muted{color:#64748b}
-  .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
-
-  /* Syringe card */
-  .syringe-wrap{display:flex;align-items:center;justify-content:center}
-  .syringe-card{
-    width:100%;max-width:1350px;background:#fff;border:1px solid var(--border);
-    border-radius:16px;box-shadow:var(--shadow);padding:22px 28px;overflow:hidden
-  }
-  .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-  .syringe-head b{color:#004c4d}
-  .syringe-svg{display:block;width:100%;height:auto;transform-origin:left center}
-
-  /* Hard-hide helper to avoid accidental double render */
-  .is-hidden{display:none !important}
-</style>
+  <style>
+    :root{
+      --teal-900:#004c4d;
+      --teal-700:#006d6f;
+      --teal-600:#009395;
+      --bg:#f0f4f5;
+      --card:#ffffff;
+      --ink-900:#0f1a1a;
+      --ink-700:#233233;
+      --ink-500:#445b5c;
+      --muted:#dbe5e6;
+      --radius:16px;
+      --shadow:0 4px 24px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink-900);line-height:1.6}
+    .ib-header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #e6eef0}
+    .ib-nav{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .ib-brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--teal-900);text-decoration:none}
+    .ib-brand svg{width:26px;height:26px}
+    .ib-links{display:flex;gap:14px}
+    .ib-links a{color:var(--ink-700);text-decoration:none;font-weight:500}
+    .ib-links a:hover{color:var(--teal-700)}
+    .wrap{max-width:960px;margin:24px auto;padding:16px}
+    .hero{background:#fff;border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px}
+    .hero h1{margin:0 0 8px;font-size:clamp(26px,4vw,38px);color:var(--teal-900)}
+    .hero p{margin:6px 0 0;color:var(--ink-700);max-width:60ch}
+    .section{margin-top:22px;background:var(--card);border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+    .section h2{color:var(--teal-900);margin-top:0}
+    .section h3{color:var(--ink-900);margin:16px 0 8px}
+    .section p{color:var(--ink-700)}
+    ul{padding-left:18px;margin:8px 0}
+    ul li{margin:6px 0;color:var(--ink-700)}
+    footer{margin:28px 0 18px;text-align:center;color:var(--ink-500);font-size:14px}
+  </style>
 </head>
 <body>
-<header class="header" role="banner">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div><h1>InjectBuddy</h1>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html" aria-current="page">Dosage Calculator</a>
-      <a href="/peptide.html">Peptide Reconstitution</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/about.html">About</a>
-    </nav>
-    <div class="nav-cta"><a class="btn btn-primary" href="/calculator.html">Open Calculator</a></div>
-    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-  </div>
-</header>
-
-<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
-  <div class="container">
-    <div class="mobile-links" role="menu">
-      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
-      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
-      <a href="/contact.html" role="menuitem">Contact</a>
-      <a href="/about.html" role="menuitem">About</a>
-    </div>
-    <div class="mobile-cta">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
-    </div>
-  </div>
-</nav>
-
-<main class="container">
-  <section id="calculator" class="form-container" aria-labelledby="calc-title">
-    <h1 id="calc-title">TRT / Peptide Dosage Calculator</h1>
-
-    <div class="calc-wrap">
-      <!-- LEFT: inputs -->
-      <div class="calc-grid">
-        <div class="full">
-          <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true" data-ml="1">1 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
-          </div>
-        </div>
-
-        <div class="full">
-          <label for="conc-slider">Vial strength (mg per mL)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
-          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
-        </div>
-
-        <div class="full">
-          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
-          <input id="weekly-slider" type="range" min="50" max="500" step="5" value="140" />
-        </div>
-
-        <div id="count-wrap" class="full">
-          <label for="count-slider">Injections per week</label>
-          <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
-        </div>
+  <header class="ib-header" aria-label="Site header">
+    <nav class="ib-nav">
+      <a class="ib-brand" href="/">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="var(--teal-600)" stroke-width="2"/>
+          <path d="M8 7v10M12 9.5h4.5M12 14.5h4.5" stroke="var(--teal-600)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>InjectBuddy</span>
+      </a>
+      <div class="ib-links" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/calculator.html">Calculator</a>
+        <a href="/peptide.html">Peptides</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/about.html" aria-current="page">About</a>
+        <a href="/contact.html">Contact</a>
       </div>
+    </nav>
+  </header>
 
-      <!-- RIGHT: syringe (single visible), then KPIs -->
-      <aside id="out" class="out">
-        <h3>Dose & Volume per Injection</h3>
+  <main class="wrap">
+    <section class="hero">
+      <h1>About InjectBuddy</h1>
+      <p>InjectBuddy was created to make hormone and peptide dosing easier to understand and manage. Below you’ll find a straightforward explanation of Testosterone Replacement Therapy (TRT) and the differences between popular testosterone esters.</p>
+    </section>
 
-        <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
-          <div class="syringe-wrap">
-            <div class="syringe-card" aria-live="polite">
-              <div class="syringe-head">
-                <div class="syringe-label">Visual Syringe</div>
-                <div class="syringe-label">Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100)</b></div>
-              </div>
+    <section class="section">
+      <h2>What is Testosterone Replacement Therapy (TRT)?</h2>
+      <p>TRT is a medical treatment designed to restore testosterone levels in men who have been diagnosed with low or deficient testosterone. The goal is to bring levels back into a healthy, balanced range to improve mood, energy, libido, muscle mass, and overall well-being.</p>
+      <p>Therapy typically involves scheduled injections of testosterone, using an ester-based form of the hormone that controls how long it stays active in the body.</p>
+    </section>
 
-              <!-- 1 mL INSULIN (default visible) -->
-              <svg id="syringe-1ml" class="syringe-svg" viewBox="0 0 1280 220" role="img" aria-label="1 mL insulin syringe, U-100 scale">
-                <!-- Orange cap (x=6..168) -->
-                <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
-                <!-- Hub (x=168..194) flush to cap and barrel -->
-                <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="#b8c7cb"/>
+    <section class="section">
+      <h2>Understanding Testosterone Esters</h2>
+      <p>Testosterone esters differ in how quickly they release testosterone into the bloodstream. The ester type determines injection frequency, stability, and how smooth hormone levels remain between doses.</p>
 
-                <!-- Flange + T-handle (behind) -->
-                <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+      <h3>Testosterone Cypionate</h3>
+      <p>One of the most common forms used in North America. Cypionate has a longer half-life (around 7–8 days), meaning injections are often scheduled once or twice per week. It provides a stable, gradual release and is well-suited for long-term therapy.</p>
 
-                <!-- Barrel now starts at x=194, width=904 (flush) -->
-                <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
-                <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56" rx="0"/></clipPath>
+      <h3>Testosterone Enanthate</h3>
+      <p>Nearly identical to cypionate, enanthate has a half-life of about 5–7 days. It’s widely used internationally and behaves almost the same pharmacologically, with slight differences in release rate and carrier oil.</p>
 
-                <!-- Liquid -->
-                <defs>
-                  <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
-                  </linearGradient>
-                </defs>
-                <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#grad1)"/>
+      <h3>Testosterone Propionate</h3>
+      <p>A faster-acting ester with a half-life of about 2–3 days. Propionate is injected more frequently (every other day or three times a week). It reaches steady levels quickly but can cause more injection site irritation due to its shorter action.</p>
 
-                <!-- Unit box (fixed) -->
-                <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+      <h3>Blends and Alternatives</h3>
+      <p>Some preparations mix multiple esters (like Sustanon®) to provide both fast and slow release phases. Others may use undecanoate for extremely long duration (lasting up to 10–12 weeks per injection), though these are less common for self-managed therapy.</p>
+    </section>
 
-                <!-- Ticks & Labels -->
-                <g id="ticks1ml" stroke="#1f2937"></g>
-                <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-              </svg>
+    <section class="section">
+      <h2>TRT Goals and Monitoring</h2>
+      <p>Effective TRT isn’t about maximizing testosterone; it’s about maintaining balance. Most protocols aim for stable levels in the mid-to-upper physiological range, reducing mood swings and minimizing side effects. Blood work is essential to monitor total testosterone, free testosterone, estradiol, hematocrit, and lipid profiles.</p>
+      <ul>
+        <li>Typical injection schedules range from 1–3 times per week depending on ester and dose.</li>
+        <li>Smaller, more frequent doses help maintain stability and reduce peaks/troughs.</li>
+        <li>Individual response varies; always follow clinical guidance when adjusting therapy.</li>
+      </ul>
+    </section>
 
-              <!-- 3 mL STANDARD (hidden initially) -->
-              <svg id="syringe-3ml" class="syringe-svg is-hidden" style="display:none" viewBox="0 0 1280 230" role="img" aria-label="3 mL syringe, milliliter scale">
-                <!-- Orange cap (x=6..176) -->
-                <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="#cc5f00"/>
-                <!-- Hub (x=176..202) flush to barrel -->
-                <rect x="176" y="98" width="26" height="56" rx="0" fill="#d7e3e6" stroke="#b8c7cb"/>
+    <section class="section">
+      <h2>How InjectBuddy Helps</h2>
+      <p>InjectBuddy was built to take the guesswork out of injection planning. By entering your concentration, dosage, and frequency, the calculator instantly converts milligrams to milliliters and shows realistic syringe fills for cypionate, enanthate, propionate, or any custom compound. The tool is educational, transparent, and designed to empower users to understand their own treatment better.</p>
+    </section>
+  </main>
 
-                <!-- Flange + T-handle (behind) -->
-                <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+  <footer>
+    <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
+  </footer>
 
-                <!-- Barrel now starts at x=202, width=926 -->
-                <rect x="202" y="98" width="926" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
-                <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56" rx="0"/></clipPath>
-
-                <!-- Liquid -->
-                <defs>
-                  <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
-                  </linearGradient>
-                </defs>
-                <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#grad3)"/>
-
-                <!-- mL box -->
-                <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
-
-                <!-- Ticks & Labels -->
-                <g id="ticks3ml" stroke="#1f2937"></g>
-                <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- KPIs -->
-        <div class="kpi">
-          <div class="card"><span class="muted">Injections / week</span><b id="kpi_inj">—</b></div>
-          <div class="card"><span class="muted">Dose per injection</span><b id="kpi_dose">—</b></div>
-          <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
-        </div>
-
-        <div id="warn" class="warn" hidden></div>
-      </aside>
-    </div>
-
-    <div class="notice" style="margin-top:8px;color:#64748b">
-      This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="container footer-meta">
-    <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
-    <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
-  </div>
-</footer>
-
-<script>
-  // Mobile menu
-  document.getElementById('burger')?.addEventListener('click', function () {
-    const m = document.getElementById('mobile-menu');
-    const open = m.classList.toggle('open');
-    this.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.classList.toggle('nav-open', open);
-  });
-
-  const $ = id => document.getElementById(id);
-
-  function paintRange(el){
-    if(!el) return;
-    const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
-    const pct = ((val - min) * 100) / (max - min);
-    el.style.setProperty('--val', pct + '%');
-  }
-
-  /* ===== Syringe rendering (LOCKED to selected size) ===== */
-  (function(){
-    const elVol   = $('syrVol');
-    const elMode  = $('syrMode');
-
-    // Updated geometry: 1 mL barrel starts at x=194 width=904
-    const oneML = {
-      svg: $('syringe-1ml'),
-      fill: $('fill1ml'),
-      ticksGroup: $('ticks1ml'),
-      labelsGroup: $('labels1ml'),
-      x0: 194, width: 904, yTop: 92, height: 56,
-      mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 1.0))); }
-    };
-
-    // Updated geometry: 3 mL barrel starts at x=202 width=926
-    const threeML = {
-      svg: $('syringe-3ml'),
-      fill: $('fill3ml'),
-      ticksGroup: $('ticks3ml'),
-      labelsGroup: $('labels3ml'),
-      x0: 202, width: 926, yTop: 98, height: 56,
-      mlToPx(v){ return Math.max(0, Math.min(this.width, v * (this.width / 3.0))); }
-    };
-
-    // Build ticks
-    function buildInsulinTicks(){
-      const g = oneML.ticksGroup, l = oneML.labelsGroup;
-      g.innerHTML = ''; l.innerHTML = '';
-      const H = oneML.height, longLen = H/2.4, shortLen = H/5;
-
-      for (let u = 0; u <= 100; u += 2) {
-        const ml = u / 100;
-        const x = oneML.x0 + oneML.mlToPx(ml);
-        const isLong = (u % 10 === 0);
-
-        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-        line.setAttribute('x1', x); line.setAttribute('x2', x);
-        line.setAttribute('y1', oneML.yTop); line.setAttribute('y2', oneML.yTop + (isLong ? longLen : shortLen));
-        line.setAttribute('stroke-width', isLong ? 2 : 1);
-        g.appendChild(line);
-
-        if (isLong && u > 0) {
-          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-          t.setAttribute('x', u === 100 ? (x - 12) : x);
-          t.setAttribute('y', oneML.yTop + H - 6);
-          t.textContent = String(u);
-          l.appendChild(t);
-        }
-      }
-    }
-
-    function buildThreeMlTicks(){
-      const g = threeML.ticksGroup, l = threeML.labelsGroup;
-      g.innerHTML = ''; l.innerHTML = '';
-      const H = threeML.height, longLen = H/2.4, shortLen = H/5;
-
-      for(let i=0;i<=30;i++){
-        const ml = i/10;
-        const x = threeML.x0 + threeML.mlToPx(ml);
-        const isLong = (i % 5 === 0);
-
-        const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-        line.setAttribute('x1', x); line.setAttribute('x2', x);
-        line.setAttribute('y1', threeML.yTop); line.setAttribute('y2', threeML.yTop + (isLong ? longLen : shortLen));
-        line.setAttribute('stroke-width', isLong ? 2 : 1);
-        g.appendChild(line);
-
-        if(isLong && ml !== 0){
-          const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-          t.setAttribute('x', ml === 3.0 ? (x - 12) : x);
-          t.setAttribute('y', threeML.yTop + H - 6);
-          t.textContent = ml.toFixed(1);
-          l.appendChild(t);
-        }
-      }
-    }
-
-    buildInsulinTicks();
-    buildThreeMlTicks();
-
-    let selectedCapacityMl = 1.0; // default 1 mL
-
-    window.updateSyringe = function(volumeMl){
-      const v = Math.max(0, Number(volumeMl) || 0);
-      elVol.textContent = v.toFixed(2) + ' mL';
-
-      const useInsulin = selectedCapacityMl <= 1.0;
-
-      // Hard toggle to avoid double render
-      if(useInsulin){
-        oneML.svg.style.display = '';
-        oneML.svg.classList.remove('is-hidden');
-        threeML.svg.style.display = 'none';
-        threeML.svg.classList.add('is-hidden');
-
-        elMode.textContent = 'Insulin (U-100)';
-        const w = oneML.mlToPx(Math.min(selectedCapacityMl, v));
-        oneML.fill.setAttribute('width', w);
-      } else {
-        threeML.svg.style.display = '';
-        threeML.svg.classList.remove('is-hidden');
-        oneML.svg.style.display = 'none';
-        oneML.svg.classList.add('is-hidden');
-
-        elMode.textContent = 'Standard 3 mL';
-        const w = threeML.mlToPx(Math.min(selectedCapacityMl, v));
-        threeML.fill.setAttribute('width', w);
-      }
-    };
-
-    window.__setSyringeCapacity = function(ml){
-      selectedCapacityMl = ml <= 1 ? 1 : 3;
-      updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
-    };
-
-    updateSyringe(0.25);
-  })();
-
-  /* Calculator state + compute */
-  let currentSyringeMl = 1; // 1 or 3
-
-  function setSyringe(ml){
-    currentSyringeMl = (ml === 3 ? 3 : 1);
-    const group = $('syringeToggle');
-    const btns = group.querySelectorAll('.seg-btn');
-    btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === currentSyringeMl)));
-    try{ localStorage.setItem('hb_syr_ml', String(currentSyringeMl)); }catch(e){}
-    window.__setSyringeCapacity(currentSyringeMl);
-    compute();
-  }
-
-  function initSyringeToggle(){
-    const group = $('syringeToggle');
-    const btns = group.querySelectorAll('.seg-btn');
-    group.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.seg-btn'); if(!btn) return;
-      setSyringe(Number(btn.dataset.ml));
-    });
-    group.addEventListener('keydown', (e)=>{
-      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
-      e.preventDefault();
-      const arr=[...btns];
-      const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-      const next = current===0 ? 1 : 0;
-      setSyringe(Number(arr[next].dataset.ml));
-      arr[next].focus();
-    });
-    const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
-    setSyringe(saved===3 ? 3 : 1);
-  }
-
-  function compute(){
-    const conc       = parseFloat(($('conc-slider')||{}).value);
-    const weekly     = parseFloat(($('weekly-slider')||{}).value);
-    const injPerWeek = parseFloat(($('count-slider')||{}).value);
-
-    const valid = (conc > 0) && (weekly > 0) && (injPerWeek > 0);
-    if (!valid){
-      const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
-      if(k1) k1.textContent='—';
-      if(k2) k2.textContent='—';
-      if(k3) k3.textContent='—';
-      updateSyringe(0);
-      const warn = $('warn'); if (warn) { warn.hidden = true; warn.textContent = ''; }
-      return;
-    }
-
-    const dosePerInj   = weekly / injPerWeek;   // mg
-    const volPerInj_ml = dosePerInj / conc;     // mL
-
-    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
-    $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
-    $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
-
-    updateSyringe(volPerInj_ml);
-
-    const warn = $('warn');
-    if (warn){
-      if (volPerInj_ml > currentSyringeMl){
-        warn.hidden=false;
-        warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
-      } else {
-        warn.hidden=true; warn.textContent='';
-      }
-    }
-
-    try{
-      localStorage.setItem('hb_last_calc', JSON.stringify({
-        inj: injPerWeek, dose: dosePerInj, unit: 'mg', ml: volPerInj_ml, syr: currentSyringeMl
-      }));
-    }catch(e){}
-  }
-
-  function initLiveSliders(){
-    const concSlider   = $('conc-slider');
-    const weeklySlider = $('weekly-slider');
-    const countSlider  = $('count-slider');
-
-    const lrConc   = $('lr-conc');
-    const lrWeekly = $('lr-weekly');
-    const lrCount  = $('lr-count');
-
-    const syncConc = ()=>{
-      let n = parseFloat(concSlider.value);
-      if(!isFinite(n)) n = 200;
-      n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 5) * 5));
-      concSlider.value = n;
-      lrConc.textContent = n.toFixed(0) + ' mg/mL';
-      paintRange(concSlider); compute();
-    };
-    const syncWeekly = ()=>{
-      let n = parseFloat(weeklySlider.value);
-      if(!isFinite(n)) n = 140;
-      n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 5) * 5));
-      weeklySlider.value = n;
-      lrWeekly.textContent = n.toFixed(0) + ' mg/week';
-      paintRange(weeklySlider); compute();
-    };
-    const syncCount = ()=>{
-      let n = Math.round(parseFloat(countSlider.value)||2);
-      n = Math.min(+countSlider.max, Math.max(+countSlider.min, n));
-      countSlider.value = n;
-      lrCount.textContent = n + ' / week';
-      paintRange(countSlider); compute();
-    };
-
-    if(concSlider){ concSlider.addEventListener('input', syncConc);  syncConc(); }
-    if(weeklySlider){ weeklySlider.addEventListener('input', syncWeekly); syncWeekly(); }
-    if(countSlider){ countSlider.addEventListener('input', syncCount);  syncCount(); }
-  }
-
-  document.addEventListener('DOMContentLoaded', ()=>{
-    initSyringeToggle();
-    initLiveSliders();
-    ['conc-slider','weekly-slider','count-slider'].forEach(id=>{
-      const el = document.getElementById(id);
-      if(!el) return;
-      paintRange(el);
-      el.addEventListener('input', ()=>paintRange(el));
-      el.addEventListener('change', ()=>paintRange(el));
-    });
-  });
-</script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
