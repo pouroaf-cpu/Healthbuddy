@@ -1,126 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
-  <meta name="description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume. Free, no login." />
-  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
-  <meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
-  <meta property="og:description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
-  <meta property="og:site_name" content="InjectBuddy" />
-  <link rel="icon" href="/assets/favicon.svg" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
+<meta name="description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume. Free, no login." />
+<link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
+<meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
+<meta property="og:description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
+<meta property="og:site_name" content="InjectBuddy" />
+<link rel="icon" href="/assets/favicon.svg" />
 
-  <style>
-    :root{
-      --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
-      --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
+<style>
+  :root{
+    --ink:#0f172a; --muted:#475569; --bg:#ffffff;
+    --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
+    --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
+    --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
+    --info-bg:#f0f9ff; --info-bd:#bae6fd; --info-ink:#075985;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:inherit;text-decoration:none}
 
-    /* Container */
-    .container{max-width:1200px;margin:0 auto;padding:0 24px}
-    @media (max-width:640px){ .container{padding:0 26px} }
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+  @media (max-width:640px){ .container{padding:0 26px} }
 
-    /* Header */
-    .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;gap:.75rem;align-items:center}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#009395,#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
-    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
-    .nav{display:flex;gap:12px;align-items:center}
-    .nav a{font-weight:600;color:var(--muted)}
-    .nav-cta .btn{padding:10px 16px;border-radius:12px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:12px 18px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    .btn-primary{background:var(--cta);color:#fff}
-    .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
-    .burger svg{width:22px;height:22px}
-    @media (max-width:980px){ .nav,.nav-cta{display:none} .burger{display:inline-flex} }
+  /* Header */
+  .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  .brand{display:flex;gap:.75rem;align-items:center}
+  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#009395,#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+  .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
+  .nav{display:flex;gap:12px;align-items:center}
+  .nav a{font-weight:600;color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:12px 18px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .btn-primary{background:var(--cta);color:#fff}
+  .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
+  .burger svg{width:22px;height:22px}
+  @media (max-width:980px){ .nav{display:none} .burger{display:inline-flex} }
 
-    /* Mobile menu */
-    .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px);overflow:auto}
-    .mobile-menu.open{display:block}
-    .mobile-menu .container{padding:14px 20px 16px}
-    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
-    .mobile-cta{display:grid;gap:10px}
+  /* Mobile menu */
+  .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px);overflow:auto}
+  .mobile-menu.open{display:block}
+  .mobile-menu .container{padding:14px 20px 16px}
+  .mobile-links{display:grid;gap:10px;margin-bottom:12px}
 
-    /* Layout */
-    main.container{padding:28px 0}
-    @media (max-width:640px){ main.container{padding:20px 0} }
-    .form-container h1{margin:0 0 10px}
+  /* Layout */
+  main.container{padding:28px 0}
+  @media (max-width:640px){ main.container{padding:20px 0} }
+  .form-container h1{margin:0 0 10px}
+  .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+  @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
 
-    .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
-    @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
+  .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
+  .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
 
-    .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  label{font-weight:700}
+  input[type=range]{width:100%}
+  .live-reads{margin-top:0}
+  .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff;white-space:nowrap;font-weight:700}
+  .calc-grid .full{
+    display:grid;grid-template-columns:1fr auto;
+    grid-template-areas:"label chip" "slider slider";
+    align-items:center;gap:6px 12px
+  }
+  .calc-grid .full > label{grid-area:label;margin:0}
+  .calc-grid .full > .live-reads{grid-area:chip;margin:0}
+  .calc-grid .full > input[type="range"]{grid-area:slider;margin-top:2px}
 
-    /* Segmented toggles */
-    .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-    .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
-    .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
+  /* Output */
+  .out h3{margin:0 0 10px}
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+  @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
+  .card .muted{color:#64748b}
 
-    /* Inputs and live values (chip fixed to right of label) */
-    label{font-weight:700}
-    input[type=range]{width:100%}
-    .live-reads{margin-top:0}
-    .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff;white-space:nowrap;font-weight:700}
-    .calc-grid .full{
-      display:grid;grid-template-columns:1fr auto;
-      grid-template-areas:"label chip" "slider slider";
-      align-items:center;gap:6px 12px
-    }
-    .calc-grid .full > label{grid-area:label;margin:0}
-    .calc-grid .full > .live-reads{grid-area:chip;margin:0}
-    .calc-grid .full > input[type="range"]{grid-area:slider;margin-top:2px}
+  /* Syringe */
+  .syringe-wrap{display:flex;align-items:center;justify-content:center}
+  .syringe-card{
+    width:100%;max-width:1350px;background:#fff;border:1px solid var(--border);
+    border-radius:16px;box-shadow:var(--shadow);
+    padding:22px 28px 34px;         /* extra bottom padding as requested */
+    overflow:hidden
+  }
+  .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .syringe-head b{color:#004c4d}
+  .syringe-svg{display:block;width:100%;height:auto;transform-origin:left center}
 
-    /* Output */
-    .out h3{margin:0 0 10px}
-    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-    @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
-    .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
-    .card .muted{color:#64748b}
-    .warn{margin-top:8px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+  /* Inline warnings/advice now INSIDE syringe-card */
+  .warn{margin-top:14px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+  .advice{margin-top:10px;padding:10px;border-radius:10px;background:var(--info-bg);border:1px solid var(--info-bd);color:var(--info-ink)}
 
-    /* Syringe */
-    .syringe-wrap{display:flex;align-items:center;justify-content:center}
-    .syringe-card{
-      width:100%;max-width:1350px;background:#fff;border:1px solid var(--border);
-      border-radius:16px;box-shadow:var(--shadow);padding:22px 28px;overflow:hidden
-    }
-    .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-    .syringe-head b{color:#004c4d}
-    .syringe-svg{display:block;width:100%;height:auto;transform-origin:left center}
-
-    .is-hidden{display:none !important}
-  </style>
+  .is-hidden{display:none !important}
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header" role="banner">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div>
-      <h1>InjectBuddy</h1>
+      <div class="logo" aria-hidden="true"></div><h1>InjectBuddy</h1>
     </a>
-
     <nav class="nav" aria-label="Primary">
       <a href="/calculator.html" aria-current="page">Dosage Calculator</a>
       <a href="/peptide.html">Peptide Reconstitution</a>
       <a href="/contact.html">Contact</a>
       <a href="/about.html">About</a>
     </nav>
-
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
-    </div>
-
     <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
@@ -129,7 +120,6 @@
   </div>
 </header>
 
-<!-- MOBILE MENU -->
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
   <div class="container">
     <div class="mobile-links" role="menu">
@@ -137,10 +127,6 @@
       <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
       <a href="/contact.html" role="menuitem">Contact</a>
       <a href="/about.html" role="menuitem">About</a>
-    </div>
-    <div class="mobile-cta">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
     </div>
   </div>
 </nav>
@@ -152,7 +138,7 @@
     <div class="calc-wrap">
       <!-- LEFT: inputs -->
       <div class="calc-grid">
-        <!-- Syringe size: now includes 0.3 mL and 0.5 mL -->
+        <!-- Syringe sizes including 0.3 / 0.5 / 1 / 3 mL -->
         <div class="full">
           <div class="seg-toggle" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
@@ -177,21 +163,21 @@
           <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
         </div>
 
-        <!-- Prescribed total per week (MIN LOWERED TO 15 mg) -->
+        <!-- Prescribed total per week (min 15 mg) -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
           <input id="weekly-slider" type="range" min="15" max="500" step="5" value="140" />
         </div>
 
-        <!-- Injections per week (visible only in Per week mode) -->
+        <!-- Injections / week -->
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
           <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
           <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
         </div>
 
-        <!-- Every N days (hidden by default) -->
+        <!-- Every N days (hidden initially) -->
         <div class="full is-hidden" id="everyNdaysWrap">
           <label for="ndays-slider">Every N days</label>
           <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
@@ -199,7 +185,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: syringe first, then KPIs -->
+      <!-- RIGHT: syringe then KPIs -->
       <aside id="out" class="out">
         <h3>Dose & Volume per Injection</h3>
 
@@ -212,7 +198,7 @@
                 <div class="syringe-label">Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b></div>
               </div>
 
-              <!-- SINGLE SVG; four groups (0.3 / 0.5 / 1 mL insulin, 3 mL standard) -->
+              <!-- SINGLE SVG with 4 capacity groups -->
               <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
                 <defs>
                   <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
@@ -220,98 +206,70 @@
                   </linearGradient>
                 </defs>
 
-                <!-- Reusable pieces:
-                     - All insulin barrels share same geometry; tick math scales by capacity (0.3 / 0.5 / 1.0 mL).
-                     - 3 mL is its own geometry with mL ticks. -->
-
-                <!-- 0.3 mL (U-100, 30 units) -->
+                <!-- 0.3 mL -->
                 <g id="g03ml" class="is-hidden">
-                  <!-- Cap -->
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub (no stroke, no gap) -->
-                  <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-                  <!-- Flange + T-handle -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
                   <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <!-- Barrel -->
-                  <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip03ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <!-- Liquid -->
                   <rect id="fill03ml" x="194" y="92" width="0" height="56" clip-path="url(#clip03ml)" fill="url(#gradOil)"/>
-                  <!-- Unit box -->
                   <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <!-- Ticks & Labels -->
                   <g id="ticks03" stroke="#1f2937"></g>
                   <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 0.5 mL (U-100, 50 units) -->
+                <!-- 0.5 mL -->
                 <g id="g05ml" class="is-hidden">
-                  <!-- Cap -->
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub -->
-                  <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-                  <!-- Flange + T-handle -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
                   <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <!-- Barrel -->
-                  <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip05ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <!-- Liquid -->
                   <rect id="fill05ml" x="194" y="92" width="0" height="56" clip-path="url(#clip05ml)" fill="url(#gradOil)"/>
-                  <!-- Unit box -->
                   <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <!-- Ticks & Labels -->
                   <g id="ticks05" stroke="#1f2937"></g>
                   <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 1 mL (U-100, 100 units) -->
+                <!-- 1 mL -->
                 <g id="g1ml">
-                  <!-- Cap -->
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub -->
-                  <rect x="168" y="92" width="26" height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-                  <!-- Flange + T-handle -->
+                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
                   <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <!-- Barrel -->
-                  <rect x="194" y="92" width="904" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <!-- Liquid -->
                   <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
-                  <!-- Unit box -->
                   <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <!-- Ticks & Labels -->
                   <g id="ticks1ml" stroke="#1f2937"></g>
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 3 mL standard (mL scale) -->
+                <!-- 3 mL (mL scale) -->
                 <g id="g3ml" class="is-hidden">
-                  <!-- Cap -->
-                  <rect x="6"  y="98" width="170" height="56" rx="4" fill="var(--orange)" stroke="none"/>
-                  <!-- Hub -->
-                  <rect x="176" y="98" width="26"  height="56" rx="0" fill="#d7e3e6" stroke="none"/>
-                  <!-- Flange + T-handle -->
+                  <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
+                  <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
                   <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                   <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <!-- Barrel -->
-                  <rect x="202" y="98" width="926" height="56" rx="0" fill="#fff" stroke="#cbd5db"/>
+                  <rect x="202" y="98" width="926" height="56" fill="#fff" stroke="#cbd5db"/>
                   <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56"/></clipPath>
-                  <!-- Liquid -->
                   <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#gradOil)"/>
-                  <!-- mL box -->
                   <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                   <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
-                  <!-- Ticks & Labels -->
                   <g id="ticks3ml" stroke="#1f2937"></g>
                   <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
               </svg>
+
+              <!-- WARN & ADVICE live INSIDE the syringe card -->
+              <div id="warn" class="warn" hidden></div>
+              <div id="advice" class="advice" hidden></div>
             </div>
           </div>
         </div>
@@ -322,8 +280,6 @@
           <div class="card"><span class="muted">Dose per injection</span><b id="kpi_dose">—</b></div>
           <div class="card"><span class="muted">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
         </div>
-
-        <div id="warn" class="warn" hidden></div>
       </aside>
     </div>
 
@@ -341,7 +297,7 @@
 </footer>
 
 <script>
-  // Burger / mobile menu
+  // Mobile menu
   document.getElementById('burger')?.addEventListener('click', function () {
     const m = document.getElementById('mobile-menu');
     const open = m.classList.toggle('open');
@@ -358,16 +314,14 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  /* ===== Single-SVG syringe rendering (0.3 / 0.5 / 1 mL insulin, 3 mL std) ===== */
+  /* ===== Single-SVG syringe rendering and scale builders ===== */
   (function(){
     const elVol  = $('syrVol');
     const elMode = $('syrMode');
 
-    // Geometry (insulin barrels share same pixels; mapping changes with capacity)
     const INSULIN = { x0:194, width:904, yTop:92, height:56 };
     const ML3     = { x0:202, width:926, yTop:98, height:56 };
 
-    // Groups and fills
     const groups = {
       0.3: { g: $('g03ml'), fill: $('fill03ml'), ticks: $('ticks03'), labels: $('labels03'), cap: 0.3 },
       0.5: { g: $('g05ml'), fill: $('fill05ml'), ticks: $('ticks05'), labels: $('labels05'), cap: 0.5 },
@@ -384,7 +338,6 @@
       return Math.max(0, Math.min(ML3.width, v * wPerMl));
     }
 
-    // Build insulin ticks generically by capacity (0.3 => 30u; 0.5 => 50u; 1 => 100u)
     function buildInsulinTicks(ticksEl, labelsEl, capMl){
       ticksEl.innerHTML=''; labelsEl.innerHTML='';
       const H=INSULIN.height, longLen=H/2.4, shortLen=H/5;
@@ -401,7 +354,6 @@
 
         if(isLong && u>0){
           const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-          // nudge the last label slightly left
           t.setAttribute('x', u===maxUnits ? (x - 12) : x);
           t.setAttribute('y', INSULIN.yTop + H - 6);
           t.textContent=String(u);
@@ -409,8 +361,6 @@
         }
       }
     }
-
-    // Build 3 mL ticks (0.1 mL minors; labels 0.5..3.0)
     function buildThreeMlTicks(ticksEl, labelsEl){
       ticksEl.innerHTML=''; labelsEl.innerHTML='';
       const H=ML3.height, longLen=H/2.4, shortLen=H/5;
@@ -432,20 +382,17 @@
         }
       }
     }
-
-    // Build all scales once
     buildInsulinTicks(groups[0.3].ticks, groups[0.3].labels, 0.3);
     buildInsulinTicks(groups[0.5].ticks, groups[0.5].labels, 0.5);
     buildInsulinTicks(groups[1].ticks,   groups[1].labels,   1.0);
     buildThreeMlTicks(groups[3].ticks,   groups[3].labels);
 
-    let selectedCapacityMl = 1.0; // default 1 mL
+    let selectedCapacityMl = 1.0;
 
     window.updateSyringe = function(volumeMl){
       const v = Math.max(0, Number(volumeMl) || 0);
       if (elVol) elVol.textContent = v.toFixed(2) + ' mL';
 
-      // Hide all groups, then show the active one
       Object.values(groups).forEach(o => o.g.classList.add('is-hidden'));
 
       if (selectedCapacityMl === 3){
@@ -454,7 +401,6 @@
         const w = mlToPx3ml(Math.min(3, v));
         groups[3].fill.setAttribute('width', w);
       } else {
-        // Insulin variants
         const cap = (selectedCapacityMl <= 0.31) ? 0.3 : (selectedCapacityMl <= 0.51 ? 0.5 : 1.0);
         const active = groups[cap];
         active.g.classList.remove('is-hidden');
@@ -465,7 +411,6 @@
     };
 
     window.__setSyringeCapacity = function(ml){
-      // Accepts 0.3, 0.5, 1, 3
       selectedCapacityMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
       updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
     };
@@ -474,7 +419,7 @@
     updateSyringe(0.25);
   })();
 
-  /* ===== Calculator state + compute (Per week path intact) ===== */
+  /* ===== Calculator state + compute (per week + every N days) ===== */
   let currentSyringeMl = 1; // 0.3 | 0.5 | 1 | 3
 
   function setSyringe(ml){
@@ -484,7 +429,6 @@
     btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === (ml))));
     try{ localStorage.setItem('hb_syr_ml', String(currentSyringeMl)); }catch(e){}
     window.__setSyringeCapacity(currentSyringeMl);
-    // Recompute based on current mode
     if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
   }
 
@@ -500,9 +444,7 @@
       e.preventDefault();
       const arr=[...btns];
       const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-      const next = (e.key==='ArrowRight')
-        ? (current+1) % arr.length
-        : (current-1+arr.length) % arr.length;
+      const next = (e.key==='ArrowRight') ? (current+1)%arr.length : (current-1+arr.length)%arr.length;
       setSyringe(Number(arr[next].dataset.ml));
       arr[next].focus();
     });
@@ -510,12 +452,45 @@
     setSyringe( (saved===0.3||saved===0.5||saved===1||saved===3) ? saved : 1 );
   }
 
-  // Original per-week compute (unchanged except min weekly now 15 mg)
+  function applyCapacityWarning(volMl){
+    const warn = $('warn');
+    if (!warn) return;
+    const syr = currentSyringeMl;
+    if (volMl > syr){
+      warn.hidden=false;
+      warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
+    } else {
+      warn.hidden=true; warn.textContent='';
+    }
+  }
+
+  // New: proactive smaller-syringe recommendation
+  function updateSmallerSyringeAdvice(volMl){
+    const advice = $('advice');
+    if (!advice) return;
+
+    // Determine minimal suitable capacity
+    let optimal = null;
+    if (volMl <= 0.3) optimal = 0.3;
+    else if (volMl <= 0.5) optimal = 0.5;
+    else if (volMl <= 1.0) optimal = 1.0;
+    else if (volMl <= 3.0) optimal = 3.0;
+
+    // Show advice only if the current selected syringe is larger than necessary
+    if (optimal && currentSyringeMl > optimal){
+      advice.hidden = false;
+      advice.textContent = `Tip: Your volume (${volMl.toFixed(3)} mL) fits a smaller syringe. Consider switching to a ${optimal.toFixed(1)} mL syringe for finer control.`;
+    } else {
+      advice.hidden = true;
+      advice.textContent = '';
+    }
+  }
+
   function compute(){
     if (window.__mode === 'everyNDays') { computeEveryNDays(); return; }
-    const conc       = parseFloat(($('conc-slider')||{}).value);
-    const weekly     = parseFloat(($('weekly-slider')||{}).value);
-    const injPerWeek = parseFloat(($('count-slider')||{}).value);
+    const conc       = parseFloat((document.getElementById('conc-slider')||{}).value);
+    const weekly     = parseFloat((document.getElementById('weekly-slider')||{}).value);
+    const injPerWeek = parseFloat((document.getElementById('count-slider')||{}).value);
 
     const valid = (conc > 0) && (weekly >= 15) && (injPerWeek > 0);
     if (!valid){
@@ -523,8 +498,7 @@
       if(k1) k1.textContent='—';
       if(k2) k2.textContent='—';
       if(k3) k3.textContent='—';
-      updateSyringe(0);
-      const warn = $('warn'); if (warn) { warn.hidden = true; warn.textContent = ''; }
+      updateSyringe(0); applyCapacityWarning(0); updateSmallerSyringeAdvice(0);
       return;
     }
 
@@ -537,30 +511,75 @@
 
     updateSyringe(volPerInj_ml);
     applyCapacityWarning(volPerInj_ml);
-    persist(volPerInj_ml, injPerWeek, dosePerInj);
+    updateSmallerSyringeAdvice(volPerInj_ml);
   }
 
-  function applyCapacityWarning(volMl){
-    const warn = $('warn');
-    if (!warn) return;
-    const syr = (()=>{
-      try { return Number(localStorage.getItem('hb_syr_ml')) || 1; } catch(e){ return 1; }
+  /* ===== Every N days mode ===== */
+  (function(){
+    const modeToggle   = $('modeToggle');
+    const perWeekWrap  = $('count-wrap');
+    const everyNWrap   = $('everyNdaysWrap');
+    const nDaysSlider  = $('ndays-slider');
+    const lrNDays      = $('lr-ndays');
+    const concSlider   = $('conc-slider');
+    const weeklySlider = $('weekly-slider');
+
+    window.__mode = (()=>{
+      try { return localStorage.getItem('hb_mode') || 'perWeek'; }
+      catch(e){ return 'perWeek'; }
     })();
-    if (volMl > syr){
-      warn.hidden=false;
-      warn.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
-    } else {
-      warn.hidden=true; warn.textContent='';
-    }
-  }
 
-  function persist(ml, inj, dose){
-    try{
-      localStorage.setItem('hb_last_calc', JSON.stringify({
-        inj: inj, dose: dose, unit: 'mg', ml: ml, syr: Number(localStorage.getItem('hb_syr_ml'))||1
-      }));
-    }catch(e){}
-  }
+    function setMode(newMode){
+      window.__mode = (newMode === 'everyNDays') ? 'everyNDays' : 'perWeek';
+      const btns = modeToggle?.querySelectorAll('.seg-btn') || [];
+      btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.mode === window.__mode)));
+      perWeekWrap?.classList.toggle('is-hidden', window.__mode === 'everyNDays');
+      everyNWrap?.classList.toggle('is-hidden', window.__mode !== 'everyNDays');
+      try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
+      if (window.__mode === 'perWeek') compute(); else computeEveryNDays();
+    }
+
+    window.computeEveryNDays = function(){
+      const C = parseFloat(concSlider?.value);
+      const W = parseFloat(weeklySlider?.value);
+      const N = Math.max(1, Math.min(14, Math.round(parseFloat(nDaysSlider?.value)||3)));
+      if (lrNDays) lrNDays.textContent = N + ' day' + (N===1?'':'s');
+
+      if (!(C>0 && W>=15 && N>0)) { updateSyringe(0); applyCapacityWarning(0); updateSmallerSyringeAdvice(0); return; }
+
+      const injPerWeek = 7 / N;
+      const dose       = (W * N) / 7;  // mg per injection
+      const vol        = dose / C;     // mL
+
+      $('kpi_inj').textContent  = injPerWeek.toFixed(2);
+      $('kpi_dose').textContent = dose.toFixed(2) + ' mg';
+      $('kpi_ml').textContent   = vol.toFixed(3);
+
+      updateSyringe(vol);
+      applyCapacityWarning(vol);
+      updateSmallerSyringeAdvice(vol);
+    };
+
+    modeToggle?.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.seg-btn'); if (!btn) return;
+      setMode(btn.dataset.mode);
+    });
+    modeToggle?.addEventListener('keydown', (e)=>{
+      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+      e.preventDefault();
+      const arr=[...(modeToggle.querySelectorAll('.seg-btn')||[])];
+      const idx=arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
+      const next = idx===0?1:0;
+      setMode(arr[next].dataset.mode);
+      arr[next].focus();
+    });
+
+    nDaysSlider?.addEventListener('input', ()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
+    concSlider?.addEventListener('input',  ()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
+    weeklySlider?.addEventListener('input',()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
+
+    setMode(window.__mode);
+  })();
 
   function initLiveSliders(){
     const concSlider   = $('conc-slider');
@@ -603,94 +622,6 @@
     if(countSlider){ countSlider.addEventListener('input', syncCount);  syncCount(); }
   }
 
-  /* ===== "Every N days" mode (additive) ===== */
-  (function(){
-    const modeToggle   = $('modeToggle');
-    const perWeekWrap  = $('count-wrap');
-    const everyNWrap   = $('everyNdaysWrap');
-    const nDaysSlider  = $('ndays-slider');
-    const lrNDays      = $('lr-ndays');
-
-    const concSlider   = $('conc-slider');
-    const weeklySlider = $('weekly-slider');
-
-    window.__mode = (()=>{
-      try { return localStorage.getItem('hb_mode') || 'perWeek'; }
-      catch(e){ return 'perWeek'; }
-    })();
-
-    function setMode(newMode){
-      window.__mode = (newMode === 'everyNDays') ? 'everyNDays' : 'perWeek';
-      const btns = modeToggle?.querySelectorAll('.seg-btn') || [];
-      btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.mode === window.__mode)));
-      if (perWeekWrap) perWeekWrap.classList.toggle('is-hidden', window.__mode === 'everyNDays');
-      if (everyNWrap)  everyNWrap.classList.toggle('is-hidden', window.__mode !== 'everyNDays');
-      try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
-      if (window.__mode === 'perWeek') compute(); else computeEveryNDays();
-    }
-
-    window.computeEveryNDays = function(){
-      const C = parseFloat(concSlider?.value);
-      const W = parseFloat(weeklySlider?.value);
-      const N = Math.max(1, Math.min(14, Math.round(parseFloat(nDaysSlider?.value)||3)));
-      if (lrNDays) lrNDays.textContent = N + ' day' + (N===1?'':'s');
-
-      if (!(C>0 && W>=15 && N>0)) return;
-
-      const injPerWeek = 7 / N;
-      const dose       = (W * N) / 7;  // mg per injection
-      const vol        = dose / C;     // mL
-
-      $('kpi_inj').textContent  = injPerWeek.toFixed(2);
-      $('kpi_dose').textContent = dose.toFixed(2) + ' mg';
-      $('kpi_ml').textContent   = vol.toFixed(3);
-
-      updateSyringe(vol);
-      (function applyCapacityWarning(volMl){
-        const warnEl = $('warn');
-        const syr = (()=>{
-          try { return Number(localStorage.getItem('hb_syr_ml')) || 1; } catch(e){ return 1; }
-        })();
-        if (!warnEl) return;
-        if (volMl > syr){
-          warnEl.hidden=false;
-          warnEl.textContent='Volume exceeds selected syringe capacity. Choose a larger syringe or adjust schedule.';
-        } else {
-          warnEl.hidden=true; warnEl.textContent='';
-        }
-      })(vol);
-    };
-
-    // Toggle events
-    modeToggle?.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.seg-btn'); if (!btn) return;
-      setMode(btn.dataset.mode);
-    });
-    modeToggle?.addEventListener('keydown', (e)=>{
-      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
-      e.preventDefault();
-      const arr=[...(modeToggle.querySelectorAll('.seg-btn')||[])];
-      const idx=arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-      const next = idx===0?1:0;
-      setMode(arr[next].dataset.mode);
-      arr[next].focus();
-    });
-
-    nDaysSlider?.addEventListener('input', ()=>{
-      if (window.__mode==='everyNDays') window.computeEveryNDays();
-    });
-    concSlider?.addEventListener('input', ()=>{
-      if (window.__mode==='everyNDays') window.computeEveryNDays();
-    });
-    weeklySlider?.addEventListener('input', ()=>{
-      if (window.__mode==='everyNDays') window.computeEveryNDays();
-    });
-
-    // Init
-    setMode(window.__mode);
-  })();
-
-  // Boot
   document.addEventListener('DOMContentLoaded', ()=>{
     initSyringeToggle();
     initLiveSliders();
