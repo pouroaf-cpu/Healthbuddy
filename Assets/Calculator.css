@@ -326,3 +326,24 @@ input[type=range]{width:100%;}
 .syringe-head .syringe-label{
   font-size: 0.85rem;
 }
+/* === Calculator page nav fix: keep top-level items in a row on desktop === */
+@media (min-width: 981px){
+  .ib-nav .ib-links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* Make sure both normal links and dropdown triggers behave like inline items */
+  .ib-nav .ib-link,
+  .ib-nav .dropdown{
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .ib-nav .dropdown .drop-trigger{
+    display: inline-flex;
+    align-items: center;
+  }
+}
