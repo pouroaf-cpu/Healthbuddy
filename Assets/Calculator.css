@@ -318,3 +318,11 @@ input[type=range]{width:100%;}
 
 /* Utility */
 .is-hidden{display:none !important;}
+/* Make "Visual Syringe" + Volume/Mode line smaller */
+.syringe-head{
+  font-size: 0.85rem;
+}
+
+.syringe-head .syringe-label{
+  font-size: 0.85rem;
+}
