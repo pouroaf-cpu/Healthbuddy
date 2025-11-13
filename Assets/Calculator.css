@@ -1,204 +1,320 @@
-/* === Corrected syringe container + scale === */
-
-/* Make the rectangle wider but not taller */
-.syringe-card{
-  max-width: 1350px !important;   /* was too small, now just wider */
-  width: 100%;
-  padding: 24px 28px !important;  /* moderate padding */
-  overflow: visible !important;   /* prevents syringe clipping */
+:root{
+  --ink:#0f172a;
+  --muted:#475569;
+  --bg:#ffffff;
+  --cta:#00b2b5;
+  --cta-hover:#00c7ca;
+  --cta-dark:#036d6f;
+  --ring:rgba(0,147,149,.35);
+  --border:#e2e8f0;
+  --shadow:0 10px 30px rgba(2,6,23,.06);
+  --orange:#ff7a00;
+  --oil1:#fbbf24;
+  --oil2:#fde68a;
+  --info-bg:#f0f9ff;
+  --info-bd:#bae6fd;
+  --info-ink:#075985;
 }
 
-/* Slight scale increase on desktop (NOT huge) */
-@media (min-width:1100px){
-  .syringe-svg{
-    transform: scale(1.18) !important; /* slightly larger, not oversized */
-    transform-origin: left center !important; /* keeps it aligned, not pushed */
-  }
+/* Base */
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
 }
+a{color:inherit;text-decoration:none}
 
-/* Mobile layout fix: more side padding so nothing touches screen edges */
+/* Layout container */
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px;
+}
 @media (max-width:640px){
-  .container{
-    padding-left: 26px !important;
-    padding-right: 26px !important;
-  }
-
-  .syringe-card{
-    padding: 20px 22px !important; /* balanced mobile spacing */
-  }
-}
-/* Keep syringe fully inside the rectangle */
-.syringe-card{
-  max-width: 1350px !important;   /* wider, not taller */
-  padding: 22px 28px !important;   /* modest, no extra height */
-  overflow: hidden !important;     /* clip anything that would spill */
+  .container{padding:0 26px;}
 }
 
-/* Make SVG fit container (no manual scale) */
-.syringe-svg{
-  width: 100% !important;
-  height: auto !important;
-  transform: none !important;          /* kill previous scaling */
-  transform-origin: left center !important;
+/* Header */
+.header{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+}
+.brand{
+  display:flex;
+  gap:.75rem;
+  align-items:center;
+}
+.logo{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#009395,#22d3ee);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
+}
+.brand h1{
+  font-size:1.1rem;
+  margin:0;
+  font-weight:800;
+  color:#004c4d;
+}
+.nav{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.nav a{
+  font-weight:600;
+  color:var(--muted);
 }
 
-/* Safer mobile gutters so sliders/syringe don’t touch edges */
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  font-weight:700;
+  letter-spacing:.2px;
+  border-radius:16px;
+  padding:12px 18px;
+  border:2px solid transparent;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.btn-primary{
+  background:var(--cta);
+  color:#fff;
+}
+
+/* Burger / mobile nav */
+.burger{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+}
+.burger svg{width:22px;height:22px;}
+
+@media (max-width:980px){
+  .nav{display:none;}
+  .burger{display:inline-flex;}
+}
+
+/* Mobile menu */
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:56px;
+  left:0;
+  right:0;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 10px 30px rgba(2,6,23,.08);
+  z-index:55;
+  max-height:calc(100vh - 56px);
+  overflow:auto;
+}
+.mobile-menu.open{display:block;}
+.mobile-menu .container{
+  padding:14px 20px 16px;
+}
+.mobile-links{
+  display:grid;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+/* Main layout */
+main.container{
+  padding:28px 0;
+}
 @media (max-width:640px){
-  .container{ padding-left: 26px !important; padding-right: 26px !important; }
-  .syringe-card{ padding: 18px 22px !important; }
+  main.container{padding:20px 0;}
 }
-/* Mobile: show the value bubble above the slider, nudged to the right */
-@media (max-width: 640px){
-  .live-reads{ position: relative; height: 0; }
-  .live-reads .live-chip{
-    position: absolute;
-    top: -34px;                  /* sits above the track */
-    transform: translateX(-50%); /* center on computed left */
-    pointer-events: none;
-    z-index: 2;
-  }
-  /* give sliders breathing room so the bubble doesn't overlap */
-  input[type="range"]{ margin-top: 22px; }
-}
-/* Mobile: keep value fixed to the right of the label */
-@media (max-width: 640px){
-  .calc-grid .full{
-    display: grid;
-    grid-template-columns: 1fr auto;       /* label | value */
-    grid-template-areas:
-      "label chip"
-      "slider slider";
-    align-items: center;
-    gap: 8px 12px;
-  }
-  .calc-grid .full > label{ grid-area: label; }
-  .calc-grid .full > input[type="range"]{ grid-area: slider; }
-  .calc-grid .full > .live-reads{
-    grid-area: chip;
-    margin: 0;           /* override previous margin */
-  }
-  .live-reads .live-chip{
-    position: static;    /* ensure it sits inline */
-    transform: none;
-    pointer-events: none;
-  }
-  /* Optional: tighten slider spacing now that chip isn't above it */
-  .calc-grid .full > input[type="range"]{ margin-top: 2px; }
-}
-/* Mobile: lock value to the right of the label — force it */
-@media (max-width: 640px){
-  .calc-grid .full{
-    display: grid !important;
-    grid-template-columns: 1fr auto !important; /* label | value */
-    grid-template-areas:
-      "label chip"
-      "slider slider";
-    align-items: center !important;
-    gap: 8px 12px !important;
-  }
-  .calc-grid .full > label{ grid-area: label !important; }
-  .calc-grid .full > input[type="range"]{
-    grid-area: slider !important;
-    margin-top: 2px !important;
-  }
-  .calc-grid .full > .live-reads{
-    grid-area: chip !important;
-    margin: 0 !important;
-    position: static !important;
-    height: auto !important;
-  }
-  .live-reads .live-chip{
-    position: static !important;
-    transform: none !important;
-    pointer-events: none !important;
-  }
-}
-/* The card defines the box; the SVG must fill it */
-.syringe-card{
-  width: 100% !important;
-  max-width: 1350px !important;
-  padding: 22px 28px !important;
-  overflow: hidden !important;  /* avoid spillover */
+.form-container h1{
+  margin:0 0 10px;
 }
 
-/* Scale the SVG to the card’s width */
-.syringe-svg{
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: auto !important;
-  transform: none !important;
-  transform-origin: left center !important;
+/* Calculator layout */
+.calc-wrap{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:28px;
 }
-/* Labels on the left, live value on the right, slider on its own row */
+@media (max-width:980px){
+  .calc-wrap{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+}
+
+.calc-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+/* Segmented toggles */
+.seg-toggle{
+  display:inline-flex;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.seg-btn{
+  padding:8px 12px;
+  font-weight:700;
+  border:0;
+  background:#fff;
+  color:#334155;
+  cursor:pointer;
+}
+.seg-btn[aria-checked="true"]{
+  background:#ecfeff;
+  color:#065f5b;
+}
+
+/* Sliders + live values */
+label{font-weight:700;}
+input[type=range]{width:100%;}
+.live-reads{margin-top:0;}
+.live-chip{
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:#475569;
+  background:#fff;
+  white-space:nowrap;
+  font-weight:700;
+}
+
+/* label | value on top row, slider full width below */
 .calc-grid .full{
-  display: grid;
-  grid-template-columns: 1fr auto;        /* label | value */
+  display:grid;
+  grid-template-columns:1fr auto;
   grid-template-areas:
     "label chip"
     "slider slider";
-  align-items: center;
-  gap: 6px 12px;
+  align-items:center;
+  gap:6px 12px;
 }
-
 .calc-grid .full > label{
-  grid-area: label;
-  margin: 0;                               /* keep the row tight */
+  grid-area:label;
+  margin:0;
 }
-
 .calc-grid .full > .live-reads{
-  grid-area: chip;
-  margin: 0;
+  grid-area:chip;
+  margin:0;
 }
-
-.live-reads .live-chip{
-  position: static;                         /* ensure inline, not absolute */
-  transform: none;
-  pointer-events: none;
-  white-space: nowrap;                      /* avoid wrapping the number */
-  font-weight: 700;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 4px 8px;
-  background: #fff;
-  color: #475569;
-}
-
-/* Slider row */
 .calc-grid .full > input[type="range"]{
-  grid-area: slider;
-  margin-top: 2px;
+  grid-area:slider;
+  margin-top:2px;
 }
 
-/* Small screens: allow the value to shrink rather than wrap under the label */
-@media (max-width: 400px){
-  .live-reads .live-chip{
-    max-width: 40vw;
-    text-overflow: ellipsis;
-    overflow: hidden;
+/* Output KPIs */
+.out h3{
+  margin:0 0 10px;
+}
+.kpi{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:12px 0;
+}
+@media (max-width:640px){
+  .kpi{
+    grid-template-columns:1fr;
+    gap:10px;
   }
 }
-/* Extra bottom padding stays, but the status block now holds space */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.card .muted{color:#64748b;}
+
+/* Syringe card */
+.syringe-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 .syringe-card{
-  padding:22px 28px 40px; /* keep your existing values, ensure extra bottom pad */
+  width:100%;
+  max-width:1350px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:22px 28px 40px; /* extra bottom padding so nothing jumps */
+  overflow:hidden;
+}
+.syringe-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+.syringe-head b{color:#004c4d;}
+.syringe-svg{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  transform-origin:left center;
 }
 
-/* Reserve space so syringe graphic doesn't move when warn/tip toggles */
+/* Fixed-height status area inside syringe card */
 .syringe-status{
   margin-top:12px;
-  min-height:72px;        /* ← adjust to your content height (64–88px typical) */
+  min-height:72px;   /* reserves vertical space at all times */
   display:flex;
   flex-direction:column;
   gap:8px;
 }
-
-/* Remove extra margins inside the reserved area */
-.syringe-status .warn,
-.syringe-status .advice{
+.warn{
+  padding:10px;
+  border-radius:10px;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
   margin:0;
 }
-
-/* (Optional) Keep space even when both are hidden, without showing boxes */
-.syringe-status > [hidden]{
-  display:none;           /* children can hide; wrapper still holds min-height */
+.advice{
+  padding:10px;
+  border-radius:10px;
+  background:var(--info-bg);
+  border:1px solid var(--info-bd);
+  color:var(--info-ink);
+  margin:0;
 }
+.syringe-status > [hidden]{
+  display:none;  /* wrapper keeps min-height even when children hidden */
+}
+
+/* Utility */
+.is-hidden{display:none !important;}
