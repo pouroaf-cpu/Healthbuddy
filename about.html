@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>About InjectBuddy — Understanding TRT & Testosterone Esters</title>
-  <meta name="description" content="Learn what Testosterone Replacement Therapy (TRT) is, the differences between testosterone cypionate, enanthate, and propionate, and how InjectBuddy helps with accurate dosing." />
+  <meta name="description" content="Plain-language guide to Testosterone Replacement Therapy (TRT), the differences between testosterone cypionate, enanthate, and propionate, and how InjectBuddy helps with accurate, repeatable dosing." />
   <link rel="canonical" href="https://www.injectbuddy.com/about.html" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="About InjectBuddy — Understanding TRT & Testosterone Esters" />
-  <meta property="og:description" content="A practical explanation of Testosterone Replacement Therapy (TRT) and the key differences between popular testosterone esters: cypionate, enanthate, and propionate." />
+  <meta property="og:description" content="A practical, no-nonsense explanation of TRT and the key differences between testosterone cypionate, enanthate, and propionate — plus how InjectBuddy fits into the picture." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/about.html" />
   <meta property="og:site_name" content="InjectBuddy" />
@@ -18,6 +18,10 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#009395" />
 
+  <!-- Global site styles (header, layout, etc.) -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Page-specific styles -->
   <style>
     :root{
       --teal-900:#004c4d;
@@ -34,72 +38,183 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink-900);line-height:1.6}
-    .ib-header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #e6eef0}
-    .ib-nav{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-    .ib-brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--teal-900);text-decoration:none}
-    .ib-brand svg{width:26px;height:26px}
-    .ib-links{display:flex;gap:14px}
-    .ib-links a{color:var(--ink-700);text-decoration:none;font-weight:500}
-    .ib-links a:hover{color:var(--teal-700)}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink-900);
+      line-height:1.6;
+    }
+
     .wrap{max-width:960px;margin:24px auto;padding:16px}
-    .hero{background:#fff;border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px}
-    .hero h1{margin:0 0 8px;font-size:clamp(26px,4vw,38px);color:var(--teal-900)}
-    .hero p{margin:6px 0 0;color:var(--ink-700);max-width:60ch}
-    .section{margin-top:22px;background:var(--card);border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
-    .section h2{color:var(--teal-900);margin-top:0}
-    .section h3{color:var(--ink-900);margin:16px 0 8px}
-    .section p{color:var(--ink-700)}
+    .hero{
+      background:#fff;
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px 24px;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(26px,4vw,38px);
+      color:var(--teal-900);
+    }
+    .hero p{
+      margin:6px 0 0;
+      color:var(--ink-700);
+      max-width:60ch;
+    }
+
+    .section{
+      margin-top:22px;
+      background:var(--card);
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+    .section h2{
+      color:var(--teal-900);
+      margin-top:0;
+    }
+    .section h3{
+      color:var(--ink-900);
+      margin:16px 0 8px;
+    }
+    .section p{
+      color:var(--ink-700);
+    }
+
     ul{padding-left:18px;margin:8px 0}
     ul li{margin:6px 0;color:var(--ink-700)}
-    footer{margin:28px 0 18px;text-align:center;color:var(--ink-500);font-size:14px}
+
+    .note{
+      margin-top:12px;
+      font-size:14px;
+      color:var(--ink-500);
+    }
+
+    footer{
+      margin:28px 0 18px;
+      text-align:center;
+      color:var(--ink-500);
+      font-size:14px;
+    }
   </style>
 </head>
 <body>
-
+  <!-- Header is injected globally via /partials/header.html + /assets/nav.js -->
 
   <main class="wrap">
     <section class="hero">
       <h1>About InjectBuddy</h1>
-      <p>InjectBuddy was created to make hormone and peptide dosing easier to understand and manage. Below you’ll find a straightforward explanation of Testosterone Replacement Therapy (TRT) and the differences between popular testosterone esters.</p>
+      <p>
+        InjectBuddy exists for one reason: to make dosing less confusing.  
+        Instead of guessing at volumes and counting tiny syringe marks, you get
+        clear numbers, realistic visuals, and a simple way to sanity-check your plan.
+      </p>
     </section>
 
     <section class="section">
-      <h2>What is Testosterone Replacement Therapy (TRT)?</h2>
-      <p>TRT is a medical treatment designed to restore testosterone levels in men who have been diagnosed with low or deficient testosterone. The goal is to bring levels back into a healthy, balanced range to improve mood, energy, libido, muscle mass, and overall well-being.</p>
-      <p>Therapy typically involves scheduled injections of testosterone, using an ester-based form of the hormone that controls how long it stays active in the body.</p>
+      <h2>What Is Testosterone Replacement Therapy (TRT)?</h2>
+      <p>
+        Testosterone Replacement Therapy (TRT) is a medical treatment for people
+        with clinically low testosterone. The aim is not body-building doses,
+        but restoring levels into a healthy range so day-to-day life feels more stable:
+        energy, mood, sleep, libido, and recovery can all be affected.
+      </p>
+      <p>
+        Most modern TRT protocols use injectable testosterone attached to an
+        “ester”. The ester controls how quickly the hormone leaves the injection
+        site, how long it stays active in the body, and how often injections are needed.
+      </p>
+      <p class="note">
+        TRT should always be prescribed, monitored, and adjusted by a qualified clinician.
+        InjectBuddy does not replace medical care.
+      </p>
     </section>
 
     <section class="section">
-      <h2>Understanding Testosterone Esters</h2>
-      <p>Testosterone esters differ in how quickly they release testosterone into the bloodstream. The ester type determines injection frequency, stability, and how smooth hormone levels remain between doses.</p>
+      <h2>Key Testosterone Esters Explained</h2>
+      <p>
+        Different testosterone esters all deliver the same hormone, but with
+        different speed and smoothness. In practice, that means different
+        injection schedules and slightly different “feel” between doses.
+      </p>
 
       <h3>Testosterone Cypionate</h3>
-      <p>One of the most common forms used in North America. Cypionate has a longer half-life (around 7–8 days), meaning injections are often scheduled once or twice per week. It provides a stable, gradual release and is well-suited for long-term therapy.</p>
+      <p>
+        Testosterone cypionate is one of the most commonly used esters in TRT.
+        It has a relatively long half-life (roughly 7–8 days), so many protocols
+        use once- or twice-weekly injections. When doses are sensible and spaced
+        well, it provides a fairly smooth, gradual release.
+      </p>
 
       <h3>Testosterone Enanthate</h3>
-      <p>Nearly identical to cypionate, enanthate has a half-life of about 5–7 days. It’s widely used internationally and behaves almost the same pharmacologically, with slight differences in release rate and carrier oil.</p>
+      <p>
+        Enanthate is very similar to cypionate. Its half-life is slightly shorter
+        (about 5–7 days), but in real life most people experience them as nearly
+        interchangeable. The main differences are often the brand, the carrier oil,
+        and what’s available in a particular country.
+      </p>
 
       <h3>Testosterone Propionate</h3>
-      <p>A faster-acting ester with a half-life of about 2–3 days. Propionate is injected more frequently (every other day or three times a week). It reaches steady levels quickly but can cause more injection site irritation due to its shorter action.</p>
+      <p>
+        Propionate is a short-acting ester with a half-life around 2–3 days.
+        It peaks and clears faster, which usually means more frequent injections
+        (for example, every other day). Some people prefer the tighter control,
+        but it can mean more injection site irritation and more needle time.
+      </p>
 
-      <h3>Blends and Alternatives</h3>
-      <p>Some preparations mix multiple esters (like Sustanon®) to provide both fast and slow release phases. Others may use undecanoate for extremely long duration (lasting up to 10–12 weeks per injection), though these are less common for self-managed therapy.</p>
+      <h3>Blends and Long-Acting Options</h3>
+      <p>
+        Some products combine multiple esters (for example, blends designed to
+        give both a quick rise and a slower tail). There are also very long-acting
+        options such as testosterone undecanoate, where injections may be spaced
+        weeks apart. These are generally managed closely in a clinic setting and
+        are less common in self-administered protocols.
+      </p>
     </section>
 
     <section class="section">
-      <h2>TRT Goals and Monitoring</h2>
-      <p>Effective TRT isn’t about maximizing testosterone; it’s about maintaining balance. Most protocols aim for stable levels in the mid-to-upper physiological range, reducing mood swings and minimizing side effects. Blood work is essential to monitor total testosterone, free testosterone, estradiol, hematocrit, and lipid profiles.</p>
+      <h2>Why Dosing and Frequency Matter</h2>
+      <p>
+        The same weekly milligram total can feel very different depending on
+        how it is split. Large, infrequent doses tend to create high peaks and
+        low troughs, which can translate into swings in mood, energy, and side-effects.
+      </p>
       <ul>
-        <li>Typical injection schedules range from 1–3 times per week depending on ester and dose.</li>
-        <li>Smaller, more frequent doses help maintain stability and reduce peaks/troughs.</li>
-        <li>Individual response varies; always follow clinical guidance when adjusting therapy.</li>
+        <li>Shorter esters and smaller, more frequent injections can smooth out peaks and troughs.</li>
+        <li>Longer esters allow fewer injections but need careful planning to avoid big swings.</li>
+        <li>Lab work and symptoms should drive any changes — not guesswork or internet “bro science”.</li>
       </ul>
+      <p>
+        Your actual protocol should always be agreed with your prescriber. Tools
+        like InjectBuddy are there to help you understand the math behind what
+        you’ve been told to do, not to set the protocol for you.
+      </p>
     </section>
 
     <section class="section">
-      <h2>How InjectBuddy Helps</h2>
-      <p>InjectBuddy was built to take the guesswork out of injection planning. By entering your concentration, dosage, and frequency, the calculator instantly converts milligrams to milliliters and shows realistic syringe fills for cypionate, enanthate, propionate, or any custom compound. The tool is educational, transparent, and designed to empower users to understand their own treatment better.</p>
+      <h2>Where InjectBuddy Fits In</h2>
+      <p>
+        InjectBuddy is a calculator and visual aid. You input what your clinician
+        has prescribed — vial strength, total weekly dose, and injection frequency —
+        and the tool converts milligrams into milliliters, then shows approximately
+        how that should look in a syringe.
+      </p>
+      <ul>
+        <li>Convert mg → mL for any common concentration.</li>
+        <li>Compare “per week” vs “every N days” schedules.</li>
+        <li>See how much volume you’re actually drawing into a 1&nbsp;mL or 3&nbsp;mL syringe.</li>
+      </ul>
+      <p>
+        The goal is simple: fewer mistakes, less second-guessing, and a clearer
+        picture of what each dose really is in practical terms.
+      </p>
+      <p class="note">
+        InjectBuddy never tells you what dose to take. It only helps you interpret
+        and apply the instructions you already have.
+      </p>
     </section>
   </main>
 
