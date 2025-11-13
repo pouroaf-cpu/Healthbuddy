@@ -349,9 +349,9 @@ input[type=range]{width:100%;}
 }
 /* Make "Visual Syringe" + Volume/Mode line smaller */
 .syringe-head{
-  font-size: 0.85rem;
+  font-size: 0.80rem;
 }
 
 .syringe-head .syringe-label{
-  font-size: 0.85rem;
+  font-size: 0.80rem;
 }
