@@ -833,3 +833,20 @@ body .cta-bar .cta-bar-inner {
   font-weight:800; color:#004c4d; display:flex; align-items:center; justify-content:space-between;
 }
 .mobile-panel a { display:block; padding:8px 0; color:#0f172a; }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 30px;   /* Increase from ~20px */
+  width: 30px;    /* Increase from ~20px */
+  border-radius: 50%;
+  background: var(--cta, #009395);
+  cursor: pointer;
+  margin-top: -12px; /* Adjust to align with track */
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: var(--cta, #009395);
+  cursor: pointer;
+}
