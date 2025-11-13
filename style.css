@@ -10,6 +10,15 @@
   --muted:#ddd;
   --header-h:56px;
 }
+
+/* Desktop navigation always in a row */
+.ib-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+}
+
 /* Base */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
