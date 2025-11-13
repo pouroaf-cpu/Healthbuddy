@@ -2,298 +2,390 @@
 <html lang="en">
 <head>
   <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
-<meta name="description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume. Free, no login." />
-<link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
-<meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
-<meta property="og:description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
-<meta property="og:site_name" content="InjectBuddy" />
-<link rel="icon" href="/assets/favicon.svg" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InjectBuddy — TRT & Peptide Dosage Calculator</title>
+  <meta name="description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume. Free, no login." />
+  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:title" content="InjectBuddy — TRT & Peptide Dosage Calculator" />
+  <meta property="og:description" content="Convert mg to mL instantly, set injection frequency (or every N days), and see a realistic syringe fill with exact volume." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
+  <meta property="og:site_name" content="InjectBuddy" />
+  <link rel="icon" href="/assets/favicon.svg" />
 
-<style>
-  :root{
-    --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-    --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-    --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
-    --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
-    --info-bg:#f0f9ff; --info-bd:#bae6fd; --info-ink:#075985;
-  }
+  <style>
+    :root{
+      --ink:#0f172a; --muted:#475569; --bg:#ffffff;
+      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
+      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
+      --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
+      --info-bg:#f0f9ff; --info-bd:#bae6fd; --info-ink:#075985;
+    }
 
-  *{box-sizing:border-box}
-  html,body{
-    margin:0;
-    padding:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  }
-  a{color:inherit;text-decoration:none}
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
 
-  .container{max-width:1200px;margin:0 auto;padding:0 24px}
-  @media (max-width:640px){ .container{padding:0 26px} }
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    @media (max-width:640px){ .container{padding:0 26px} }
 
-  /* Header */
-  .header{
-    position:sticky;
-    top:0;
-    z-index:60;
-    background:rgba(255,255,255,.86);
-    backdrop-filter:saturate(180%) blur(8px);
-    border-bottom:1px solid var(--border);
-  }
-  .header-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:12px 0;
-  }
-  .brand{display:flex;gap:.75rem;align-items:center}
-  .logo{
-    width:36px;height:36px;border-radius:10px;
-    background:linear-gradient(135deg,#009395,#22d3ee);
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
-  }
-  .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
-  .nav{display:flex;gap:12px;align-items:center}
-  .nav a{font-weight:600;color:var(--muted)}
+    /* Header */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:60;
+      background:rgba(255,255,255,.86);
+      backdrop-filter:saturate(180%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 0;
+    }
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .logo{
+      width:36px;height:36px;border-radius:10px;
+      background:linear-gradient(135deg,#009395,#22d3ee);
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
+    }
+    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
+    .nav{display:flex;gap:12px;align-items:center}
+    .nav a{font-weight:600;color:var(--muted)}
 
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;
-    gap:.5rem;font-weight:700;letter-spacing:.2px;
-    border-radius:16px;padding:12px 18px;border:2px solid transparent;
-    cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);
-  }
-  .btn-primary{background:var(--cta);color:#fff}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:.5rem;font-weight:700;letter-spacing:.2px;
+      border-radius:16px;padding:12px 18px;border:2px solid transparent;
+      cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+    .btn-primary{background:var(--cta);color:#fff}
 
-  .burger{
-    display:none;align-items:center;justify-content:center;
-    width:48px;height:48px;border-radius:12px;
-    border:1px solid var(--border);background:#fff;
-  }
-  .burger svg{width:22px;height:22px}
-  @media (max-width:980px){
-    .nav{display:none}
-    .burger{display:inline-flex}
-  }
+    .burger{
+      display:none;align-items:center;justify-content:center;
+      width:48px;height:48px;border-radius:12px;
+      border:1px solid var(--border);background:#fff;
+    }
+    .burger svg{width:22px;height:22px}
+    @media (max-width:980px){
+      .nav{display:none}
+      .burger{display:inline-flex}
+    }
 
-  /* Mobile menu */
-  .mobile-menu{
-    display:none;
-    position:fixed;top:56px;left:0;right:0;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    box-shadow:0 10px 30px rgba(2,6,23,.08);
-    z-index:55;
-    max-height:calc(100vh - 56px);
-    overflow:auto;
-  }
-  .mobile-menu.open{display:block}
-  .mobile-menu .container{padding:14px 20px 16px}
-  .mobile-links{display:grid;gap:10px;margin-bottom:12px}
+    /* Mobile menu */
+    .mobile-menu{
+      display:none;
+      position:fixed;top:56px;left:0;right:0;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      box-shadow:0 10px 30px rgba(2,6,23,.08);
+      z-index:55;
+      max-height:calc(100vh - 56px);
+      overflow:auto;
+    }
+    .mobile-menu.open{display:block}
+    .mobile-menu .container{padding:14px 20px 16px}
+    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
 
-  /* Layout */
-  main.container{padding:28px 0}
-  @media (max-width:640px){ main.container{padding:20px 0} }
-  .form-container h1{margin:0 0 10px}
+    /* Layout */
+    main.container{padding:28px 0}
+    @media (max-width:640px){ main.container{padding:20px 0} }
+    .form-container h1{margin:0 0 10px}
 
-  .calc-wrap{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:28px;
-  }
-  @media (max-width:980px){
-    .calc-wrap{grid-template-columns:1fr;gap:18px}
-  }
+    .calc-wrap{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+    }
+    @media (max-width:980px){
+      .calc-wrap{grid-template-columns:1fr;gap:18px}
+    }
 
-  .calc-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:16px;
-  }
+    .calc-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
 
-  /* Segmented toggles – compact, not full-width */
-  .seg-toggle{
-    display:inline-flex;
-    border:1px solid var(--border);
-    border-radius:12px;
-    overflow:hidden;
-    background:#fff;
-  }
-  .seg-btn{
-    flex:1 0 auto;
-    padding:8px 14px;
-    font-weight:700;
-    border:0;
-    background:#fff;
-    color:#334155;
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .seg-btn[aria-checked="true"]{
-    background:#ecfeff;
-    color:#065f5b;
-  }
+    /* Segmented toggles – compact, not full-width */
+    .seg-toggle{
+      display:inline-flex;
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .seg-btn{
+      flex:1 0 auto;
+      padding:8px 14px;
+      font-weight:700;
+      border:0;
+      background:#fff;
+      color:#334155;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .seg-btn[aria-checked="true"]{
+      background:#ecfeff;
+      color:#065f5b;
+    }
 
-  label{font-weight:700}
-  input[type=range]{width:100%}
+    label{font-weight:700}
+    input[type=range]{width:100%}
 
-  .live-reads{margin-top:0}
-  .live-chip{
-    display:inline-block;
-    padding:6px 10px;
-    border:1px solid var(--border);
-    border-radius:10px;
-    color:#475569;
-    background:#fff;
-    white-space:nowrap;
-    font-weight:700;
-  }
+    /* Bigger slider thumb */
+    input[type="range"]{
+      -webkit-appearance:none;
+      appearance:none;
+      height:6px;
+      border-radius:999px;
+      background:linear-gradient(to right, var(--cta) 0, var(--cta) var(--val,50%), #e2e8f0 var(--val,50%), #e2e8f0 100%);
+      outline:none;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      height:24px;
+      width:24px;
+      border-radius:50%;
+      background:var(--cta);
+      border:2px solid #ffffff;
+      box-shadow:0 2px 6px rgba(15,23,42,.35);
+      cursor:pointer;
+      margin-top:-9px; /* vertically center on 6px track */
+    }
+    input[type="range"]::-moz-range-thumb{
+      height:24px;
+      width:24px;
+      border-radius:50%;
+      background:var(--cta);
+      border:2px solid #ffffff;
+      box-shadow:0 2px 6px rgba(15,23,42,.35);
+      cursor:pointer;
+    }
+    input[type="range"]::-moz-range-track{
+      height:6px;
+      border-radius:999px;
+      background:linear-gradient(to right, var(--cta) 0, var(--cta) var(--val,50%), #e2e8f0 var(--val,50%), #e2e8f0 100%);
+    }
 
-  /* Default row: label (left), value (right), slider underneath */
-  .calc-grid .full{
-    display:grid;
-    grid-template-columns:1fr auto;
-    grid-template-areas:
-      "label chip"
-      "slider slider";
-    align-items:center;
-    gap:6px 12px;
-  }
-  .calc-grid .full > label{
-    grid-area:label;
-    margin:0;
-  }
-  .calc-grid .full > .live-reads{
-    grid-area:chip;
-    margin:0;
-  }
-  .calc-grid .full > input[type="range"]{
-    grid-area:slider;
-    margin-top:2px;
-  }
+    .live-reads{margin-top:0}
+    .live-chip{
+      display:inline-block;
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:#475569;
+      background:#fff;
+      white-space:nowrap;
+      font-weight:700;
+    }
 
-  /* Toggle rows: not stretched full-width, compact pill */
-  .calc-grid .full.full-toggle{
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .calc-grid .full.full-toggle > .seg-toggle{
-    margin:0;
-  }
+    /* Default row: label (left), value (right), slider underneath */
+    .calc-grid .full{
+      display:grid;
+      grid-template-columns:1fr auto;
+      grid-template-areas:
+        "label chip"
+        "slider slider";
+      align-items:center;
+      gap:6px 12px;
+    }
+    .calc-grid .full > label{
+      grid-area:label;
+      margin:0;
+    }
+    .calc-grid .full > .live-reads{
+      grid-area:chip;
+      margin:0;
+    }
+    .calc-grid .full > input[type="range"]{
+      grid-area:slider;
+      margin-top:2px;
+    }
+    .calc-grid .full > input[type="datetime-local"]{
+      grid-area:slider;
+      margin-top:2px;
+    }
 
-  /* Output (KPIs) */
-  .out h3{margin:0 0 10px}
-  .kpi{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin:12px 0;
-  }
-  @media (max-width:640px){
-    .kpi{grid-template-columns:1fr;gap:10px}
-  }
-  .card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:12px;
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-  }
-  .card .muted{color:#64748b}
+    /* Toggle rows: not stretched full-width, compact pill */
+    .calc-grid .full.full-toggle{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .calc-grid .full.full-toggle > .seg-toggle{
+      margin:0;
+    }
 
-  /* Syringe container */
-  .syringe-wrap{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .syringe-card{
-    width:100%;
-    max-width:1350px;
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:16px;
-    box-shadow:var(--shadow);
-    padding:22px 28px 40px; /* extra bottom padding */
-    overflow:hidden;
-  }
-  .syringe-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:12px;
-  }
-  .syringe-head b{color:#004c4d}
-  .syringe-svg{
-    display:block;
-    width:100%;
-    max-width:100%;
-    height:auto;
-    transform-origin:left center;
-  }
+    /* Output (KPIs) */
+    .out h3{margin:0 0 10px}
+    .kpi{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin:12px 0;
+    }
+    @media (max-width:640px){
+      .kpi{grid-template-columns:1fr;gap:10px}
+    }
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .card .muted{color:#64748b}
 
-  /* Reserved area for warning + tip so syringe doesn't jump */
-  .syringe-status{
-    margin-top:12px;
-    min-height:72px;      /* adjust if you want more/less reserved space */
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-  .syringe-status .warn,
-  .syringe-status .advice{
-    margin:0;
-  }
-  .syringe-status > [hidden]{
-    display:none;         /* children hide, wrapper keeps min-height */
-  }
-
-  .warn{
-    padding:10px;
-    border-radius:10px;
-    background:#fff7ed;
-    border:1px solid #fed7aa;
-    color:#9a3412;
-  }
-  .advice{
-    padding:10px;
-    border-radius:10px;
-    background:var(--info-bg);
-    border:1px solid var(--info-bd);
-    color:var(--info-ink);
-  }
-
-  .is-hidden{display:none !important}
-
-  footer{
-    padding:36px 0;
-    color:#64748b;
-    border-top:1px solid var(--border);
-  }
-
-  @media (max-width:400px){
-    .live-reads .live-chip{
-      max-width:40vw;
-      text-overflow:ellipsis;
+    /* Syringe container */
+    .syringe-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .syringe-card{
+      width:100%;
+      max-width:1350px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:22px 28px 40px; /* extra bottom padding */
       overflow:hidden;
     }
-  }
-</style>
+    .syringe-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .syringe-head b{color:#004c4d}
+    .syringe-svg{
+      display:block;
+      width:100%;
+      max-width:100%;
+      height:auto;
+      transform-origin:left center;
+    }
 
-<script type="text/javascript">
+    /* Reserved area for warning + tip so syringe doesn't jump */
+    .syringe-status{
+      margin-top:12px;
+      min-height:72px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .syringe-status .warn,
+    .syringe-status .advice{
+      margin:0;
+    }
+    .syringe-status > [hidden]{
+      display:none;
+    }
+
+    .warn{
+      padding:10px;
+      border-radius:10px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+    }
+    .advice{
+      padding:10px;
+      border-radius:10px;
+      background:var(--info-bg);
+      border:1px solid var(--info-bd);
+      color:var(--info-ink);
+    }
+
+    .is-hidden{display:none !important}
+
+    footer{
+      padding:36px 0;
+      color:#64748b;
+      border-top:1px solid var(--border);
+    }
+
+    @media (max-width:400px){
+      .live-reads .live-chip{
+        max-width:40vw;
+        text-overflow:ellipsis;
+        overflow:hidden;
+      }
+    }
+
+    /* Every N days schedule styling */
+    .nd-schedule-wrap{
+      margin-top:8px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#f8fafc;
+      box-shadow:0 6px 16px rgba(15,23,42,0.04);
+    }
+
+    .nd-schedule-header{
+      font-weight:600;
+      font-size:13px;
+      margin-bottom:6px;
+      color:var(--ink);
+    }
+
+    .nd-schedule-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      font-size:12px;
+    }
+
+    .nd-row{
+      display:contents;
+    }
+
+    .nd-row div{
+      padding:4px 6px;
+      border-bottom:1px solid #e2e8f0;
+    }
+
+    .nd-row-head div{
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      color:var(--muted);
+      border-bottom:1px solid #cbd5f5;
+    }
+
+    .nd-empty{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    @media (max-width:480px){
+      .nd-schedule-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+  </style>
+
+  <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
-</script>
+  </script>
   <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
 </head>
 <body>
@@ -380,6 +472,29 @@
           <label for="ndays-slider">Every N days</label>
           <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
           <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
+        </div>
+
+        <!-- First injection datetime (Every N days mode only) -->
+        <div class="full is-hidden" id="everyNStartWrap">
+          <label for="ndays-start">First injection date &amp; time</label>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-ndays-start">—</div>
+          </div>
+          <input id="ndays-start" type="datetime-local" />
+        </div>
+
+        <!-- Simple schedule / calendar for Every N days -->
+        <div class="full is-hidden" id="everyNScheduleWrap">
+          <div class="nd-schedule-wrap">
+            <div class="nd-schedule-header">
+              Injection schedule — next 30 days
+            </div>
+            <div id="ndays-schedule-grid" class="nd-schedule-grid">
+              <p class="nd-empty">
+                Select a start date/time and N-days value to see your schedule.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -721,49 +836,177 @@
     updateSmallerSyringeAdvice(volPerInj_ml);
   }
 
-  /* ===== Every N days mode ===== */
+  /* ===== Every N days mode + schedule ===== */
   (function(){
-    const modeToggle   = $('modeToggle');
-    const perWeekWrap  = $('count-wrap');
-    const everyNWrap   = $('everyNdaysWrap');
-    const nDaysSlider  = $('ndays-slider');
-    const lrNDays      = $('lr-ndays');
-    const concSlider   = $('conc-slider');
-    const weeklySlider = $('weekly-slider');
+    const modeToggle         = $('modeToggle');
+    const perWeekWrap        = $('count-wrap');
+    const everyNWrap         = $('everyNdaysWrap');
+    const everyNStartWrap    = $('everyNStartWrap');
+    const everyNScheduleWrap = $('everyNScheduleWrap');
 
+    const nDaysSlider   = $('ndays-slider');
+    const lrNDays       = $('lr-ndays');
+    const concSlider    = $('conc-slider');
+    const weeklySlider  = $('weekly-slider');
+
+    const ndStartInput   = $('ndays-start');
+    const lrNDaysStart   = $('lr-ndays-start');
+    const ndScheduleGrid = $('ndays-schedule-grid');
+
+    // Restore last mode from localStorage
     window.__mode = (()=>{
       try { return localStorage.getItem('hb_mode') || 'perWeek'; }
       catch(e){ return 'perWeek'; }
     })();
 
-    function setMode(newMode){
-      window.__mode = (newMode === 'everyNDays') ? 'everyNDays' : 'perWeek';
-      const btns = modeToggle?.querySelectorAll('.seg-btn') || [];
-      btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.mode === window.__mode)));
-      perWeekWrap?.classList.toggle('is-hidden', window.__mode === 'everyNDays');
-      everyNWrap?.classList.toggle('is-hidden', window.__mode !== 'everyNDays');
-      try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
-      if (window.__mode === 'perWeek') compute(); else computeEveryNDays();
+    function renderNDaysSchedule(injections){
+      if (!ndScheduleGrid) return;
+
+      if (!injections.length){
+        ndScheduleGrid.innerHTML =
+          '<p class="nd-empty">No injections in the next 30 days.</p>';
+        return;
+      }
+
+      let html = `
+        <div class="nd-row nd-row-head">
+          <div>Date</div>
+          <div>Day</div>
+          <div>Time</div>
+          <div>Since last</div>
+        </div>
+      `;
+
+      let last = null;
+      injections.forEach(dt => {
+        const dateStr = dt.toLocaleDateString(undefined,{
+          day:'2-digit',month:'2-digit',year:'numeric'
+        });
+        const dayStr  = dt.toLocaleDateString(undefined,{ weekday:'short' });
+        const timeStr = dt.toLocaleTimeString(undefined,{
+          hour:'2-digit',minute:'2-digit'
+        });
+
+        let diffStr = '—';
+        if (last){
+          const diffHours = (dt - last) / 36e5; // ms -> hours
+          diffStr = diffHours.toFixed(1) + ' h';
+        }
+        last = dt;
+
+        html += `
+          <div class="nd-row">
+            <div>${dateStr}</div>
+            <div>${dayStr}</div>
+            <div>${timeStr}</div>
+            <div>${diffStr}</div>
+          </div>
+        `;
+      });
+
+      ndScheduleGrid.innerHTML = html;
     }
 
+    function updateNDaysSchedule(){
+      if (!ndStartInput || !ndScheduleGrid) return;
+
+      const raw = ndStartInput.value;
+      const N = Math.max(
+        1,
+        Math.min(14, Math.round(parseFloat(nDaysSlider?.value) || 3))
+      );
+
+      if (!raw){
+        ndScheduleGrid.innerHTML =
+          '<p class="nd-empty">Select a start date/time to see your schedule.</p>';
+        if (lrNDaysStart) lrNDaysStart.textContent = '—';
+        return;
+      }
+
+      const start = new Date(raw);
+      if (isNaN(start.getTime())){
+        ndScheduleGrid.innerHTML =
+          '<p class="nd-empty">Invalid date/time. Please re-enter.</p>';
+        if (lrNDaysStart) lrNDaysStart.textContent = '—';
+        return;
+      }
+
+      if (lrNDaysStart){
+        const d = start.toLocaleDateString(undefined,{
+          day:'2-digit',month:'2-digit',year:'numeric'
+        });
+        const t = start.toLocaleTimeString(undefined,{
+          hour:'2-digit',minute:'2-digit'
+        });
+        lrNDaysStart.textContent = `${d} ${t}`;
+      }
+
+      const end = new Date(start.getTime());
+      end.setDate(end.getDate() + 30);
+
+      const injections = [];
+      let cur = new Date(start.getTime());
+      while (cur <= end){
+        injections.push(new Date(cur.getTime()));
+        cur.setDate(cur.getDate() + N); // N days
+      }
+
+      renderNDaysSchedule(injections);
+    }
+
+    function setMode(newMode){
+      window.__mode = (newMode === 'everyNDays') ? 'everyNDays' : 'perWeek';
+
+      const btns = modeToggle?.querySelectorAll('.seg-btn') || [];
+      btns.forEach(b =>
+        b.setAttribute('aria-checked', String(b.dataset.mode === window.__mode))
+      );
+
+      const inEvery = window.__mode === 'everyNDays';
+
+      perWeekWrap?.classList.toggle('is-hidden', inEvery);
+      everyNWrap?.classList.toggle('is-hidden', !inEvery);
+      everyNStartWrap?.classList.toggle('is-hidden', !inEvery);
+      everyNScheduleWrap?.classList.toggle('is-hidden', !inEvery);
+
+      try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
+
+      if (window.__mode === 'perWeek') {
+        compute();
+      } else {
+        window.computeEveryNDays();
+      }
+    }
+
+    // Recalculate mg/mL logic, then schedule
     window.computeEveryNDays = function(){
       const C = parseFloat(concSlider?.value);
       const W = parseFloat(weeklySlider?.value);
-      const N = Math.max(1, Math.min(14, Math.round(parseFloat(nDaysSlider?.value)||3)));
-      if (lrNDays) lrNDays.textContent = N + ' day' + (N===1?'':'s');
+      const N = Math.max(
+        1,
+        Math.min(14, Math.round(parseFloat(nDaysSlider?.value) || 3))
+      );
 
-      if (!(C>0 && W>=15 && N>0)) {
-        const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
-        if(k1) k1.textContent='—';
-        if(k2) k2.textContent='—';
-        if(k3) k3.textContent='—';
-        updateSyringe(0); applyCapacityWarning(0); updateSmallerSyringeAdvice(0);
+      if (lrNDays) lrNDays.textContent = N + ' day' + (N === 1 ? '' : 's');
+
+      if (!(C > 0 && W >= 15 && N > 0)) {
+        const k1 = $('kpi_inj'), k2 = $('kpi_dose'), k3 = $('kpi_ml');
+        if (k1) k1.textContent = '—';
+        if (k2) k2.textContent = '—';
+        if (k3) k3.textContent = '—';
+        updateSyringe(0);
+        applyCapacityWarning(0);
+        updateSmallerSyringeAdvice(0);
+        if (ndScheduleGrid){
+          ndScheduleGrid.innerHTML =
+            '<p class="nd-empty">Enter valid inputs to see schedule.</p>';
+        }
         return;
       }
 
       const injPerWeek = 7 / N;
-      const dose       = (W * N) / 7;  // mg per injection
-      const vol        = dose / C;     // mL
+      const dose       = (W * N) / 7; // mg per injection
+      const vol        = dose / C;    // mL
 
       $('kpi_inj').textContent  = injPerWeek.toFixed(2);
       $('kpi_dose').textContent = dose.toFixed(2) + ' mg';
@@ -772,26 +1015,45 @@
       updateSyringe(vol);
       applyCapacityWarning(vol);
       updateSmallerSyringeAdvice(vol);
+
+      updateNDaysSchedule();
     };
 
+    // Mode toggle events
     modeToggle?.addEventListener('click', (e)=>{
       const btn = e.target.closest('.seg-btn'); if (!btn) return;
       setMode(btn.dataset.mode);
     });
+
     modeToggle?.addEventListener('keydown', (e)=>{
-      if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       e.preventDefault();
-      const arr=[...(modeToggle.querySelectorAll('.seg-btn')||[])];
-      const idx=arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-      const next = idx===0?1:0;
+      const arr = [...(modeToggle.querySelectorAll('.seg-btn') || [])];
+      const idx = arr.findIndex(b => b.getAttribute('aria-checked') === 'true');
+      const next = idx === 0 ? 1 : 0;
       setMode(arr[next].dataset.mode);
       arr[next].focus();
     });
 
-    nDaysSlider?.addEventListener('input', ()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
-    concSlider?.addEventListener('input',  ()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
-    weeklySlider?.addEventListener('input',()=>{ if (window.__mode==='everyNDays') window.computeEveryNDays(); });
+    // Slider + date listeners
+    nDaysSlider?.addEventListener('input', ()=>{
+      if (window.__mode === 'everyNDays') window.computeEveryNDays();
+    });
+    concSlider?.addEventListener('input', ()=>{
+      if (window.__mode === 'everyNDays') window.computeEveryNDays();
+    });
+    weeklySlider?.addEventListener('input', ()=>{
+      if (window.__mode === 'everyNDays') window.computeEveryNDays();
+    });
 
+    ndStartInput?.addEventListener('change', ()=>{
+      if (window.__mode === 'everyNDays') updateNDaysSchedule();
+    });
+    ndStartInput?.addEventListener('input', ()=>{
+      if (window.__mode === 'everyNDays') updateNDaysSchedule();
+    });
+
+    // Initial mode + schedule
     setMode(window.__mode);
   })();
 
