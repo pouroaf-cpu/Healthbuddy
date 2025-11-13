@@ -347,3 +347,11 @@ input[type=range]{width:100%;}
     align-items: center;
   }
 }
+/* Make "Visual Syringe" + Volume/Mode line smaller */
+.syringe-head{
+  font-size: 0.85rem;
+}
+
+.syringe-head .syringe-label{
+  font-size: 0.85rem;
+}
