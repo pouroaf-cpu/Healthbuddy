@@ -1,0 +1,31 @@
+/* Desktop dropdown */
+.dropdown { position: relative; }
+.drop-trigger {
+  display:inline-flex; align-items:center; gap:6px;
+  font-weight:600; color:var(--muted);
+  background:#fff; border:0; padding:8px 10px; cursor:pointer;
+}
+.submenu {
+  position:absolute; top:100%; left:0; min-width:220px;
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  box-shadow:0 10px 30px rgba(2,6,23,.08); padding:8px; margin-top:8px;
+  display:none; z-index:80;
+}
+.submenu.open { display:block; }
+.submenu a {
+  display:block; padding:8px 10px; border-radius:8px; color:#0f172a; font-weight:600;
+}
+.submenu a:hover { background:#ecfeff; color:#065f5b; }
+
+/* Improve hover open on large screens (optional, still keyboard-safe via JS) */
+@media (min-width: 980px) {
+  .has-dropdown:hover > .submenu { display:block; }
+}
+
+/* Mobile accordion in drawer */
+.mobile-group { border-top:1px solid var(--border); padding:10px 0; }
+.mobile-acc {
+  width:100%; text-align:left; background:#fff; border:0; padding:10px 0;
+  font-weight:800; color:#004c4d; display:flex; align-items:center; justify-content:space-between;
+}
+.mobile-panel a { display:block; padding:8px 0; color:#0f172a; }
