@@ -1,18 +1,20 @@
 <!-- HEADER -->
-<header class="header" role="banner">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="InjectBuddy Home">
+<header class="ib-header header" role="banner">
+  <div class="container ib-nav">
+    <a class="ib-brand" href="/" aria-label="InjectBuddy Home">
       <div class="logo" aria-hidden="true"></div>
-      <h1>InjectBuddy</h1>
+      <span>InjectBuddy</span>
     </a>
 
-    <!-- Desktop nav -->
+    <!-- Desktop nav with dropdowns -->
     <nav class="nav" aria-label="Primary">
-      <!-- Dropdown: Calculators -->
+      <!-- Calculators dropdown -->
       <div class="dropdown has-dropdown">
         <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-calculators">
           Calculators
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </button>
         <ul id="dd-calculators" class="submenu" role="menu">
           <li role="none"><a role="menuitem" href="/calculator.html">TRT Dosage Calculator</a></li>
@@ -20,11 +22,13 @@
         </ul>
       </div>
 
-      <!-- Dropdown: Learn -->
+      <!-- Learn dropdown -->
       <div class="dropdown has-dropdown">
         <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-learn">
           Learn
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </button>
         <ul id="dd-learn" class="submenu" role="menu">
           <li role="none"><a role="menuitem" href="/faq.html">FAQ</a></li>
@@ -33,7 +37,7 @@
         </ul>
       </div>
 
-      <!-- Simple links (optional) -->
+      <!-- Single link -->
       <a href="/privacy.html">Privacy</a>
     </nav>
 
@@ -41,10 +45,11 @@
       <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
     </div>
 
-    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
+    <!-- Mobile burger -->
+    <button class="ib-toggle" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
   </div>
 </header>
@@ -52,7 +57,6 @@
 <!-- MOBILE MENU -->
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile" hidden>
   <div class="container">
-    <!-- Mobile accordion version of dropdowns -->
     <div class="mobile-group">
       <button class="mobile-acc" type="button" aria-expanded="false" aria-controls="m-calculators">Calculators</button>
       <div id="m-calculators" class="mobile-panel" hidden>
