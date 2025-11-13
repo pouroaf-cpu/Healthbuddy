@@ -6,11 +6,35 @@
       <h1>InjectBuddy</h1>
     </a>
 
+    <!-- Desktop nav -->
     <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html">Dosage Calculator</a>
-      <a href="/peptide.html">Peptide Reconstitution</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/about.html">About</a>
+      <!-- Dropdown: Calculators -->
+      <div class="dropdown has-dropdown">
+        <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-calculators">
+          Calculators
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <ul id="dd-calculators" class="submenu" role="menu">
+          <li role="none"><a role="menuitem" href="/calculator.html">TRT Dosage Calculator</a></li>
+          <li role="none"><a role="menuitem" href="/peptide.html">Peptide Reconstitution</a></li>
+        </ul>
+      </div>
+
+      <!-- Dropdown: Learn -->
+      <div class="dropdown has-dropdown">
+        <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-learn">
+          Learn
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <ul id="dd-learn" class="submenu" role="menu">
+          <li role="none"><a role="menuitem" href="/faq.html">FAQ</a></li>
+          <li role="none"><a role="menuitem" href="/about.html">About</a></li>
+          <li role="none"><a role="menuitem" href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Simple links (optional) -->
+      <a href="/privacy.html">Privacy</a>
     </nav>
 
     <div class="nav-cta">
@@ -28,13 +52,25 @@
 <!-- MOBILE MENU -->
 <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile" hidden>
   <div class="container">
-    <div class="mobile-links" role="menu">
-      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
-      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
-      <a href="/contact.html" role="menuitem">Contact</a>
-      <a href="/about.html" role="menuitem">About</a>
+    <!-- Mobile accordion version of dropdowns -->
+    <div class="mobile-group">
+      <button class="mobile-acc" type="button" aria-expanded="false" aria-controls="m-calculators">Calculators</button>
+      <div id="m-calculators" class="mobile-panel" hidden>
+        <a href="/calculator.html">TRT Dosage Calculator</a>
+        <a href="/peptide.html">Peptide Reconstitution</a>
+      </div>
     </div>
-    <div class="mobile-cta">
+
+    <div class="mobile-group">
+      <button class="mobile-acc" type="button" aria-expanded="false" aria-controls="m-learn">Learn</button>
+      <div id="m-learn" class="mobile-panel" hidden>
+        <a href="/faq.html">FAQ</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </div>
+
+    <div class="mobile-cta" style="margin-top:8px">
       <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
       <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
     </div>
