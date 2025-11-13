@@ -22,79 +22,166 @@
     --info-bg:#f0f9ff; --info-bd:#bae6fd; --info-ink:#075985;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  html,body{
+    margin:0;padding:0;
+    background:var(--bg);color:var(--ink);
+    font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  }
   a{color:inherit;text-decoration:none}
 
   .container{max-width:1200px;margin:0 auto;padding:0 24px}
   @media (max-width:640px){ .container{padding:0 26px} }
 
-  /* Header */
-  .header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+  /* HEADER */
+  .header{
+    position:sticky;top:0;z-index:60;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(180%) blur(8px);
+    border-bottom:1px solid var(--border);
+  }
   .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
   .brand{display:flex;gap:.75rem;align-items:center}
-  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#009395,#22d3ee);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+  .logo{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,#009395,#22d3ee);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
+  }
   .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
   .nav{display:flex;gap:12px;align-items:center}
   .nav a{font-weight:600;color:var(--muted)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:12px 18px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+    font-weight:700;letter-spacing:.2px;
+    border-radius:16px;padding:12px 18px;border:2px solid transparent;
+    cursor:pointer;text-align:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+  }
   .btn-primary{background:var(--cta);color:#fff}
-  .burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:#fff}
-  .burger svg{width:22px;height:22px}
-  @media (max-width:980px){ .nav{display:none} .burger{display:inline-flex} }
 
-  /* Mobile menu */
-  .mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;max-height:calc(100vh - 56px);overflow:auto}
+  .burger{
+    display:none;align-items:center;justify-content:center;
+    width:48px;height:48px;border-radius:12px;
+    border:1px solid var(--border);background:#fff;
+  }
+  .burger svg{width:22px;height:22px}
+  @media (max-width:980px){
+    .nav{display:none}
+    .burger{display:inline-flex}
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu{
+    display:none;position:fixed;top:56px;left:0;right:0;
+    background:#fff;border-bottom:1px solid var(--border);
+    box-shadow:0 10px 30px rgba(2,6,23,.08);
+    z-index:55;max-height:calc(100vh - 56px);overflow:auto;
+  }
   .mobile-menu.open{display:block}
   .mobile-menu .container{padding:14px 20px 16px}
   .mobile-links{display:grid;gap:10px;margin-bottom:12px}
 
-  /* Layout */
+  /* LAYOUT */
   main.container{padding:28px 0}
   @media (max-width:640px){ main.container{padding:20px 0} }
   .form-container h1{margin:0 0 10px}
-  .calc-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
-  @media (max-width:980px){.calc-wrap{grid-template-columns:1fr;gap:18px}}
+
+  .calc-wrap{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:28px;
+  }
+  @media (max-width:980px){
+    .calc-wrap{grid-template-columns:1fr;gap:18px}
+  }
 
   .calc-grid{display:grid;grid-template-columns:1fr;gap:16px}
-  .seg-toggle{display:inline-flex;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  .seg-btn{padding:8px 12px;font-weight:700;border:0;background:#fff;color:#334155;cursor:pointer}
+  .seg-toggle{
+    display:inline-flex;border:1px solid var(--border);
+    border-radius:12px;overflow:hidden;
+  }
+  .seg-btn{
+    padding:8px 12px;font-weight:700;border:0;
+    background:#fff;color:#334155;cursor:pointer;
+  }
   .seg-btn[aria-checked="true"]{background:#ecfeff;color:#065f5b}
 
   label{font-weight:700}
   input[type=range]{width:100%}
   .live-reads{margin-top:0}
-  .live-chip{display:inline-block;padding:6px 10px;border:1px solid var(--border);border-radius:10px;color:#475569;background:#fff;white-space:nowrap;font-weight:700}
+  .live-chip{
+    display:inline-block;padding:6px 10px;
+    border:1px solid var(--border);border-radius:10px;
+    color:#475569;background:#fff;white-space:nowrap;font-weight:700;
+  }
+
+  /* label | value above, slider row below */
   .calc-grid .full{
-    display:grid;grid-template-columns:1fr auto;
-    grid-template-areas:"label chip" "slider slider";
-    align-items:center;gap:6px 12px
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "label chip"
+      "slider slider";
+    align-items:center;gap:6px 12px;
   }
   .calc-grid .full > label{grid-area:label;margin:0}
   .calc-grid .full > .live-reads{grid-area:chip;margin:0}
   .calc-grid .full > input[type="range"]{grid-area:slider;margin-top:2px}
 
-  /* Output */
+  /* OUTPUT */
   .out h3{margin:0 0 10px}
-  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-  @media (max-width:640px){ .kpi{grid-template-columns:1fr;gap:10px} }
-  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
+  .kpi{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:12px;margin:12px 0;
+  }
+  @media (max-width:640px){
+    .kpi{grid-template-columns:1fr;gap:10px}
+  }
+  .card{
+    background:#fff;border:1px solid var(--border);border-radius:12px;
+    padding:12px;display:flex;flex-direction:column;gap:4px;
+  }
   .card .muted{color:#64748b}
 
-  /* Syringe */
+  /* SYRINGE CARD */
   .syringe-wrap{display:flex;align-items:center;justify-content:center}
   .syringe-card{
-    width:100%;max-width:1350px;background:#fff;border:1px solid var(--border);
+    width:100%;max-width:1350px;
+    background:#fff;border:1px solid var(--border);
     border-radius:16px;box-shadow:var(--shadow);
-    padding:22px 28px 34px;         /* extra bottom padding as requested */
-    overflow:hidden
+    padding:22px 28px 40px;  /* extra bottom pad so content never jumps */
+    overflow:hidden;
   }
-  .syringe-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .syringe-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:12px;
+  }
   .syringe-head b{color:#004c4d}
-  .syringe-svg{display:block;width:100%;height:auto;transform-origin:left center}
+  .syringe-svg{
+    display:block;width:100%;max-width:100%;
+    height:auto;transform-origin:left center;
+  }
 
-  /* Inline warnings/advice now INSIDE syringe-card */
-  .warn{margin-top:14px;padding:10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
-  .advice{margin-top:10px;padding:10px;border-radius:10px;background:var(--info-bg);border:1px solid var(--info-bd);color:var(--info-ink)}
+  /* Status area INSIDE syringe card, fixed height to prevent shifting */
+  .syringe-status{
+    margin-top:12px;
+    min-height:72px;             /* reserves space even when both hidden */
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .warn{
+    padding:10px;border-radius:10px;
+    background:#fff7ed;border:1px solid #fed7aa;
+    color:#9a3412;margin:0;
+  }
+  .advice{
+    padding:10px;border-radius:10px;
+    background:var(--info-bg);border:1px solid var(--info-bd);
+    color:var(--info-ink);margin:0;
+  }
+
+  .syringe-status > [hidden]{
+    display:none; /* wrapper keeps min-height so graphics stay put */
+  }
 
   .is-hidden{display:none !important}
 </style>
@@ -195,14 +282,17 @@
             <div class="syringe-card" aria-live="polite">
               <div class="syringe-head">
                 <div class="syringe-label">Visual Syringe</div>
-                <div class="syringe-label">Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b></div>
+                <div class="syringe-label">
+                  Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
+                </div>
               </div>
 
               <!-- SINGLE SVG with 4 capacity groups -->
               <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
                 <defs>
                   <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
+                    <stop offset="0" stop-color="var(--oil1)"/>
+                    <stop offset="1" stop-color="var(--oil2)"/>
                   </linearGradient>
                 </defs>
 
@@ -251,7 +341,7 @@
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 3 mL (mL scale) -->
+                <!-- 3 mL -->
                 <g id="g3ml" class="is-hidden">
                   <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
@@ -267,11 +357,12 @@
                 </g>
               </svg>
 
-              <!-- WARN & ADVICE live INSIDE the syringe card -->
-<div class="syringe-status">
-  <div id="warn" class="warn" hidden></div>
-  <div id="advice" class="advice" hidden></div>
-</div>
+              <!-- Fixed-height status region -->
+              <div class="syringe-status">
+                <div id="warn" class="warn" hidden></div>
+                <div id="advice" class="advice" hidden></div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -417,7 +508,6 @@
       updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
     };
 
-    // Initial preview
     updateSyringe(0.25);
   })();
 
@@ -466,19 +556,15 @@
     }
   }
 
-  // New: proactive smaller-syringe recommendation
   function updateSmallerSyringeAdvice(volMl){
     const advice = $('advice');
     if (!advice) return;
-
-    // Determine minimal suitable capacity
     let optimal = null;
     if (volMl <= 0.3) optimal = 0.3;
     else if (volMl <= 0.5) optimal = 0.5;
     else if (volMl <= 1.0) optimal = 1.0;
     else if (volMl <= 3.0) optimal = 3.0;
 
-    // Show advice only if the current selected syringe is larger than necessary
     if (optimal && currentSyringeMl > optimal){
       advice.hidden = false;
       advice.textContent = `Tip: Your volume (${volMl.toFixed(3)} mL) fits a smaller syringe. Consider switching to a ${optimal.toFixed(1)} mL syringe for finer control.`;
@@ -490,9 +576,9 @@
 
   function compute(){
     if (window.__mode === 'everyNDays') { computeEveryNDays(); return; }
-    const conc       = parseFloat((document.getElementById('conc-slider')||{}).value);
-    const weekly     = parseFloat((document.getElementById('weekly-slider')||{}).value);
-    const injPerWeek = parseFloat((document.getElementById('count-slider')||{}).value);
+    const conc       = parseFloat(($('conc-slider')||{}).value);
+    const weekly     = parseFloat(($('weekly-slider')||{}).value);
+    const injPerWeek = parseFloat(($('count-slider')||{}).value);
 
     const valid = (conc > 0) && (weekly >= 15) && (injPerWeek > 0);
     if (!valid){
@@ -547,7 +633,9 @@
       const N = Math.max(1, Math.min(14, Math.round(parseFloat(nDaysSlider?.value)||3)));
       if (lrNDays) lrNDays.textContent = N + ' day' + (N===1?'':'s');
 
-      if (!(C>0 && W>=15 && N>0)) { updateSyringe(0); applyCapacityWarning(0); updateSmallerSyringeAdvice(0); return; }
+      if (!(C>0 && W>=15 && N>0)) {
+        updateSyringe(0); applyCapacityWarning(0); updateSmallerSyringeAdvice(0); return;
+      }
 
       const injPerWeek = 7 / N;
       const dose       = (W * N) / 7;  // mg per injection
