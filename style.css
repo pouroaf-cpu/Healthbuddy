@@ -850,3 +850,8 @@ input[type="range"]::-moz-range-thumb {
   background: var(--cta, #009395);
   cursor: pointer;
 }
+@media (max-width: 900px){
+  /* Tighter container padding on mobile */
+  #calculator.form-container{
+    padding:9px;
+  }
