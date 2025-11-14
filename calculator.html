@@ -377,6 +377,19 @@
         grid-template-columns:repeat(2,minmax(0,1fr));
       }
     }
+    /* HARD OVERRIDE: mobile side padding */
+@media (max-width:640px){
+  /* Visual debug so you KNOW this rule is active */
+  body{
+    background:#f9fafb !important;
+  }
+
+  main.container{
+    padding-left:40px !important;
+    padding-right:40px !important;
+  }
+}
+
   </style>
 
   <script type="text/javascript">
