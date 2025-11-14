@@ -312,3 +312,9 @@ input[type=range]{width:100%;}
     align-items:center;
   }
 }
+@media (max-width:640px){
+  main.container{
+    padding-left:40px !important;
+    padding-right:40px !important;
+  }
+}
