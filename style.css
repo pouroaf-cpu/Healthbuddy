@@ -1391,3 +1391,72 @@ input[type="range"]::-moz-range-thumb {
 [class*="radius"] {
   border-radius: 4px !important;
 }
+/* ================================
+   SITE-WIDE: make UI more square
+   Put this at the VERY BOTTOM of style.css
+   ================================ */
+
+/* Core elements */
+button,
+input,
+select,
+textarea,
+.card,
+.bmi-card,
+.peptide-card,
+.calc-card,
+.syringe-card,
+.notice,
+.warn,
+.advice,
+.nd-schedule-wrap {
+  border-radius: 2px !important;
+}
+
+/* Nav + header */
+.ib-header,
+.ib-nav,
+.ib-nav-links a,
+.ib-link,
+.ib-nav-link,
+.ib-dropdown,
+.ib-mobile-menu,
+.ib-mobile-nav a,
+.ib-burger,
+.ib-mobile-section {
+  border-radius: 0 !important;
+}
+
+/* Brand + logo blocks */
+.logo,
+.ib-brand-logo {
+  border-radius: 3px !important;
+}
+
+/* Toggles, chips, pills, presets */
+.seg-toggle,
+.seg-btn,
+.toggle-btn,
+.live-chip,
+.preset,
+.bmi-pill,
+.badge,
+.cta-bar,
+.cta-bar-inner {
+  border-radius: 2px !important;
+}
+
+/* Kill old “fully rounded” pills */
+[class*="pill"],
+[class*="chip"],
+[class*="round"],
+[class*="radius"] {
+  border-radius: 2px !important;
+}
+
+/* Sliders */
+input[type="range"],
+input[type="range"]::-webkit-slider-thumb,
+input[type="range"]::-moz-range-thumb {
+  border-radius: 2px !important;
+}
