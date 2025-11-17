@@ -16,7 +16,6 @@
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- Global stylesheet (should contain nav/header styles) -->
   <link rel="stylesheet" href="/assets/style.css" />
 
   <style>
@@ -278,10 +277,32 @@
       text-decoration-thickness:1px;
       text-underline-offset:2px;
     }
+
+    .bmi-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:11px;
+      margin-top:8px;
+      color:var(--muted);
+    }
+
+    .bmi-table th,
+    .bmi-table td{
+      padding:6px 6px;
+      text-align:left;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .bmi-table th{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      color:#9ca3af;
+    }
   </style>
 </head>
 <body>
-  <!-- Shared header injected via nav.js / header.html -->
+  <!-- Shared header injected by assets/nav.js -->
   <div id="site-header"></div>
 
   <main class="ib-main">
@@ -499,8 +520,8 @@
     </div>
   </main>
 
-  <!-- Shared nav logic -->
-  <script src="/nav.js" defer></script>
+  <!-- Shared nav JS (note: correct path /assets/nav.js) -->
+  <script src="/assets/nav.js" defer></script>
 
   <script>
     (function(){
@@ -642,7 +663,6 @@
 
       calcBtn.addEventListener('click', calculateBMI);
 
-      // Enter key support
       [weightKg, heightCm, weightLb, heightFt, heightIn].forEach(function(input){
         if(!input) return;
         input.addEventListener('keyup', function(e){
