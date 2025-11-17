@@ -377,18 +377,18 @@
         grid-template-columns:repeat(2,minmax(0,1fr));
       }
     }
-    /* HARD OVERRIDE: mobile side padding */
-@media (max-width:640px){
-  /* Visual debug so you KNOW this rule is active */
-  body{
-    background:#f9fafb !important;
-  }
 
-  main.container{
-    padding-left:40px !important;
-    padding-right:40px !important;
-  }
-}
+    /* HARD OVERRIDE: mobile side padding */
+    @media (max-width:640px){
+      body{
+        background:#f9fafb !important;
+      }
+
+      main.container{
+        padding-left:40px !important;
+        padding-right:40px !important;
+      }
+    }
 
   </style>
 
@@ -462,15 +462,19 @@
         <!-- Vial strength -->
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-conc">200 mg/mL</div></div>
-          <input id="conc-slider" type="range" min="50" max="500" step="5" value="200" />
+          <div class="live-reads">
+            <div class="live-chip" id="lr-conc">20 mg/mL</div>
+          </div>
+          <input id="conc-slider" type="range" min="10" max="400" step="1" value="20" />
         </div>
 
-        <!-- Prescribed total per week (min 15 mg) -->
+        <!-- Prescribed total per week (min 2 mg) -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-weekly">140 mg/week</div></div>
-          <input id="weekly-slider" type="range" min="15" max="500" step="5" value="140" />
+          <div class="live-reads">
+            <div class="live-chip" id="lr-weekly">20 mg/week</div>
+          </div>
+          <input id="weekly-slider" type="range" min="2" max="500" step="1" value="20" />
         </div>
 
         <!-- Injections per week -->
@@ -513,7 +517,15 @@
 
       <!-- RIGHT: syringe + KPIs -->
       <aside id="out" class="out">
-        <h3>Dose & Volume per Injection</h3>
+        <h3>Dose &amp; Volume per Injection</h3>
+
+        <!-- Fixed syringe unit warning for U-100 vs 0.02 mL units -->
+        <p class="warn" style="font-size:12px;margin-bottom:10px;">
+          This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
+          Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
+          treat those units as identical. Always confirm with your prescriber, nurse, or an
+          experienced TRT user.
+        </p>
 
         <!-- Syringe visual -->
         <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
@@ -785,7 +797,10 @@
       setSyringe(Number(arr[next].dataset.ml));
       arr[next].focus();
     });
-    const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
+    const saved = (()=>{
+      try{ return Number(localStorage.getItem('hb_syr_ml')); }
+      catch(e){ return NaN; }
+    })();
     setSyringe( (saved===0.3||saved===0.5||saved===1||saved===3) ? saved : 1 );
   }
 
@@ -827,7 +842,7 @@
     const weekly     = parseFloat(($('weekly-slider')||{}).value);
     const injPerWeek = parseFloat(($('count-slider')||{}).value);
 
-    const valid = (conc > 0) && (weekly >= 15) && (injPerWeek > 0);
+    const valid = (conc > 0) && (weekly >= 2) && (injPerWeek > 0);
     if (!valid){
       const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
       if(k1) k1.textContent='—';
@@ -1002,7 +1017,7 @@
 
       if (lrNDays) lrNDays.textContent = N + ' day' + (N === 1 ? '' : 's');
 
-      if (!(C > 0 && W >= 15 && N > 0)) {
+      if (!(C > 0 && W >= 2 && N > 0)) {
         const k1 = $('kpi_inj'), k2 = $('kpi_dose'), k3 = $('kpi_ml');
         if (k1) k1.textContent = '—';
         if (k2) k2.textContent = '—';
@@ -1081,22 +1096,41 @@
 
     const syncConc = ()=>{
       let n = parseFloat(concSlider.value);
-      if(!isFinite(n)) n = 200;
-      n = Math.min(+concSlider.max, Math.max(+concSlider.min, Math.round(n / 5) * 5));
+      if(!isFinite(n)) n = 20;
+      const min = +concSlider.min || 10;
+      const max = +concSlider.max || 400;
+      n = Math.round(n);
+      if (n < min) n = min;
+      if (n > max) n = max;
       concSlider.value = n;
       lrConc.textContent = n.toFixed(0) + ' mg/mL';
       paintRange(concSlider);
       if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
+
     const syncWeekly = ()=>{
       let n = parseFloat(weeklySlider.value);
-      if(!isFinite(n)) n = 140;
-      n = Math.min(+weeklySlider.max, Math.max(+weeklySlider.min, Math.round(n / 5) * 5));
+      if(!isFinite(n)) n = 20;
+      const min = +weeklySlider.min || 2;
+      const max = +weeklySlider.max || 500;
+
+      // Snap to integer
+      n = Math.round(n);
+      if (n < min) n = min;
+      if (n > max) n = max;
+
+      // Below 20 mg/week: enforce 2 mg steps (2,4,6,...,18)
+      if (n < 20) {
+        n = 2 * Math.round(n / 2);
+        if (n < min) n = min;
+      }
+
       weeklySlider.value = n;
       lrWeekly.textContent = n.toFixed(0) + ' mg/week';
       paintRange(weeklySlider);
       if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
+
     const syncCount = ()=>{
       let n = Math.round(parseFloat(countSlider.value)||2);
       n = Math.min(+countSlider.max, Math.max(+countSlider.min, n));
