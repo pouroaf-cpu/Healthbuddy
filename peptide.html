@@ -560,15 +560,6 @@
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
           </div>
         </div>
-
-        <!-- Copy / Reset -->
-        <div class="full">
-          <label>Share / copy</label>
-          <div class="row" style="grid-area:slider;margin-top:4px;">
-            <button class="btn btn-secondary" id="copyBtn" type="button">Copy results</button>
-            <button class="btn btn-secondary" id="resetBtn" type="button">Reset</button>
-          </div>
-        </div>
       </div>
 
       <!-- RIGHT: syringe ABOVE vial + KPIs beside vial -->
@@ -1122,35 +1113,6 @@
     ndSlider.addEventListener('input', ()=>{ paintRange(ndSlider); computePeptide(); });
 
     initSyringeToggle();
-
-    $('copyBtn').addEventListener('click', ()=>{
-      const text = [
-        `Peptide in vial: ${$('pepMg').value || '—'} mg`,
-        `Bacteriostatic water: ${$('bacMl-slider').value || '—'} mL`,
-        `Vial strength: ${$('kMgMl').textContent}`,
-        `Desired total per week: ${$('weeklyMg-input').value || '—'} mg/week`,
-        `Mode: ${window.__mode === 'perWeek' ? 'Per week' : 'Every N days'}`,
-        window.__mode === 'perWeek'
-          ? `Injections per week: ${$('injCount-slider').value || '—'}`
-          : `Every N days: ${$('ndays-slider').value || '—'}`,
-        `Dose per injection: ${$('kDoseMg').textContent}`,
-        `Volume per injection: ${$('kDoseMl').textContent}`
-      ].join('\n');
-      navigator.clipboard?.writeText(text);
-    });
-
-    $('resetBtn').addEventListener('click', ()=>{
-      $('pepMg').value = 5;
-      $('bacMl-slider').value = 2;
-      $('weeklyMg-input').value = 1;
-      $('injCount-slider').value = 3;
-      $('ndays-slider').value = 3;
-      updateMode('perWeek');
-      ['bacMl-slider','injCount-slider','ndays-slider'].forEach(id=>{
-        const el = $(id); if(el) paintRange(el);
-      });
-      computePeptide();
-    });
 
     computePeptide();
   });
