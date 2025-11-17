@@ -1,82 +1,16 @@
-<!-- HEADER -->
-<header class="ib-header header" role="banner">
-  <div class="container ib-nav">
-    <a class="ib-brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div>
+<!-- /header.html -->
+<header class="ib-header">
+  <nav class="ib-nav">
+    <a href="/" class="ib-brand">
+      <span class="ib-brand-logo">IB</span>
       <span>InjectBuddy</span>
     </a>
-
-    <!-- Desktop nav with dropdowns -->
-    <nav class="nav" aria-label="Primary">
-      <!-- Calculators dropdown -->
-      <div class="dropdown has-dropdown">
-        <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-calculators">
-          Calculators
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <ul id="dd-calculators" class="submenu" role="menu">
-          <li role="none"><a role="menuitem" href="/calculator.html">TRT Dosage Calculator</a></li>
-          <li role="none"><a role="menuitem" href="/peptide.html">Peptide Reconstitution</a></li>
-        </ul>
-      </div>
-
-      <!-- Learn dropdown -->
-      <div class="dropdown has-dropdown">
-        <button class="drop-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-learn">
-          Learn
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <ul id="dd-learn" class="submenu" role="menu">
-          <li role="none"><a role="menuitem" href="/faq.html">FAQ</a></li>
-          <li role="none"><a role="menuitem" href="/about.html">About</a></li>
-          <li role="none"><a role="menuitem" href="/contact.html">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Single link -->
-      <a href="/privacy.html">Privacy</a>
-    </nav>
-
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="/calculator.html">Open Calculator</a>
+    <div class="ib-nav-links" data-nav-links>
+      <a href="/calculator.html" data-page="calculator">TRT Calculator</a>
+      <a href="/peptide.html" data-page="peptide">Peptide</a>
+      <a href="/free-test.html" data-page="free-test">Free T Index</a>
+      <a href="/bmi.html" data-page="bmi">BMI</a>
+      <a href="/faq.html" data-page="faq">FAQ</a>
     </div>
-
-    <!-- Mobile burger -->
-    <button class="ib-toggle" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
+  </nav>
 </header>
-
-<!-- MOBILE MENU -->
-<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile" hidden>
-  <div class="container">
-    <div class="mobile-group">
-      <button class="mobile-acc" type="button" aria-expanded="false" aria-controls="m-calculators">Calculators</button>
-      <div id="m-calculators" class="mobile-panel" hidden>
-        <a href="/calculator.html">TRT Dosage Calculator</a>
-        <a href="/peptide.html">Peptide Reconstitution</a>
-      </div>
-    </div>
-
-    <div class="mobile-group">
-      <button class="mobile-acc" type="button" aria-expanded="false" aria-controls="m-learn">Learn</button>
-      <div id="m-learn" class="mobile-panel" hidden>
-        <a href="/faq.html">FAQ</a>
-        <a href="/about.html">About</a>
-        <a href="/contact.html">Contact</a>
-      </div>
-    </div>
-
-    <div class="mobile-cta" style="margin-top:8px">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
-    </div>
-  </div>
-</nav>
