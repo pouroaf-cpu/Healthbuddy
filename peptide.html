@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Peptide Dosage & Reconstitution Calculator | InjectBuddy</title>
-  <meta name="description" content="Enter peptide amount (mg) and bacteriostatic water (mL) to get vial strength (mg/mL), then set a weekly peptide dose (µg/week) and schedule to see dose per injection, volume, and a visual syringe." />
+  <meta name="description" content="Enter peptide amount (mg) and bacteriostatic water (mL) to get vial strength (mg/mL), then set a weekly peptide dose (mg/week) and schedule to see dose per injection, volume, and a visual syringe." />
   <link rel="canonical" href="https://www.injectbuddy.com/peptide.html" />
   <meta property="og:title" content="Peptide Dosage & Reconstitution Calculator" />
   <meta property="og:description" content="Calculate peptide vial strength from mg + mL, then plan dose per injection using per-week or every-N-days scheduling with a syringe visual." />
@@ -442,7 +442,7 @@
     <details class="info-collapse">
       <summary>How this calculator works</summary>
       <p class="sub">
-        Enter your peptide amount and bacteriostatic water to get vial strength. Then set a total weekly peptide dose in µg
+        Enter your peptide amount and bacteriostatic water to get vial strength. Then set a total weekly peptide dose in mg
         and choose <strong>Per week</strong> or <strong>Every N days</strong>. The calculator shows dose per injection,
         volume in mL, approximate U-100 units, and a visual syringe.
       </p>
@@ -504,13 +504,13 @@
           </div>
         </div>
 
-        <!-- Desired total per week (TEXT BOX) -->
+        <!-- Desired total per week (TEXT BOX, mg/week) -->
         <div class="full">
-          <label for="weeklyUg-input">Desired total per week (µg/week)</label>
+          <label for="weeklyMg-input">Desired total per week (mg/week)</label>
           <div class="live-reads">
-            <div class="live-chip" id="lr-weeklyUg">1000 µg/week</div>
+            <div class="live-chip" id="lr-weeklyMg">1 mg/week</div>
           </div>
-          <input id="weeklyUg-input" type="number" min="0" step="10" value="1000" inputmode="decimal" />
+          <input id="weeklyMg-input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
         </div>
 
         <!-- Injections per week (Per week mode) -->
@@ -595,7 +595,7 @@
             </div>
             <div class="card">
               <span class="muted small-label">Dose per injection</span>
-              <b id="kDoseUg">—</b>
+              <b id="kDoseMg">—</b>
               <span class="muted" id="kDoseMl">—</span>
             </div>
           </div>
@@ -700,7 +700,7 @@
       <details class="card"><summary><strong>What is peptide reconstitution?</strong></summary><p>Most peptides arrive as lyophilized (freeze-dried) powder. Reconstitution means adding a diluent (commonly bacteriostatic water) to dissolve the powder so it can be drawn into a syringe.</p></details>
       <details class="card"><summary><strong>What is bacteriostatic water?</strong></summary><p><b>Bacteriostatic water (BaW)</b> is sterile water containing 0.9% benzyl alcohol. The preservative inhibits bacterial growth in multi-dose vials, allowing repeated withdrawals for up to 28 days once opened (if stored correctly). It is not the same as sterile water for injection (SWFI). Always follow the instructions supplied with your product.</p></details>
       <details class="card"><summary><strong>How much bacteriostatic water should I add?</strong></summary><p>It depends on the concentration you want. Example: 5&nbsp;mg peptide + 2&nbsp;mL BaW → 2.5&nbsp;mg/mL. Use the calculator above to target a per-mL strength that makes dosing simple.</p></details>
-      <details class="card"><summary><strong>How do I calculate my dose volume after reconstitution?</strong></summary><p>Volume (mL) = Desired dose (mg) ÷ Vial strength (mg/mL). This calculator does the conversion for you using µg/week and your schedule, and outputs mL per injection plus approximate U-100 units.</p></details>
+      <details class="card"><summary><strong>How do I calculate my dose volume after reconstitution?</strong></summary><p>Volume (mL) = Desired dose (mg) ÷ Vial strength (mg/mL). This calculator does the conversion for you using your weekly mg dose and schedule, and outputs mL per injection plus approximate U-100 units.</p></details>
       <details class="card"><summary><strong>What are “insulin units (U-100)” in this tool?</strong></summary><p>On a standard U-100 insulin syringe, 1&nbsp;mL = 100&nbsp;units. The tool multiplies the mL dose by 100 so you can see an approximate mark on a U-100 syringe (for example, 0.20&nbsp;mL ≈ 20&nbsp;units). Always check your own equipment and follow professional guidance.</p></details>
       <details class="card"><summary><strong>Storage after reconstitution</strong></summary><ul><li>Refrigerate (2–8&nbsp;°C / 36–46&nbsp;°F) unless your product instructions state otherwise.</li><li>Label the vial with date and concentration (e.g., “5&nbsp;mg in 2&nbsp;mL = 2.5&nbsp;mg/mL”).</li><li>Minimize temperature cycling; keep out of light.</li></ul></details>
       <details class="card"><summary><strong>How long does reconstituted peptide last?</strong></summary><p>General practice: use within 28 days when mixed with BaW and refrigerated. Actual stability varies by peptide and manufacturer—follow your product’s guidance.</p></details>
@@ -952,11 +952,10 @@
     const lblTop = $('lblTop');
     const lblSub = $('lblSub');
 
-    let mgPerMl = 0, ugPerMl = 0;
+    let mgPerMl = 0;
 
     if (mgVal > 0 && mlVal > 0){
       mgPerMl = mgVal / mlVal;
-      ugPerMl = mgPerMl * 1000;
 
       const mgMlText = `${fmt(mgPerMl,3)} mg/mL`;
 
@@ -971,7 +970,7 @@
       lblTop.textContent = '— mg / — mL';
       lblSub.textContent = '— mg/mL';
 
-      $('kDoseUg').textContent = '—';
+      $('kDoseMg').textContent = '—';
       $('kDoseMl').textContent = '—';
       updateSyringe(0);
       applyCapacityWarning(0);
@@ -979,13 +978,13 @@
       return;
     }
 
-    const weeklyInput = $('weeklyUg-input');
-    const lrWeekly = $('lr-weeklyUg');
-    const weeklyUgVal = +weeklyInput.value || 0;
-    lrWeekly.textContent = weeklyUgVal ? `${fmt(weeklyUgVal,0)} µg/week` : '— µg/week';
+    const weeklyInput = $('weeklyMg-input');
+    const lrWeekly = $('lr-weeklyMg');
+    const weeklyMgVal = +weeklyInput.value || 0;
+    lrWeekly.textContent = weeklyMgVal ? `${fmt(weeklyMgVal,3)} mg/week` : '— mg/week';
 
-    if (weeklyUgVal <= 0 || ugPerMl <= 0){
-      $('kDoseUg').textContent = '—';
+    if (weeklyMgVal <= 0 || mgPerMl <= 0){
+      $('kDoseMg').textContent = '—';
       $('kDoseMl').textContent = '—';
       updateSyringe(0);
       applyCapacityWarning(0);
@@ -1012,7 +1011,7 @@
     }
 
     if (injPerWeek <= 0){
-      $('kDoseUg').textContent = '—';
+      $('kDoseMg').textContent = '—';
       $('kDoseMl').textContent = '—';
       updateSyringe(0);
       applyCapacityWarning(0);
@@ -1020,13 +1019,12 @@
       return;
     }
 
-    const doseUg = weeklyUgVal / injPerWeek;
-    const doseMg = doseUg / 1000;
-    const doseMl = doseUg / ugPerMl;
+    const doseMg = weeklyMgVal / injPerWeek;
+    const doseMl = doseMg / mgPerMl;
     const doseUnits = doseMl * 100;
 
     if (!(doseMl > 0 && isFinite(doseMl))){
-      $('kDoseUg').textContent = '—';
+      $('kDoseMg').textContent = '—';
       $('kDoseMl').textContent = '—';
       updateSyringe(0);
       applyCapacityWarning(0);
@@ -1034,18 +1032,18 @@
       return;
     }
 
-    $('kDoseUg').textContent = `${fmt(doseMg,3)} mg / injection`;
-    $('kDoseMl').textContent  = `${fmt(doseMl,3)} mL • ${fmt(doseUnits,1)} U (U-100)`;    
+    $('kDoseMg').textContent = `${fmt(doseMg,3)} mg / injection`;
+    $('kDoseMl').textContent  = `${fmt(doseMl,3)} mL • ${fmt(doseUnits,1)} U (U-100)`;
 
     updateSyringe(doseMl);
     applyCapacityWarning(doseMl);
     updateSmallerSyringeAdvice(doseMl);
 
     try{
-      localStorage.setItem('ib_pep_vial_v5', JSON.stringify({
+      localStorage.setItem('ib_pep_vial_v6', JSON.stringify({
         mg: mgVal,
         ml: mlVal,
-        weeklyUg: weeklyUgVal,
+        weeklyMg: weeklyMgVal,
         mode: window.__mode,
         injPerWeek: (window.__mode === 'perWeek') ? injPerWeek : null,
         ndays: (window.__mode === 'everyNDays') ? +$('ndays-slider').value || 3 : null
@@ -1055,10 +1053,10 @@
 
   document.addEventListener('DOMContentLoaded', ()=>{
     try{
-      const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v5') || '{}');
+      const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v6') || '{}');
       if (typeof saved.mg === 'number') $('pepMg').value = saved.mg;
       if (typeof saved.ml === 'number') $('bacMl-slider').value = saved.ml;
-      if (typeof saved.weeklyUg === 'number') $('weeklyUg-input').value = saved.weeklyUg;
+      if (typeof saved.weeklyMg === 'number') $('weeklyMg-input').value = saved.weeklyMg;
       if (saved.mode === 'everyNDays' || saved.mode === 'perWeek') updateMode(saved.mode);
       const inj = $('injCount-slider');
       const nd  = $('ndays-slider');
@@ -1078,7 +1076,7 @@
     paintRange(bawSlider);
     bawSlider.addEventListener('input', ()=>{ paintRange(bawSlider); computePeptide(); });
 
-    $('weeklyUg-input').addEventListener('input', computePeptide);
+    $('weeklyMg-input').addEventListener('input', computePeptide);
 
     const injSlider = $('injCount-slider');
     paintRange(injSlider);
@@ -1095,12 +1093,12 @@
         `Peptide in vial: ${$('pepMg').value || '—'} mg`,
         `Bacteriostatic water: ${$('bacMl-slider').value || '—'} mL`,
         `Vial strength: ${$('kMgMl').textContent}`,
-        `Desired total per week: ${$('weeklyUg-input').value || '—'} µg/week`,
+        `Desired total per week: ${$('weeklyMg-input').value || '—'} mg/week`,
         `Mode: ${window.__mode === 'perWeek' ? 'Per week' : 'Every N days'}`,
         window.__mode === 'perWeek'
           ? `Injections per week: ${$('injCount-slider').value || '—'}`
           : `Every N days: ${$('ndays-slider').value || '—'}`,
-        `Dose per injection: ${$('kDoseUg').textContent}`,
+        `Dose per injection: ${$('kDoseMg').textContent}`,
         `Volume per injection: ${$('kDoseMl').textContent}`
       ].join('\n');
       navigator.clipboard?.writeText(text);
@@ -1109,7 +1107,7 @@
     $('resetBtn').addEventListener('click', ()=>{
       $('pepMg').value = 5;
       $('bacMl-slider').value = 2;
-      $('weeklyUg-input').value = 1000;
+      $('weeklyMg-input').value = 1;
       $('injCount-slider').value = 3;
       $('ndays-slider').value = 3;
       updateMode('perWeek');
