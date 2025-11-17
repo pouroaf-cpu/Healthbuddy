@@ -1,112 +1,102 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const res = await fetch('/partials/header.html', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('Header not found at /partials/header.html');
-    const html = await res.text();
+// /nav.js
+(function () {
+  const placeholder = document.getElementById('site-header');
+  if (!placeholder) return;
 
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
+  fetch('/header.html')
+    .then(res => res.text())
+    .then(html => {
+      placeholder.innerHTML = html;
 
-    const header = tmp.querySelector('header.header');
-    const mobile = tmp.querySelector('#mobile-menu');
-    if (!header) throw new Error('No <header> found in partial');
+      const path = window.location.pathname.toLowerCase();
 
-    // Inject at top of <body>
-    document.body.insertAdjacentElement('afterbegin', header);
-    if (mobile) header.insertAdjacentElement('afterend', mobile);
+      let currentPage = '';
 
-    // Highlight active link
-    const current = location.pathname.replace(/index\.html$/,'') || '/';
-    const markActive = root => {
-      root.querySelectorAll('a[href]').forEach(a => {
-        const href = (a.getAttribute('href') || '').replace(/index\.html$/,'') || '/';
-        if (href === current) a.setAttribute('aria-current','page');
-      });
-    };
-    markActive(document);
-    if (mobile) markActive(mobile);
+      if (path === '/' || path === '/index.html') currentPage = 'home';
+      else if (path.includes('calculator')) currentPage = 'trt';
+      else if (path.includes('peptide')) currentPage = 'peptide';
+      else if (path.includes('bmi')) currentPage = 'bmi';
+      else if (path.includes('free-test')) currentPage = 'free-test';
+      else if (path.includes('guides')) currentPage = 'guides';
+      else if (path.includes('contact')) currentPage = 'contact';
+      else if (path.includes('about')) currentPage = 'about';
 
-    /* ===== Desktop dropdowns ===== */
-    const closeAll = () => {
-      document.querySelectorAll('.drop-trigger[aria-expanded="true"]').forEach(btn => {
-        btn.setAttribute('aria-expanded', 'false');
-        const id = btn.getAttribute('aria-controls');
-        id && document.getElementById(id)?.classList.remove('open');
-      });
-    };
+      const markActiveLinks = () => {
+        const links = placeholder.querySelectorAll('a[data-page]');
+        links.forEach(a => {
+          const page = a.getAttribute('data-page');
+          if (page === currentPage) {
+            a.classList.add('active');
+          } else {
+            a.classList.remove('active');
+          }
+        });
 
-    document.addEventListener('click', e => {
-      const trigger = e.target.closest('.drop-trigger');
-      const inDropdown = e.target.closest('.has-dropdown');
-      if (trigger) {
-        e.preventDefault();
-        const expanded = trigger.getAttribute('aria-expanded') === 'true';
-        closeAll();
-        if (!expanded) {
-          trigger.setAttribute('aria-expanded', 'true');
-          const id = trigger.getAttribute('aria-controls');
-          id && document.getElementById(id)?.classList.add('open');
+        // If active is inside desktop Tools dropdown, mark Tools item as active
+        const toolsItem = placeholder.querySelector('[data-tools]');
+        if (toolsItem) {
+          const activeInTools = toolsItem.querySelector('.ib-dropdown a.active');
+          if (activeInTools) {
+            toolsItem.classList.add('active');
+          } else {
+            toolsItem.classList.remove('active');
+          }
         }
-      } else if (!inDropdown) {
-        closeAll();
+      };
+
+      markActiveLinks();
+
+      /* Desktop Tools dropdown click (in addition to hover) */
+      const toolsItem = placeholder.querySelector('[data-tools]');
+      const toolsBtn = placeholder.querySelector('[data-tools-toggle]');
+      const toolsMenu = placeholder.querySelector('[data-tools-menu]');
+
+      if (toolsItem && toolsBtn && toolsMenu) {
+        toolsBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const isOpen = toolsItem.classList.toggle('open');
+          toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!toolsItem.contains(e.target)) {
+            toolsItem.classList.remove('open');
+            toolsBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
       }
-    });
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeAll();
-    });
+      /* Mobile burger + menu */
+      const burger = placeholder.querySelector('[data-burger]');
+      const mobileMenu = placeholder.querySelector('[data-mobile-menu]');
 
-    /* ===== Mobile: burger toggle ===== */
-    const burger = document.getElementById('burger');
-    const menu   = document.getElementById('mobile-menu');
-    const openMenu = () => {
-      burger.setAttribute('aria-expanded','true');
-      burger.setAttribute('aria-label','Close menu');
-      menu.classList.add('open');
-      menu.removeAttribute('hidden');
-      document.body.classList.add('nav-open');
-    };
-    const closeMenu = () => {
-      burger.setAttribute('aria-expanded','false');
-      burger.setAttribute('aria-label','Open menu');
-      menu.classList.remove('open');
-      menu.setAttribute('hidden','');
-      document.body.classList.remove('nav-open');
-    };
-    burger?.addEventListener('click', () => {
-      (burger.getAttribute('aria-expanded') === 'true') ? closeMenu() : openMenu();
-    });
-    document.addEventListener('click', e => {
-      if (burger?.getAttribute('aria-expanded') !== 'true') return;
-      if (e.target.closest('#mobile-menu') || e.target.closest('#burger')) return;
-      closeMenu();
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && burger?.getAttribute('aria-expanded') === 'true') closeMenu();
-    });
+      if (burger && mobileMenu) {
+        burger.addEventListener('click', function () {
+          const isOpen = mobileMenu.classList.toggle('open');
+          burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
 
-    // Mobile accordions
-    document.querySelectorAll('.mobile-acc').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        const panel = document.getElementById(btn.getAttribute('aria-controls'));
-        btn.setAttribute('aria-expanded', String(!expanded));
-        if (panel) panel.toggleAttribute('hidden');
-      });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      /* Mobile Tools toggle */
+      const mobileToolsBtn = placeholder.querySelector('[data-mobile-tools-toggle]');
+      const mobileToolsList = placeholder.querySelector('[data-mobile-tools-list]');
+
+      if (mobileToolsBtn && mobileToolsList) {
+        mobileToolsBtn.addEventListener('click', function () {
+          const isOpen = mobileToolsList.classList.toggle('open');
+          mobileToolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+      }
+    })
+    .catch(err => {
+      console.error('Failed to load header.html', err);
     });
-
-    // Close mobile menu on link click
-    mobile?.addEventListener('click', e => {
-      const link = e.target.closest('a[href]');
-      if (link) closeMenu();
-    });
-
-    // Close dropdowns when switching to desktop layout
-    const MQ = window.matchMedia('(min-width: 980px)');
-    MQ.addEventListener?.('change', () => closeAll());
-
-    console.info('[nav] Header + dropdowns injected');
-  } catch (err) {
-    console.error('[nav] Failed to inject header:', err);
-  }
-});
+})();
