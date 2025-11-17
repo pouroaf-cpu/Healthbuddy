@@ -1,0 +1,68 @@
+<!-- header.html -->
+<header class="ib-header">
+  <nav class="ib-nav">
+    <a href="/" class="ib-brand">
+      <span class="ib-brand-logo">IB</span>
+      <span>InjectBuddy</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="ib-nav-links">
+      <!-- Tools dropdown -->
+      <div class="ib-nav-item ib-has-dropdown">
+        <button class="ib-nav-link ib-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Tools
+          <span class="ib-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="ib-dropdown" role="menu">
+          <a href="/calculator.html" class="ib-dropdown-link" data-match="/calculator.html" role="menuitem">
+            Testosterone dosage calculator
+          </a>
+          <a href="/peptide.html" class="ib-dropdown-link" data-match="/peptide.html" role="menuitem">
+            Peptide reconstitution / dosage
+          </a>
+          <a href="/bmi.html" class="ib-dropdown-link" data-match="/bmi.html" role="menuitem">
+            BMI calculator
+          </a>
+          <a href="/free-test.html" class="ib-dropdown-link" data-match="/free-test.html" role="menuitem">
+            Free testosterone calculator
+          </a>
+        </div>
+      </div>
+
+      <!-- Top-level items -->
+      <a href="/guides.html" class="ib-nav-link" data-match="/guides">Guides</a>
+      <a href="/contact.html" class="ib-nav-link" data-match="/contact">Contact</a>
+      <a href="/about.html" class="ib-nav-link" data-match="/about">About</a>
+    </div>
+
+    <!-- Burger (mobile) -->
+    <button class="ib-burger" type="button" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="ib-burger-line"></span>
+      <span class="ib-burger-line"></span>
+      <span class="ib-burger-line"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="ib-mobile-menu" hidden>
+    <nav class="ib-mobile-nav" aria-label="Mobile navigation">
+      <details class="ib-mobile-section">
+        <summary class="ib-mobile-summary">
+          Tools
+          <span class="ib-caret" aria-hidden="true">▾</span>
+        </summary>
+        <div class="ib-mobile-links">
+          <a href="/calculator.html" data-match="/calculator.html">Testosterone dosage calculator</a>
+          <a href="/peptide.html" data-match="/peptide.html">Peptide reconstitution / dosage</a>
+          <a href="/bmi.html" data-match="/bmi.html">BMI calculator</a>
+          <a href="/free-test.html" data-match="/free-test.html">Free testosterone calculator</a>
+        </div>
+      </details>
+
+      <a href="/guides.html" data-match="/guides">Guides</a>
+      <a href="/contact.html" data-match="/contact">Contact</a>
+      <a href="/about.html" data-match="/about">About</a>
+    </nav>
+  </div>
+</header>
