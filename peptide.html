@@ -237,6 +237,12 @@
       font-weight:700;
     }
 
+    /* Make BaW chip wide enough so 10–30 mL is visible */
+    #lr-ml{
+      min-width:72px;
+      text-align:center;
+    }
+
     /* Label / chip / control layout */
     .full{
       display:grid;
@@ -504,14 +510,11 @@
           <input id="bacMl-slider" type="range" min="1" max="30" step="1" value="2" />
         </div>
 
-        <!-- Vial strength chip (computed) -->
+        <!-- Vial strength chip (computed, no helper text) -->
         <div class="full">
           <label>Vial strength (computed)</label>
           <div class="live-reads">
             <div class="live-chip" id="lr-strength">—</div>
-          </div>
-          <div class="muted" style="grid-area:slider;margin-top:2px;font-size:.85rem;">
-            Based on peptide mg and BaW mL above. Used for all dose calculations.
           </div>
         </div>
 
@@ -568,71 +571,10 @@
         </div>
       </div>
 
-      <!-- RIGHT: vial + syringe + KPIs -->
+      <!-- RIGHT: syringe ABOVE vial + KPIs beside vial -->
       <div class="visuals">
-        <!-- Vial layout with KPIs beside the vial -->
-        <div class="vial-layout">
-          <!-- Vial SVG (left) -->
-          <div class="vial-card">
-            <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
-              <title id="vialTitle">Peptide vial visualization with live label</title>
-              <desc id="vialDesc">Shows a vial with a label that updates to reflect mg, mL, and mg per mL.</desc>
 
-              <defs>
-                <clipPath id="labelClip"><rect x="34" y="160" width="132" height="92" rx="10"/></clipPath>
-              </defs>
-
-              <!-- Cap + ring -->
-              <rect x="40" y="12" width="120" height="42" rx="8" fill="#2f3a44"/>
-              <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
-
-              <!-- Neck -->
-              <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
-
-              <!-- Glass body -->
-              <rect x="30" y="80" width="140" height="240" rx="18" fill="#f4f7fb" stroke="#c9d3dd"/>
-
-              <!-- Liquid block -->
-              <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="#42b7ba" opacity="0.9"/>
-
-              <!-- Label -->
-              <g>
-                <rect x="34" y="160" width="132" height="92" rx="10" fill="#ffffff" stroke="#d5dee5"/>
-                <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".02"/>
-                <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".018"/>
-
-                <g clip-path="url(#labelClip)">
-                  <text id="lblTop" x="100" y="190" text-anchor="middle" font-weight="700" fill="#0f172a" font-size="16">— mg / — mL</text>
-                  <text x="100" y="210" text-anchor="middle" fill="#334155" font-size="11">
-                    <tspan x="100" dy="0">For planning only —</tspan>
-                    <tspan x="100" dy="14">not medical advice</tspan>
-                  </text>
-                  <text id="lblSub" x="100" y="244" text-anchor="middle" fill="#334155" font-size="13">— mg/mL</text>
-                </g>
-              </g>
-
-              <!-- Highlights -->
-              <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
-              <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
-              <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
-            </svg>
-          </div>
-
-          <!-- KPIs (right of vial) -->
-          <div class="vial-kpis">
-            <div class="card">
-              <span class="muted small-label">Vial strength</span>
-              <b id="kMgMl">—</b>
-            </div>
-            <div class="card">
-              <span class="muted small-label">Dose per injection</span>
-              <b id="kDoseMg">—</b>
-              <span class="muted" id="kDoseMl">—</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Syringe visual -->
+        <!-- Syringe visual (first) -->
         <div class="syringe-wrap">
           <div class="syringe-card" aria-live="polite">
             <div class="syringe-head">
@@ -717,6 +659,68 @@
             </div>
           </div>
         </div>
+
+        <!-- Vial layout with KPIs beside the vial -->
+        <div class="vial-layout">
+          <!-- Vial SVG (left) -->
+          <div class="vial-card">
+            <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
+              <title id="vialTitle">Peptide vial visualization with live label</title>
+              <desc id="vialDesc">Shows a vial with a label that updates to reflect mg, mL, and mg per mL.</desc>
+
+              <defs>
+                <clipPath id="labelClip"><rect x="34" y="160" width="132" height="92" rx="10"/></clipPath>
+              </defs>
+
+              <!-- Cap + ring -->
+              <rect x="40" y="12" width="120" height="42" rx="8" fill="#2f3a44"/>
+              <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
+
+              <!-- Neck -->
+              <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
+
+              <!-- Glass body -->
+              <rect x="30" y="80" width="140" height="240" rx="18" fill="#f4f7fb" stroke="#c9d3dd"/>
+
+              <!-- Liquid block -->
+              <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="#42b7ba" opacity="0.9"/>
+
+              <!-- Label -->
+              <g>
+                <rect x="34" y="160" width="132" height="92" rx="10" fill="#ffffff" stroke="#d5dee5"/>
+                <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".02"/>
+                <rect x="160" y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".018"/>
+
+                <g clip-path="url(#labelClip)">
+                  <text id="lblTop" x="100" y="190" text-anchor="middle" font-weight="700" fill="#0f172a" font-size="16">— mg / — mL</text>
+                  <text x="100" y="210" text-anchor="middle" fill="#334155" font-size="11">
+                    <tspan x="100" dy="0">For planning only —</tspan>
+                    <tspan x="100" dy="14">not medical advice</tspan>
+                  </text>
+                  <text id="lblSub" x="100" y="244" text-anchor="middle" fill="#334155" font-size="13">— mg/mL</text>
+                </g>
+              </g>
+
+              <!-- Highlights -->
+              <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
+              <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
+              <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
+            </svg>
+          </div>
+
+          <!-- KPIs (right of vial) -->
+          <div class="vial-kpis">
+            <div class="card">
+              <span class="muted small-label">Vial strength</span>
+              <b id="kMgMl">—</b>
+            </div>
+            <div class="card">
+              <span class="muted small-label">Dose per injection</span>
+              <b id="kDoseMg">—</b>
+              <span class="muted" id="kDoseMl">—</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -772,7 +776,7 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // Syringe SVG logic (same behaviour as TRT, but isolated to this page)
+  // Syringe SVG logic (isolated for this page)
   (function(){
     const elVol  = $('syrVol');
     const elMode = $('syrMode');
