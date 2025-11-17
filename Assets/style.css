@@ -29,3 +29,172 @@
   font-weight:800; color:#004c4d; display:flex; align-items:center; justify-content:space-between;
 }
 .mobile-panel a { display:block; padding:8px 0; color:#0f172a; }
+/* Shared header/nav */
+.ib-header{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.ib-nav{
+  max-width:1080px;
+  margin:0 auto;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.ib-brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:600;
+  font-size:18px;
+}
+.ib-brand-logo{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--cta),var(--cta-dark));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+}
+
+/* Desktop nav links */
+.ib-nav-links{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  font-size:14px;
+  color:var(--muted);
+}
+.ib-nav-link{
+  padding:4px 0;
+  border:none;
+  background:none;
+  font:inherit;
+  color:inherit;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.ib-nav-link.is-active{
+  color:var(--cta-dark);
+  font-weight:500;
+}
+.ib-caret{
+  font-size:10px;
+}
+
+/* Tools dropdown (desktop) */
+.ib-has-dropdown{
+  position:relative;
+}
+.ib-dropdown{
+  position:absolute;
+  right:0;
+  top:100%;
+  margin-top:6px;
+  min-width:240px;
+  background:#fff;
+  border-radius:12px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 30px rgba(15,23,42,.12);
+  padding:6px 0;
+  display:none;
+}
+.ib-has-dropdown.open .ib-dropdown{
+  display:block;
+}
+.ib-dropdown-link{
+  display:block;
+  padding:7px 14px;
+  font-size:13px;
+  color:var(--muted);
+  text-decoration:none;
+}
+.ib-dropdown-link:hover{
+  background:#f8fafc;
+  color:var(--ink);
+}
+
+/* Burger + mobile menu */
+.ib-burger{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+}
+.ib-burger-line{
+  width:18px;
+  height:2px;
+  border-radius:999px;
+  background:#0f172a;
+}
+.ib-mobile-menu{
+  border-bottom:1px solid var(--border);
+  background:#fff;
+}
+.ib-mobile-nav{
+  max-width:1080px;
+  margin:0 auto;
+  padding:8px 16px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.ib-mobile-nav a{
+  font-size:14px;
+  color:var(--muted);
+  padding:6px 0;
+  text-decoration:none;
+}
+.ib-mobile-nav a.is-active{
+  color:var(--cta-dark);
+  font-weight:500;
+}
+
+/* Mobile tools section */
+.ib-mobile-section{
+  border-radius:10px;
+  border:1px solid var(--border);
+  padding:4px 10px;
+}
+.ib-mobile-summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  cursor:pointer;
+  font-size:14px;
+  color:var(--muted);
+}
+.ib-mobile-summary::-webkit-details-marker{
+  display:none;
+}
+.ib-mobile-links{
+  margin-top:4px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Responsive: show burger on small screens */
+@media (max-width:820px){
+  .ib-nav-links{display:none;}
+  .ib-burger{display:flex;}
+}
