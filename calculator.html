@@ -462,19 +462,19 @@
         <!-- Vial strength -->
         <div class="full">
           <label for="conc-slider">Vial strength (mg per mL)</label>
-          <div class="live-reads">
-            <div class="live-chip" id="lr-conc">20 mg/mL</div>
-          </div>
-          <input id="conc-slider" type="range" min="10" max="400" step="1" value="20" />
+          <div class="live-reads"><div class="live-chip" id="lr-conc">20 mg/mL</div></div>
+          <!-- 5–400 in steps of 5 -->
+          <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
         </div>
 
-        <!-- Prescribed total per week (min 2 mg) -->
+        <!-- Prescribed total per week (uses discrete list including 4 mg/wk) -->
         <div class="full">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads">
             <div class="live-chip" id="lr-weekly">20 mg/week</div>
           </div>
-          <input id="weekly-slider" type="range" min="2" max="500" step="1" value="20" />
+          <!-- Index-based slider; real mg comes from WEEKLY_OPTIONS -->
+          <input id="weekly-slider" type="range" min="0" max="100" step="1" value="0" />
         </div>
 
         <!-- Injections per week -->
@@ -649,10 +649,18 @@
 
   const $ = id => document.getElementById(id);
 
+  // Discrete weekly options:
+  // 4,5,6,7,8,9,10,12,14,16,18,20,25,30,35,40,...,500
+  const WEEKLY_OPTIONS = (function(){
+    const arr = [4,5,6,7,8,9,10,12,14,16,18,20];
+    for (let v = 25; v <= 500; v += 5) arr.push(v);
+    return arr;
+  })();
+
   function paintRange(el){
     if(!el) return;
     const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
-    const pct = ((val - min) * 100) / (max - min);
+    const pct = ((val - min) * 100) / (max - min || 1);
     el.style.setProperty('--val', pct + '%');
   }
 
@@ -668,7 +676,7 @@
       0.3: { g: $('g03ml'), fill: $('fill03ml'), ticks: $('ticks03'), labels: $('labels03'), cap: 0.3 },
       0.5: { g: $('g05ml'), fill: $('fill05ml'), ticks: $('ticks05'), labels: $('labels05'), cap: 0.5 },
       1:   { g: $('g1ml'),  fill: $('fill1ml'),  ticks: $('ticks1ml'), labels: $('labels1ml'), cap: 1.0 },
-      3:   { g: $('g3ml'),  fill: $('fill3ml'),  ticks: $('ticks3ml'), labels: $('labels3ml'), cap: 3.0 }
+      3:   { g: $('g3ml'),  fill: $('fill3ml'), ticks: $('ticks3ml'), labels: $('labels3ml'), cap: 3.0 }
     };
 
     function mlToPxInsulin(v, capMl){
@@ -797,10 +805,7 @@
       setSyringe(Number(arr[next].dataset.ml));
       arr[next].focus();
     });
-    const saved = (()=>{
-      try{ return Number(localStorage.getItem('hb_syr_ml')); }
-      catch(e){ return NaN; }
-    })();
+    const saved = (()=>{ try{ return Number(localStorage.getItem('hb_syr_ml')); }catch(e){ return NaN; } })();
     setSyringe( (saved===0.3||saved===0.5||saved===1||saved===3) ? saved : 1 );
   }
 
@@ -836,13 +841,23 @@
     }
   }
 
+  function getWeeklyMg(){
+    const weeklySlider = $('weekly-slider');
+    if (!weeklySlider) return 0;
+    let idx = parseInt(weeklySlider.value,10);
+    if (!isFinite(idx)) idx = 0;
+    if (idx < 0) idx = 0;
+    if (idx >= WEEKLY_OPTIONS.length) idx = WEEKLY_OPTIONS.length - 1;
+    return WEEKLY_OPTIONS[idx] || 0;
+  }
+
   function compute(){
     if (window.__mode === 'everyNDays') { computeEveryNDays(); return; }
     const conc       = parseFloat(($('conc-slider')||{}).value);
-    const weekly     = parseFloat(($('weekly-slider')||{}).value);
     const injPerWeek = parseFloat(($('count-slider')||{}).value);
+    const weekly     = getWeeklyMg();
 
-    const valid = (conc > 0) && (weekly >= 2) && (injPerWeek > 0);
+    const valid = (conc > 0) && (weekly >= 4) && (injPerWeek > 0);
     if (!valid){
       const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
       if(k1) k1.textContent='—';
@@ -1009,7 +1024,7 @@
     // Recalculate mg/mL logic, then schedule
     window.computeEveryNDays = function(){
       const C = parseFloat(concSlider?.value);
-      const W = parseFloat(weeklySlider?.value);
+      const W = getWeeklyMg();
       const N = Math.max(
         1,
         Math.min(14, Math.round(parseFloat(nDaysSlider?.value) || 3))
@@ -1017,7 +1032,7 @@
 
       if (lrNDays) lrNDays.textContent = N + ' day' + (N === 1 ? '' : 's');
 
-      if (!(C > 0 && W >= 2 && N > 0)) {
+      if (!(C > 0 && W >= 4 && N > 0)) {
         const k1 = $('kpi_inj'), k2 = $('kpi_dose'), k3 = $('kpi_ml');
         if (k1) k1.textContent = '—';
         if (k2) k2.textContent = '—';
@@ -1094,12 +1109,22 @@
     const lrWeekly = $('lr-weekly');
     const lrCount  = $('lr-count');
 
+    // Configure weekly slider to use WEEKLY_OPTIONS
+    if (weeklySlider){
+      weeklySlider.min  = "0";
+      weeklySlider.max  = String(WEEKLY_OPTIONS.length - 1);
+      weeklySlider.step = "1";
+
+      const defaultIdx = WEEKLY_OPTIONS.indexOf(20);
+      if (defaultIdx >= 0) weeklySlider.value = String(defaultIdx);
+    }
+
     const syncConc = ()=>{
       let n = parseFloat(concSlider.value);
       if(!isFinite(n)) n = 20;
-      const min = +concSlider.min || 10;
+      const min = +concSlider.min || 5;
       const max = +concSlider.max || 400;
-      n = Math.round(n);
+      n = Math.round(n / 5) * 5;
       if (n < min) n = min;
       if (n > max) n = max;
       concSlider.value = n;
@@ -1109,24 +1134,13 @@
     };
 
     const syncWeekly = ()=>{
-      let n = parseFloat(weeklySlider.value);
-      if(!isFinite(n)) n = 20;
-      const min = +weeklySlider.min || 2;
-      const max = +weeklySlider.max || 500;
-
-      // Snap to integer
-      n = Math.round(n);
-      if (n < min) n = min;
-      if (n > max) n = max;
-
-      // Below 20 mg/week: enforce 2 mg steps (2,4,6,...,18)
-      if (n < 20) {
-        n = 2 * Math.round(n / 2);
-        if (n < min) n = min;
-      }
-
-      weeklySlider.value = n;
-      lrWeekly.textContent = n.toFixed(0) + ' mg/week';
+      let idx = parseInt(weeklySlider.value,10);
+      if (!isFinite(idx)) idx = WEEKLY_OPTIONS.indexOf(20);
+      if (idx < 0) idx = 0;
+      if (idx >= WEEKLY_OPTIONS.length) idx = WEEKLY_OPTIONS.length - 1;
+      weeklySlider.value = String(idx);
+      const mg = WEEKLY_OPTIONS[idx];
+      lrWeekly.textContent = mg.toFixed(0) + ' mg/week';
       paintRange(weeklySlider);
       if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
     };
