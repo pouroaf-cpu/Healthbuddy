@@ -16,7 +16,7 @@
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- If you already have a global stylesheet, keep this line -->
+  <!-- Global stylesheet (should contain nav/header styles) -->
   <link rel="stylesheet" href="/assets/style.css" />
 
   <style>
@@ -50,62 +50,6 @@
     a{
       color:inherit;
       text-decoration:none;
-    }
-
-    .ib-header{
-      position:sticky;
-      top:0;
-      z-index:40;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-    }
-
-    .ib-nav{
-      max-width:1080px;
-      margin:0 auto;
-      padding:10px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-    .ib-brand{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight:600;
-      font-size:18px;
-    }
-
-    .ib-brand-logo{
-      width:28px;
-      height:28px;
-      border-radius:8px;
-      background:linear-gradient(135deg,var(--cta),var(--cta-dark));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:15px;
-      font-weight:700;
-    }
-
-    .ib-nav-links{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      font-size:14px;
-      color:var(--muted);
-    }
-
-    .ib-nav-links a{
-      padding:4px 0;
-    }
-
-    .ib-nav-links a.active{
-      color:var(--cta-dark);
-      font-weight:500;
     }
 
     .ib-main{
@@ -334,74 +278,11 @@
       text-decoration-thickness:1px;
       text-underline-offset:2px;
     }
-
-    .bmi-btn{
-      margin-top:10px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      border:none;
-      padding:8px 14px;
-      font-size:12px;
-      font-weight:500;
-      cursor:pointer;
-      background:var(--cta);
-      color:#fff;
-      box-shadow:0 10px 25px rgba(0,147,149,.35);
-      transition:background .15s ease,transform .08s ease,box-shadow .08s ease;
-    }
-
-    .bmi-btn:hover{
-      background:var(--cta-hover);
-      transform:translateY(-1px);
-      box-shadow:0 12px 30px rgba(0,147,149,.4);
-    }
-
-    .bmi-btn:active{
-      transform:translateY(0);
-      box-shadow:0 8px 18px rgba(0,147,149,.3);
-    }
-
-    .bmi-table{
-      width:100%;
-      border-collapse:collapse;
-      font-size:11px;
-      margin-top:8px;
-      color:var(--muted);
-    }
-
-    .bmi-table th,
-    .bmi-table td{
-      padding:6px 6px;
-      text-align:left;
-      border-bottom:1px solid #e5e7eb;
-    }
-
-    .bmi-table th{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      color:#9ca3af;
-    }
   </style>
 </head>
 <body>
-  <header class="ib-header">
-    <nav class="ib-nav">
-      <a href="/" class="ib-brand">
-        <span class="ib-brand-logo">IB</span>
-        <span>InjectBuddy</span>
-      </a>
-      <div class="ib-nav-links">
-        <a href="/calculator.html">TRT Calculator</a>
-        <a href="/peptide.html">Peptide</a>
-        <a href="/free-test.html">Free T Index</a>
-        <a href="/bmi.html" class="active">BMI</a>
-        <a href="/faq.html">FAQ</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Shared header injected via nav.js / header.html -->
+  <div id="site-header"></div>
 
   <main class="ib-main">
     <div class="container">
@@ -617,6 +498,9 @@
       </div>
     </div>
   </main>
+
+  <!-- Shared nav logic -->
+  <script src="/nav.js" defer></script>
 
   <script>
     (function(){
