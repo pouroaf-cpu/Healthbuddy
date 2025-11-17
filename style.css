@@ -1321,3 +1321,73 @@ input[type="range"]::-moz-range-progress {
   .ib-nav-links{display:none;}
   .ib-burger{display:flex;}
 }
+/* ============================================
+   GLOBAL SQUARE UI — InjectBuddy
+   Overrides rounded UI → square UI
+   ============================================ */
+
+/* Cards, panels */
+.card,
+.bmi-card,
+.peptide-card,
+.calc-card {
+  border-radius: 6px !important;
+}
+
+/* Inputs, dropdowns */
+input,
+select,
+textarea {
+  border-radius: 4px !important;
+}
+
+/* Buttons */
+button,
+.btn,
+.bmi-btn,
+.primary-btn,
+.secondary-btn {
+  border-radius: 4px !important;
+}
+
+/* Mode toggles / segmented */
+.toggle-btn,
+.seg-btn {
+  border-radius: 4px !important;
+}
+
+/* Pills */
+.bmi-pill {
+  border-radius: 6px !important;
+}
+
+/* Sliders */
+input[type="range"] {
+  border-radius: 4px !important;
+}
+input[type="range"]::-webkit-slider-thumb {
+  border-radius: 4px !important;
+}
+input[type="range"]::-moz-range-thumb {
+  border-radius: 4px !important;
+}
+
+/* Nav */
+.ib-nav-links a,
+.ib-dropdown,
+.ib-mobile-menu,
+.ib-burger {
+  border-radius: 4px !important;
+}
+
+/* Brand logo */
+.ib-brand-logo {
+  border-radius: 6px !important;
+}
+
+/* Kill all 999px radii from older theme */
+[class*="pill"],
+[class*="round"],
+[class*="radius"] {
+  border-radius: 4px !important;
+}
