@@ -230,7 +230,8 @@
       margin:0;
     }
     .full > input[type="range"],
-    .full > input[type="datetime-local"]{
+    .full > input[type="datetime-local"],
+    .full > input[type="number"]{
       grid-area:slider;
       margin-top:2px;
     }
@@ -246,7 +247,7 @@
     /* Right column visuals */
     .visuals{display:flex;flex-direction:column;gap:16px;}
 
-    /* NEW: Vial + KPIs layout */
+    /* Vial + KPIs layout */
     .vial-layout{
       display:flex;
       gap:16px;
@@ -382,11 +383,12 @@
       }
 
       .vial-layout{
-        flex-direction:column-reverse;
-        align-items:flex-start; /* cards left-aligned, vial centered via its own flex */
+        flex-direction:column;
+        align-items:center;
       }
-      .vial-card{
-        align-self:center;
+      .vial-kpis{
+        width:100%;
+        max-width:320px;
       }
     }
   </style>
@@ -502,11 +504,13 @@
           </div>
         </div>
 
-        <!-- Desired total per week (µg/week) -->
+        <!-- Desired total per week (TEXT BOX) -->
         <div class="full">
-          <label for="weeklyUg-slider">Desired total per week (µg/week)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-weeklyUg">1000 µg/week</div></div>
-          <input id="weeklyUg-slider" type="range" min="50" max="5000" step="50" value="1000" />
+          <label for="weeklyUg-input">Desired total per week (µg/week)</label>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-weeklyUg">1000 µg/week</div>
+          </div>
+          <input id="weeklyUg-input" type="number" min="0" step="10" value="1000" inputmode="decimal" />
         </div>
 
         <!-- Injections per week (Per week mode) -->
@@ -535,21 +539,9 @@
 
       <!-- RIGHT: vial + syringe + KPIs -->
       <div class="visuals">
-        <!-- NEW: Vial layout with small KPIs on the left -->
+        <!-- Vial layout with KPIs beside the vial -->
         <div class="vial-layout">
-          <div class="vial-kpis">
-            <div class="card">
-              <span class="muted small-label">Vial strength</span>
-              <b id="kMgMl">—</b>
-            </div>
-            <div class="card">
-              <span class="muted small-label">Dose per injection</span>
-              <b id="kDoseUg">—</b>
-              <span class="muted" id="kDoseMl">—</span>
-            </div>
-          </div>
-
-          <!-- Vial SVG (smaller) -->
+          <!-- Vial SVG (left) -->
           <div class="vial-card">
             <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
               <title id="vialTitle">Peptide vial visualization with live label</title>
@@ -593,6 +585,19 @@
               <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
               <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
             </svg>
+          </div>
+
+          <!-- KPIs (right of vial) -->
+          <div class="vial-kpis">
+            <div class="card">
+              <span class="muted small-label">Vial strength</span>
+              <b id="kMgMl">—</b>
+            </div>
+            <div class="card">
+              <span class="muted small-label">Dose per injection</span>
+              <b id="kDoseUg">—</b>
+              <span class="muted" id="kDoseMl">—</span>
+            </div>
           </div>
         </div>
 
@@ -736,7 +741,7 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // Syringe SVG logic (same as TRT)
+  // Syringe SVG logic
   (function(){
     const elVol  = $('syrVol');
     const elMode = $('syrMode');
@@ -941,6 +946,7 @@
 
     lrMg.textContent = mgVal ? `${fmt(mgVal,3)} mg` : '— mg';
     lrMl.textContent = mlVal ? `${fmt(mlVal,0)} mL` : '— mL';
+    paintRange(mlSlider);
 
     const kMgMl = $('kMgMl');
     const lblTop = $('lblTop');
@@ -973,11 +979,10 @@
       return;
     }
 
-    const weeklySlider = $('weeklyUg-slider');
+    const weeklyInput = $('weeklyUg-input');
     const lrWeekly = $('lr-weeklyUg');
-    const weeklyUgVal = +weeklySlider.value || 0;
-    lrWeekly.textContent = `${fmt(weeklyUgVal,0)} µg/week`;
-    paintRange(weeklySlider);
+    const weeklyUgVal = +weeklyInput.value || 0;
+    lrWeekly.textContent = weeklyUgVal ? `${fmt(weeklyUgVal,0)} µg/week` : '— µg/week';
 
     if (weeklyUgVal <= 0 || ugPerMl <= 0){
       $('kDoseUg').textContent = '—';
@@ -1053,7 +1058,7 @@
       const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v5') || '{}');
       if (typeof saved.mg === 'number') $('pepMg').value = saved.mg;
       if (typeof saved.ml === 'number') $('bacMl-slider').value = saved.ml;
-      if (typeof saved.weeklyUg === 'number') $('weeklyUg-slider').value = saved.weeklyUg;
+      if (typeof saved.weeklyUg === 'number') $('weeklyUg-input').value = saved.weeklyUg;
       if (saved.mode === 'everyNDays' || saved.mode === 'perWeek') updateMode(saved.mode);
       const inj = $('injCount-slider');
       const nd  = $('ndays-slider');
@@ -1067,16 +1072,13 @@
       updateMode(btn.dataset.mode);
     });
 
-    const mgInput = $('pepMg');
-    mgInput.addEventListener('input', computePeptide);
+    $('pepMg').addEventListener('input', computePeptide);
 
     const bawSlider = $('bacMl-slider');
     paintRange(bawSlider);
     bawSlider.addEventListener('input', ()=>{ paintRange(bawSlider); computePeptide(); });
 
-    const weeklySlider = $('weeklyUg-slider');
-    paintRange(weeklySlider);
-    weeklySlider.addEventListener('input', ()=>{ paintRange(weeklySlider); computePeptide(); });
+    $('weeklyUg-input').addEventListener('input', computePeptide);
 
     const injSlider = $('injCount-slider');
     paintRange(injSlider);
@@ -1093,7 +1095,7 @@
         `Peptide in vial: ${$('pepMg').value || '—'} mg`,
         `Bacteriostatic water: ${$('bacMl-slider').value || '—'} mL`,
         `Vial strength: ${$('kMgMl').textContent}`,
-        `Desired total per week: ${$('weeklyUg-slider').value || '—'} µg/week`,
+        `Desired total per week: ${$('weeklyUg-input').value || '—'} µg/week`,
         `Mode: ${window.__mode === 'perWeek' ? 'Per week' : 'Every N days'}`,
         window.__mode === 'perWeek'
           ? `Injections per week: ${$('injCount-slider').value || '—'}`
@@ -1107,11 +1109,11 @@
     $('resetBtn').addEventListener('click', ()=>{
       $('pepMg').value = 5;
       $('bacMl-slider').value = 2;
-      $('weeklyUg-slider').value = 1000;
+      $('weeklyUg-input').value = 1000;
       $('injCount-slider').value = 3;
       $('ndays-slider').value = 3;
       updateMode('perWeek');
-      ['bacMl-slider','weeklyUg-slider','injCount-slider','ndays-slider'].forEach(id=>{
+      ['bacMl-slider','injCount-slider','ndays-slider'].forEach(id=>{
         const el = $(id); if(el) paintRange(el);
       });
       computePeptide();
