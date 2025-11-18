@@ -22,7 +22,7 @@
   --radius-sm:6px;
 
   --container:1080px;
-  --header-h:56px;
+  --header-h:56px;e
 }
 
 /* ========= BASE ========= */
@@ -140,6 +140,20 @@ a{color:inherit;text-decoration:none}
 .ib-dropdown-link:hover{
   background:#f8fafc;
   color:var(--ink-900);
+}
+/* --- Hover Buffer Zone (keeps dropdown open while moving mouse) --- */
+.ib-has-dropdown {
+  position: relative;
+}
+
+.ib-has-dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 14px;      /* <-- buffer height (mouse can travel here safely) */
+  background: transparent;
 }
 
 /* Burger + mobile menu */
@@ -993,5 +1007,26 @@ a{color:inherit;text-decoration:none}
     display: block !important;
     opacity: 1;
     visibility: visible;
+  }
+}
+/* --- Smooth hover-open with delayed close --- */
+@media (min-width: 821px){
+  .ib-has-dropdown:hover > .ib-dropdown {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .ib-dropdown {
+    transition: opacity .15s ease;
+    pointer-events: none; /* prevents flicker */
+  }
+
+  /* keeps dropdown alive briefly when mouse leaves */
+  .ib-has-dropdown:not(:hover) > .ib-dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: 180ms;  /* CLOSE DELAY */
   }
 }
