@@ -1321,6 +1321,35 @@ input[type="range"]::-moz-range-progress {
   .ib-nav-links{display:none;}
   .ib-burger{display:flex;}
 }
+  .nav a{
+  font-weight:600;
+  color:var(--muted);
+  position:relative;
+  padding:6px 10px;
+  border-radius:999px;        /* gives a soft pill on hover */
+  transition:color .15s ease, background-color .15s ease;
+}
+
+/* Hover / keyboard focus for desktop nav */
+.nav a:hover,
+.nav a:focus-visible{
+  color:#0f172a;
+  background:rgba(0,178,181,.08); /* light teal highlight */
+}
+
+/* Optional: mobile menu hover */
+.mobile-links a{
+  padding:8px 10px;
+  border-radius:8px;
+  transition:background-color .15s ease, color .15s ease;
+}
+
+.mobile-links a:hover,
+.mobile-links a:focus-visible{
+  background:#f1f5f9;
+  color:#0f172a;
+}
+
 /* ============================================
    GLOBAL SQUARE UI — InjectBuddy
    Overrides rounded UI → square UI
