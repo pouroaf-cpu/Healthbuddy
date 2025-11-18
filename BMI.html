@@ -79,7 +79,7 @@
     .bmi-card{
       background:#fff;
       border:1px solid var(--border);
-      border-radius:18px;
+      border-radius:14px;
       box-shadow:var(--shadow);
       padding:20px 20px 22px;
     }
@@ -117,7 +117,7 @@
       font-size:11px;
       color:var(--muted);
       padding:10px 12px;
-      border-radius:12px;
+      border-radius:10px;
       border:1px dashed var(--info-bd);
       background:var(--info-bg);
       margin-top:4px;
@@ -193,7 +193,7 @@
     }
 
     .field-input{
-      border-radius:12px;
+      border-radius:10px;
       border:1px solid var(--border);
       padding:9px 11px;
       font-size:14px;
@@ -214,7 +214,7 @@
     .bmi-result-card{
       margin-top:8px;
       padding:12px 12px 10px;
-      border-radius:14px;
+      border-radius:12px;
       border:1px solid rgba(148,163,184,.6);
       background:linear-gradient(135deg,#f9fafb,#eff6ff);
     }
@@ -299,6 +299,104 @@
       letter-spacing:.04em;
       color:#9ca3af;
     }
+
+    /* Tool tabs – chrome-style bar for all tools */
+    .tool-tabs{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      border-bottom:1px solid var(--border);
+      margin:-4px -4px 16px;
+      padding:0 2px;
+      overflow-x:auto;
+    }
+
+    .tool-tab{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:none;
+      background:linear-gradient(to bottom,#f8fafc,#e2e8f0);
+      color:var(--muted);
+      padding:6px 12px;
+      font-size:0.85rem;
+      font-weight:500;
+      border-top-left-radius:6px;
+      border-top-right-radius:6px;
+      cursor:pointer;
+      white-space:nowrap;
+      box-shadow:0 0 0 rgba(15,23,42,0);
+      border:1px solid transparent;
+      border-bottom:none;
+      transition:
+        background .15s ease,
+        color .15s ease,
+        box-shadow .15s ease,
+        border-color .15s ease,
+        transform .12s ease;
+    }
+
+    .tool-tab:hover{
+      background:linear-gradient(to bottom,#f9fafb,#e5e7eb);
+      color:var(--ink);
+    }
+
+    .tool-tab.is-active{
+      background:var(--bg);
+      color:var(--ink);
+      border-color:var(--border);
+      border-bottom:1px solid var(--bg);
+      box-shadow:0 -1px 0 var(--bg), 0 2px 6px rgba(15,23,42,.06);
+      transform:translateY(1px);
+      z-index:1;
+      cursor:default;
+    }
+
+    .tool-tab[aria-current="page"]{
+      pointer-events:none;
+    }
+
+    .bmi-tool-body{
+      margin-top:4px;
+    }
+
+    .bmi-btn{
+      margin-top:8px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      padding:9px 14px;
+      border-radius:999px;
+      border:none;
+      background:var(--cta);
+      color:#fff;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(0,147,149,.25);
+      transition:background .15s ease,box-shadow .15s ease,transform .1s ease;
+    }
+
+    .bmi-btn:hover{
+      background:var(--cta-hover);
+      box-shadow:0 12px 24px rgba(0,147,149,.32);
+      transform:translateY(-1px);
+    }
+
+    .bmi-btn:active{
+      background:var(--cta-dark);
+      box-shadow:0 6px 14px rgba(0,113,115,.35);
+      transform:translateY(0);
+    }
+
+    @media (max-width:640px){
+      .bmi-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
   </style>
 </head>
 <body>
@@ -373,147 +471,156 @@
           </table>
         </section>
 
-        <!-- Right: calculator -->
+        <!-- Right: calculator with tool tabs -->
         <section class="bmi-card">
-          <h2 style="font-size:16px;margin:0 0 12px;">Enter your details</h2>
+          <nav class="tool-tabs" aria-label="InjectBuddy tools">
+            <a href="/calculator.html" class="tool-tab">TRT dose</a>
+            <a href="/peptide.html" class="tool-tab">Peptide tools</a>
+            <a href="/free-test.html" class="tool-tab">Free T calc</a>
+            <span class="tool-tab is-active" aria-current="page">BMI</span>
+          </nav>
 
-          <div class="unit-toggle-row">
-            <span style="font-size:12px;">Units:</span>
-            <div class="toggle-group" role="tablist" aria-label="Unit selection">
-              <button
-                type="button"
-                class="toggle-btn is-active"
-                id="unit-metric-btn"
-                data-unit="metric"
-                role="tab"
-                aria-selected="true"
-              >
-                kg / cm
-              </button>
-              <button
-                type="button"
-                class="toggle-btn"
-                id="unit-imperial-btn"
-                data-unit="imperial"
-                role="tab"
-                aria-selected="false"
-              >
-                lb / ft / in
-              </button>
-            </div>
-          </div>
+          <div class="bmi-tool-body">
+            <h2 style="font-size:16px;margin:0 0 12px;">Enter your details</h2>
 
-          <!-- Metric fields -->
-          <div id="metric-fields">
-            <div class="field-grid">
-              <div class="field">
-                <div class="field-label">
-                  <strong>Weight</strong>
-                  <span>kg</span>
-                </div>
-                <input
-                  id="weight-kg"
-                  class="field-input"
-                  type="number"
-                  min="0"
-                  step="0.1"
-                  placeholder="e.g. 92"
-                  inputmode="decimal"
-                />
-              </div>
-
-              <div class="field">
-                <div class="field-label">
-                  <strong>Height</strong>
-                  <span>cm</span>
-                </div>
-                <input
-                  id="height-cm"
-                  class="field-input"
-                  type="number"
-                  min="0"
-                  step="0.1"
-                  placeholder="e.g. 178"
-                  inputmode="decimal"
-                />
+            <div class="unit-toggle-row">
+              <span style="font-size:12px;">Units:</span>
+              <div class="toggle-group" role="tablist" aria-label="Unit selection">
+                <button
+                  type="button"
+                  class="toggle-btn is-active"
+                  id="unit-metric-btn"
+                  data-unit="metric"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  kg / cm
+                </button>
+                <button
+                  type="button"
+                  class="toggle-btn"
+                  id="unit-imperial-btn"
+                  data-unit="imperial"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  lb / ft / in
+                </button>
               </div>
             </div>
-          </div>
 
-          <!-- Imperial fields -->
-          <div id="imperial-fields" style="display:none;">
-            <div class="field-grid">
-              <div class="field">
-                <div class="field-label">
-                  <strong>Weight</strong>
-                  <span>lb</span>
-                </div>
-                <input
-                  id="weight-lb"
-                  class="field-input"
-                  type="number"
-                  min="0"
-                  step="0.1"
-                  placeholder="e.g. 220"
-                  inputmode="decimal"
-                />
-              </div>
-
-              <div class="field">
-                <div class="field-label">
-                  <strong>Height</strong>
-                  <span>ft / in</span>
-                </div>
-                <div style="display:flex;gap:8px;">
+            <!-- Metric fields -->
+            <div id="metric-fields">
+              <div class="field-grid">
+                <div class="field">
+                  <div class="field-label">
+                    <strong>Weight</strong>
+                    <span>kg</span>
+                  </div>
                   <input
-                    id="height-ft"
+                    id="weight-kg"
                     class="field-input"
                     type="number"
                     min="0"
-                    step="1"
-                    placeholder="e.g. 5"
-                    inputmode="numeric"
-                    style="max-width:80px;"
+                    step="0.1"
+                    placeholder="e.g. 92"
+                    inputmode="decimal"
                   />
+                </div>
+
+                <div class="field">
+                  <div class="field-label">
+                    <strong>Height</strong>
+                    <span>cm</span>
+                  </div>
                   <input
-                    id="height-in"
+                    id="height-cm"
                     class="field-input"
                     type="number"
                     min="0"
-                    step="1"
-                    placeholder="10"
-                    inputmode="numeric"
-                    style="max-width:80px;"
+                    step="0.1"
+                    placeholder="e.g. 178"
+                    inputmode="decimal"
                   />
                 </div>
               </div>
             </div>
-          </div>
 
-          <button type="button" class="bmi-btn" id="bmi-calc-btn">
-            Calculate BMI
-          </button>
+            <!-- Imperial fields -->
+            <div id="imperial-fields" style="display:none;">
+              <div class="field-grid">
+                <div class="field">
+                  <div class="field-label">
+                    <strong>Weight</strong>
+                    <span>lb</span>
+                  </div>
+                  <input
+                    id="weight-lb"
+                    class="field-input"
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    placeholder="e.g. 220"
+                    inputmode="decimal"
+                  />
+                </div>
 
-          <div class="bmi-result-card" id="bmi-result-card" aria-live="polite">
-            <div class="bmi-result-label">Body Mass Index (BMI)</div>
-            <div class="bmi-result-main">
-              <div class="bmi-result-value" id="bmi-result-value">--</div>
-              <div class="bmi-result-unit">kg/m²</div>
-              <span class="bmi-result-category" id="bmi-result-category" style="display:none;"></span>
+                <div class="field">
+                  <div class="field-label">
+                    <strong>Height</strong>
+                    <span>ft / in</span>
+                  </div>
+                  <div style="display:flex;gap:8px;">
+                    <input
+                      id="height-ft"
+                      class="field-input"
+                      type="number"
+                      min="0"
+                      step="1"
+                      placeholder="e.g. 5"
+                      inputmode="numeric"
+                      style="max-width:80px;"
+                    />
+                    <input
+                      id="height-in"
+                      class="field-input"
+                      type="number"
+                      min="0"
+                      step="1"
+                      placeholder="10"
+                      inputmode="numeric"
+                      style="max-width:80px;"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="bmi-result-extra" id="bmi-result-extra">
-              Enter your details above and tap “Calculate” to see an estimated BMI and category.
-            </div>
-          </div>
 
-          <div class="bmi-actions">
-            <span>
-              BMI is a single index only. Always use it alongside proper medical advice and
-              more detailed measures such as body fat percentage, lab work, and clinical review.
-            </span>
-            <a href="/calculator.html" class="bmi-secondary-link">
-              Back to TRT dosage tools →
-            </a>
+            <button type="button" class="bmi-btn" id="bmi-calc-btn">
+              Calculate BMI
+            </button>
+
+            <div class="bmi-result-card" id="bmi-result-card" aria-live="polite">
+              <div class="bmi-result-label">Body Mass Index (BMI)</div>
+              <div class="bmi-result-main">
+                <div class="bmi-result-value" id="bmi-result-value">--</div>
+                <div class="bmi-result-unit">kg/m²</div>
+                <span class="bmi-result-category" id="bmi-result-category" style="display:none;"></span>
+              </div>
+              <div class="bmi-result-extra" id="bmi-result-extra">
+                Enter your details above and tap “Calculate” to see an estimated BMI and category.
+              </div>
+            </div>
+
+            <div class="bmi-actions">
+              <span>
+                BMI is a single index only. Always use it alongside proper medical advice and
+                more detailed measures such as body fat percentage, lab work, and clinical review.
+              </span>
+              <a href="/calculator.html" class="bmi-secondary-link">
+                Back to TRT dosage tools →
+              </a>
+            </div>
           </div>
         </section>
       </div>
