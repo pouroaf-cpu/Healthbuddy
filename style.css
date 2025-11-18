@@ -1460,3 +1460,11 @@ input[type="range"]::-webkit-slider-thumb,
 input[type="range"]::-moz-range-thumb {
   border-radius: 2px !important;
 }
+button,
+.input,
+select,
+textarea,
+.card,
+.tool-tab {
+  border-radius:6px;
+}
