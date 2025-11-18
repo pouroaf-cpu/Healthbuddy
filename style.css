@@ -1477,3 +1477,18 @@ textarea,
   transform: translateY(1px);
   box-shadow: 0 2px 6px rgba(15,23,42,.06);
 }
+.tool-tabs {
+  position: relative;
+}
+
+/* Mask the bottom border under the active tab */
+.tool-tab.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bg);  /* hides the toolbar border line */
+  z-index: 2;
+}
