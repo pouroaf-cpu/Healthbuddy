@@ -987,3 +987,11 @@ a{color:inherit;text-decoration:none}
   background:#f1f5f9;
   color:#0f172a;
 }
+/* === FORCE DESKTOP HOVER DROPDOWN === */
+@media (min-width: 821px) {
+  .ib-has-dropdown:hover > .ib-dropdown {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+  }
+}
