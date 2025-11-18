@@ -1492,3 +1492,19 @@ textarea,
   background: var(--bg);  /* hides the toolbar border line */
   z-index: 2;
 }
+/* Hide tabs by default */
+.tool-tabs {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .20s ease, transform .20s ease;
+}
+
+/* When user hovers the container, show them */
+.tool-tabs:hover,
+.container:hover > .tool-tabs,
+.ib-main:hover > .container > .tool-tabs {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
