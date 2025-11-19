@@ -14,6 +14,9 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
+  <!-- Shared site stylesheet (same as BMI / index / peptide) -->
+  <link rel="stylesheet" href="style.css" />
+
   <style>
     :root{
       --ink:#0f172a; --muted:#475569; --bg:#ffffff;
@@ -36,80 +39,6 @@
     .container{max-width:1200px;margin:0 auto;padding:0 24px}
     @media (max-width:640px){ .container{padding:0 26px} }
 
-    /* Header */
-    .header{
-      position:sticky;
-      top:0;
-      z-index:60;
-      background:rgba(255,255,255,.86);
-      backdrop-filter:saturate(180%) blur(8px);
-      border-bottom:1px solid var(--border);
-    }
-    .header-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 0;
-    }
-    .brand{display:flex;gap:.75rem;align-items:center;flex-shrink:0}
-    .logo{
-      width:36px;height:36px;border-radius:10px;
-      background:linear-gradient(135deg,#009395,#22d3ee);
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
-    }
-    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
-
-    /* Pill nav – same as peptide page */
-    .nav{
-      display:flex;
-      align-items:center;
-      gap:4px;
-      padding:4px;
-      border-radius:999px;
-      background:transparent;
-      transition:background-color .12s ease;
-    }
-    .nav:hover{
-      background:rgba(15,23,42,.03);
-    }
-    .nav a{
-      position:relative;
-      padding:6px 12px;
-      border-radius:999px;
-      font-weight:600;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .nav a::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      background:rgba(148,163,184,.16);
-      opacity:0;
-      transform:scale(.96);
-      transition:opacity .12s ease,transform .12s ease;
-      z-index:-1;
-    }
-    .nav a:hover::before{
-      opacity:1;
-      transform:scale(1);
-    }
-    .nav a:focus-visible{
-      outline:none;
-      box-shadow:0 0 0 3px var(--ring);
-    }
-    .nav a[aria-current="page"]{
-      color:var(--ink);
-      font-weight:800;
-    }
-    .nav a[aria-current="page"]::before{
-      opacity:1;
-      transform:scale(1);
-      background:rgba(0,178,181,.10);
-    }
-
     .btn{
       display:inline-flex;align-items:center;justify-content:center;
       gap:.5rem;font-weight:700;letter-spacing:.2px;
@@ -125,34 +54,6 @@
     .btn-primary:hover{
       transform:translateY(-1px);
       background:var(--cta-hover);
-    }
-
-    .burger{
-      display:none;align-items:center;justify-content:center;
-      width:48px;height:48px;border-radius:12px;
-      border:1px solid var(--border);background:#fff;
-      flex-shrink:0;
-    }
-    .burger svg{width:22px;height:22px}
-
-    /* Mobile menu */
-    .mobile-menu{
-      display:none;
-      position:fixed;top:56px;left:0;right:0;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-      box-shadow:0 10px 30px rgba(2,6,23,.08);
-      z-index:55;
-      max-height:calc(100vh - 56px);
-      overflow:auto;
-    }
-    .mobile-menu.open{display:block}
-    .mobile-menu .container{padding:14px 20px 16px}
-    .mobile-links{display:grid;gap:10px;margin-bottom:4px}
-
-    @media (max-width:980px){
-      .nav{display:none}
-      .burger{display:inline-flex}
     }
 
     /* Layout */
@@ -463,37 +364,8 @@
 </head>
 <body>
 
-<header class="header" role="banner">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div><h1>InjectBuddy</h1>
-    </a>
-
-    <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html" aria-current="page">Dosage Calculator</a>
-      <a href="/peptide.html">Peptide Reconstitution</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/about.html">About</a>
-    </nav>
-
-    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
-    </button>
-  </div>
-</header>
-
-<nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
-  <div class="container">
-    <div class="mobile-links" role="menu">
-      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
-      <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
-      <a href="/contact.html" role="menuitem">Contact</a>
-      <a href="/about.html" role="menuitem">About</a>
-    </div>
-  </div>
-</nav>
+  <!-- Shared header injected by /assets/nav.js (same as BMI / peptide / index) -->
+  <div id="site-header"></div>
 
 <main class="container">
   <section id="calculator" class="form-container" aria-labelledby="calc-title">
@@ -700,15 +572,10 @@
   </div>
 </footer>
 
-<script>
-  // Mobile menu
-  document.getElementById('burger')?.addEventListener('click', function () {
-    const m = document.getElementById('mobile-menu');
-    const open = m.classList.toggle('open');
-    this.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.classList.toggle('nav-open', open);
-  });
+<!-- Shared nav JS (same as BMI / peptide / index) -->
+<script src="/assets/nav.js" defer></script>
 
+<script>
   const $ = id => document.getElementById(id);
 
   // Discrete weekly options:
