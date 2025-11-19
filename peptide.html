@@ -14,6 +14,9 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
+  <!-- Shared site stylesheet (same as BMI / index) -->
+  <link rel="stylesheet" href="style.css" />
+
   <style>
     :root{
       --teal:#009395;
@@ -61,48 +64,6 @@
     .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover)}
     .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
     .btn-secondary:hover{transform:translateY(-1px)}
-
-    /* Header / Nav */
-    .header{
-      position:sticky;top:0;z-index:60;
-      background:rgba(255,255,255,.86);
-      backdrop-filter:saturate(180%) blur(8px);
-      border-bottom:1px solid var(--border);
-    }
-    .header-inner{
-      display:flex;align-items:center;justify-content:space-between;padding:12px 0;
-    }
-    .brand{display:flex;gap:.75rem;align-items:center}
-    .logo{
-      width:36px;height:36px;border-radius:10px;
-      background:linear-gradient(135deg,var(--teal),#22d3ee);
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);
-    }
-    .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:var(--teal-900)}
-    .nav{display:flex;gap:12px;align-items:center}
-    .nav a{font-weight:600;color:var(--muted)}
-    .nav a.active,
-    .nav a[aria-current="page"]{color:var(--teal-900);font-weight:800}
-    .nav-cta .btn{border-radius:12px}
-
-    .burger{
-      display:none;align-items:center;justify-content:center;
-      width:48px;height:48px;border-radius:12px;
-      border:1px solid var(--border);background:#fff;
-    }
-    .burger:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
-    .burger svg{width:22px;height:22px}
-
-    .mobile-menu{
-      display:none;position:fixed;top:56px;left:0;right:0;
-      background:#fff;border-bottom:1px solid var(--border);
-      box-shadow:0 10px 30px rgba(2,6,23,.08);z-index:55;
-      max-height:calc(100vh - 56px);overflow:auto;
-    }
-    .mobile-menu.open{display:block}
-    .mobile-menu .container{padding:14px 20px 16px}
-    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
-    .mobile-cta{display:grid;gap:10px}
 
     /* Layout */
     main.container{padding:24px 0;}
@@ -203,7 +164,7 @@
       border:2px solid #ffffff;
       box-shadow:0 2px 6px rgba(15,23,42,.35);
       cursor:pointer;
-      margin-top:-8px; /* 24px thumb on 8px track -> centered */
+      margin-top:-8px;
     }
     input[type="range"]::-moz-range-track{
       height:8px;
@@ -311,7 +272,7 @@
     /* Vial layout */
     .vial-card{display:flex;align-items:center;justify-content:center;}
     .vial{
-      width:150px;               /* smaller vial */
+      width:150px;
       max-width:40vw;
       filter:drop-shadow(0 10px 24px rgba(0,0,0,.10));
     }
@@ -390,11 +351,6 @@
       margin-top:28px;
     }
 
-    @media (max-width:980px){
-      .nav{display:none}
-      .nav-cta{display:none}
-      .burger{display:inline-flex}
-    }
     @media (max-width:400px){
       .live-reads .live-chip{
         max-width:40vw;text-overflow:ellipsis;overflow:hidden;
@@ -431,46 +387,8 @@
 </head>
 <body>
 
-<header class="header" role="banner">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="InjectBuddy Home">
-      <div class="logo" aria-hidden="true"></div>
-      <h1>InjectBuddy</h1>
-    </a>
-
-    <nav class="nav" aria-label="Primary">
-      <a href="/calculator.html">Dosage Calculator</a>
-      <a href="/peptide.html" class="active" aria-current="page">Peptide Reconstitution</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/about.html">About</a>
-    </nav>
-
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="/calculator.html" aria-label="Open TRT calculator">Open TRT Calculator</a>
-    </div>
-
-    <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
-    </button>
-  </div>
-</header>
-
-<div class="mobile-menu" id="mobile-menu">
-  <div class="container">
-    <div class="mobile-links" role="menu">
-      <a href="/calculator.html" role="menuitem">Dosage Calculator</a>
-      <a href="/peptide.html" role="menuitem" aria-current="page">Peptide Reconstitution</a>
-      <a href="/contact.html" role="menuitem">Contact</a>
-      <a href="/about.html" role="menuitem">About</a>
-    </div>
-    <div class="mobile-cta">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
-    </div>
-  </div>
-</div>
+  <!-- Shared header injected by /assets/nav.js (same as BMI / index) -->
+  <div id="site-header"></div>
 
 <main class="container">
   <section class="page-head">
@@ -742,20 +660,14 @@
   </div>
 </footer>
 
+<!-- Shared nav JS (same as BMI / index) -->
+<script src="/assets/nav.js" defer></script>
+
 <script>
+  // Year only – nav is handled by /assets/nav.js
   (function(){
-    const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
-    const burger = document.getElementById('burger');
-    const menu = document.getElementById('mobile-menu');
-    if (!burger || !menu) return;
-    burger.addEventListener('click', ()=>{
-      const open = menu.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
-      menu.classList.remove('open');
-      burger.setAttribute('aria-expanded','false');
-    }));
+    const y = document.getElementById('y');
+    if (y) y.textContent = new Date().getFullYear();
   })();
 
   const $ = id => document.getElementById(id);
@@ -767,7 +679,7 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  // Syringe SVG logic (isolated for this page)
+  // Syringe SVG logic
   (function(){
     const elVol  = $('syrVol');
     const elMode = $('syrMode');
