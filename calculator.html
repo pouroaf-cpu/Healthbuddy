@@ -60,7 +60,7 @@
     }
     .brand h1{font-size:1.1rem;margin:0;font-weight:800;color:#004c4d}
 
-    /* Nav pill bar */
+    /* Pill nav – same as peptide page */
     .nav{
       display:flex;
       align-items:center;
@@ -110,16 +110,6 @@
       background:rgba(0,178,181,.10);
     }
 
-    .nav-cta{
-      display:flex;
-      align-items:center;
-      flex-shrink:0;
-    }
-    .nav-cta .btn{
-      border-radius:12px;
-      padding:10px 16px;
-    }
-
     .btn{
       display:inline-flex;align-items:center;justify-content:center;
       gap:.5rem;font-weight:700;letter-spacing:.2px;
@@ -158,12 +148,10 @@
     }
     .mobile-menu.open{display:block}
     .mobile-menu .container{padding:14px 20px 16px}
-    .mobile-links{display:grid;gap:10px;margin-bottom:12px}
-    .mobile-cta{display:grid;gap:10px}
+    .mobile-links{display:grid;gap:10px;margin-bottom:4px}
 
     @media (max-width:980px){
       .nav{display:none}
-      .nav-cta{display:none}
       .burger{display:inline-flex}
     }
 
@@ -488,12 +476,6 @@
       <a href="/about.html">About</a>
     </nav>
 
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="/peptide.html" aria-label="Open peptide calculator">
-        Peptide Calculator
-      </a>
-    </div>
-
     <button class="burger" id="burger" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
@@ -509,10 +491,6 @@
       <a href="/peptide.html" role="menuitem">Peptide Reconstitution</a>
       <a href="/contact.html" role="menuitem">Contact</a>
       <a href="/about.html" role="menuitem">About</a>
-    </div>
-    <div class="mobile-cta">
-      <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
-      <a class="btn" href="/peptide.html">Peptide Calculator</a>
     </div>
   </div>
 </nav>
@@ -850,7 +828,7 @@
     };
 
     window.__setSyringeCapacity = function(ml){
-      selectedCapacityMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51) ? 0.5 : (ml < 3 ? 1 : 3);
+      selectedCapacityMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
       updateSyringe(Number(($('kpi_ml')||{}).textContent) || 0);
     };
 
