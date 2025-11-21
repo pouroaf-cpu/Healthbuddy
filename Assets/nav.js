@@ -1,56 +1,97 @@
-// assets/nav.js
+// /assets/nav.js
 (function () {
-  const placeholder = document.getElementById('site-header');
-  if (!placeholder) return;
+  const host = document.getElementById('site-header');
+  if (!host) return;
 
-  // Load shared header
+  // Load shared header from header.html (keeps your original desktop look)
   fetch('/header.html')
     .then(res => {
       if (!res.ok) throw new Error('Failed to load header.html');
       return res.text();
     })
     .then(html => {
-      placeholder.innerHTML = html;
-      initNavBehaviour();
+      host.innerHTML = html;
+      initNav(host);
     })
     .catch(err => {
       console.error('Header load error:', err);
     });
 
-  function initNavBehaviour() {
-    const header = placeholder.querySelector('header');
+  function initNav(scope) {
+    // Allow either .ib-header or plain <header>
+    const header =
+      scope.querySelector('.ib-header') ||
+      scope.querySelector('header');
     if (!header) return;
 
-    const burger = header.querySelector('.burger');
-    const mobileMenu = header.querySelector('#mobile-menu');
+    // Support both naming styles for burger + mobile menu
+    const burger =
+      header.querySelector('.ib-burger') ||
+      header.querySelector('.burger') ||
+      header.querySelector('[data-role="burger"]');
 
-    // Highlight active link
-    const path = window.location.pathname;
-    const links = header.querySelectorAll('[data-nav]');
-    links.forEach(link => {
-      const val = link.getAttribute('data-nav');
-      if (!val) return;
-      if (path.includes(val)) {
+    const mobileMenu =
+      header.querySelector('.ib-mobile-menu') ||
+      header.querySelector('#mobile-menu') ||
+      header.querySelector('[data-role="mobile-menu"]');
+
+    // Highlight active link using data-nav
+    const path = window.location.pathname || '/';
+    header.querySelectorAll('[data-nav]').forEach(link => {
+      const key = link.getAttribute('data-nav');
+      if (!key) return;
+
+      if (
+        (key === 'home' && (path === '/' || path === '/index.html')) ||
+        path.includes(key)
+      ) {
         link.setAttribute('aria-current', 'page');
       }
     });
 
-    // Burger toggle
-    if (burger && mobileMenu) {
-      burger.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.toggle('open');
-        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        document.body.classList.toggle('nav-open', isOpen);
-      });
+    if (!burger || !mobileMenu) return;
 
-      // Close menu on link click
-      mobileMenu.addEventListener('click', e => {
-        const link = e.target.closest('a');
-        if (!link) return;
-        mobileMenu.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('nav-open');
-      });
+    // Detect whether this menu is using [hidden] or a class toggle
+    const usesHidden = mobileMenu.hasAttribute('hidden');
+
+    function isOpen() {
+      if (usesHidden) return !mobileMenu.hasAttribute('hidden');
+      return mobileMenu.classList.contains('open');
     }
+
+    function openMenu() {
+      if (usesHidden) {
+        mobileMenu.removeAttribute('hidden');
+      } else {
+        mobileMenu.classList.add('open');
+      }
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('nav-open');
+    }
+
+    function closeMenu() {
+      if (usesHidden) {
+        mobileMenu.setAttribute('hidden', '');
+      } else {
+        mobileMenu.classList.remove('open');
+      }
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+    }
+
+    burger.addEventListener('click', () => {
+      if (isOpen()) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Close mobile menu when clicking any link inside it
+    mobileMenu.addEventListener('click', e => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closeMenu();
+    });
   }
 })();
