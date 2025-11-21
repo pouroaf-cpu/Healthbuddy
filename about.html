@@ -45,7 +45,12 @@
       line-height:1.6;
     }
 
-    .wrap{max-width:960px;margin:24px auto;padding:16px}
+    main.about-wrap{
+      max-width:960px;
+      margin:80px auto 24px; /* space for sticky header */
+      padding:0 16px;
+    }
+
     .hero{
       background:#fff;
       border:1px solid var(--muted);
@@ -93,22 +98,34 @@
       color:var(--ink-500);
     }
 
-    footer{
+    footer.about-footer{
       margin:28px 0 18px;
       text-align:center;
       color:var(--ink-500);
       font-size:14px;
     }
+
+    @media (max-width:640px){
+      main.about-wrap{
+        margin-top:72px;
+        padding:0 14px;
+      }
+      .hero,
+      .section{
+        padding:20px 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Header is injected globally via /partials/header.html + /assets/nav.js -->
+  <!-- Shared header injected by /assets/nav.js -->
+  <div id="site-header"></div>
 
-  <main class="wrap">
+  <main class="about-wrap">
     <section class="hero">
       <h1>About InjectBuddy</h1>
       <p>
-        InjectBuddy exists for one reason: to make dosing less confusing.  
+        InjectBuddy exists for one reason: to make dosing less confusing.
         Instead of guessing at volumes and counting tiny syringe marks, you get
         clear numbers, realistic visuals, and a simple way to sanity-check your plan.
       </p>
@@ -124,7 +141,7 @@
       </p>
       <p>
         Most modern TRT protocols use injectable testosterone attached to an
-        “ester”. The ester controls how quickly the hormone leaves the injection
+        ester. The ester controls how quickly the hormone leaves the injection
         site, how long it stays active in the body, and how often injections are needed.
       </p>
       <p class="note">
@@ -204,8 +221,8 @@
       </p>
       <ul>
         <li>Convert mg → mL for any common concentration.</li>
-        <li>Compare “per week” vs “every N days” schedules.</li>
-        <li>See how much volume you’re actually drawing into a 1&nbsp;mL or 3&nbsp;mL syringe.</li>
+        <li>Compare per-week vs every-N-days schedules.</li>
+        <li>See how much volume you’re actually drawing into a 0.3, 0.5, 1&nbsp;mL, or 3&nbsp;mL syringe.</li>
       </ul>
       <p>
         The goal is simple: fewer mistakes, less second-guessing, and a clearer
@@ -218,7 +235,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="about-footer">
     <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
   </footer>
 
