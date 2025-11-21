@@ -18,6 +18,9 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#009395" />
 
+  <!-- Global site styles (shared header, layout, etc.) -->
+  <link rel="stylesheet" href="/style.css" />
+
   <style>
     :root{
       --teal-900:#004c4d;
@@ -35,44 +38,130 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--ink-900); line-height:1.6}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink-900);
+      line-height:1.6;
+    }
 
-    /* Header (kept minimal; safe standalone) */
-    .ib-header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #e6eef0}
-    .ib-nav{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-    .ib-brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--teal-900);text-decoration:none}
-    .ib-brand svg{width:26px;height:26px}
-    .ib-links{display:flex;gap:14px}
-    .ib-links a{color:var(--ink-700);text-decoration:none;font-weight:500}
-    .ib-links a:hover{color:var(--teal-700)}
+    main.contact-wrap{
+      max-width:960px;
+      margin:80px auto 24px; /* space for sticky shared header */
+      padding:0 16px;
+    }
 
-    /* Page */
-    .wrap{max-width:960px;margin:24px auto;padding:16px}
+    .hero{
+      background:linear-gradient(180deg,#fff,#f7fbfb);
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px 24px;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(26px,4vw,38px);
+      letter-spacing:-0.02em;
+      color:var(--teal-900);
+    }
+    .hero p{
+      margin:6px 0 0;
+      color:var(--ink-700);
+      max-width:62ch;
+    }
 
-    .hero{background:linear-gradient(180deg,#fff, #f7fbfb);border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px}
-    .hero h1{margin:0 0 8px 0;font-size:clamp(26px,4vw,38px);letter-spacing:-0.02em;color:var(--teal-900)}
-    .hero p{margin:6px 0 0 0;color:var(--ink-700);max-width:62ch}
+    .hero-inner-section{
+      margin-top:14px;
+    }
 
-    .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:22px}
-    @media (min-width:880px){.grid{grid-template-columns: 1.2fr .8fr}}
+    .contact-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:9999px;
+      border:1px solid var(--ring);
+      background:#fff;
+      box-shadow:0 1px 0 rgba(0,0,0,.03);
+    }
+    .contact-chip a{
+      color:var(--teal-700);
+      text-decoration:none;
+      font-weight:600;
+    }
+    .contact-chip a:hover{
+      color:var(--teal-600);
+    }
 
-    .card{background:var(--card);border:1px solid var(--muted);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
-    .card h2{margin:0 0 10px 0;font-size:clamp(18px,2.6vw,24px);letter-spacing:-.01em;color:var(--teal-900)}
-    .card h3{margin:18px 0 8px 0;font-size:18px;color:var(--ink-900)}
-    .card p{margin:10px 0;color:var(--ink-700)}
-    .muted{color:var(--ink-500)}
+    .disclaimer{
+      margin-top:14px;
+      font-size:14px;
+      color:var(--ink-500);
+    }
 
-    .contact-chip{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:9999px;border:1px solid var(--ring);background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.03)}
-    .contact-chip a{color:var(--teal-700);text-decoration:none;font-weight:600}
-    .contact-chip a:hover{color:var(--teal-600)}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:18px;
+      margin-top:22px;
+    }
+    @media (min-width:880px){
+      .grid{
+        grid-template-columns:1.2fr .8fr;
+      }
+    }
 
-    .disclaimer{margin-top:14px;font-size:14px;color:var(--ink-500)}
+    .card{
+      background:var(--card);
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:clamp(18px,2.6vw,24px);
+      letter-spacing:-.01em;
+      color:var(--teal-900);
+    }
+    .card h3{
+      margin:18px 0 8px;
+      font-size:18px;
+      color:var(--ink-900);
+    }
+    .card p{
+      margin:10px 0;
+      color:var(--ink-700);
+    }
 
-    .section{margin-top:18px}
-    .list{padding-left:18px;margin:8px 0}
-    .list li{margin:6px 0;color:var(--ink-700)}
+    .list{
+      padding-left:18px;
+      margin:8px 0;
+    }
+    .list li{
+      margin:6px 0;
+      color:var(--ink-700);
+    }
 
-    footer{margin:28px 0 18px 0;text-align:center;color:var(--ink-500);font-size:14px}
+    .contact-footer{
+      margin:28px 0 18px;
+      text-align:center;
+      color:var(--ink-500);
+      font-size:14px;
+    }
+
+    @media (max-width:640px){
+      main.contact-wrap{
+        margin-top:72px;
+        padding:0 14px;
+      }
+      .hero{
+        padding:22px 16px;
+      }
+      .card{
+        padding:20px 16px;
+      }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -92,46 +181,50 @@
   </script>
 </head>
 <body>
-  <header class="ib-header" aria-label="Site header">
-    <nav class="ib-nav">
-      <a class="ib-brand" href="/">
-        <!-- Simple IB mark -->
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" stroke="var(--teal-600)" stroke-width="2"/>
-          <path d="M8 7v10M12 9.5h4.5M12 14.5h4.5" stroke="var(--teal-600)" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span>InjectBuddy</span>
-      </a>
-      <div class="ib-links" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/calculator.html">Calculator</a>
-        <a href="/peptide.html">Peptides</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/contact.html" aria-current="page">Contact</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Shared header injected by /assets/nav.js -->
+  <div id="site-header"></div>
 
-  <main class="wrap">
+  <main class="contact-wrap">
     <section class="hero">
       <h1>Contact InjectBuddy</h1>
       <p>Questions, feedback, or partnerships — email us directly. We keep things simple and reply promptly.</p>
-      <div class="section" style="margin-top:14px">
+
+      <div class="hero-inner-section">
         <span class="contact-chip" role="note" aria-label="Support email">
           <!-- mail icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 0l8 6 8-6" stroke="var(--teal-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 0l8 6 8-6"
+                  stroke="var(--teal-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <a href="mailto:support@injectbuddy.com">support@injectbuddy.com</a>
         </span>
-        <p class="disclaimer">InjectBuddy provides educational tools only and does not offer medical advice. Always consult a qualified healthcare professional.</p>
+        <p class="disclaimer">
+          InjectBuddy provides educational tools only and does not offer medical advice.
+          Always consult a qualified healthcare professional.
+        </p>
       </div>
     </section>
 
-    <section class="grid" aria-label="About + Policies">
+    <section class="grid" aria-label="About and policies">
       <article class="card" aria-labelledby="about-title">
         <h2 id="about-title">About the Creator</h2>
-        <p>InjectBuddy was built out of personal necessity. Like many navigating hormone therapy, I found the process confusing and inconsistent. Dosages, concentrations, and injection schedules were scattered across forums and dense clinical documents — not practical for day‑to‑day decisions.</p>
-        <p>After working through my own health challenges — including the realities of balancing therapy with energy, recovery, and mood — it became clear that simple, precise tools were missing. InjectBuddy started as a private calculator to reduce mistakes and second‑guessing. It has since grown into a public resource designed for clarity, accuracy, and privacy.</p>
-        <p>There is no agenda beyond accessibility. The goal is to remove friction, present conversions honestly, and help people feel more in control of their therapy.</p>
+        <p>
+          InjectBuddy was built out of personal necessity. Like many navigating hormone therapy,
+          I found the process confusing and inconsistent. Dosages, concentrations, and injection
+          schedules were scattered across forums and dense clinical documents — not practical for
+          day-to-day decisions.
+        </p>
+        <p>
+          After working through my own health challenges — including the realities of balancing
+          therapy with energy, recovery, and mood — it became clear that simple, precise tools
+          were missing. InjectBuddy started as a private calculator to reduce mistakes and
+          second-guessing. It has since grown into a public resource designed for clarity,
+          accuracy, and privacy.
+        </p>
+        <p>
+          There is no agenda beyond accessibility. The goal is to remove friction, present
+          conversions honestly, and help people feel more in control of their therapy.
+        </p>
 
         <h3>Principles</h3>
         <ul class="list">
@@ -141,18 +234,24 @@
         </ul>
 
         <h3>How to Reach Us</h3>
-        <p>For support, ideas, or partnerships, email <a href="mailto:support@injectbuddy.com">support@injectbuddy.com</a>. Thoughtful bug reports and UX suggestions are especially appreciated.</p>
+        <p>
+          For support, ideas, or partnerships, email
+          <a href="mailto:support@injectbuddy.com">support@injectbuddy.com</a>.
+          Thoughtful bug reports and UX suggestions are especially appreciated.
+        </p>
       </article>
 
       <aside class="card" aria-labelledby="commitment-title">
         <h2 id="commitment-title">Our Commitment</h2>
         <p><strong>No paywalls. No tracking bloat.</strong> InjectBuddy will remain fast, transparent, and accessible.</p>
+
         <h3>What to Expect</h3>
         <ul class="list">
-          <li>Fast page loads and mobile‑first design</li>
+          <li>Fast page loads and mobile-first design</li>
           <li>Clear change logs and visible improvements</li>
           <li>Respect for anonymity and data minimization</li>
         </ul>
+
         <h3>What We Don’t Do</h3>
         <ul class="list">
           <li>We don’t collect sensitive health data</li>
@@ -163,13 +262,13 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="contact-footer">
     <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
   </footer>
 
   <script>
-    // Update year unobtrusively
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
+  <script src="/assets/nav.js" defer></script>
 </body>
 </html>
