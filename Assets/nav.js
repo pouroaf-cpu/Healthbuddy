@@ -1,97 +1,81 @@
 // /assets/nav.js
 (function () {
-  const host = document.getElementById('site-header');
-  if (!host) return;
+  const placeholder = document.getElementById('site-header');
+  if (!placeholder) return;
 
-  // Load shared header from header.html (keeps your original desktop look)
+  // Load header.html into #site-header
   fetch('/header.html')
     .then(res => {
       if (!res.ok) throw new Error('Failed to load header.html');
       return res.text();
     })
     .then(html => {
-      host.innerHTML = html;
-      initNav(host);
+      placeholder.innerHTML = html;
+      initNavBehaviour();
     })
     .catch(err => {
       console.error('Header load error:', err);
     });
 
-  function initNav(scope) {
-    // Allow either .ib-header or plain <header>
-    const header =
-      scope.querySelector('.ib-header') ||
-      scope.querySelector('header');
+  function initNavBehaviour() {
+    const header = placeholder.querySelector('.ib-header');
     if (!header) return;
 
-    // Support both naming styles for burger + mobile menu
-    const burger =
-      header.querySelector('.ib-burger') ||
-      header.querySelector('.burger') ||
-      header.querySelector('[data-role="burger"]');
+    const burger       = header.querySelector('.ib-burger');
+    const mobileMenu   = header.querySelector('.ib-mobile-menu');
+    const desktopTools = header.querySelector('.ib-has-dropdown');
+    const toolsToggle  = header.querySelector('.ib-dropdown-toggle');
 
-    const mobileMenu =
-      header.querySelector('.ib-mobile-menu') ||
-      header.querySelector('#mobile-menu') ||
-      header.querySelector('[data-role="mobile-menu"]');
-
-    // Highlight active link using data-nav
+    // Highlight active link based on data-match
     const path = window.location.pathname || '/';
-    header.querySelectorAll('[data-nav]').forEach(link => {
-      const key = link.getAttribute('data-nav');
-      if (!key) return;
-
-      if (
-        (key === 'home' && (path === '/' || path === '/index.html')) ||
-        path.includes(key)
-      ) {
+    const allLinks = header.querySelectorAll('[data-match]');
+    allLinks.forEach(link => {
+      const match = link.getAttribute('data-match');
+      if (!match) return;
+      if (path === match || path.startsWith(match)) {
+        link.classList.add('is-active');
         link.setAttribute('aria-current', 'page');
       }
     });
 
-    if (!burger || !mobileMenu) return;
+    // Desktop Tools dropdown
+    if (desktopTools && toolsToggle) {
+      toolsToggle.addEventListener('click', () => {
+        const open = desktopTools.classList.toggle('open');
+        toolsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
 
-    // Detect whether this menu is using [hidden] or a class toggle
-    const usesHidden = mobileMenu.hasAttribute('hidden');
-
-    function isOpen() {
-      if (usesHidden) return !mobileMenu.hasAttribute('hidden');
-      return mobileMenu.classList.contains('open');
+      document.addEventListener('click', e => {
+        if (!desktopTools.contains(e.target)) {
+          desktopTools.classList.remove('open');
+          toolsToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     }
 
-    function openMenu() {
-      if (usesHidden) {
-        mobileMenu.removeAttribute('hidden');
-      } else {
-        mobileMenu.classList.add('open');
-      }
-      burger.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('nav-open');
-    }
+    // Burger toggle (mobile)
+    if (burger && mobileMenu) {
+      burger.addEventListener('click', () => {
+        const isHidden = mobileMenu.hasAttribute('hidden');
+        if (isHidden) {
+          mobileMenu.removeAttribute('hidden');
+          burger.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('ib-nav-open');
+        } else {
+          mobileMenu.setAttribute('hidden', '');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('ib-nav-open');
+        }
+      });
 
-    function closeMenu() {
-      if (usesHidden) {
+      // Close mobile menu when clicking a link
+      mobileMenu.addEventListener('click', e => {
+        const a = e.target.closest('a');
+        if (!a) return;
         mobileMenu.setAttribute('hidden', '');
-      } else {
-        mobileMenu.classList.remove('open');
-      }
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('ib-nav-open');
+      });
     }
-
-    burger.addEventListener('click', () => {
-      if (isOpen()) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    // Close mobile menu when clicking any link inside it
-    mobileMenu.addEventListener('click', e => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      closeMenu();
-    });
   }
 })();
