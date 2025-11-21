@@ -1,81 +1,69 @@
-// /assets/nav.js
+// /assets/nav.js  (in your deployed root; repo folder name doesn't matter)
 (function () {
-  const placeholder = document.getElementById('site-header');
-  if (!placeholder) return;
+  const host = document.getElementById('site-header');
+  if (!host) return;
 
-  // Load header.html into #site-header
+  // 1) Load the shared header.html
   fetch('/header.html')
     .then(res => {
       if (!res.ok) throw new Error('Failed to load header.html');
       return res.text();
     })
     .then(html => {
-      placeholder.innerHTML = html;
-      initNavBehaviour();
+      host.innerHTML = html;
+      initNav();
     })
     .catch(err => {
       console.error('Header load error:', err);
     });
 
-  function initNavBehaviour() {
-    const header = placeholder.querySelector('.ib-header');
+  function initNav() {
+    const header = host.querySelector('.ib-header');
     if (!header) return;
 
-    const burger       = header.querySelector('.ib-burger');
-    const mobileMenu   = header.querySelector('.ib-mobile-menu');
-    const desktopTools = header.querySelector('.ib-has-dropdown');
-    const toolsToggle  = header.querySelector('.ib-dropdown-toggle');
+    const burger     = header.querySelector('.ib-burger');
+    const mobileMenu = header.querySelector('.ib-mobile-menu');
 
-    // Highlight active link based on data-match
-    const path = window.location.pathname || '/';
-    const allLinks = header.querySelectorAll('[data-match]');
-    allLinks.forEach(link => {
-      const match = link.getAttribute('data-match');
-      if (!match) return;
-      if (path === match || path.startsWith(match)) {
-        link.classList.add('is-active');
-        link.setAttribute('aria-current', 'page');
-      }
-    });
-
-    // Desktop Tools dropdown
-    if (desktopTools && toolsToggle) {
-      toolsToggle.addEventListener('click', () => {
-        const open = desktopTools.classList.toggle('open');
-        toolsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-
-      document.addEventListener('click', e => {
-        if (!desktopTools.contains(e.target)) {
-          desktopTools.classList.remove('open');
-          toolsToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    // Burger toggle (mobile)
+    // 2) Burger toggle (mobile)
     if (burger && mobileMenu) {
       burger.addEventListener('click', () => {
-        const isHidden = mobileMenu.hasAttribute('hidden');
-        if (isHidden) {
-          mobileMenu.removeAttribute('hidden');
-          burger.setAttribute('aria-expanded', 'true');
-          document.body.classList.add('ib-nav-open');
-        } else {
+        const isOpen = !mobileMenu.hasAttribute('hidden');
+
+        if (isOpen) {
+          // close
           mobileMenu.setAttribute('hidden', '');
           burger.setAttribute('aria-expanded', 'false');
           document.body.classList.remove('ib-nav-open');
+        } else {
+          // open
+          mobileMenu.removeAttribute('hidden');
+          burger.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('ib-nav-open');
         }
       });
 
-      // Close mobile menu when clicking a link
-      mobileMenu.addEventListener('click', e => {
-        const a = e.target.closest('a');
-        if (!a) return;
+      // Close mobile menu when clicking any link inside it
+      mobileMenu.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
         mobileMenu.setAttribute('hidden', '');
         burger.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('ib-nav-open');
       });
     }
+
+    // 3) Active link highlighting based on data-match
+    const path  = window.location.pathname || '/';
+    const links = header.querySelectorAll('[data-match]');
+
+    links.forEach(link => {
+      const match = link.getAttribute('data-match');
+      if (!match) return;
+
+      // Simple contains check (e.g. "/contact" matches "/contact.html")
+      if (path.indexOf(match) !== -1) {
+        link.classList.add('is-active');
+      }
+    });
   }
 })();
