@@ -7,27 +7,63 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Main pages -->
-  <url>
-    <loc>https://www.injectbuddy.com/about.html</loc>
-  </url>
+  <!-- Core Tools -->
   <url>
     <loc>https://www.injectbuddy.com/calculator.html</loc>
+    <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://www.injectbuddy.com/questionnaire.html</loc>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/faq.html</loc>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/contact.html</loc>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/privacy.html</loc>
-  </url>
+
   <url>
     <loc>https://www.injectbuddy.com/peptide.html</loc>
+    <priority>0.9</priority>
   </url>
-</urlset>
 
+  <url>
+    <loc>https://www.injectbuddy.com/bmi.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.injectbuddy.com/test-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Core Content Pages -->
+  <url>
+    <loc>https://www.injectbuddy.com/about.html</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.injectbuddy.com/contact.html</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.injectbuddy.com/faq.html</loc>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.injectbuddy.com/questionnaire.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://www.injectbuddy.com/blog/</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Example Blog Posts (add as they publish) -->
+  <url>
+    <loc>https://www.injectbuddy.com/blog/how-to-reconstitute-peptides</loc>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://www.injectbuddy.com/blog/testosterone-dosage-guide</loc>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
