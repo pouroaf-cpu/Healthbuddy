@@ -176,10 +176,7 @@
       grid-area:chip;
       margin:0;
     }
-    .calc-grid .full > input[type="range"]{
-      grid-area:slider;
-      margin-top:2px;
-    }
+    .calc-grid .full > input[type="range"],
     .calc-grid .full > input[type="datetime-local"]{
       grid-area:slider;
       margin-top:2px;
@@ -458,7 +455,7 @@
           </div>
         </div>
 
-        <!-- Single injection (mL → mg) -->
+        <!-- Single injection (mL → mg) as slider -->
         <div class="full is-hidden" id="singleWrap">
           <label for="single-ml">Single injection volume (mL)</label>
           <div class="live-reads">
@@ -466,11 +463,11 @@
           </div>
           <input
             id="single-ml"
-            type="number"
-            step="0.01"
+            type="range"
             min="0"
-            placeholder="e.g. 0.9"
-            style="grid-area:slider;margin-top:2px;"
+            max="3"
+            step="0.1"
+            value="0"
           />
         </div>
       </div>
@@ -568,7 +565,7 @@
           </div>
         </div>
 
-        <!-- Fixed syringe unit warning moved BELOW syringe -->
+        <!-- Fixed syringe unit warning below syringe -->
         <p class="warn" style="font-size:12px;margin-bottom:10px;">
           This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
           Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
@@ -829,7 +826,7 @@
     const dosePerInj   = weekly / injPerWeek;   // mg
     const volPerInj_ml = dosePerInj / conc;     // mL
 
-    $('kpi_inj').textContent  = injPerInj.toFixed(2);
+    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
     $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
     $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
 
@@ -1097,9 +1094,11 @@
     });
     concSlider?.addEventListener('input', ()=>{
       if (window.__mode === 'everyNDays') window.computeEveryNDays();
+      else if (window.__mode === 'single') computeSingle();
     });
     weeklySlider?.addEventListener('input', ()=>{
       if (window.__mode === 'everyNDays') window.computeEveryNDays();
+      else if (window.__mode === 'single') computeSingle();
     });
 
     ndStartInput?.addEventListener('change', ()=>{
@@ -1181,7 +1180,7 @@
   document.addEventListener('DOMContentLoaded', ()=>{
     initSyringeToggle();
     initLiveSliders();
-    ['conc-slider','weekly-slider','count-slider','ndays-slider'].forEach(id=>{
+    ['conc-slider','weekly-slider','count-slider','ndays-slider','single-ml'].forEach(id=>{
       const el = document.getElementById(id);
       if(!el) return;
       paintRange(el);
