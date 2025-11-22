@@ -67,7 +67,7 @@
 
     /* Layout */
     main.container{padding:28px 0}
-    @media (max-width:640px){ main.container{padding:9px 0} }
+    @media (max-width:640px){ main.container{padding:20px 0} }
     .form-container h1{margin:0 0 10px}
 
     .calc-wrap{
@@ -282,7 +282,7 @@
     .is-hidden{display:none !important}
 
     footer{
-      padding:9px 0;
+      padding:36px 0;
       color:#64748b;
       border-top:1px solid var(--border);
     }
@@ -355,8 +355,8 @@
       }
 
       main.container{
-        padding-left:9px !important;
-        padding-right:9px !important;
+        padding-left:40px !important;
+        padding-right:40px !important;
       }
     }
 
@@ -384,11 +384,12 @@
       <!-- LEFT: inputs -->
       <div class="calc-grid">
 
-        <!-- MODE TOGGLE (Per week / Every N days) -->
+        <!-- MODE TOGGLE (Per week / Every N days / Single) -->
         <div class="full full-toggle">
           <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
             <button type="button" class="seg-btn" role="radio" aria-checked="true" data-mode="perWeek">Per week</button>
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="single">Single injection (mL→mg)</button>
           </div>
         </div>
 
@@ -456,19 +457,27 @@
             </div>
           </div>
         </div>
+
+        <!-- Single injection (mL → mg) -->
+        <div class="full is-hidden" id="singleWrap">
+          <label for="single-ml">Single injection volume (mL)</label>
+          <div class="live-reads">
+            <div class="live-chip" id="lr-single">—</div>
+          </div>
+          <input
+            id="single-ml"
+            type="number"
+            step="0.01"
+            min="0"
+            placeholder="e.g. 0.9"
+            style="grid-area:slider;margin-top:2px;"
+          />
+        </div>
       </div>
 
       <!-- RIGHT: syringe + KPIs -->
       <aside id="out" class="out">
         <h3>Dose &amp; Volume per Injection</h3>
-
-        <!-- Fixed syringe unit warning for U-100 vs 0.02 mL units -->
-        <p class="warn" style="font-size:12px;margin-bottom:10px;">
-          This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
-          Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
-          treat those units as identical. Always confirm with your prescriber, nurse, or an
-          experienced TRT user.
-        </p>
 
         <!-- Syringe visual -->
         <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
@@ -558,6 +567,14 @@
             </div>
           </div>
         </div>
+
+        <!-- Fixed syringe unit warning moved BELOW syringe -->
+        <p class="warn" style="font-size:12px;margin-bottom:10px;">
+          This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
+          Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
+          treat those units as identical. Always confirm with your prescriber, nurse, or an
+          experienced TRT user.
+        </p>
 
         <!-- KPIs -->
         <div class="kpi">
@@ -712,7 +729,7 @@
     updateSyringe(0.25);
   })();
 
-  /* ===== Calculator state + compute (per week + every N days) ===== */
+  /* ===== Calculator state + compute (per week + every N days + single) ===== */
   let currentSyringeMl = 1; // 0.3 | 0.5 | 1 | 3
 
   function setSyringe(ml){
@@ -722,7 +739,9 @@
     btns.forEach(b=> b.setAttribute('aria-checked', String(Number(b.dataset.ml) === ml)));
     try{ localStorage.setItem('hb_syr_ml', String(currentSyringeMl)); }catch(e){}
     window.__setSyringeCapacity(currentSyringeMl);
-    if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
+    if (window.__mode === 'everyNDays') computeEveryNDays();
+    else if (window.__mode === 'single') computeSingle();
+    else compute();
   }
 
   function initSyringeToggle(){
@@ -738,7 +757,7 @@
       const arr=[...btns];
       const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
       const next = (e.key==='ArrowRight')
-        ? (current+1)%arr.length
+        ? (current+1+arr.length)%arr.length
         : (current-1+arr.length)%arr.length;
       setSyringe(Number(arr[next].dataset.ml));
       arr[next].focus();
@@ -791,6 +810,8 @@
 
   function compute(){
     if (window.__mode === 'everyNDays') { computeEveryNDays(); return; }
+    if (window.__mode === 'single') { computeSingle(); return; }
+
     const conc       = parseFloat(($('conc-slider')||{}).value);
     const injPerWeek = parseFloat(($('count-slider')||{}).value);
     const weekly     = getWeeklyMg();
@@ -817,6 +838,43 @@
     updateSmallerSyringeAdvice(volPerInj_ml);
   }
 
+  // Single injection mL → mg
+  function computeSingle(){
+    const concSlider = $('conc-slider');
+    const singleInput = $('single-ml');
+    const lrSingle = $('lr-single');
+
+    const conc = parseFloat(concSlider?.value);
+    const vol  = parseFloat(singleInput?.value);
+
+    if (lrSingle){
+      if (isFinite(vol)) lrSingle.textContent = vol.toFixed(2) + ' mL';
+      else lrSingle.textContent = '—';
+    }
+
+    const k1 = $('kpi_inj'), k2 = $('kpi_dose'), k3 = $('kpi_ml');
+
+    if (!(conc > 0) || !isFinite(vol) || vol <= 0){
+      if (k1) k1.textContent = '—';
+      if (k2) k2.textContent = '—';
+      if (k3) k3.textContent = '—';
+      updateSyringe(0);
+      applyCapacityWarning(0);
+      updateSmallerSyringeAdvice(0);
+      return;
+    }
+
+    const mg = conc * vol;
+
+    if (k1) k1.textContent = '—';
+    if (k2) k2.textContent = mg.toFixed(2) + ' mg';
+    if (k3) k3.textContent = vol.toFixed(3);
+
+    updateSyringe(vol);
+    applyCapacityWarning(vol);
+    updateSmallerSyringeAdvice(vol);
+  }
+
   /* ===== Every N days mode + schedule ===== */
   (function(){
     const modeToggle         = $('modeToggle');
@@ -824,6 +882,7 @@
     const everyNWrap         = $('everyNdaysWrap');
     const everyNStartWrap    = $('everyNStartWrap');
     const everyNScheduleWrap = $('everyNScheduleWrap');
+    const singleWrap         = $('singleWrap');
 
     const nDaysSlider   = $('ndays-slider');
     const lrNDays       = $('lr-ndays');
@@ -936,26 +995,35 @@
     }
 
     function setMode(newMode){
-      window.__mode = (newMode === 'everyNDays') ? 'everyNDays' : 'perWeek';
+      let modeVal;
+      if (newMode === 'everyNDays') modeVal = 'everyNDays';
+      else if (newMode === 'single') modeVal = 'single';
+      else modeVal = 'perWeek';
+
+      window.__mode = modeVal;
 
       const btns = modeToggle?.querySelectorAll('.seg-btn') || [];
       btns.forEach(b =>
         b.setAttribute('aria-checked', String(b.dataset.mode === window.__mode))
       );
 
-      const inEvery = window.__mode === 'everyNDays';
+      const inEvery  = window.__mode === 'everyNDays';
+      const inSingle = window.__mode === 'single';
 
-      perWeekWrap?.classList.toggle('is-hidden', inEvery);
+      perWeekWrap?.classList.toggle('is-hidden', inEvery || inSingle);
       everyNWrap?.classList.toggle('is-hidden', !inEvery);
       everyNStartWrap?.classList.toggle('is-hidden', !inEvery);
       everyNScheduleWrap?.classList.toggle('is-hidden', !inEvery);
+      singleWrap?.classList.toggle('is-hidden', !inSingle);
 
       try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
 
       if (window.__mode === 'perWeek') {
         compute();
-      } else {
+      } else if (window.__mode === 'everyNDays') {
         window.computeEveryNDays();
+      } else {
+        computeSingle();
       }
     }
 
@@ -1011,7 +1079,9 @@
       e.preventDefault();
       const arr = [...(modeToggle.querySelectorAll('.seg-btn') || [])];
       const idx = arr.findIndex(b => b.getAttribute('aria-checked') === 'true');
-      const next = idx === 0 ? 1 : 0;
+      const next = (e.key === 'ArrowRight')
+        ? (idx + 1 + arr.length) % arr.length
+        : (idx - 1 + arr.length) % arr.length;
       setMode(arr[next].dataset.mode);
       arr[next].focus();
     });
@@ -1068,7 +1138,9 @@
       concSlider.value = n;
       lrConc.textContent = n.toFixed(0) + ' mg/mL';
       paintRange(concSlider);
-      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays();
+      else if (window.__mode === 'single') computeSingle();
+      else compute();
     };
 
     const syncWeekly = ()=>{
@@ -1080,7 +1152,9 @@
       const mg = WEEKLY_OPTIONS[idx];
       lrWeekly.textContent = mg.toFixed(0) + ' mg/week';
       paintRange(weeklySlider);
-      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays();
+      else if (window.__mode === 'single') computeSingle();
+      else compute();
     };
 
     const syncCount = ()=>{
@@ -1089,7 +1163,9 @@
       countSlider.value = n;
       lrCount.textContent = n + ' / week';
       paintRange(countSlider);
-      if (window.__mode === 'everyNDays') computeEveryNDays(); else compute();
+      if (window.__mode === 'everyNDays') computeEveryNDays();
+      else if (window.__mode === 'single') computeSingle();
+      else compute();
     };
 
     if(concSlider){ concSlider.addEventListener('input', syncConc);  syncConc(); }
@@ -1107,8 +1183,18 @@
       el.addEventListener('input', ()=>paintRange(el));
       el.addEventListener('change', ()=>paintRange(el));
     });
+
+    const singleInput = $('single-ml');
+    if (singleInput){
+      singleInput.addEventListener('input', ()=>{
+        if (window.__mode === 'single') computeSingle();
+      });
+    }
+
     if (window.__mode === 'everyNDays') {
       window.computeEveryNDays();
+    } else if (window.__mode === 'single') {
+      computeSingle();
     } else {
       compute();
     }
