@@ -524,7 +524,7 @@ input[type="range"]::-moz-range-thumb{
 
 /* ========= HERO / GRID / TESTIMONIAL / CTA (HOME) ========= */
 .hero{
-  padding:64px 0 36px;
+  padding:9px 0 9px;
 }
 .badges{
   display:flex;
