@@ -237,6 +237,12 @@
       margin-bottom:12px;
     }
     .syringe-head b{color:#004c4d}
+
+    /* make the main dose/volume number slightly larger */
+    #syrVol{
+      font-size:1.05rem;
+    }
+
     .syringe-svg{
       display:block;
       width:100%;
@@ -481,9 +487,9 @@
           <div class="syringe-wrap">
             <div class="syringe-card" aria-live="polite">
               <div class="syringe-head">
-                <div class="syringe-label">Visual Syringe</div>
+                <div class="syringe-label">Volume</div>
                 <div class="syringe-label">
-                  Volume: <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
+                  <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
                 </div>
               </div>
 
@@ -696,7 +702,18 @@
 
     window.updateSyringe = function(volumeMl){
       const v = Math.max(0, Number(volumeMl) || 0);
-      if (elVol) elVol.textContent = v.toFixed(2) + ' mL';
+
+      // In single mode, the main number shows mg (set from computeSingle)
+      if (elVol) {
+        if (window.__mode === 'single') {
+          const mgVal = (typeof window.__singleMg === 'number' && isFinite(window.__singleMg))
+            ? window.__singleMg
+            : 0;
+          elVol.textContent = mgVal.toFixed(2) + ' mg';
+        } else {
+          elVol.textContent = v.toFixed(2) + ' mL';
+        }
+      }
 
       // Hide all, then show the active group
       Object.values(groups).forEach(o => o.g.classList.add('is-hidden'));
@@ -826,6 +843,7 @@
     const dosePerInj   = weekly / injPerWeek;   // mg
     const volPerInj_ml = dosePerInj / conc;     // mL
 
+    $('kpi_inj').textContent  = injPerInj = injPerWeek.toFixed(2);
     $('kpi_inj').textContent  = injPerWeek.toFixed(2);
     $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
     $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
@@ -855,6 +873,7 @@
       if (k1) k1.textContent = '—';
       if (k2) k2.textContent = '—';
       if (k3) k3.textContent = '—';
+      window.__singleMg = 0;
       updateSyringe(0);
       applyCapacityWarning(0);
       updateSmallerSyringeAdvice(0);
@@ -862,6 +881,7 @@
     }
 
     const mg = conc * vol;
+    window.__singleMg = mg;
 
     if (k1) k1.textContent = '—';
     if (k2) k2.textContent = mg.toFixed(2) + ' mg';
