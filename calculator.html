@@ -355,8 +355,8 @@
       }
 
       main.container{
-        padding-left:9px !important;
-        padding-right:9px !important;
+        padding-left:40px !important;
+        padding-right:40px !important;
       }
     }
 
@@ -412,7 +412,7 @@
         </div>
 
         <!-- Prescribed total per week (uses discrete list including 4 mg/wk) -->
-        <div class="full">
+        <div class="full" id="weekly-wrap">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads">
             <div class="live-chip" id="lr-weekly">20 mg/week</div>
@@ -829,7 +829,7 @@
     const dosePerInj   = weekly / injPerWeek;   // mg
     const volPerInj_ml = dosePerInj / conc;     // mL
 
-    $('kpi_inj').textContent  = injPerWeek.toFixed(2);
+    $('kpi_inj').textContent  = injPerInj.toFixed(2);
     $('kpi_dose').textContent = dosePerInj.toFixed(2) + ' mg';
     $('kpi_ml').textContent   = volPerInj_ml.toFixed(3);
 
@@ -879,6 +879,7 @@
   (function(){
     const modeToggle         = $('modeToggle');
     const perWeekWrap        = $('count-wrap');
+    const weeklyWrap         = $('weekly-wrap');
     const everyNWrap         = $('everyNdaysWrap');
     const everyNStartWrap    = $('everyNStartWrap');
     const everyNScheduleWrap = $('everyNScheduleWrap');
@@ -1010,7 +1011,11 @@
       const inEvery  = window.__mode === 'everyNDays';
       const inSingle = window.__mode === 'single';
 
+      // Injections/week hidden in everyN & single
       perWeekWrap?.classList.toggle('is-hidden', inEvery || inSingle);
+      // Weekly mg hidden only in single mode
+      weeklyWrap?.classList.toggle('is-hidden', inSingle);
+
       everyNWrap?.classList.toggle('is-hidden', !inEvery);
       everyNStartWrap?.classList.toggle('is-hidden', !inEvery);
       everyNScheduleWrap?.classList.toggle('is-hidden', !inEvery);
