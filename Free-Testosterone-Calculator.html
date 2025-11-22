@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
 
-  gtag('config', 'G-4EGGZW9P14');
-</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -25,11 +25,11 @@
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- If you already load a global stylesheet, keep this. Otherwise remove or adjust. -->
+  <!-- Shared site CSS -->
   <link rel="stylesheet" href="/assets/style.css" />
 
   <style>
-    /* Page-specific layout, reusing your existing design tokens */
+    /* Page-specific layout */
     :root{
       --ink:#0f172a;
       --muted:#475569;
@@ -60,62 +60,6 @@
     a{
       color:inherit;
       text-decoration:none;
-    }
-
-    .ib-header{
-      position:sticky;
-      top:0;
-      z-index:40;
-      background:#fff;
-      border-bottom:1px solid var(--border);
-    }
-
-    .ib-nav{
-      max-width:1080px;
-      margin:0 auto;
-      padding:10px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-    .ib-brand{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight:600;
-      font-size:18px;
-    }
-
-    .ib-brand-logo{
-      width:28px;
-      height:28px;
-      border-radius:8px;
-      background:linear-gradient(135deg,var(--cta),var(--cta-dark));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:15px;
-      font-weight:700;
-    }
-
-    .ib-nav-links{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      font-size:14px;
-      color:var(--muted);
-    }
-
-    .ib-nav-links a{
-      padding:4px 0;
-    }
-
-    .ib-nav-links a.active{
-      color:var(--cta-dark);
-      font-weight:500;
     }
 
     .ib-main{
@@ -291,12 +235,20 @@
       color:var(--muted);
     }
 
+    @media (max-width:600px){
+      .ft-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
     .ft-secondary-link{
       font-size:11px;
       color:var(--cta-dark);
       text-decoration:underline;
       text-decoration-thickness:1px;
       text-underline-offset:2px;
+      white-space:nowrap;
     }
 
     .ft-btn{
@@ -329,27 +281,15 @@
   </style>
 </head>
 <body>
-  <header class="ib-header">
-    <nav class="ib-nav">
-      <a href="/" class="ib-brand">
-        <span class="ib-brand-logo">IB</span>
-        <span>InjectBuddy</span>
-      </a>
-      <div class="ib-nav-links">
-        <a href="/calculator.html">TRT Calculator</a>
-        <a href="/peptide.html">Peptide</a>
-        <a href="/free-test.html" class="active">Free T Index</a>
-        <a href="/faq.html">FAQ</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Shared header injected by /assets/nav.js -->
+  <div id="site-header"></div>
 
   <main class="ib-main">
     <div class="container">
       <div class="ft-layout">
         <!-- Left: explainer -->
-        <section class="ft-card">
-          <h1 class="ft-heading">Free Testosterone Index</h1>
+        <section class="ft-card" aria-labelledby="ft-heading">
+          <h1 class="ft-heading" id="ft-heading">Free Testosterone Index</h1>
           <p class="ft-subtitle">
             Quick rough estimate using your lab results for total testosterone and SHBG.
             Uses a simple Free Androgen Index (FAI) calculation.
@@ -379,7 +319,7 @@
         </section>
 
         <!-- Right: calculator -->
-        <section class="ft-card">
+        <section class="ft-card" aria-label="Free Testosterone Index calculator">
           <h2 style="font-size:16px;margin:0 0 12px;">Enter your lab values</h2>
 
           <div class="field-grid">
@@ -445,6 +385,10 @@
     </div>
   </main>
 
+  <!-- Shared nav (universal header) -->
+  <script src="/assets/nav.js" defer></script>
+
+  <!-- Page script -->
   <script>
     (function(){
       const ttInput = document.getElementById('tt-input');
