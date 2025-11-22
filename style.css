@@ -1,4 +1,4 @@
-:root{
+e:root{
   /* Brand + palette */
   --teal-900:#004c4d;
   --teal-700:#006d6f;
@@ -351,7 +351,7 @@ button,
   background:#fff;
   border:1px solid var(--border);
   border-radius:var(--radius-lg);
-  padding:16px;
+  padding:9px;
   box-shadow:var(--shadow-sm);
   position:sticky;
   top:calc(var(--header-h) + 16px);
