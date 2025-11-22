@@ -360,8 +360,8 @@
         background:#f9fafb !important;
       }
       main.container{
-        padding-left:9px !important;
-        padding-right:9px !important;
+        padding-left:40px !important;
+        padding-right:40px !important;
       }
       .calc-grid{
         align-items:center;
@@ -412,7 +412,6 @@
             <div class="seg-toggle" role="radiogroup" aria-label="Calculator mode" id="modeToggle">
               <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-mode="perWeek">Weekly plan</button>
               <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
-              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="singleInjection">Single injection</button>
               <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="mlToMg">mL → mg</button>
             </div>
           </div>
@@ -434,9 +433,9 @@
             <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
           </div>
 
-          <!-- Single injection volume (shared for Single + mL→mg) -->
+          <!-- Volume slider for mL → mg mode -->
           <div class="full is-hidden" id="single-ml-wrap">
-            <label for="single-ml">Single injection volume (mL)</label>
+            <label for="single-ml">Injection volume (mL)</label>
             <div class="live-reads"><div class="live-chip" id="lr-single-ml">0.50 mL</div></div>
             <input id="single-ml" type="range" min="0" max="3" step="0.10" value="0.5" />
           </div>
@@ -617,7 +616,6 @@
     const $ = id => document.getElementById(id);
 
     // Discrete weekly options:
-    // 4,5,6,7,8,9,10,12,14,16,18,20,25,30,35,40,...,500
     const WEEKLY_OPTIONS = (function(){
       const arr = [4,5,6,7,8,9,10,12,14,16,18,20];
       for (let v = 25; v <= 500; v += 5) arr.push(v);
@@ -641,11 +639,9 @@
       const groups = {
         0.3: { g: $('g03ml'), fill: $('fill03ml'), ticks: $('ticks03'), labels: $('labels03'), cap: 0.3 },
         0.5: { g: $('g05ml'), fill: $('fill05ml'), ticks: $('ticks05'), labels: $('labels05'), cap: 0.5 },
-        1:   { g: $('g1ml'),  fill: $('fill1ml'),  ticks: $('labels1ml') ? $('fill1ml') : $('fill1ml'), ticks: $('ticks1ml'), labels: $('labels1ml'), cap: 1.0 },
+        1:   { g: $('g1ml'),  fill: $('fill1ml'),  ticks: $('ticks1ml'), labels: $('labels1ml'), cap: 1.0 },
         3:   { g: $('g3ml'),  fill: $('fill3ml'), ticks: $('ticks3ml'), labels: $('labels3ml'), cap: 3.0 }
       };
-      // Fix group[1] object (we overwrote accidentally above)
-      groups[1] = { g: $('g1ml'), fill: $('fill1ml'), ticks: $('ticks1ml'), labels: $('labels1ml'), cap: 1.0 };
 
       function mlToPxInsulin(v, capMl){
         const wPerMl = INSULIN.width / capMl;
@@ -745,8 +741,12 @@
     /* ===== Calculator state + helpers ===== */
     let currentSyringeMl = 1; // 0.3 | 0.5 | 1 | 3
     let calcMode = (function(){
-      try { return localStorage.getItem('hb_calc_mode') || 'perWeek'; }
-      catch(e){ return 'perWeek'; }
+      try {
+        const v = localStorage.getItem('hb_calc_mode') || 'perWeek';
+        return v === 'singleInjection' ? 'perWeek' : v;
+      } catch(e){
+        return 'perWeek';
+      }
     })();
 
     function setSyringe(ml){
@@ -1010,37 +1010,6 @@
       updateNDaysSchedule();
     }
 
-    function computeSingleInjection(){
-      const concSlider    = $('conc-slider');
-      const singleMlSlider= $('single-ml');
-      const k1=$('kpi_inj'), k2=$('kpi_dose'), k3=$('kpi_ml');
-
-      const C = parseFloat(concSlider?.value);
-      const V = parseFloat(singleMlSlider?.value);
-
-      if (!(C > 0 && V > 0)){
-        if(k1) k1.textContent='—';
-        if(k2) k2.textContent='—';
-        if(k3) k3.textContent='—';
-        updateSyringe(0);
-        setSyringeTextVolume(0);
-        applyCapacityWarning(0);
-        updateSmallerSyringeAdvice(0);
-        return;
-      }
-
-      const dose = C * V; // mg
-
-      if(k1) k1.textContent='—';
-      if(k2) k2.textContent = dose.toFixed(2) + ' mg';
-      if(k3) k3.textContent = V.toFixed(3);
-
-      updateSyringe(V);
-      setSyringeTextVolume(V);
-      applyCapacityWarning(V);
-      updateSmallerSyringeAdvice(V);
-    }
-
     function computeMlToMg(){
       const concSlider    = $('conc-slider');
       const singleMlSlider= $('single-ml');
@@ -1079,9 +1048,6 @@
           break;
         case 'everyNDays':
           computeEveryNDays();
-          break;
-        case 'singleInjection':
-          computeSingleInjection();
           break;
         case 'mlToMg':
           computeMlToMg();
@@ -1198,12 +1164,11 @@
         const max = parseFloat(singleMl.max) || 3;
         if (v < min) v = min;
         if (v > max) v = max;
-        // snap to 0.10 steps
         v = Math.round(v * 10) / 10;
         singleMl.value = v.toFixed(2);
         lrSingleMl.textContent = v.toFixed(2) + ' mL';
         paintRange(singleMl);
-        if (calcMode === 'singleInjection' || calcMode === 'mlToMg') recompute();
+        if (calcMode === 'mlToMg') recompute();
       };
 
       if(concSlider){ concSlider.addEventListener('input', syncConc);  syncConc(); }
@@ -1226,7 +1191,6 @@
       function applyMode(){
         const inPerWeek   = (calcMode === 'perWeek');
         const inEveryN    = (calcMode === 'everyNDays');
-        const inSingle    = (calcMode === 'singleInjection');
         const inMlToMg    = (calcMode === 'mlToMg');
 
         if (weeklyWrap)  weeklyWrap.classList.toggle('is-hidden', !inPerWeek && !inEveryN);
@@ -1235,7 +1199,7 @@
         if (everyNStartWrap) everyNStartWrap.classList.toggle('is-hidden', !inEveryN);
         if (everyNScheduleWrap) everyNScheduleWrap.classList.toggle('is-hidden', !inEveryN);
 
-        if (singleMlWrap) singleMlWrap.classList.toggle('is-hidden', !(inSingle || inMlToMg));
+        if (singleMlWrap) singleMlWrap.classList.toggle('is-hidden', !inMlToMg);
 
         if (modeToggle){
           const btns = modeToggle.querySelectorAll('.seg-btn');
@@ -1246,7 +1210,7 @@
       }
 
       function setMode(newMode){
-        if (!['perWeek','everyNDays','singleInjection','mlToMg'].includes(newMode)){
+        if (!['perWeek','everyNDays','mlToMg'].includes(newMode)){
           newMode = 'perWeek';
         }
         calcMode = newMode;
@@ -1282,8 +1246,7 @@
         });
       }
 
-      // Apply initial mode and recompute once everything is wired
-      if (!['perWeek','everyNDays','singleInjection','mlToMg'].includes(calcMode)){
+      if (!['perWeek','everyNDays','mlToMg'].includes(calcMode)){
         calcMode = 'perWeek';
       }
       applyMode();
