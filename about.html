@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
 
-  gtag('config', 'G-4EGGZW9P14');
-</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>About InjectBuddy — Understanding TRT & Testosterone Esters</title>
-  <meta name="description" content="Plain-language guide to Testosterone Replacement Therapy (TRT), the differences between testosterone cypionate, enanthate, and propionate, and how InjectBuddy helps with accurate, repeatable dosing." />
+  <meta name="description" content="Simple explanation of TRT, testosterone esters, and how InjectBuddy helps you calculate doses, schedules, and syringe volumes accurately." />
   <link rel="canonical" href="https://www.injectbuddy.com/about.html" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="About InjectBuddy — Understanding TRT & Testosterone Esters" />
-  <meta property="og:description" content="A practical, no-nonsense explanation of TRT and the key differences between testosterone cypionate, enanthate, and propionate — plus how InjectBuddy fits into the picture." />
+  <meta property="og:description" content="Plain-language guide to TRT and testosterone esters — cypionate, enanthate, propionate — and how InjectBuddy supports accurate dosing." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/about.html" />
   <meta property="og:site_name" content="InjectBuddy" />
@@ -27,10 +27,10 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#009395" />
 
-  <!-- Global site styles (header, layout, etc.) -->
+  <!-- Global header + layout styles -->
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Page-specific styles -->
+  <!-- Page-specific -->
   <style>
     :root{
       --teal-900:#004c4d;
@@ -56,7 +56,7 @@
 
     main.about-wrap{
       max-width:960px;
-      margin:80px auto 24px; /* space for sticky header */
+      margin:80px auto 24px;
       padding:0 16px;
     }
 
@@ -107,6 +107,26 @@
       color:var(--ink-500);
     }
 
+    /* Outgoing links styling */
+    .links-row{
+      margin-top:16px;
+      padding:16px;
+      background:#ffffff;
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .links-row a{
+      display:inline-block;
+      margin:6px 10px 6px 0;
+      font-weight:600;
+      color:var(--teal-700);
+      text-decoration:none;
+    }
+    .links-row a:hover{
+      text-decoration:underline;
+    }
+
     footer.about-footer{
       margin:28px 0 18px;
       text-align:center;
@@ -115,133 +135,120 @@
     }
 
     @media (max-width:640px){
-      main.about-wrap{
-        margin-top:72px;
-        padding:0 14px;
-      }
-      .hero,
-      .section{
-        padding:20px 16px;
-      }
+      main.about-wrap{ margin-top:72px; padding:0 14px; }
+      .hero, .section{ padding:20px 16px; }
     }
   </style>
 </head>
 <body>
-  <!-- Shared header injected by /assets/nav.js -->
+
+  <!-- Shared header -->
   <div id="site-header"></div>
 
   <main class="about-wrap">
+
     <section class="hero">
       <h1>About InjectBuddy</h1>
       <p>
-        InjectBuddy exists for one reason: to make dosing less confusing.
-        Instead of guessing at volumes and counting tiny syringe marks, you get
-        clear numbers, realistic visuals, and a simple way to sanity-check your plan.
+        InjectBuddy was built to remove confusion around TRT and peptide dosing. 
+        Instead of guessing syringe volumes or trying to calculate mg-to-mL on the fly, you get 
+        clean numbers, reliable conversions, and realistic visuals.
       </p>
+
+      <!-- GLOBAL OUTGOING LINKS -->
+      <div class="links-row">
+        <a href="/">Home</a>
+        <a href="/calculator.html">TRT Calculator</a>
+        <a href="/peptide.html">Peptide Calculator</a>
+        <a href="/free-test.html">Free T Index</a>
+        <a href="/bmi.html">BMI Calculator</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact</a>
+      </div>
     </section>
 
     <section class="section">
       <h2>What Is Testosterone Replacement Therapy (TRT)?</h2>
       <p>
-        Testosterone Replacement Therapy (TRT) is a medical treatment for people
-        with clinically low testosterone. The aim is not body-building doses,
-        but restoring levels into a healthy range so day-to-day life feels more stable:
-        energy, mood, sleep, libido, and recovery can all be affected.
+        TRT is a medically supervised treatment for clinically low testosterone. 
+        Its purpose is to restore normal function — energy, mood, libido, sleep, and recovery — 
+        not to chase bodybuilding doses.
       </p>
       <p>
-        Most modern TRT protocols use injectable testosterone attached to an
-        ester. The ester controls how quickly the hormone leaves the injection
-        site, how long it stays active in the body, and how often injections are needed.
+        Most TRT uses injectable testosterone attached to an ester, which controls 
+        how slowly the hormone is released into the body.
       </p>
       <p class="note">
-        TRT should always be prescribed, monitored, and adjusted by a qualified clinician.
-        InjectBuddy does not replace medical care.
+        InjectBuddy helps you understand your dosing math. It does not replace clinical care.
       </p>
     </section>
 
     <section class="section">
       <h2>Key Testosterone Esters Explained</h2>
       <p>
-        Different testosterone esters all deliver the same hormone, but with
-        different speed and smoothness. In practice, that means different
-        injection schedules and slightly different “feel” between doses.
+        Different esters release testosterone at different speeds. The hormone is the same — 
+        the ester changes how quickly it absorbs, peaks, and tapers.
       </p>
 
       <h3>Testosterone Cypionate</h3>
-      <p>
-        Testosterone cypionate is one of the most commonly used esters in TRT.
-        It has a relatively long half-life (roughly 7–8 days), so many protocols
-        use once- or twice-weekly injections. When doses are sensible and spaced
-        well, it provides a fairly smooth, gradual release.
-      </p>
+      <p>Long-acting, smooth, commonly used in TRT. Often 1–2 injections per week.</p>
 
       <h3>Testosterone Enanthate</h3>
-      <p>
-        Enanthate is very similar to cypionate. Its half-life is slightly shorter
-        (about 5–7 days), but in real life most people experience them as nearly
-        interchangeable. The main differences are often the brand, the carrier oil,
-        and what’s available in a particular country.
-      </p>
+      <p>Very similar to cypionate. Slightly shorter half-life, often interchangeable.</p>
 
       <h3>Testosterone Propionate</h3>
-      <p>
-        Propionate is a short-acting ester with a half-life around 2–3 days.
-        It peaks and clears faster, which usually means more frequent injections
-        (for example, every other day). Some people prefer the tighter control,
-        but it can mean more injection site irritation and more needle time.
-      </p>
+      <p>Short-acting, faster peaks and clears. Usually requires more frequent injections.</p>
 
-      <h3>Blends and Long-Acting Options</h3>
+      <h3>Blends & Long-Acting Options</h3>
       <p>
-        Some products combine multiple esters (for example, blends designed to
-        give both a quick rise and a slower tail). There are also very long-acting
-        options such as testosterone undecanoate, where injections may be spaced
-        weeks apart. These are generally managed closely in a clinic setting and
-        are less common in self-administered protocols.
+        Blends combine esters for different release profiles. Undecanoate is extremely long-acting 
+        and generally administered in a clinical setting.
       </p>
     </section>
 
     <section class="section">
       <h2>Why Dosing and Frequency Matter</h2>
       <p>
-        The same weekly milligram total can feel very different depending on
-        how it is split. Large, infrequent doses tend to create high peaks and
-        low troughs, which can translate into swings in mood, energy, and side-effects.
+        The same weekly dose can behave very differently depending on how it’s split. 
+        Larger, infrequent injections produce bigger hormone swings; smaller, more frequent doses 
+        create smoother levels.
       </p>
+
       <ul>
-        <li>Shorter esters and smaller, more frequent injections can smooth out peaks and troughs.</li>
-        <li>Longer esters allow fewer injections but need careful planning to avoid big swings.</li>
-        <li>Lab work and symptoms should drive any changes — not guesswork or internet “bro science”.</li>
+        <li>Shorter esters benefit from frequent injections.</li>
+        <li>Longer esters allow less frequent dosing but require planning.</li>
+        <li>Symptoms and lab work should guide all decisions.</li>
       </ul>
-      <p>
-        Your actual protocol should always be agreed with your prescriber. Tools
-        like InjectBuddy are there to help you understand the math behind what
-        you’ve been told to do, not to set the protocol for you.
-      </p>
     </section>
 
     <section class="section">
-      <h2>Where InjectBuddy Fits In</h2>
+      <h2>Where InjectBuddy Helps</h2>
       <p>
-        InjectBuddy is a calculator and visual aid. You input what your clinician
-        has prescribed — vial strength, total weekly dose, and injection frequency —
-        and the tool converts milligrams into milliliters, then shows approximately
-        how that should look in a syringe.
+        InjectBuddy converts mg → mL, breaks down weekly dosing schedules, and displays 
+        realistic syringe visuals for:
       </p>
+
       <ul>
-        <li>Convert mg → mL for any common concentration.</li>
-        <li>Compare per-week vs every-N-days schedules.</li>
-        <li>See how much volume you’re actually drawing into a 0.3, 0.5, 1&nbsp;mL, or 3&nbsp;mL syringe.</li>
+        <li>TRT dose planning</li>
+        <li>Peptide reconstitution</li>
+        <li>Free T index estimation</li>
+        <li>BMI calculation</li>
       </ul>
-      <p>
-        The goal is simple: fewer mistakes, less second-guessing, and a clearer
-        picture of what each dose really is in practical terms.
-      </p>
+
       <p class="note">
-        InjectBuddy never tells you what dose to take. It only helps you interpret
-        and apply the instructions you already have.
+        Explore the full set of tools:
       </p>
+
+      <div class="links-row">
+        <a href="/calculator.html">TRT Dosage Calculator</a>
+        <a href="/peptide.html">Peptide Reconstitution</a>
+        <a href="/free-test.html">Free T Index Calculator</a>
+        <a href="/bmi.html">BMI Calculator</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact Page</a>
+      </div>
     </section>
+
   </main>
 
   <footer class="about-footer">
@@ -252,5 +259,6 @@
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
   <script src="/assets/nav.js" defer></script>
+
 </body>
 </html>
