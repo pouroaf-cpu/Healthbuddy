@@ -662,7 +662,7 @@ input[type="range"]::-moz-range-thumb{
 
 /* ========= RESPONSIVE: CALC ========= */
 @media (max-width:900px){
-  #calculator.form-container{padding:16px}
+  #calculator.form-container{padding:9px}
   .calc-wrap{
     flex-direction:column;
     gap:16px;
