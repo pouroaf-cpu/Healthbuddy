@@ -665,7 +665,7 @@ input[type="range"]::-moz-range-thumb{
   #calculator.form-container{padding:9px}
   .calc-wrap{
     flex-direction:column;
-    gap:16px;
+    gap:9px;
   }
   .calc-grid{
     grid-template-columns:1fr;
