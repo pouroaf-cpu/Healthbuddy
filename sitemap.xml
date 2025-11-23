@@ -24,7 +24,7 @@
   </url>
 
   <url>
-    <loc>https://www.injectbuddy.com/test-calculator.html</loc>
+    <loc>https://www.injectbuddy.com/free-testosterone-calculator</loc>
     <priority>0.8</priority>
   </url>
 
@@ -44,26 +44,6 @@
     <priority>0.6</priority>
   </url>
 
-  <url>
-    <loc>https://www.injectbuddy.com/questionnaire.html</loc>
-    <priority>0.7</priority>
-  </url>
 
-  <!-- Blog -->
-  <url>
-    <loc>https://www.injectbuddy.com/blog/</loc>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Example Blog Posts (add as they publish) -->
-  <url>
-    <loc>https://www.injectbuddy.com/blog/how-to-reconstitute-peptides</loc>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://www.injectbuddy.com/blog/testosterone-dosage-guide</loc>
-    <priority>0.5</priority>
-  </url>
 
 </urlset>
