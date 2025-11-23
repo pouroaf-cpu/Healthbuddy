@@ -66,10 +66,12 @@
 
     main.container{padding:28px 0}
     @media (max-width:640px){ main.container{padding:9px 0} }
-.form-container h1{
-  margin:0 0 10px;
-  text-align:center;
-}
+
+    .form-container h1{
+      margin:0 0 10px;
+      text-align:center;
+    }
+
     .calc-wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
@@ -127,6 +129,7 @@
       background:#fff;
       width:100%;
     }
+
     .seg-btn{
       flex:1 1 0;
       padding:8px 12px;
@@ -138,10 +141,18 @@
       cursor:pointer;
       white-space:nowrap;
       text-align:center;
+      transition:background-color .12s, box-shadow .12s, color .12s;
     }
     .seg-btn[aria-checked="true"]{
       background:#ecfeff;
       color:#065f5b;
+      box-shadow:0 0 0 1px rgba(0,147,149,.45) inset;
+    }
+    .seg-btn:hover{
+      background:#f0f9ff;
+      box-shadow:0 0 0 1px rgba(0,147,149,.45),
+                 0 0 14px rgba(0,147,149,.35);
+      color:#036d6f;
     }
 
     .syr-grid{
@@ -1024,7 +1035,7 @@
 
     const isPerWeek = currentMode === 'perWeek';
     const isEveryN  = currentMode === 'everyNDays';
-    const isMlToMg  = currentMode === 'mlToMg';
+    the isMlToMg  = currentMode === 'mlToMg';
 
     if (weeklyWrap)   weeklyWrap.classList.toggle('is-hidden', isMlToMg);
     if (countWrap)    countWrap.classList.toggle('is-hidden', !isPerWeek);
