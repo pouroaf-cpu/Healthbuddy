@@ -83,9 +83,11 @@
       display:grid;
       grid-template-columns:1fr;
       gap:16px;
+      max-width:520px;
+      width:100%;
     }
 
-    /* Generic full row (kept inside column, avoids overflow) */
+    /* Generic full row */
     .calc-grid .full{
       display:grid;
       grid-template-columns:1fr auto;
@@ -94,8 +96,7 @@
         "slider slider";
       align-items:center;
       gap:6px 12px;
-      max-width:520px;
-      margin-right:auto;
+      width:100%;
     }
     .calc-grid .full > label{
       grid-area:label;
@@ -112,12 +113,12 @@
       width:100%;
     }
 
-    /* Mode and syringe toggles row – flex layout */
+    /* Mode and syringe toggles row – flex layout but constrained */
     .calc-grid .full.full-toggle{
       display:flex;
       align-items:center;
       gap:8px;
-      max-width:520px;
+      width:100%;
     }
 
     /* Segmented toggles (base) */
@@ -127,6 +128,7 @@
       border-radius:12px;
       overflow:hidden;
       background:#fff;
+      width:100%;
     }
     .seg-btn{
       flex:1 1 0;
@@ -160,10 +162,18 @@
     .syr-grid .seg-btn{
       padding:10px 0;
       font-size:13px;
+      border-right:1px solid var(--border);
+    }
+    .syr-grid .seg-btn:last-child{
+      border-right:none;
     }
 
     label{font-weight:700}
-    input[type=range]{width:100%}
+
+    input[type=range]{
+      display:block;
+      width:100%;
+    }
 
     /* Bigger slider thumb */
     input[type="range"]{
@@ -355,7 +365,7 @@
     .nd-empty{
       margin:0;
       font-size:12px;
-      color:var(--muted);
+      color:#64748b;
     }
     @media (max-width:480px){
       .nd-schedule-grid{
@@ -372,8 +382,7 @@
         padding-left:24px !important;
         padding-right:24px !important;
       }
-      .calc-grid .full,
-      .calc-grid .full.full-toggle{
+      .calc-grid{
         max-width:100%;
       }
     }
@@ -426,7 +435,7 @@
           <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
         </div>
 
-        <!-- Prescribed total per week (uses discrete list including 4 mg/wk) -->
+        <!-- Prescribed total per week -->
         <div class="full" id="weekly-wrap">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads">
@@ -442,14 +451,14 @@
           <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
         </div>
 
-        <!-- Every N days (hidden initially) -->
+        <!-- Every N days -->
         <div class="full is-hidden" id="everyNdaysWrap">
           <label for="ndays-slider">Every N days</label>
           <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
           <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
         </div>
 
-        <!-- First injection datetime (Every N days mode only) -->
+        <!-- First injection datetime -->
         <div class="full is-hidden" id="everyNStartWrap">
           <label for="ndays-start">First injection date &amp; time</label>
           <div class="live-reads">
@@ -458,7 +467,7 @@
           <input id="ndays-start" type="datetime-local" />
         </div>
 
-        <!-- Simple schedule / calendar for Every N days -->
+        <!-- Schedule -->
         <div class="full is-hidden" id="everyNScheduleWrap">
           <div class="nd-schedule-wrap">
             <div class="nd-schedule-header">
@@ -472,7 +481,7 @@
           </div>
         </div>
 
-        <!-- mL → mg volume slider (single injection mode) -->
+        <!-- mL → mg volume slider -->
         <div class="full is-hidden" id="mlVolumeWrap">
           <label for="ml-volume-slider">Volume injected (mL)</label>
           <div class="live-reads"><div class="live-chip" id="lr-ml-volume">0.90 mL</div></div>
@@ -497,7 +506,7 @@
                 </div>
               </div>
 
-              <!-- SINGLE SVG with 4 capacity groups (unchanged visuals) -->
+              <!-- SVG (unchanged) -->
               <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
                 <defs>
                   <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
@@ -505,7 +514,7 @@
                   </linearGradient>
                 </defs>
 
-                <!-- 0.3 mL (insulin) -->
+                <!-- 0.3 mL -->
                 <g id="g03ml" class="is-hidden">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -520,7 +529,7 @@
                   <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 0.5 mL (insulin) -->
+                <!-- 0.5 mL -->
                 <g id="g05ml" class="is-hidden">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -535,7 +544,7 @@
                   <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 1 mL (insulin) -->
+                <!-- 1 mL -->
                 <g id="g1ml">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -550,7 +559,7 @@
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 3 mL (mL scale) -->
+                <!-- 3 mL -->
                 <g id="g3ml" class="is-hidden">
                   <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
@@ -566,7 +575,6 @@
                 </g>
               </svg>
 
-              <!-- WARN & TIP inside card with reserved space -->
               <div class="syringe-status">
                 <div id="warn" class="warn" hidden></div>
                 <div id="advice" class="advice" hidden></div>
@@ -575,7 +583,7 @@
           </div>
         </div>
 
-        <!-- Static U-100 warning UNDER the syringe container -->
+        <!-- U-100 warning UNDER syringe -->
         <p class="warn u100-warning">
           This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
           Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
@@ -605,14 +613,11 @@
   </div>
 </footer>
 
-<!-- Shared nav JS (same as BMI / peptide / index) -->
 <script src="/assets/nav.js" defer></script>
 
 <script>
   const $ = id => document.getElementById(id);
 
-  // Discrete weekly options:
-  // 4,5,6,7,8,9,10,12,14,16,18,20,25,30,35,40,...,500
   const WEEKLY_OPTIONS = (function(){
     const arr = [4,5,6,7,8,9,10,12,14,16,18,20];
     for (let v = 25; v <= 500; v += 5) arr.push(v);
@@ -626,7 +631,6 @@
     el.style.setProperty('--val', pct + '%');
   }
 
-  /* ===== Single-SVG syringe rendering and scale builders ===== */
   (function(){
     const elVol   = $('syrVol');
     const elMode  = $('syrMode');
@@ -653,7 +657,7 @@
     function buildInsulinTicks(ticksEl, labelsEl, capMl){
       ticksEl.innerHTML=''; labelsEl.innerHTML='';
       const H=INSULIN.height, longLen=H/2.4, shortLen=H/5;
-      const maxUnits = Math.round(capMl * 100); // U-100 scale
+      const maxUnits = Math.round(capMl * 100);
       for(let u=0; u<=maxUnits; u+=2){
         const ml = u/100;
         const x  = INSULIN.x0 + mlToPxInsulin(ml, capMl);
@@ -696,7 +700,6 @@
       }
     }
 
-    // Build all scales once
     buildInsulinTicks(groups[0.3].ticks, groups[0.3].labels, 0.3);
     buildInsulinTicks(groups[0.5].ticks, groups[0.5].labels, 0.5);
     buildInsulinTicks(groups[1].ticks,   groups[1].labels,   1.0);
@@ -710,8 +713,9 @@
       const mgVal   = Number(options.mgValue);
       const v = Math.max(0, Number(volumeMl) || 0);
 
-      // Label: either mg (mL→mg mode) or mL
       const labelPrefix = $('syrLabelPrefix');
+      const elVol = $('syrVol');
+
       if (showMg && isFinite(mgVal) && mgVal >= 0){
         if (labelPrefix) labelPrefix.textContent = 'Dose:';
         if (elVol) elVol.textContent = mgVal.toFixed(1) + ' mg';
@@ -720,7 +724,6 @@
         if (elVol) elVol.textContent = v.toFixed(2) + ' mL';
       }
 
-      // Hide all, then show the active group
       Object.values(groups).forEach(o => o.g.classList.add('is-hidden'));
 
       if (selectedCapacityMl === 3){
@@ -739,6 +742,8 @@
       }
     };
 
+    const elMode = $('syrMode');
+
     window.__setSyringeCapacity = function(ml){
       selectedCapacityMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
       const kpiMl = $('kpi_ml');
@@ -746,12 +751,10 @@
       updateSyringe(v);
     };
 
-    // Initial preview
     updateSyringe(0.25);
   })();
 
-  /* ===== Calculator state + compute ===== */
-  let currentSyringeMl = 1; // 0.3 | 0.5 | 1 | 3
+  let currentSyringeMl = 1;
 
   function setSyringe(ml){
     currentSyringeMl = (ml <= 0.31) ? 0.3 : (ml <= 0.51 ? 0.5 : (ml < 3 ? 1 : 3));
@@ -797,7 +800,6 @@
     }
   }
 
-  // Proactive smaller-syringe recommendation
   function updateSmallerSyringeAdvice(volMl){
     const advice = $('advice');
     if (!advice) return;
@@ -834,8 +836,6 @@
     if(k3) k3.textContent='—';
   }
 
-  /* ===== Mode-specific compute functions ===== */
-
   function computePerWeek(){
     const conc       = parseFloat(($('conc-slider')||{}).value);
     const injPerWeek = parseFloat(($('count-slider')||{}).value);
@@ -849,8 +849,8 @@
       return;
     }
 
-    const dosePerInj   = weekly / injPerWeek;   // mg
-    const volPerInj_ml = dosePerInj / conc;     // mL
+    const dosePerInj   = weekly / injPerWeek;
+    const volPerInj_ml = dosePerInj / conc;
 
     $('kpi_label_inj').textContent  = 'Injections / week';
     $('kpi_label_dose').textContent = 'Dose per injection';
@@ -894,8 +894,8 @@
     }
 
     const injPerWeek = 7 / N;
-    const dose       = (weeklyMg * N) / 7; // mg per injection
-    const vol        = dose / conc;        // mL
+    const dose       = (weeklyMg * N) / 7;
+    const vol        = dose / conc;
 
     $('kpi_label_inj').textContent  = 'Injections / week (approx)';
     $('kpi_label_dose').textContent = 'Dose per injection';
@@ -909,7 +909,6 @@
     applyCapacityWarning(vol);
     updateSmallerSyringeAdvice(vol);
 
-    // Schedule
     if (!ndScheduleGrid || !ndStartInput) return;
     const raw = ndStartInput.value;
     if (!raw){
@@ -994,7 +993,6 @@
 
     if (!isFinite(vol)) vol = 0.9;
     if (mlSlider){
-      // snap to 0.1 steps robustly
       const snapped = Math.round(vol * 10) / 10;
       vol = Math.max(0, Math.min(3, snapped));
       mlSlider.value = vol.toFixed(1);
@@ -1028,7 +1026,6 @@
     updateSmallerSyringeAdvice(vol);
   }
 
-  /* ===== Mode handling (3 modes) ===== */
   (function(){
     const modeToggle         = $('modeToggle');
     const perWeekWrap        = $('count-wrap');
@@ -1038,7 +1035,6 @@
     const everyNScheduleWrap = $('everyNScheduleWrap');
     const mlVolumeWrap       = $('mlVolumeWrap');
 
-    // Restore last mode from localStorage
     window.__mode = (()=>{ 
       try { return localStorage.getItem('hb_mode') || 'perWeek'; }
       catch(e){ return 'perWeek'; }
@@ -1058,16 +1054,13 @@
       const isEveryN    = window.__mode === 'everyNDays';
       const isMlToMg    = window.__mode === 'mlToMg';
 
-      // Weekly slider + injections per week
       weeklyWrap?.classList.toggle('is-hidden', isMlToMg);
       perWeekWrap?.classList.toggle('is-hidden', !isPerWeek);
 
-      // Every N days controls
       everyNWrap?.classList.toggle('is-hidden', !isEveryN);
       everyNStartWrap?.classList.toggle('is-hidden', !isEveryN);
       everyNScheduleWrap?.classList.toggle('is-hidden', !isEveryN);
 
-      // mL→mg volume slider
       mlVolumeWrap?.classList.toggle('is-hidden', !isMlToMg);
 
       try { localStorage.setItem('hb_mode', window.__mode); } catch(e){}
@@ -1094,14 +1087,12 @@
       arr[next].focus();
     });
 
-    // Expose recompute
     window.recompute = function(){
       if (window.__mode === 'perWeek')      computePerWeek();
       else if (window.__mode === 'everyNDays') computeEveryNDays();
       else if (window.__mode === 'mlToMg')  computeMlToMg();
     };
 
-    // Initial mode
     setMode(window.__mode);
   })();
 
@@ -1116,7 +1107,6 @@
     const lrCount  = $('lr-count');
     const lrMlVol  = $('lr-ml-volume');
 
-    // Configure weekly slider to use WEEKLY_OPTIONS
     if (weeklySlider){
       weeklySlider.min  = "0";
       weeklySlider.max  = String(WEEKLY_OPTIONS.length - 1);
@@ -1190,7 +1180,6 @@
       el.addEventListener('change', ()=>paintRange(el));
     });
 
-    // Recompute in case mode restored from storage
     if (typeof window.recompute === 'function') window.recompute();
   });
 </script>
