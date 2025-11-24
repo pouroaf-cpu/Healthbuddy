@@ -215,19 +215,20 @@
     }
 
     .live-reads{margin-top:0}
-    .live-chip{
-      display:inline-block;
-      padding:3px 6px;
-      border:1px solid var(--border);
-      border-radius:10px;
-      color:#475569;
-      background:#fff;
-      font-weight:700;
-      font-size:12px;
-      text-align:right;
-      width:4.5ch;
-      min-width:4.5ch;
-    }
+.live-chip{
+  display:inline-block;
+  padding:3px 6px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:#475569;
+  background:#fff;
+  font-weight:700;
+  font-size:12px;
+  text-align:right;
+  width:10ch;      /* ~3x wider */
+  min-width:10ch;  /* enforce width on mobile */
+}
+
     .live-chip:focus{
       outline:none;
       box-shadow:0 0 0 1px var(--ring);
