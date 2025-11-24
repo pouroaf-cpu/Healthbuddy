@@ -53,7 +53,7 @@
 
     main.embed-wrap{
       max-width:960px;
-      margin:80px auto 24px;
+      margin:20px auto 24px; /* REDUCED FROM 80px */
       padding:0 16px;
     }
 
@@ -159,9 +159,7 @@
       text-decoration:none;
       font-size:14px;
     }
-    .links-row a:hover{
-      text-decoration:underline;
-    }
+    .links-row a:hover{text-decoration:underline}
 
     footer.embed-footer{
       margin:28px 0 18px;
@@ -172,45 +170,23 @@
 
     @media (max-width:640px){
       main.embed-wrap{
-        margin-top:72px;
+        margin-top:16px; /* ALSO REDUCED */
         padding:0 14px;
       }
       .hero,.section{
         padding:18px 14px 16px;
       }
-      .code-block{
-        border-radius:10px;
-      }
+      .code-block{border-radius:10px}
     }
   </style>
 </head>
 <body>
 
-  <!-- Shared nav -->
   <div id="site-header"></div>
 
   <main class="embed-wrap">
-    <section class="hero">
-      <div class="pill">For clinic sites, blogs & TRT resources</div>
-      <h1>Embed the InjectBuddy Calculator</h1>
-      <p>
-        You can add the InjectBuddy TRT dosage calculator to your own website with a simple iframe. 
-        Your visitors stay on your page while using our calculator, and the tool still links back to InjectBuddy.
-      </p>
 
-      <div class="links-row" aria-label="Quick links">
-        <a href="/">Home</a>
-        <a href="/calculator.html">TRT Calculator</a>
-        <a href="/peptide.html">Peptide Calculator</a>
-        <a href="/free-test.html">Free T Index</a>
-        <a href="/bmi.html">BMI Calculator</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/about.html">About</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/contact.html">Contact</a>
-      </div>
-    </section>
-
+    <!-- EMBEDS MOVED TO THE VERY TOP -->
     <section class="section">
       <h2>Standard Embed (Recommended)</h2>
       <p>Copy and paste this snippet into any page where you want the calculator to appear:</p>
@@ -226,20 +202,13 @@
       </div>
 
       <p class="tagline">
-        This uses the embedded version of the TRT calculator, optimised for iframes. 
-        The footer includes a small credit link back to InjectBuddy.
+        This uses the embedded version of the TRT calculator, optimised for iframes.
       </p>
-
-      <ul class="list">
-        <li><strong>Width</strong>: set to <code>100%</code> so it fits whatever container you use.</li>
-        <li><strong>Height</strong>: <code>960</code> works for most layouts (increase if your page feels cramped).</li>
-        <li><strong>Styling</strong>: you can remove the shadow / radius if you want it to blend into your own design.</li>
-      </ul>
     </section>
 
     <section class="section">
       <h2>Minimal Embed (No Extra Styling)</h2>
-      <p>If you prefer to control all styling yourself, use the minimal version:</p>
+      <p>If you prefer to control all styling yourself:</p>
 
       <div class="code-block">
         <code>&lt;iframe
@@ -250,36 +219,44 @@
   loading="lazy"&gt;
 &lt;/iframe&gt;</code>
       </div>
+    </section>
 
-      <p class="tagline">
-        You can wrap this in your own card, column, or section and apply your own borders, spacing, and shadows.
-      </p>
+    <!-- HERO MOVED BELOW EMBEDS -->
+    <section class="hero">
+      <div class="pill">For clinic sites, blogs & TRT resources</div>
+      <h1>Embed the InjectBuddy Calculator</h1>
+      <p>Add InjectBuddy’s TRT dosage calculator to your own website with a simple iframe.</p>
+
+      <div class="links-row">
+        <a href="/">Home</a>
+        <a href="/calculator.html">TRT Calculator</a>
+        <a href="/peptide.html">Peptide Calculator</a>
+        <a href="/free-test.html">Free T Index</a>
+        <a href="/bmi.html">BMI Calculator</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
     </section>
 
     <section class="section">
       <h2>Basic Usage Notes</h2>
       <ul class="list">
-        <li>The calculator runs entirely inside the iframe – no extra scripts are required on your side.</li>
-        <li>All updates and improvements happen on InjectBuddy’s side without you needing to change the embed code.</li>
-        <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for full details.</li>
-        <li>If your site uses a very narrow mobile layout, you may want to increase the iframe height to avoid scroll bars.</li>
+        <li>Runs 100% inside the iframe — no extra scripts required.</li>
+        <li>Updates automatically.</li>
+        <li>Includes a small credit link.</li>
+        <li>Increase height on very narrow mobile layouts.</li>
       </ul>
-
-      <p class="note">
-        If you embed InjectBuddy on a public site, a visible link back (for example under the iframe) is appreciated, 
-        but the embedded version already includes a small credit link by default.
-      </p>
     </section>
+
   </main>
 
   <footer class="embed-footer">
     <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
   </footer>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
   <script src="/assets/nav.js" defer></script>
 </body>
 </html>
-
