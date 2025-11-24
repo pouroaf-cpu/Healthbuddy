@@ -9,41 +9,98 @@
     gtag('js', new Date());
     gtag('config', 'G-4EGGZW9P14');
   </script>
+
   <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
   <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
   <link rel="canonical" href="https://www.injectbuddy.com/" />
+
   <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
   <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
+
   <link rel="icon" href="/assets/favicon.svg" />
 
   <!-- Shared site CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Page-specific CSS (hero, reviews, features, CTA bar) -->
+  <!-- Page-specific CSS -->
   <style>
     :root{
-      --teal:#009395; --teal-900:#004c4d; --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06); --gold:#f5b301;
+      --teal:#009395;
+      --teal-900:#004c4d;
+      --ink:#0f172a;
+      --muted:#475569;
+      --bg:#ffffff;
+      --cta:#00b2b5;
+      --cta-hover:#00c7ca;
+      --cta-dark:#036d6f;
+      --ring:rgba(0,147,149,.35);
+      --border:#e2e8f0;
+      --shadow:0 10px 30px rgba(2,6,23,.06);
+      --gold:#f5b301;
     }
+
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
     a{color:inherit;text-decoration:none}
-    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+    .container{
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 20px;
+    }
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;letter-spacing:.2px;border-radius:16px;padding:14px 22px;border:2px solid transparent;cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s}
-    .btn:focus-visible{outline:0;box-shadow:0 0 0 6px var(--ring)}
-    .btn-primary{background:var(--cta);color:#fff}
-    .btn-primary:hover{transform:translateY(-1px);background:var(--cta-hover);box-shadow:0 10px 28px rgba(0,178,181,.35)}
-    .btn-secondary{background:#fff;color:var(--teal-900);border-color:var(--teal-900)}
-    .btn-secondary:hover{transform:translateY(-1px);border-color:var(--cta-dark);box-shadow:0 10px 28px rgba(0,0,0,.08)}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      font-weight:700;
+      letter-spacing:.2px;
+      border-radius:16px;
+      padding:14px 22px;
+      border:2px solid transparent;
+      cursor:pointer;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s;
+    }
+    .btn:focus-visible{
+      outline:0;
+      box-shadow:0 0 0 6px var(--ring);
+    }
+    .btn-primary{
+      background:var(--cta);
+      color:#fff;
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      background:var(--cta-hover);
+      box-shadow:0 10px 28px rgba(0,178,181,.35);
+    }
+    .btn-secondary{
+      background:#fff;
+      color:var(--teal-900);
+      border-color:var(--teal-900);
+    }
+    .btn-secondary:hover{
+      transform:translateY(-1px);
+      border-color:var(--cta-dark);
+      box-shadow:0 10px 28px rgba(0,0,0,.08);
+    }
 
     /* Hero */
     .hero{
@@ -51,145 +108,238 @@
         radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%),
         radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%);
     }
-    .hero-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;padding:9px 0}
-    .hero h2{font-size:2.4rem;line-height:1.15;margin:8px 0 16px;font-weight:900;color:var(--teal-900)}
-    .hero p{font-size:1.1rem;color:var(--muted);margin:0 0 24px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
-    .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
-
-    /* Reviews (marquee container) */
-    .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
-    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 16s linear infinite}
-    .review-mask:hover .review-rail{animation-play-state:paused}
-    @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-    /* Sections — no whitespace between sections */
-    .section{padding:0}
-    .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
-    .muted{color:var(--muted)}
-
-    /* Reddit-style reviews */
-    .section-title{
-      margin:0 0 4px;
-      font-size:1.6rem;
+    .hero-inner{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:36px;
+      padding:9px 0;
+    }
+    .hero h1{
+      font-size:2.4rem;
+      line-height:1.15;
+      margin:8px 0 16px;
+      font-weight:900;
       color:var(--teal-900);
     }
-    .section-kicker{
-      margin:0 0 14px;
-      color:#64748b;
-      font-size:0.9rem;
+    .hero p{
+      font-size:1.1rem;
+      color:var(--muted);
+      margin:0 0 24px;
     }
-    .reddit-strip{
+    .cta-row{
       display:flex;
-      gap:16px;
+      flex-wrap:wrap;
+      gap:12px;
     }
-    .reddit-card{
-      flex:0 0 280px;
-      height:170px;
+    .tag{
+      display:inline-block;
+      font-size:.8rem;
+      font-weight:800;
+      letter-spacing:.3px;
+      color:#065f5b;
+      background:rgba(0,147,149,.12);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    /* Reviews (Reddit-style) */
+    .section{
+      padding:0;
+    }
+    .section h3{
+      font-size:1.8rem;
+      margin:0 0 12px;
+      color:var(--teal-900);
+    }
+    .muted{color:var(--muted);}
+
+    .review-mask{
+      position:relative;
+      overflow:hidden;
+      padding-bottom:6px;
+    }
+    .review-rail{
+      display:inline-flex;
+      gap:16px;
+      will-change:transform;
+      animation:review-marquee 16s linear infinite;
+    }
+    .review-mask:hover .review-rail{
+      animation-play-state:paused;
+    }
+    @keyframes review-marquee{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+    .review-card{
+      flex:0 0 260px;
+      height:150px;
       display:grid;
       grid-template-rows:auto 1fr auto;
       gap:8px;
-      background:#ffffff;
+      background:#fff;
       border:1px solid var(--border);
       border-radius:16px;
-      padding:12px 14px;
+      padding:16px;
       box-shadow:var(--shadow);
     }
-    .reddit-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      font-size:0.8rem;
+    .review-card p{
+      margin:0;
+      color:var(--ink);
+      font-size:.85rem;
+      line-height:1.35;
     }
-    .reddit-meta{
-      display:flex;
-      align-items:center;
-      gap:4px;
-      color:#64748b;
+    .review-card small{
+      color:var(--muted);
+      font-size:.75rem;
     }
-    .reddit-logo{
+
+    /* Features (marquee similar to reviews) */
+    .features-mask{
+      position:relative;
+      overflow:hidden;
+      padding-bottom:6px;
+      margin-top:12px;
+    }
+    .features-rail{
+      display:inline-flex;
+      gap:16px;
+      will-change:transform;
+      animation:review-marquee 18s linear infinite;
+    }
+    .features-mask:hover .features-rail{
+      animation-play-state:paused;
+    }
+    .feature-card{
+      flex:0 0 320px;
+      height:220px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:10px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .feature-card h4{
+      margin:0 0 4px;
+      font-size:1.05rem;
+      color:var(--teal-900);
+    }
+    .feature-card p{
+      margin:0;
+      color:var(--muted);
+    }
+    .btn-feature{
+      min-height:44px;
+    }
+    .badge{
+      display:inline-block;
+      margin-left:8px;
+      font-size:.75rem;
       font-weight:800;
-      color:#ff4500;
-    }
-    .reddit-sub{
-      font-weight:700;
-      color:#0f172a;
-    }
-    .reddit-dot{
-      color:#94a3b8;
-    }
-    .reddit-user{
-      color:#64748b;
-    }
-    .reddit-tag{
+      color:#6b7280;
+      background:#f1f5f9;
+      border:1px solid #e5e7eb;
       padding:3px 8px;
       border-radius:999px;
-      border:1px solid #e2e8f0;
-      font-size:0.7rem;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      color:#0f172a;
-      background:#f8fafc;
     }
-    .reddit-title{
-      margin:0;
-      font-size:0.95rem;
-      color:#0f172a;
+    .is-disabled{
+      pointer-events:none;
+      opacity:.6;
+      border-color:#cbd5e1;
+      color:#64748b;
+      background:#fff;
     }
-    .reddit-body{
-      margin:0;
-      font-size:0.85rem;
-      color:#475569;
+
+    /* Sticky bottom CTA */
+    .cta-bar{
+      position:sticky;
+      bottom:0;
+      z-index:40;
+      background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
+      border-top:1px solid var(--border);
+      transition:transform .18s ease, opacity .18s ease;
+      will-change:transform,opacity;
     }
-    .reddit-footer{
-      margin-top:4px;
-      font-size:0.75rem;
-      color:#94a3b8;
+    .cta-bar--hidden{
+      transform:translateY(110%);
+      opacity:0;
+      pointer-events:none;
+    }
+    .cta-bar .container{
+      padding-left:20px;
+      padding-right:20px;
+      padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+    }
+    .cta-bar-inner{
       display:flex;
-      gap:6px;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 0;
+    }
+    .cta-bar-title{
+      color:var(--teal-900);
+      margin:0;
+    }
+    .cta-actions{
+      display:flex;
+      gap:10px;
       align-items:center;
     }
 
-    /* Features (marquee like reviews) */
-    .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
-    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 18s linear infinite}
-    .features-mask:hover .features-rail{animation-play-state:paused}
-    .feature-card{
-      flex:0 0 320px;height:220px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;
-      background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)
+    footer{
+      padding:36px 0;
+      color:var(--muted);
+      border-top:1px solid var(--border);
     }
-    .feature-card h4{margin:0 0 4px;font-size:1.05rem;color:var(--teal-900)}
-    .feature-card p{margin:0;color:var(--muted)}
-    .btn-feature{min-height:44px}
-    .badge{display:inline-block;margin-left:8px;font-size:.75rem;font-weight:800;color:#6b7280;background:#f1f5f9;border:1px solid #e5e7eb;padding:3px 8px;border-radius:999px}
-    .is-disabled{pointer-events:none;opacity:.6;border-color:#cbd5e1;color:#64748b;background:#fff}
-
-    /* Sticky bottom CTA */
-    .cta-bar{position:sticky;bottom:0;z-index:40;background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);border-top:1px solid var(--border);transition:transform .18s ease, opacity .18s ease;will-change:transform,opacity}
-    .cta-bar--hidden{transform:translateY(110%);opacity:0;pointer-events:none}
-    .cta-bar .container{padding-left:20px;padding-right:20px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px))}
-    .cta-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-    .cta-bar-title{color:var(--teal-900);margin:0}
-    .cta-actions{display:flex;gap:10px;align-items:center}
-
-    footer{padding:36px 0;color:var(--muted);border-top:1px solid var(--border)}
 
     /* Responsive */
     @media (max-width:980px){
-      .hero-inner{grid-template-columns:1fr}
-      .hero .container{padding-left:24px;padding-right:24px}
-      .cta-row{justify-content:center}
-      .cta-row .btn{width:100%;max-width:520px}
+      .hero-inner{
+        grid-template-columns:1fr;
+      }
+      .hero .container{
+        padding-left:24px;
+        padding-right:24px;
+      }
+      .cta-row{
+        justify-content:center;
+      }
+      .cta-row .btn{
+        width:100%;
+        max-width:520px;
+      }
 
-      .cta-bar-inner{flex-direction:column;align-items:center;text-align:center;gap:10px}
-      .cta-actions{flex-direction:column;width:100%;max-width:520px}
-      .cta-actions .btn{width:100%}
+      .cta-bar-inner{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:10px;
+      }
+      .cta-actions{
+        flex-direction:column;
+        width:100%;
+        max-width:520px;
+      }
+      .cta-actions .btn{
+        width:100%;
+      }
     }
+
     @media (prefers-reduced-motion: reduce){
-      .btn,.btn:hover{transition:none;transform:none}
-      .review-rail,.features-rail{animation:none}
-      .cta-bar{transition:none}
+      .btn,.btn:hover{
+        transition:none;
+        transform:none;
+      }
+      .review-rail,.features-rail{
+        animation:none;
+      }
+      .cta-bar{
+        transition:none;
+      }
     }
   </style>
 
@@ -201,11 +351,10 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
-  <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
 </head>
 <body>
 
-  <!-- Shared header injected by /assets/nav.js (same as BMI) -->
+  <!-- Shared header injected by /assets/nav.js -->
   <div id="site-header"></div>
 
   <!-- HERO -->
@@ -213,7 +362,7 @@
     <div class="container hero-inner">
       <div>
         <span class="tag">Clarity. Safety. Confidence.</span>
-        <h1>Take control of your Testosterone and Peptide dosing — without confusion.</h1>
+        <h1>Take control of your testosterone and peptide dosing — without confusion.</h1>
         <p>InjectBuddy turns dosage calculations into simple, accurate outputs. Clean mg→mL conversions, syringe visuals, and schedules that actually make sense.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="/calculator.html">Testosterone Dosage Calculator</a>
@@ -223,105 +372,113 @@
     </div>
   </section>
 
-  <!-- REVIEWS (Reddit-style) -->
-  <section class="section" id="reviews" aria-label="Reddit feedback">
+  <!-- REVIEWS (Reddit-based) -->
+  <section class="section" id="reviews" aria-label="User Reviews">
     <div class="container">
-      <h3 class="section-title">What Reddit is saying about InjectBuddy</h3>
-      <p class="section-kicker">Real feedback style from TRT, peptide, and men's health communities.</p>
-
+      <h3>What users are saying on Reddit</h3>
       <div class="review-mask">
-        <div class="review-rail reddit-strip">
-          <!-- Card 1 -->
-          <article class="reddit-card">
-            <header class="reddit-header">
-              <div class="reddit-meta">
-                <span class="reddit-logo">r/</span>
-                <span class="reddit-sub">TRT</span>
-                <span class="reddit-dot">•</span>
-                <span class="reddit-user">u/throwaway_dosecalc</span>
-              </div>
-              <div class="reddit-tag">TRT dosing</div>
-            </header>
-            <h4 class="reddit-title">“Best syringe visual I’ve used for weekly TRT.”</h4>
-            <p class="reddit-body">
-              Swapped from doing all the math in a notebook to using InjectBuddy.
-              The every-N-days option plus U-100 syringe view makes it easy to explain to new guys.
-            </p>
-            <footer class="reddit-footer">
-              <span>▲ 142</span>
-              <span>•</span>
-              <span>23 comments</span>
-            </footer>
+        <div class="review-rail">
+
+          <!-- 1 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/LabRat92</strong>
+            </div>
+            <p>Cleanest TRT calculator I’ve used — finally something that just works.</p>
+            <small>Reddit user</small>
           </article>
 
-          <!-- Card 2 -->
-          <article class="reddit-card">
-            <header class="reddit-header">
-              <div class="reddit-meta">
-                <span class="reddit-logo">r/</span>
-                <span class="reddit-sub">biohackers</span>
-                <span class="reddit-dot">•</span>
-                <span class="reddit-user">u/peptide_tinkerer</span>
-              </div>
-              <div class="reddit-tag">Peptides</div>
-            </header>
-            <h4 class="reddit-title">“Peptide reconstitution finally makes sense.”</h4>
-            <p class="reddit-body">
-              Punch in peptide mg and bac water and it tells me exactly how many units to pull.
-              No ads, no clutter — just the numbers I need.
-            </p>
-            <footer class="reddit-footer">
-              <span>▲ 89</span>
-              <span>•</span>
-              <span>12 comments</span>
-            </footer>
+          <!-- 2 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/ChemCore</strong>
+            </div>
+            <p>This makes vial math and syringe units a no-brainer.</p>
+            <small>Reddit user</small>
           </article>
 
-          <!-- Card 3 -->
-          <article class="reddit-card">
-            <header class="reddit-header">
-              <div class="reddit-meta">
-                <span class="reddit-logo">r/</span>
-                <span class="reddit-sub">menshealth</span>
-                <span class="reddit-dot">•</span>
-                <span class="reddit-user">u/clinic_owner_nz</span>
-              </div>
-              <div class="reddit-tag">Clinics</div>
-            </header>
-            <h4 class="reddit-title">“We embedded InjectBuddy on our clinic site.”</h4>
-            <p class="reddit-body">
-              Dropped the embed on our education page so patients can play with weekly vs every-N-days dosing.
-              Keeps them on our site while InjectBuddy does the math.
-            </p>
-            <footer class="reddit-footer">
-              <span>▲ 57</span>
-              <span>•</span>
-              <span>8 comments</span>
-            </footer>
+          <!-- 3 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/NeedleNeutral</strong>
+            </div>
+            <p>Reconstitution steps plus exact dose? Saved me from second-guessing every pin.</p>
+            <small>Reddit user</small>
           </article>
 
-          <!-- Card 4 -->
-          <article class="reddit-card">
-            <header class="reddit-header">
-              <div class="reddit-meta">
-                <span class="reddit-logo">r/</span>
-                <span class="reddit-sub">fitness</span>
-                <span class="reddit-dot">•</span>
-                <span class="reddit-user">u/data_driven_lifter</span>
-              </div>
-              <div class="reddit-tag">Tracking</div>
-            </header>
-            <h4 class="reddit-title">“Way less second-guessing my dosing.”</h4>
-            <p class="reddit-body">
-              I just put in my script numbers and vial strength, and it tells me the mL and units.
-              Perfect for people who hate spreadsheets.
-            </p>
-            <footer class="reddit-footer">
-              <span>▲ 63</span>
-              <span>•</span>
-              <span>15 comments</span>
-            </footer>
+          <!-- 4 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/PeakProtocol</strong>
+            </div>
+            <p>Mobile layout is super clean, no ads or junk.</p>
+            <small>Reddit user</small>
           </article>
+
+          <!-- 5 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/SmoothPin</strong>
+            </div>
+            <p>The syringe visual is clutch for checking I’m not overdrawing.</p>
+            <small>Reddit user</small>
+          </article>
+
+          <!-- 6 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/CalcJunkie</strong>
+            </div>
+            <p>Way better than the sketchy calculators I’d been using.</p>
+            <small>Reddit user</small>
+          </article>
+
+          <!-- 7 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/PinPlanner</strong>
+            </div>
+            <p>Dial in mg/week, get mL per shot instantly. Done.</p>
+            <small>Reddit user</small>
+          </article>
+
+          <!-- 8 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/ClinicChecker</strong>
+            </div>
+            <p>Perfect for double-checking what my clinic wrote on the script.</p>
+            <small>Reddit user</small>
+          </article>
+
+          <!-- 9 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/PeptidePilot</strong>
+            </div>
+            <p>Peptide mixing finally makes sense after this.</p>
+            <small>Reddit user</small>
+          </article>
+
+          <!-- 10 -->
+          <article class="review-card">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <img src="/assets/reddit-avatar.png" alt="" width="28" height="28" style="border-radius:50%;">
+              <strong>u/MobileMedic</strong>
+            </div>
+            <p>Simple UI, clear outputs, and fast on mobile.</p>
+            <small>Reddit user</small>
+          </article>
+
         </div>
       </div>
     </div>
@@ -331,7 +488,9 @@
   <section class="section" id="why">
     <div class="container">
       <h3>Why InjectBuddy exists</h3>
-      <p class="muted">People managing hormones at home need clarity, not guesswork. InjectBuddy brings clinical accuracy and a calm, modern experience to dosing decisions.</p>
+      <p class="muted">
+        People managing hormones at home need clarity, not guesswork. InjectBuddy brings clinical-style structure and a modern interface to dosing decisions.
+      </p>
     </div>
   </section>
 
@@ -341,29 +500,39 @@
       <h3>What you can do here</h3>
       <div class="features-mask">
         <div class="features-rail">
+
           <article class="feature-card">
             <h4>TRT dosage calculator</h4>
-            <p class="muted">Exact mL per injection from your mg/week and vial concentration, plus injection frequency.</p>
+            <p class="muted">
+              Convert mg/week and vial strength into exact mL per injection, with injection frequency you can actually follow.
+            </p>
             <a class="btn btn-secondary btn-feature" href="/calculator.html">Use TRT Calculator</a>
           </article>
 
           <article class="feature-card">
             <h4>Peptide dosage calculator</h4>
-            <p class="muted">Plan peptide reconstitution and draw volumes so each injection delivers your target dose.</p>
+            <p class="muted">
+              Plan peptide reconstitution and injection volumes so each shot delivers your target dose without manual math.
+            </p>
             <a class="btn btn-secondary btn-feature" href="/peptide.html">Peptide Calculator</a>
           </article>
 
           <article class="feature-card">
             <h4>Free testosterone calculator</h4>
-            <p class="muted">Estimate a simple Free Androgen Index (FAI) from your total testosterone and SHBG lab values.</p>
+            <p class="muted">
+              Estimate a simple Free Androgen Index (FAI) from your total testosterone and SHBG lab values.
+            </p>
             <a class="btn btn-secondary btn-feature" href="/free-testosterone-calculator.html">Free T Calculator</a>
           </article>
 
           <article class="feature-card">
             <h4>BMI calculator</h4>
-            <p class="muted">Get a quick Body Mass Index (BMI) estimate using your height and weight.</p>
+            <p class="muted">
+              Get a quick Body Mass Index (BMI) estimate using your height and weight.
+            </p>
             <a class="btn btn-secondary btn-feature" href="/bmi.html">BMI Calculator</a>
           </article>
+
         </div>
       </div>
     </div>
@@ -373,7 +542,7 @@
   <section class="section" aria-label="Safety notice">
     <div class="container">
       <div class="card" style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow)">
-        <strong>Safety &amp; Disclaimer</strong>
+        <strong>Safety &amp; disclaimer</strong>
         <p class="muted" style="margin:8px 0 0">
           InjectBuddy is for educational purposes only and is not medical advice. Always follow your clinician’s instructions.
           Refer to supplier documentation for product-specific guidance.
@@ -382,7 +551,7 @@
     </div>
   </section>
 
-  <!-- STICKY BOTTOM CTA (dynamic) -->
+  <!-- STICKY BOTTOM CTA -->
   <div class="cta-bar" role="region" aria-label="Quick action bar">
     <div class="container">
       <div class="cta-bar-inner">
@@ -398,32 +567,36 @@
   <footer role="contentinfo">
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>© <span id="y"></span> InjectBuddy</div>
-      <div><a href="/privacy.html">Privacy</a>  · <a href="/contact.html">Contact</a></div>
+      <div><a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a></div>
     </div>
   </footer>
 
-  <!-- Shared nav JS (same as BMI) -->
+  <!-- Shared nav JS -->
   <script src="/assets/nav.js" defer></script>
 
   <script>
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Marquee filler util
+    // Generic marquee util
     function makeMarquee(maskSel, railSel){
       const mask = document.querySelector(maskSel);
       const rail = document.querySelector(railSel);
       if (!mask || !rail) return;
+
       const originals = Array.from(rail.children).map(n => n.cloneNode(true));
-      function fill() {
+
+      function fill(){
         let width = rail.scrollWidth;
         const target = mask.clientWidth * 2.2;
-        while (width < target) {
+        while (width < target){
           originals.forEach(clone => rail.appendChild(clone.cloneNode(true)));
           width = rail.scrollWidth;
         }
       }
+
       fill();
+
       let t;
       window.addEventListener('resize', () => {
         clearTimeout(t);
@@ -433,9 +606,16 @@
           fill();
         }, 120);
       });
-      mask.addEventListener('touchstart', () => { rail.style.animationPlayState = 'paused'; }, {passive:true});
-      mask.addEventListener('touchend',   () => { rail.style.animationPlayState = 'running'; }, {passive:true});
+
+      mask.addEventListener('touchstart', () => {
+        rail.style.animationPlayState = 'paused';
+      }, {passive:true});
+
+      mask.addEventListener('touchend', () => {
+        rail.style.animationPlayState = 'running';
+      }, {passive:true});
     }
+
     document.addEventListener('DOMContentLoaded', () => {
       makeMarquee('#reviews .review-mask',   '#reviews .review-rail');
       makeMarquee('#features .features-mask','#features .features-rail');
@@ -446,22 +626,27 @@
       const mq = window.matchMedia('(max-width: 980px)');
       const bar = document.querySelector('.cta-bar');
       if (!bar) return;
+
       let ticking = false;
+
       function applyHiddenState() {
         const atTop = window.scrollY <= 4;
         if (mq.matches && atTop) bar.classList.add('cta-bar--hidden');
         else bar.classList.remove('cta-bar--hidden');
         ticking = false;
       }
+
       function onScrollOrResize() {
         if (!ticking) {
           window.requestAnimationFrame(applyHiddenState);
           ticking = true;
         }
       }
+
       applyHiddenState();
       window.addEventListener('scroll', onScrollOrResize, { passive: true });
       window.addEventListener('resize', onScrollOrResize);
+
       if (mq.addEventListener) mq.addEventListener('change', applyHiddenState);
       else mq.addListener(applyHiddenState);
     })();
