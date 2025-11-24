@@ -446,7 +446,7 @@
           <div>
             <h1>Embed the InjectBuddy TRT Calculator</h1>
             <p class="hero-sub">
-              One iframe, always up to date. Review the usage terms below, then copy the embed code for your site.
+              One iframe, always up to date. Review the usage terms below, then unlock the embed code for your site.
             </p>
             <p class="hero-future">
               More embed options (combined tools, dark mode, peptide embeds) will be added over time.
@@ -455,7 +455,7 @@
         </div>
       </section>
 
-      <!-- TERMS (shown on every load, single option) -->
+      <!-- TERMS (shown every load, single option; gates embed) -->
       <section class="terms-card" id="terms-card">
         <div class="terms-inner">
           <div class="terms-header">
@@ -465,7 +465,7 @@
             </div>
             <div class="terms-chip">
               <span></span>
-              Read before using the embed code
+              Read and accept to reveal the embed code
             </div>
           </div>
 
@@ -487,7 +487,7 @@
 
           <div class="terms-actions">
             <button type="button" class="btn btn-primary" id="accept-terms">
-              I understand — show me the embed section
+              I understand — show the embed code
             </button>
             <span class="terms-hint">
               The terms will be shown every time this page is loaded.
@@ -496,13 +496,13 @@
         </div>
       </section>
 
-      <!-- EMBED CONTENT -->
-      <div id="embed-content">
+      <!-- EMBED CONTENT (hidden until terms accepted) -->
+      <div id="embed-content" class="is-hidden">
         <section class="section">
           <div class="section-header">
             <div>
-              <h2>Standard embed (recommended)</h2>
-              <p>Drop this into any section, column, or content block where you want the calculator to appear.</p>
+              <h2>Standard embed</h2>
+              <p>Paste this iframe where you want the TRT calculator to appear on your site.</p>
             </div>
             <div>
               <button class="copy-btn" type="button" data-target="standard-embed-code">
@@ -528,42 +528,9 @@
 
           <ul class="list">
             <li><strong>Width</strong>: <code>100%</code> so it fills whatever container you place it in.</li>
-            <li><strong>Height</strong>: <code>960</code> works for most layouts; increase if your page is tighter.</li>
-            <li><strong>Styling</strong>: remove the border radius and shadow if you want it flat in your own card.</li>
+            <li><strong>Height</strong>: <code>960</code> works for most layouts; increase if your page is very tall.</li>
+            <li><strong>Styling</strong>: remove border radius and shadow if you want it flat inside your own card or panel.</li>
           </ul>
-        </section>
-
-        <section class="section">
-          <div class="section-header">
-            <div>
-              <h2>Minimal embed (you handle styling)</h2>
-              <p>For sites with strict design systems that need full control over presentation.</p>
-            </div>
-            <div>
-              <button class="copy-btn" type="button" data-target="minimal-embed-code">
-                Copy code
-              </button>
-              <span class="copy-status" id="minimal-embed-status"></span>
-            </div>
-          </div>
-
-          <div class="code-block">
-            <code id="minimal-embed-code">&lt;iframe
-  src="https://www.injectbuddy.com/embed/calculator.html"
-  width="100%"
-  height="900"
-  style="border:0;"
-  loading="lazy"&gt;
-&lt;/iframe&gt;</code>
-          </div>
-
-          <p class="tagline">
-            No radius, no shadow, no extra styling — wrap it in your own component and style it however you want.
-          </p>
-
-          <p class="note">
-            Additional embed options (multi-tool tabs, peptide-only embeds, alternate heights) will be added here in future updates.
-          </p>
         </section>
 
         <section class="section">
@@ -603,14 +570,16 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Scroll to embed section when terms button clicked
     document.addEventListener('DOMContentLoaded', function(){
       var termsBtn = document.getElementById('accept-terms');
       var embedSection = document.getElementById('embed-content');
 
-      if(termsBtn && embedSection && embedSection.scrollIntoView){
+      if(termsBtn && embedSection){
         termsBtn.addEventListener('click', function(){
-          embedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          embedSection.classList.remove('is-hidden');
+          if (embedSection.scrollIntoView){
+            embedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         });
       }
 
@@ -660,9 +629,7 @@
       buttons.forEach(function(btn){
         btn.addEventListener('click', function(){
           var target = btn.getAttribute('data-target');
-          var statusId = target === 'standard-embed-code'
-            ? 'standard-embed-status'
-            : 'minimal-embed-status';
+          var statusId = 'standard-embed-status';
           copyEmbedCode(target, statusId);
         });
       });
