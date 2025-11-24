@@ -407,22 +407,22 @@
     <div class="calc-wrap">
       <div class="calc-grid">
 
-        <!-- MODE TOGGLE -->
+        <!-- MODE TOGGLE (reordered + renamed) -->
         <div class="full full-toggle">
           <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-mode="perWeek">Weekly plan</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Inject X days</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-mode="perWeek">Inject per week</button>
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="mlToMg">mL → mg</button>
           </div>
         </div>
 
-        <!-- SYRINGE SIZES -->
+        <!-- SYRINGE SIZES (reordered: 3 / 1 / 0.5 / 0.3) -->
         <div class="full full-toggle">
           <div class="seg-toggle syr-grid" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.5">0.5 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-ml="1">1 mL</button>
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-ml="1">1 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.5">0.5 mL</button>
+            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
           </div>
         </div>
 
