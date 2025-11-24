@@ -1515,3 +1515,31 @@ a{color:inherit;text-decoration:none}
   gap:36px;
   padding:5px 0 40px; /* less space at the top */
 }
+/* === Animated underline (grows from left) === */
+.ib-nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.ib-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; 
+  width: 0;
+  height: 2px;
+  background: var(--cta);
+  border-radius: 2px;
+  transform-origin: left center;
+  transition: width 0.28s ease;
+}
+
+/* Hover animation: expand from left */
+.ib-nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active page underline (via data-match) */
+.ib-nav-link.is-active::after {
+  width: 100%;
+}
