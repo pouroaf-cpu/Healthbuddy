@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) – optional -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>InjectBuddy — TRT & Peptide Calculators</title>
+  <meta name="description" content="Switch between the InjectBuddy TRT dosage calculator and peptide reconstitution calculator using a clean chrome-style tab bar." />
+  <link rel="canonical" href="https://www.injectbuddy.com/embed/calculators" />
+  <meta property="og:title" content="InjectBuddy — TRT & Peptide Calculators" />
+  <meta property="og:description" content="Chrome-style tabbed embed that combines the TRT & testosterone dose calculator with the peptide dosage and reconstitution calculator." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/embed/calculators" />
+  <meta property="og:site_name" content="InjectBuddy" />
+  <link rel="icon" href="/assets/favicon.svg" />
+
+  <style>
+    :root{
+      --teal:#009395;
+      --teal-900:#004c4d;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --bg:#f6f8f8;
+
+      --chrome-bg:#dde3ea;
+      --chrome-tab:#e5edf4;
+      --chrome-tab-active:#ffffff;
+      --border:#cbd5e1;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+    }
+
+    *{box-sizing:border-box;}
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+
+    .embed-shell{
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .embed-inner{
+      width:100%;
+      max-width:1200px;
+    }
+
+    /* Chrome-style bar */
+    .chrome-shell{
+      background:var(--chrome-bg);
+      border-radius:18px;
+      padding:8px 10px 0;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(148,163,184,.6);
+    }
+
+    .chrome-bar{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      padding:2px;
+    }
+
+    .chrome-tab{
+      position:relative;
+      border:none;
+      border-radius:12px 12px 0 0;
+      padding:8px 16px;
+      font-size:.9rem;
+      font-weight:600;
+      background:var(--chrome-tab);
+      color:#334155;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      min-width:0;
+      white-space:nowrap;
+      box-shadow:0 0 0 rgba(0,0,0,0);
+      transition:
+        background-color .15s ease,
+        color .15s ease,
+        box-shadow .15s ease,
+        transform .08s ease;
+    }
+
+    .chrome-tab span.label{
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .chrome-tab[data-active="true"]{
+      background:var(--chrome-tab-active);
+      color:var(--teal-900);
+      box-shadow:0 6px 16px rgba(15,23,42,.15);
+      transform:translateY(1px);
+    }
+
+    .chrome-tab:hover{
+      background:#edf3fa;
+    }
+
+    .chrome-tab:focus-visible{
+      outline:2px solid var(--teal);
+      outline-offset:2px;
+    }
+
+    .chrome-tab-icon{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--teal);
+      box-shadow:
+        12px 0 0 #eab308,
+        24px 0 0 #22c55e;
+    }
+
+    .chrome-spacer{
+      flex:1;
+    }
+
+    .chrome-meta{
+      font-size:.7rem;
+      color:var(--muted);
+      padding-right:4px;
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+
+    .chrome-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--teal);
+    }
+
+    /* Panel container */
+    .chrome-panels{
+      background:#ffffff;
+      border-radius:0 0 16px 16px;
+      border-top:1px solid var(--border);
+      margin-top:0;
+      overflow:hidden;
+    }
+
+    .tab-panel{
+      display:none;
+    }
+    .tab-panel[data-active="true"]{
+      display:block;
+    }
+
+    /* Iframes */
+    .calc-frame{
+      width:100%;
+      border:none;
+      min-height:960px;
+      background:#ffffff;
+    }
+
+    /* Heading */
+    .embed-heading{
+      margin:0 0 8px;
+      font-size:1.1rem;
+      font-weight:700;
+      color:var(--teal-900);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .embed-heading span.badge{
+      font-size:.7rem;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      padding:3px 7px;
+      border-radius:999px;
+      background:#e0f2f1;
+      color:var(--teal-900);
+      border:1px solid rgba(45,212,191,.5);
+    }
+
+    /* Plug at bottom */
+    .embed-plug{
+      margin-top:10px;
+      font-size:.8rem;
+      color:var(--muted);
+      text-align:center;
+    }
+    .embed-plug a{
+      color:var(--teal-900);
+      font-weight:600;
+      text-decoration:none;
+    }
+    .embed-plug a:hover{
+      text-decoration:underline;
+    }
+
+    @media (max-width:768px){
+      .embed-shell{
+        padding:10px;
+      }
+      .chrome-bar{
+        overflow-x:auto;
+      }
+      .chrome-meta{
+        display:none;
+      }
+      .calc-frame{
+        min-height:1100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="embed-shell">
+    <div class="embed-inner">
+      <h1 class="embed-heading">
+        InjectBuddy Calculators
+        <span class="badge">TRT + Peptides</span>
+      </h1>
+
+      <section
+        class="chrome-shell"
+        aria-label="InjectBuddy calculators"
+      >
+        <div
+          class="chrome-bar"
+          role="tablist"
+          aria-label="Calculator selection"
+          id="calcTablist"
+        >
+          <button
+            type="button"
+            class="chrome-tab"
+            id="tab-trt"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-trt"
+            tabindex="0"
+            data-target="panel-trt"
+            data-active="true"
+          >
+            <span class="chrome-tab-icon" aria-hidden="true"></span>
+            <span class="label">TRT & Testosterone Calculator</span>
+          </button>
+
+          <button
+            type="button"
+            class="chrome-tab"
+            id="tab-pep"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-pep"
+            tabindex="-1"
+            data-target="panel-pep"
+            data-active="false"
+          >
+            <span class="chrome-tab-icon" aria-hidden="true"></span>
+            <span class="label">Peptide Calculator</span>
+          </button>
+
+          <div class="chrome-spacer"></div>
+
+          <div class="chrome-meta" aria-hidden="true">
+            <span class="chrome-dot"></span>
+            <span>For planning only — not medical advice</span>
+          </div>
+        </div>
+
+        <div class="chrome-panels">
+          <!-- TRT CALCULATOR PANEL -->
+          <div
+            id="panel-trt"
+            class="tab-panel"
+            role="tabpanel"
+            aria-labelledby="tab-trt"
+            data-active="true"
+          >
+            <iframe
+              class="calc-frame"
+              src="https://www.injectbuddy.com/embed/calculator"
+              loading="lazy"
+              title="TRT & Testosterone Dosage Calculator"
+            ></iframe>
+          </div>
+
+          <!-- PEPTIDE CALCULATOR PANEL -->
+          <div
+            id="panel-pep"
+            class="tab-panel"
+            role="tabpanel"
+            aria-labelledby="tab-pep"
+            data-active="false"
+            hidden
+          >
+            <iframe
+              class="calc-frame"
+              src="https://www.injectbuddy.com/embed/peptide-calculator"
+              loading="lazy"
+              title="Peptide Dosage & Reconstitution Calculator"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <p class="embed-plug">
+        Powered by
+        <a href="https://www.injectbuddy.com" target="_blank" rel="noopener">
+          InjectBuddy.com
+        </a>
+        — for more free TRT, peptide, and hormone-planning tools.
+      </p>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const tabs   = Array.from(document.querySelectorAll('.chrome-tab'));
+      const panels = {
+        'panel-trt': document.getElementById('panel-trt'),
+        'panel-pep': document.getElementById('panel-pep')
+      };
+
+      function activateTab(tab){
+        const targetId = tab.getAttribute('data-target');
+        if (!targetId || !panels[targetId]) return;
+
+        // Tabs
+        tabs.forEach(t => {
+          const active = t === tab;
+          t.dataset.active = active ? 'true' : 'false';
+          t.setAttribute('aria-selected', String(active));
+          t.tabIndex = active ? 0 : -1;
+        });
+
+        // Panels
+        Object.entries(panels).forEach(([id,panel]) => {
+          const active = (id === targetId);
+          panel.dataset.active = active ? 'true' : 'false';
+          panel.hidden = !active;
+        });
+      }
+
+      // Click handling
+      tabs.forEach(t => {
+        t.addEventListener('click', () => activateTab(t));
+      });
+
+      // Keyboard left/right
+      const tablist = document.getElementById('calcTablist');
+      tablist.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        const currentIndex = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+        if (currentIndex === -1) return;
+        const dir = e.key === 'ArrowRight' ? 1 : -1;
+        const nextIndex = (currentIndex + dir + tabs.length) % tabs.length;
+        const nextTab = tabs[nextIndex];
+        activateTab(nextTab);
+        nextTab.focus();
+      });
+    })();
+  </script>
+</body>
+</html>
 
