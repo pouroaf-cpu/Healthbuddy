@@ -41,6 +41,7 @@
       --muted:#dbe5e6;
       --radius:16px;
       --shadow:0 4px 24px rgba(0,0,0,.06);
+      --ring:rgba(0,147,149,.35);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
@@ -53,7 +54,7 @@
 
     main.embed-wrap{
       max-width:960px;
-      margin:20px auto 24px; /* REDUCED FROM 80px */
+      margin:20px auto 24px; /* reduced top padding */
       padding:0 16px;
     }
 
@@ -98,9 +99,16 @@
       box-shadow:var(--shadow);
       padding:20px 18px 18px;
     }
+    .section-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+    }
     .section h2{
       color:var(--teal-900);
-      margin:0 0 8px;
+      margin:0;
       font-size:20px;
     }
     .section p{
@@ -118,8 +126,39 @@
       font-size:13px;
       overflow-x:auto;
       border:1px solid #1f2937;
+      position:relative;
     }
     .code-block code{white-space:pre}
+
+    .copy-btn{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--teal-600);
+      background:#ffffff;
+      color:var(--teal-700);
+      font-size:12px;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:background .12s ease, box-shadow .12s ease, transform .06s ease;
+    }
+    .copy-btn:hover{
+      background:#ecfeff;
+      box-shadow:0 0 0 1px var(--ring);
+    }
+    .copy-btn:active{
+      transform:translateY(1px);
+      box-shadow:none;
+    }
+
+    .copy-status{
+      margin-left:8px;
+      font-size:12px;
+      color:var(--ink-500);
+      min-width:60px;
+    }
 
     .tagline{
       font-size:13px;
@@ -159,7 +198,9 @@
       text-decoration:none;
       font-size:14px;
     }
-    .links-row a:hover{text-decoration:underline}
+    .links-row a:hover{
+      text-decoration:underline;
+    }
 
     footer.embed-footer{
       margin:28px 0 18px;
@@ -170,29 +211,48 @@
 
     @media (max-width:640px){
       main.embed-wrap{
-        margin-top:16px; /* ALSO REDUCED */
+        margin-top:16px;
         padding:0 14px;
       }
       .hero,.section{
         padding:18px 14px 16px;
       }
-      .code-block{border-radius:10px}
+      .code-block{
+        border-radius:10px;
+      }
+      .section-header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .copy-status{
+        margin-left:0;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Shared nav -->
   <div id="site-header"></div>
 
   <main class="embed-wrap">
 
-    <!-- EMBEDS MOVED TO THE VERY TOP -->
+    <!-- EMBEDS FIRST -->
     <section class="section">
-      <h2>Standard Embed (Recommended)</h2>
+      <div class="section-header">
+        <h2>Standard Embed (Recommended)</h2>
+        <div>
+          <button class="copy-btn" type="button" data-target="standard-embed-code">
+            Copy code
+          </button>
+          <span class="copy-status" id="standard-embed-status"></span>
+        </div>
+      </div>
+
       <p>Copy and paste this snippet into any page where you want the calculator to appear:</p>
 
       <div class="code-block">
-        <code>&lt;iframe
+        <code id="standard-embed-code">&lt;iframe
   src="https://www.injectbuddy.com/embed/calculator.html"
   width="100%"
   height="960"
@@ -202,16 +262,32 @@
       </div>
 
       <p class="tagline">
-        This uses the embedded version of the TRT calculator, optimised for iframes.
+        This uses the embedded version of the TRT calculator, optimised for iframes. 
+        The footer includes a small credit link back to InjectBuddy.
       </p>
+
+      <ul class="list">
+        <li><strong>Width</strong>: <code>100%</code> so it fits your container.</li>
+        <li><strong>Height</strong>: <code>960</code> suits most layouts (increase if needed).</li>
+        <li><strong>Styling</strong>: remove radius/shadow if you want it flat.</li>
+      </ul>
     </section>
 
     <section class="section">
-      <h2>Minimal Embed (No Extra Styling)</h2>
-      <p>If you prefer to control all styling yourself:</p>
+      <div class="section-header">
+        <h2>Minimal Embed (No Extra Styling)</h2>
+        <div>
+          <button class="copy-btn" type="button" data-target="minimal-embed-code">
+            Copy code
+          </button>
+          <span class="copy-status" id="minimal-embed-status"></span>
+        </div>
+      </div>
+
+      <p>If you prefer to control all styling yourself, use the minimal version:</p>
 
       <div class="code-block">
-        <code>&lt;iframe
+        <code id="minimal-embed-code">&lt;iframe
   src="https://www.injectbuddy.com/embed/calculator.html"
   width="100%"
   height="900"
@@ -219,21 +295,27 @@
   loading="lazy"&gt;
 &lt;/iframe&gt;</code>
       </div>
+
+      <p class="tagline">
+        Wrap this in your own card, column, or section and apply your own borders, spacing, and shadows.
+      </p>
     </section>
 
-    <!-- HERO MOVED BELOW EMBEDS -->
+    <!-- HERO BELOW EMBEDS -->
     <section class="hero">
       <div class="pill">For clinic sites, blogs & TRT resources</div>
       <h1>Embed the InjectBuddy Calculator</h1>
-      <p>Add InjectBuddy’s TRT dosage calculator to your own website with a simple iframe.</p>
+      <p>
+        Add the InjectBuddy TRT dosage calculator to your own website with a simple iframe. 
+        Your visitors stay on your page while using the calculator, and the tool still links back to InjectBuddy.
+      </p>
 
-      <div class="links-row">
+      <div class="links-row" aria-label="Quick links">
         <a href="/">Home</a>
         <a href="/calculator.html">TRT Calculator</a>
-        <a href="/peptide.html">Peptide Calculator</a>
-        <a href="/free-test.html">Free T Index</a>
-        <a href="/bmi.html">BMI Calculator</a>
-        <a href="/faq.html">FAQ</a>
+        <a href="/peptide.html">Peptide</a>
+        <a href="/free-test.html">Free T</a>
+        <a href="/bmi.html">BMI</a>
         <a href="/about.html">About</a>
         <a href="/privacy.html">Privacy</a>
         <a href="/contact.html">Contact</a>
@@ -243,20 +325,84 @@
     <section class="section">
       <h2>Basic Usage Notes</h2>
       <ul class="list">
-        <li>Runs 100% inside the iframe — no extra scripts required.</li>
-        <li>Updates automatically.</li>
-        <li>Includes a small credit link.</li>
-        <li>Increase height on very narrow mobile layouts.</li>
+        <li>The calculator runs entirely inside the iframe – no extra scripts are required on your side.</li>
+        <li>All updates and improvements happen on InjectBuddy’s side without you needing to change the embed code.</li>
+        <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for full details.</li>
+        <li>If your site uses a very narrow mobile layout, you may want to increase the iframe height to avoid scroll bars.</li>
       </ul>
-    </section>
 
+      <p class="note">
+        If you embed InjectBuddy on a public site, a visible link back (for example under the iframe) is appreciated, 
+        but the embedded version already includes a small credit link by default.
+      </p>
+    </section>
   </main>
 
   <footer class="embed-footer">
     <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
   </footer>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function copyEmbedCode(targetId, statusId){
+      var codeEl = document.getElementById(targetId);
+      var statusEl = document.getElementById(statusId);
+      if(!codeEl) return;
+
+      var text = codeEl.textContent;
+
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){
+          if(statusEl){
+            statusEl.textContent = 'Copied!';
+            setTimeout(function(){ statusEl.textContent = ''; }, 2000);
+          }
+        }).catch(function(){
+          fallbackCopy(text, statusEl);
+        });
+      } else {
+        fallbackCopy(text, statusEl);
+      }
+    }
+
+    function fallbackCopy(text, statusEl){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try{
+        document.execCommand('copy');
+        if(statusEl){
+          statusEl.textContent = 'Copied!';
+          setTimeout(function(){ statusEl.textContent = ''; }, 2000);
+        }
+      } catch(e){
+        if(statusEl){
+          statusEl.textContent = 'Press Ctrl+C';
+          setTimeout(function(){ statusEl.textContent = ''; }, 3000);
+        }
+      }
+      document.body.removeChild(ta);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      var buttons = document.querySelectorAll('.copy-btn');
+      buttons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var target = btn.getAttribute('data-target');
+          var statusId = target === 'standard-embed-code' 
+            ? 'standard-embed-status' 
+            : 'minimal-embed-status';
+          copyEmbedCode(target, statusId);
+        });
+      });
+    });
+  </script>
+
   <script src="/assets/nav.js" defer></script>
 </body>
 </html>
