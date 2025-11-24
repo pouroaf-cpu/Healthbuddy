@@ -46,7 +46,14 @@
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+
+    html,body{
+      margin:0;
+      padding:0;
+      max-width:100%;
+      overflow-x:hidden;
+    }
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:radial-gradient(circle at top,#f9fafb 0,#edf2f7 42%,#e2e8f0 100%);
@@ -59,9 +66,18 @@
       min-height:100vh;
       display:flex;
       flex-direction:column;
+      width:100%;
+      overflow-x:hidden;
+    }
+
+    /* guard against nav overflow */
+    #site-header{
+      max-width:100%;
+      overflow-x:hidden;
     }
 
     main.embed-wrap{
+      width:100%;
       max-width:720px;
       margin:24px auto 32px;
       padding:0 16px;
@@ -130,6 +146,7 @@
       border:1px solid rgba(148,163,184,.5);
       position:relative;
       overflow:hidden;
+      width:100%;
     }
     .terms-card::before{
       content:"";
@@ -259,6 +276,7 @@
       box-shadow:var(--shadow);
       padding:18px 18px 16px;
       border:1px solid var(--muted-border);
+      width:100%;
     }
     .section-header{
       display:flex;
@@ -289,6 +307,7 @@
       overflow-x:auto;
       border:1px solid #111827;
       position:relative;
+      width:100%;
     }
     .code-block code{white-space:pre}
 
@@ -406,6 +425,9 @@
         flex-direction:column;
         align-items:flex-start;
       }
+      .terms-chip{
+        white-space:normal;
+      }
     }
   </style>
 </head>
@@ -433,7 +455,7 @@
         </div>
       </section>
 
-      <!-- TERMS (always shown) -->
+      <!-- TERMS (shown on every load, single option) -->
       <section class="terms-card" id="terms-card">
         <div class="terms-inner">
           <div class="terms-header">
@@ -443,7 +465,7 @@
             </div>
             <div class="terms-chip">
               <span></span>
-              Required before using the embed
+              Read before using the embed code
             </div>
           </div>
 
@@ -474,7 +496,7 @@
         </div>
       </section>
 
-      <!-- EMBED CONTENT (always visible) -->
+      <!-- EMBED CONTENT -->
       <div id="embed-content">
         <section class="section">
           <div class="section-header">
