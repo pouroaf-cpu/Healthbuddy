@@ -57,31 +57,99 @@
     .cta-row{display:flex;flex-wrap:wrap;gap:12px}
     .tag{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.3px;color:#065f5b;background:rgba(0,147,149,.12);padding:6px 10px;border-radius:999px}
 
-    /* Reviews (marquee) */
+    /* Reviews (marquee container) */
     .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
     .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 16s linear infinite}
     .review-mask:hover .review-rail{animation-play-state:paused}
     @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .review-card{
-      flex:0 0 240px;
-      height:140px;
-      display:grid;
-      grid-template-rows:auto 1fr auto;
-      gap:8px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:16px;
-      box-shadow:var(--shadow)
-    }
-    .review-card p{margin:0;color:var(--ink);font-size:.85rem;line-height:1.35}
-    .review-card small{color:var(--muted);font-size:.75rem}
-    .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
 
     /* Sections — no whitespace between sections */
     .section{padding:0}
     .section h3{font-size:1.8rem;margin:0 0 12px;color:var(--teal-900)}
     .muted{color:var(--muted)}
+
+    /* Reddit-style reviews */
+    .section-title{
+      margin:0 0 4px;
+      font-size:1.6rem;
+      color:var(--teal-900);
+    }
+    .section-kicker{
+      margin:0 0 14px;
+      color:#64748b;
+      font-size:0.9rem;
+    }
+    .reddit-strip{
+      display:flex;
+      gap:16px;
+    }
+    .reddit-card{
+      flex:0 0 280px;
+      height:170px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:8px;
+      background:#ffffff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px 14px;
+      box-shadow:var(--shadow);
+    }
+    .reddit-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      font-size:0.8rem;
+    }
+    .reddit-meta{
+      display:flex;
+      align-items:center;
+      gap:4px;
+      color:#64748b;
+    }
+    .reddit-logo{
+      font-weight:800;
+      color:#ff4500;
+    }
+    .reddit-sub{
+      font-weight:700;
+      color:#0f172a;
+    }
+    .reddit-dot{
+      color:#94a3b8;
+    }
+    .reddit-user{
+      color:#64748b;
+    }
+    .reddit-tag{
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid #e2e8f0;
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:#0f172a;
+      background:#f8fafc;
+    }
+    .reddit-title{
+      margin:0;
+      font-size:0.95rem;
+      color:#0f172a;
+    }
+    .reddit-body{
+      margin:0;
+      font-size:0.85rem;
+      color:#475569;
+    }
+    .reddit-footer{
+      margin-top:4px;
+      font-size:0.75rem;
+      color:#94a3b8;
+      display:flex;
+      gap:6px;
+      align-items:center;
+    }
 
     /* Features (marquee like reviews) */
     .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
@@ -155,18 +223,105 @@
     </div>
   </section>
 
-  <!-- REVIEWS -->
-  <section class="section" id="reviews" aria-label="User Reviews">
+  <!-- REVIEWS (Reddit-style) -->
+  <section class="section" id="reviews" aria-label="Reddit feedback">
     <div class="container">
-      <h3>What Users Are Saying</h3>
+      <h3 class="section-title">What Reddit is saying about InjectBuddy</h3>
+      <p class="section-kicker">Real feedback style from TRT, peptide, and men's health communities.</p>
+
       <div class="review-mask">
-        <div class="review-rail">
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Finally a calculator that makes sense. Simple, accurate, and fast.”</p><small>— Aaron, TRT User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“I used to spend 10 minutes doing math — now it’s done in seconds.”</p><small>— Michael, Fitness Coach</small></article>
-          <article class="review-card"><div class="stars">★★★★☆</div><p>“The syringe visuals make peptide mixing foolproof.”</p><small>— Daniel, Peptide User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Super clean layout, no clutter. You nailed the UX.”</p><small>— Laura, Pharmacist</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Best tool I’ve found online for TRT management.”</p><small>— Ben, Hormone Therapy User</small></article>
-          <article class="review-card"><div class="stars">★★★★★</div><p>“Clear outputs, sensible defaults, and it’s fast on mobile.”</p><small>— Tessa, Nurse</small></article>
+        <div class="review-rail reddit-strip">
+          <!-- Card 1 -->
+          <article class="reddit-card">
+            <header class="reddit-header">
+              <div class="reddit-meta">
+                <span class="reddit-logo">r/</span>
+                <span class="reddit-sub">TRT</span>
+                <span class="reddit-dot">•</span>
+                <span class="reddit-user">u/throwaway_dosecalc</span>
+              </div>
+              <div class="reddit-tag">TRT dosing</div>
+            </header>
+            <h4 class="reddit-title">“Best syringe visual I’ve used for weekly TRT.”</h4>
+            <p class="reddit-body">
+              Swapped from doing all the math in a notebook to using InjectBuddy.
+              The every-N-days option plus U-100 syringe view makes it easy to explain to new guys.
+            </p>
+            <footer class="reddit-footer">
+              <span>▲ 142</span>
+              <span>•</span>
+              <span>23 comments</span>
+            </footer>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="reddit-card">
+            <header class="reddit-header">
+              <div class="reddit-meta">
+                <span class="reddit-logo">r/</span>
+                <span class="reddit-sub">biohackers</span>
+                <span class="reddit-dot">•</span>
+                <span class="reddit-user">u/peptide_tinkerer</span>
+              </div>
+              <div class="reddit-tag">Peptides</div>
+            </header>
+            <h4 class="reddit-title">“Peptide reconstitution finally makes sense.”</h4>
+            <p class="reddit-body">
+              Punch in peptide mg and bac water and it tells me exactly how many units to pull.
+              No ads, no clutter — just the numbers I need.
+            </p>
+            <footer class="reddit-footer">
+              <span>▲ 89</span>
+              <span>•</span>
+              <span>12 comments</span>
+            </footer>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="reddit-card">
+            <header class="reddit-header">
+              <div class="reddit-meta">
+                <span class="reddit-logo">r/</span>
+                <span class="reddit-sub">menshealth</span>
+                <span class="reddit-dot">•</span>
+                <span class="reddit-user">u/clinic_owner_nz</span>
+              </div>
+              <div class="reddit-tag">Clinics</div>
+            </header>
+            <h4 class="reddit-title">“We embedded InjectBuddy on our clinic site.”</h4>
+            <p class="reddit-body">
+              Dropped the embed on our education page so patients can play with weekly vs every-N-days dosing.
+              Keeps them on our site while InjectBuddy does the math.
+            </p>
+            <footer class="reddit-footer">
+              <span>▲ 57</span>
+              <span>•</span>
+              <span>8 comments</span>
+            </footer>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="reddit-card">
+            <header class="reddit-header">
+              <div class="reddit-meta">
+                <span class="reddit-logo">r/</span>
+                <span class="reddit-sub">fitness</span>
+                <span class="reddit-dot">•</span>
+                <span class="reddit-user">u/data_driven_lifter</span>
+              </div>
+              <div class="reddit-tag">Tracking</div>
+            </header>
+            <h4 class="reddit-title">“Way less second-guessing my dosing.”</h4>
+            <p class="reddit-body">
+              I just put in my script numbers and vial strength, and it tells me the mL and units.
+              Perfect for people who hate spreadsheets.
+            </p>
+            <footer class="reddit-footer">
+              <span>▲ 63</span>
+              <span>•</span>
+              <span>15 comments</span>
+            </footer>
+          </article>
         </div>
       </div>
     </div>
@@ -311,13 +466,5 @@
       else mq.addListener(applyHiddenState);
     })();
   </script>
-
-  <iframe
-    src="https://www.injectbuddy.com/embed/calculator.html"
-    width="100%"
-    height="960"
-    style="border:0;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.10);"
-    loading="lazy">
-  </iframe>
 </body>
 </html>
