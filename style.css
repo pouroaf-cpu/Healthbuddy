@@ -1543,3 +1543,47 @@ a{color:inherit;text-decoration:none}
 .ib-nav-link.is-active::after {
   width: 100%;
 }
+/* Remove any background or hover highlight */
+.ib-nav-link,
+.ib-nav-item .ib-nav-link,
+.ib-dropdown-toggle {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Reset default hover states that might be inherited */
+.ib-nav-link:hover,
+.ib-dropdown-toggle:hover {
+  background: transparent !important;
+}
+
+/* === Animated underline (grows from left, slower) === */
+.ib-nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.ib-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--cta);
+  border-radius: 2px;
+
+  /* slower and smoother animation */
+  transform-origin: left center;
+  transition: width 0.45s ease;
+}
+
+/* Hover effect: underline only */
+.ib-nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active page underline via nav.js adding is-active */
+.ib-nav-link.is-active::after {
+  width: 100%;
+}
