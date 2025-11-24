@@ -13,14 +13,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>InjectBuddy — TRT Dosage Calculator</title>
-  <meta name="description" content="Embedded version of the InjectBuddy TRT & testosterone dosage calculator. Plan mg/week, injections per week or every N days, and see a visual syringe." />
-  <link rel="canonical" href="https://www.injectbuddy.com/embed/calculator.html" />
+  <title>InjectBuddy — TRT & Peptide Calculators (Embed)</title>
+  <meta name="description" content="Embedded InjectBuddy tools: TRT dosage calculator and peptide dosage & reconstitution calculator, with a tabbed interface." />
+  <link rel="canonical" href="https://www.injectbuddy.com/embed/tools.html" />
 
-  <meta property="og:title" content="InjectBuddy — TRT Dosage Calculator" />
-  <meta property="og:description" content="Embedded TRT dosage calculator showing dose per injection, volume per injection, and a visual syringe fill." />
+  <meta property="og:title" content="InjectBuddy — TRT & Peptide Calculators" />
+  <meta property="og:description" content="Tabbed TRT dosage and peptide reconstitution calculators with visual syringe guidance and clear outputs." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/embed/calculator.html" />
+  <meta property="og:url" content="https://www.injectbuddy.com/embed/tools.html" />
   <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" />
@@ -95,7 +95,8 @@
       margin:0;
     }
     .calc-grid .full > input[type="range"],
-    .calc-grid .full > input[type="datetime-local"]{
+    .calc-grid .full > input[type="datetime-local"],
+    .calc-grid .full > input[type="number"]{
       grid-area:slider;
       margin-top:2px;
       width:100%;
@@ -197,6 +198,19 @@
       height:6px;
       border-radius:999px;
       background:linear-gradient(to right, var(--cta) 0, var(--cta) var(--val,50%), #e2e8f0 var(--val,50%), #e2e8f0 100%);
+    }
+
+    input[type="number"]{
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font:inherit;
+      width:100%;
+    }
+    input[type="number"]:focus{
+      outline:none;
+      box-shadow:0 0 0 1px var(--ring);
+      border-color:var(--cta);
     }
 
     .live-reads{margin-top:0}
@@ -373,6 +387,40 @@
         max-width:100%;
       }
     }
+
+    /* Tabs */
+    .tab-row{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-bottom:16px;
+    }
+    .tab-btn{
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#ffffff;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:600;
+      color:#334155;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:background-color .12s, box-shadow .12s, color .12s, transform .06s;
+    }
+    .tab-btn[aria-pressed="true"]{
+      background:#ecfeff;
+      color:#065f5b;
+      box-shadow:0 0 0 1px var(--ring);
+    }
+    .tab-btn:hover{
+      background:#f0fdff;
+      transform:translateY(-1px);
+    }
+
+    .tab-panel{display:none;}
+    .tab-panel.is-active{display:block;}
   </style>
 
   <script type="text/javascript">
@@ -386,207 +434,322 @@
 <body>
 
 <main class="container">
-  <section id="calculator" class="form-container" aria-labelledby="calc-title">
-    <h1 id="calc-title">TRT Dosage Calculator</h1>
 
-    <div class="calc-wrap">
-      <div class="calc-grid">
+  <!-- Tabs -->
+  <div class="tab-row" role="tablist" aria-label="InjectBuddy tools">
+    <button class="tab-btn" type="button" aria-pressed="true" data-target="tab-trt">
+      TRT dosage
+    </button>
+    <button class="tab-btn" type="button" aria-pressed="false" data-target="tab-peptide">
+      Peptide dosage &amp; reconstitution
+    </button>
+  </div>
 
-        <!-- MODE TOGGLE -->
-        <div class="full full-toggle">
-          <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-mode="perWeek">Weekly plan</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="mlToMg">mL → mg</button>
-          </div>
-        </div>
+  <!-- TRT TAB -->
+  <section id="tab-trt" class="tab-panel is-active">
+    <section id="calculator-trt" class="form-container" aria-labelledby="calc-title-trt">
+      <h1 id="calc-title-trt">TRT Dosage Calculator</h1>
 
-        <!-- SYRINGE SIZES -->
-        <div class="full full-toggle">
-          <div class="seg-toggle syr-grid" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.5">0.5 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-ml="1">1 mL</button>
-            <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
-          </div>
-        </div>
+      <div class="calc-wrap">
+        <div class="calc-grid">
 
-        <!-- Vial strength -->
-        <div class="full" id="conc-wrap">
-          <label for="conc-slider">Vial strength (mg per mL)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-conc">20 mg/mL</div></div>
-          <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
-        </div>
-
-        <!-- Prescribed total per week -->
-        <div class="full" id="weekly-wrap">
-          <label for="weekly-slider">Prescribed total per week (mg/week)</label>
-          <div class="live-reads">
-            <div class="live-chip" id="lr-weekly">20 mg/week</div>
-          </div>
-          <input id="weekly-slider" type="range" min="0" max="100" step="1" value="0" />
-        </div>
-
-        <!-- Injections per week -->
-        <div id="count-wrap" class="full">
-          <label for="count-slider">Injections per week</label>
-          <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
-          <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
-        </div>
-
-        <!-- Every N days -->
-        <div class="full is-hidden" id="everyNdaysWrap">
-          <label for="ndays-slider">Every N days</label>
-          <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
-          <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
-        </div>
-
-        <!-- First injection datetime -->
-        <div class="full is-hidden" id="everyNStartWrap">
-          <label for="ndays-start">First injection date &amp; time</label>
-          <div class="live-reads">
-            <div class="live-chip" id="lr-ndays-start">—</div>
-          </div>
-          <input id="ndays-start" type="datetime-local" />
-        </div>
-
-        <!-- Schedule -->
-        <div class="full is-hidden" id="everyNScheduleWrap">
-          <div class="nd-schedule-wrap">
-            <div class="nd-schedule-header">
-              Injection schedule — next 30 days
-            </div>
-            <div id="ndays-schedule-grid" class="nd-schedule-grid">
-              <p class="nd-empty">
-                Select a start date/time and N-days value to see your schedule.
-              </p>
+          <!-- MODE TOGGLE -->
+          <div class="full full-toggle">
+            <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
+              <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-mode="perWeek">Weekly plan</button>
+              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Every N days</button>
+              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="mlToMg">mL → mg</button>
             </div>
           </div>
+
+          <!-- SYRINGE SIZES -->
+          <div class="full full-toggle">
+            <div class="seg-toggle syr-grid" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
+              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.3">0.3 mL</button>
+              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="0.5">0.5 mL</button>
+              <button type="button" class="seg-btn" role="radio" aria-checked="true"  data-ml="1">1 mL</button>
+              <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
+            </div>
+          </div>
+
+          <!-- Vial strength -->
+          <div class="full" id="conc-wrap">
+            <label for="conc-slider">Vial strength (mg per mL)</label>
+            <div class="live-reads"><div class="live-chip" id="lr-conc">20 mg/mL</div></div>
+            <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
+          </div>
+
+          <!-- Prescribed total per week -->
+          <div class="full" id="weekly-wrap">
+            <label for="weekly-slider">Prescribed total per week (mg/week)</label>
+            <div class="live-reads">
+              <div class="live-chip" id="lr-weekly">20 mg/week</div>
+            </div>
+            <input id="weekly-slider" type="range" min="0" max="100" step="1" value="0" />
+          </div>
+
+          <!-- Injections per week -->
+          <div id="count-wrap" class="full">
+            <label for="count-slider">Injections per week</label>
+            <div class="live-reads"><div class="live-chip" id="lr-count">2 / week</div></div>
+            <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
+          </div>
+
+          <!-- Every N days -->
+          <div class="full is-hidden" id="everyNdaysWrap">
+            <label for="ndays-slider">Every N days</label>
+            <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
+            <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
+          </div>
+
+          <!-- First injection datetime -->
+          <div class="full is-hidden" id="everyNStartWrap">
+            <label for="ndays-start">First injection date &amp; time</label>
+            <div class="live-reads">
+              <div class="live-chip" id="lr-ndays-start">—</div>
+            </div>
+            <input id="ndays-start" type="datetime-local" />
+          </div>
+
+          <!-- Schedule -->
+          <div class="full is-hidden" id="everyNScheduleWrap">
+            <div class="nd-schedule-wrap">
+              <div class="nd-schedule-header">
+                Injection schedule — next 30 days
+              </div>
+              <div id="ndays-schedule-grid" class="nd-schedule-grid">
+                <p class="nd-empty">
+                  Select a start date/time and N-days value to see your schedule.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- mL → mg volume slider -->
+          <div class="full is-hidden" id="mlVolumeWrap">
+            <label for="ml-volume-slider">Volume injected (mL)</label>
+            <div class="live-reads"><div class="live-chip" id="lr-ml-volume">0.90 mL</div></div>
+            <input id="ml-volume-slider" type="range" min="0" max="3" step="0.1" value="0.9" />
+          </div>
+
         </div>
 
-        <!-- mL → mg volume slider -->
-        <div class="full is-hidden" id="mlVolumeWrap">
-          <label for="ml-volume-slider">Volume injected (mL)</label>
-          <div class="live-reads"><div class="live-chip" id="lr-ml-volume">0.90 mL</div></div>
-          <input id="ml-volume-slider" type="range" min="0" max="3" step="0.1" value="0.9" />
-        </div>
+        <aside id="out" class="out">
+          <h3>Dose &amp; Volume per Injection</h3>
 
-      </div>
+          <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
+            <div class="syringe-wrap">
+              <div class="syringe-card" aria-live="polite">
+                <div class="syringe-head">
+                  <div class="syringe-label">Visual Syringe</div>
+                  <div class="syringe-label">
+                    <span id="syrLabelPrefix">Volume:</span>
+                    <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
+                  </div>
+                </div>
 
-      <aside id="out" class="out">
-        <h3>Dose &amp; Volume per Injection</h3>
+                <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
+                  <defs>
+                    <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
+                      <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
+                    </linearGradient>
+                  </defs>
 
-        <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
-          <div class="syringe-wrap">
-            <div class="syringe-card" aria-live="polite">
-              <div class="syringe-head">
-                <div class="syringe-label">Visual Syringe</div>
-                <div class="syringe-label">
-                  <span id="syrLabelPrefix">Volume:</span>
-                  <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
+                  <!-- 0.3 mL -->
+                  <g id="g03ml" class="is-hidden">
+                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                    <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                    <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
+                    <clipPath id="clip03ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
+                    <rect id="fill03ml" x="194" y="92" width="0" height="56" clip-path="url(#clip03ml)" fill="url(#gradOil)"/>
+                    <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                    <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+                    <g id="ticks03" stroke="#1f2937"></g>
+                    <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                  </g>
+
+                  <!-- 0.5 mL -->
+                  <g id="g05ml" class="is-hidden">
+                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                    <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                    <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
+                    <clipPath id="clip05ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
+                    <rect id="fill05ml" x="194" y="92" width="0" height="56" clip-path="url(#clip05ml)" fill="url(#gradOil)"/>
+                    <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                    <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+                    <g id="ticks05" stroke="#1f2937"></g>
+                    <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                  </g>
+
+                  <!-- 1 mL -->
+                  <g id="g1ml">
+                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                    <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                    <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
+                    <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
+                    <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
+                    <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                    <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
+                    <g id="ticks1ml" stroke="#1f2937"></g>
+                    <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                  </g>
+
+                  <!-- 3 mL -->
+                  <g id="g3ml" class="is-hidden">
+                    <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
+                    <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                    <rect x="202" y="98" width="926" height="56" fill="#fff" stroke="#cbd5db"/>
+                    <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56"/></clipPath>
+                    <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#gradOil)"/>
+                    <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
+                    <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
+                    <g id="ticks3ml" stroke="#1f2937"></g>
+                    <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                  </g>
+                </svg>
+
+                <div class="syringe-status">
+                  <div id="warn" class="warn" hidden></div>
+                  <div id="advice" class="advice" hidden></div>
                 </div>
               </div>
-
-              <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
-                <defs>
-                  <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0" stop-color="var(--oil1)"/><stop offset="1" stop-color="var(--oil2)"/>
-                  </linearGradient>
-                </defs>
-
-                <!-- 0.3 mL -->
-                <g id="g03ml" class="is-hidden">
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
-                  <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip03ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <rect id="fill03ml" x="194" y="92" width="0" height="56" clip-path="url(#clip03ml)" fill="url(#gradOil)"/>
-                  <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                  <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <g id="ticks03" stroke="#1f2937"></g>
-                  <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-                </g>
-
-                <!-- 0.5 mL -->
-                <g id="g05ml" class="is-hidden">
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
-                  <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip05ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <rect id="fill05ml" x="194" y="92" width="0" height="56" clip-path="url(#clip05ml)" fill="url(#gradOil)"/>
-                  <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                  <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <g id="ticks05" stroke="#1f2937"></g>
-                  <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-                </g>
-
-                <!-- 1 mL -->
-                <g id="g1ml">
-                  <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                  <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
-                  <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
-                  <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
-                  <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                  <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                  <g id="ticks1ml" stroke="#1f2937"></g>
-                  <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-                </g>
-
-                <!-- 3 mL -->
-                <g id="g3ml" class="is-hidden">
-                  <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
-                  <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
-                  <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                  <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                  <rect x="202" y="98" width="926" height="56" fill="#fff" stroke="#cbd5db"/>
-                  <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56"/></clipPath>
-                  <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#gradOil)"/>
-                  <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
-                  <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
-                  <g id="ticks3ml" stroke="#1f2937"></g>
-                  <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
-                </g>
-              </svg>
-
-              <div class="syringe-status">
-                <div id="warn" class="warn" hidden></div>
-                <div id="advice" class="advice" hidden></div>
-              </div>
             </div>
           </div>
-        </div>
 
-        <p class="warn u100-warning">
-          This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
-          Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
-          treat those units as identical. Always confirm with your prescriber, nurse, or an
-          experienced TRT user.
-        </p>
+          <p class="warn u100-warning">
+            This visual assumes <strong>U-100 insulin syringes (0.01&nbsp;mL per unit)</strong>.
+            Some syringes use <strong>0.02&nbsp;mL per unit</strong> – volumes will be wrong if you
+            treat those units as identical. Always confirm with your prescriber, nurse, or an
+            experienced TRT user.
+          </p>
 
-        <div class="kpi">
-          <div class="card"><span class="muted" id="kpi_label_inj">Injections / week</span><b id="kpi_inj">—</b></div>
-          <div class="card"><span class="muted" id="kpi_label_dose">Dose per injection</span><b id="kpi_dose">—</b></div>
-          <div class="card"><span class="muted" id="kpi_label_ml">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
-        </div>
-      </aside>
-    </div>
+          <div class="kpi">
+            <div class="card"><span class="muted" id="kpi_label_inj">Injections / week</span><b id="kpi_inj">—</b></div>
+            <div class="card"><span class="muted" id="kpi_label_dose">Dose per injection</span><b id="kpi_dose">—</b></div>
+            <div class="card"><span class="muted" id="kpi_label_ml">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
+          </div>
+        </aside>
+      </div>
 
-    <div class="notice">
-      For planning only — not medical advice. Always follow your clinician’s instructions.
-    </div>
+      <div class="notice">
+        For planning only — not medical advice. Always follow your clinician’s instructions.
+      </div>
+    </section>
   </section>
+
+  <!-- PEPTIDE TAB -->
+  <section id="tab-peptide" class="tab-panel">
+    <section id="calculator-peptide" class="form-container" aria-labelledby="calc-title-pep">
+      <h1 id="calc-title-pep">Peptide Dosage &amp; Reconstitution</h1>
+
+      <div class="calc-wrap">
+        <div class="calc-grid">
+
+          <div class="full">
+            <label for="pep-mg">Peptide in vial (mg)</label>
+            <div class="live-reads">
+              <div class="live-chip" id="pep-mg-chip">10 mg</div>
+            </div>
+            <input id="pep-mg" type="number" min="0" step="0.1" value="10" />
+          </div>
+
+          <div class="full">
+            <label for="pep-vol">Bacteriostatic water added (mL)</label>
+            <div class="live-reads">
+              <div class="live-chip" id="pep-vol-chip">2.0 mL</div>
+            </div>
+            <input id="pep-vol" type="number" min="0.1" step="0.1" value="2" />
+          </div>
+
+          <div class="full">
+            <label for="pep-dose-mcg">Target dose per injection (mcg)</label>
+            <div class="live-reads">
+              <div class="live-chip" id="pep-dose-chip">250 mcg</div>
+            </div>
+            <input id="pep-dose-mcg" type="number" min="0" step="10" value="250" />
+          </div>
+
+          <div class="full">
+            <label for="pep-inj-per-day">Injections per day</label>
+            <div class="live-reads">
+              <div class="live-chip" id="pep-inj-chip">1 / day</div>
+            </div>
+            <input id="pep-inj-per-day" type="number" min="1" step="1" value="1" />
+          </div>
+
+        </div>
+
+        <aside class="out">
+          <h3>Dose, Volume &amp; Vial Coverage</h3>
+
+          <div class="kpi">
+            <div class="card">
+              <span class="muted">Vial strength</span>
+              <b id="pep-kpi-strength">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Volume per injection</span>
+              <b id="pep-kpi-vol">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Approx. injections per vial</span>
+              <b id="pep-kpi-inj">—</b>
+            </div>
+          </div>
+
+          <div class="kpi">
+            <div class="card">
+              <span class="muted">Daily total (mcg)</span>
+              <b id="pep-kpi-daily">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Days per vial (approx)</span>
+              <b id="pep-kpi-days">—</b>
+            </div>
+            <div class="card">
+              <span class="muted">Units per injection (U-100)</span>
+              <b id="pep-kpi-units">—</b>
+            </div>
+          </div>
+
+          <p class="notice">
+            Assumes U-100 insulin syringes (100 units per 1&nbsp;mL). Always follow your supplier and prescriber instructions for reconstitution and dosing.
+          </p>
+        </aside>
+      </div>
+    </section>
+  </section>
+
 </main>
 
 <script>
   const $ = id => document.getElementById(id);
 
+  /* -------- Tabs -------- */
+  document.addEventListener('DOMContentLoaded', function(){
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels  = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const target = btn.getAttribute('data-target');
+        tabBtns.forEach(b=>b.setAttribute('aria-pressed', b===btn ? 'true' : 'false'));
+        panels.forEach(p=>p.classList.remove('is-active'));
+        const panel = document.getElementById(target);
+        if(panel) panel.classList.add('is-active');
+      });
+    });
+  });
+
+  /* -------- Shared helpers -------- */
   const WEEKLY_OPTIONS = (function(){
     const arr = [4,5,6,7,8,9,10,12,14,16,18,20];
     for (let v = 25; v <= 500; v += 5) arr.push(v);
@@ -600,6 +763,7 @@
     el.style.setProperty('--val', pct + '%');
   }
 
+  /* -------- TRT syringe + logic (same as previous embed) -------- */
   const Syringe = (function(){
     const elVol   = $('syrVol');
     const elMode  = $('syrMode');
@@ -1013,7 +1177,54 @@
     recompute();
   }
 
+  /* -------- Peptide logic -------- */
+  function computePeptide(){
+    const mgEl   = $('pep-mg');
+    const volEl  = $('pep-vol');
+    const doseEl = $('pep-dose-mcg');
+    const injEl  = $('pep-inj-per-day');
+
+    const mg   = Math.max(0, parseFloat(mgEl?.value)   || 0);
+    const vol  = Math.max(0.0001, parseFloat(volEl?.value)  || 0);
+    const dose = Math.max(0, parseFloat(doseEl?.value) || 0);
+    const injPerDay = Math.max(1, Math.round(parseFloat(injEl?.value) || 1));
+
+    if (mgEl)   $('pep-mg-chip').textContent   = mg.toFixed(1) + ' mg';
+    if (volEl)  $('pep-vol-chip').textContent  = vol.toFixed(1) + ' mL';
+    if (doseEl) $('pep-dose-chip').textContent = dose.toFixed(0) + ' mcg';
+    if (injEl)  $('pep-inj-chip').textContent  = injPerDay + ' / day';
+
+    if (mg <= 0 || vol <= 0 || dose <= 0){
+      $('pep-kpi-strength').textContent = '—';
+      $('pep-kpi-vol').textContent      = '—';
+      $('pep-kpi-inj').textContent      = '—';
+      $('pep-kpi-daily').textContent    = '—';
+      $('pep-kpi-days').textContent     = '—';
+      $('pep-kpi-units').textContent    = '—';
+      return;
+    }
+
+    const mgPerMl   = mg / vol;
+    const mcgPerMl  = mgPerMl * 1000;
+    const volPerInj = dose / mcgPerMl;        // mL
+    const unitsPerInj = volPerInj * 100;      // U-100
+
+    const totalMcg = mg * 1000;
+    const injPerVial = totalMcg / dose;
+    const dailyTotal = dose * injPerDay;
+    const daysPerVial = injPerVial / injPerDay;
+
+    $('pep-kpi-strength').textContent = mgPerMl.toFixed(2) + ' mg/mL (' + mcgPerMl.toFixed(0) + ' mcg/mL)';
+    $('pep-kpi-vol').textContent      = volPerInj > 0 ? volPerInj.toFixed(3) + ' mL' : '—';
+    $('pep-kpi-inj').textContent      = injPerVial.toFixed(1);
+    $('pep-kpi-daily').textContent    = dailyTotal.toFixed(0) + ' mcg';
+    $('pep-kpi-days').textContent     = daysPerVial.toFixed(1) + ' days';
+    $('pep-kpi-units').textContent    = unitsPerInj.toFixed(1) + ' units';
+  }
+
+  /* -------- DOM init -------- */
   document.addEventListener('DOMContentLoaded', function(){
+    /* TRT setup */
     const syrGroup = $('syringeToggle');
     if (syrGroup){
       syrGroup.addEventListener('click', function(e){
@@ -1143,6 +1354,16 @@
     }
 
     recompute();
+
+    /* Peptide setup */
+    ['pep-mg','pep-vol','pep-dose-mcg','pep-inj-per-day'].forEach(id=>{
+      const el = $(id);
+      if (el){
+        el.addEventListener('input', computePeptide);
+        el.addEventListener('change', computePeptide);
+      }
+    });
+    computePeptide();
   });
 </script>
 </body>
