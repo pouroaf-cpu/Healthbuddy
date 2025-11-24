@@ -1,409 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-4EGGZW9P14');
-  </script>
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Embed the InjectBuddy TRT Calculator</title>
-  <meta name="description" content="Add the InjectBuddy TRT dosage calculator to your own website with a simple iframe embed. Keep your visitors on-site while using our tools." />
-  <link rel="canonical" href="https://www.injectbuddy.com/embed.html" />
+  <title>Peptide Reconstitution Calculator</title>
+  <meta name="description" content="Peptide reconstitution and dosage calculator. Enter mg and mL to calculate mg/mL strength, dosing volume, and syringe visuals.">
 
-  <meta property="og:title" content="Embed the InjectBuddy TRT Calculator" />
-  <meta property="og:description" content="Drop-in iframe code to embed the InjectBuddy TRT dosage calculator on your own website." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/embed.html" />
-  <meta property="og:site_name" content="InjectBuddy" />
-
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <meta name="theme-color" content="#009395" />
-
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" href="/assets/favicon.svg" />
 
   <style>
-    :root{
-      --teal-900:#004c4d;
-      --teal-700:#006d6f;
-      --teal-600:#009395;
-      --bg:#f0f4f5;
-      --card:#ffffff;
-      --ink-900:#0f1a1a;
-      --ink-700:#233233;
-      --ink-500:#445b5c;
-      --muted:#dbe5e6;
-      --radius:16px;
-      --shadow:0 4px 24px rgba(0,0,0,.06);
-      --ring:rgba(0,147,149,.35);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--ink-900);
-      line-height:1.6;
-    }
 
-    main.embed-wrap{
-      max-width:960px;
-      margin:20px auto 24px; /* reduced top padding */
-      padding:0 16px;
-    }
+/* ----------------------------------------------------
+   ROOT + GLOBAL
+---------------------------------------------------- */
+:root{
+  --teal:#009395;
+  --teal-900:#004c4d;
+  --ink:#0f172a;
+  --muted:#475569;
+  --bg:#ffffff;
+  --cta:#00b2b5;
+  --cta-hover:#00c7ca;
+  --border:#e2e8f0;
+  --shadow:0 10px 30px rgba(2,6,23,.06);
+  --oil1:#fbbf24;
+  --oil2:#fde68a;
+  --info-bg:#f0f9ff;
+  --info-bd:#bae6fd;
+  --info-ink:#075985;
+}
 
-    .hero{
-      background:#fff;
-      border:1px solid var(--muted);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:24px 22px 20px;
-    }
-    .hero h1{
-      margin:0 0 8px;
-      font-size:clamp(26px,4vw,36px);
-      color:var(--teal-900);
-      text-align:left;
-    }
-    .hero p{
-      margin:4px 0 0;
-      color:var(--ink-700);
-      max-width:60ch;
-    }
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+a{text-decoration:none;color:inherit}
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:600;
-      background:#ecfeff;
-      color:#036972;
-      border:1px solid #bae6fd;
-      margin-bottom:8px;
-    }
+/* ----------------------------------------------------
+   EMBED CHROME BAR
+---------------------------------------------------- */
+.ib-embed-top{
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  padding:6px 10px 0;
+}
+.ib-embed-tabs{
+  display:flex;
+  gap:6px;
+}
+.ib-embed-tab{
+  padding:8px 16px 7px;
+  background:#f1f5f9;
+  border:1px solid var(--border);
+  border-bottom:0;
+  border-radius:10px 10px 0 0;
+  font-size:14px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--ink);
+}
+.ib-embed-tab.active{
+  background:#ffffff;
+  border-bottom:1px solid #ffffff;
+}
+.ib-embed-tab .dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:#9ca3af;
+}
+.ib-embed-tab.active .dot{
+  background:var(--teal);
+}
 
-    .section{
-      margin-top:22px;
-      background:var(--card);
-      border:1px solid var(--muted);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:20px 18px 18px;
-    }
-    .section-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:8px;
-    }
-    .section h2{
-      color:var(--teal-900);
-      margin:0;
-      font-size:20px;
-    }
-    .section p{
-      color:var(--ink-700);
-      margin:6px 0;
-    }
+/* ----------------------------------------------------
+   LAYOUT
+---------------------------------------------------- */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px;
+}
 
-    .code-block{
-      margin-top:10px;
-      background:#0b1120;
-      color:#e5e7eb;
-      border-radius:12px;
-      padding:12px 12px 10px;
-      font-family:ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
-      font-size:13px;
-      overflow-x:auto;
-      border:1px solid #1f2937;
-      position:relative;
-    }
-    .code-block code{white-space:pre}
+.card{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:20px;
+}
 
-    .copy-btn{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--teal-600);
-      background:#ffffff;
-      color:var(--teal-700);
-      font-size:12px;
-      font-weight:600;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      transition:background .12s ease, box-shadow .12s ease, transform .06s ease;
-    }
-    .copy-btn:hover{
-      background:#ecfeff;
-      box-shadow:0 0 0 1px var(--ring);
-    }
-    .copy-btn:active{
-      transform:translateY(1px);
-      box-shadow:none;
-    }
+/* Label + chip layout */
+.full{
+  display:grid;
+  grid-template-columns:1fr auto;
+  grid-template-areas:
+    "label chip"
+    "input input";
+  gap:8px;
+}
+.full > label{
+  grid-area:label;
+  font-weight:700;
+  margin:0;
+}
+.full > .live-reads{
+  grid-area:chip;
+}
+.full > input,
+.full > input[type="range"]{
+  grid-area:input;
+}
 
-    .copy-status{
-      margin-left:8px;
-      font-size:12px;
-      color:var(--ink-500);
-      min-width:60px;
-    }
+/* ----------------------------------------------------
+   INPUTS / SLIDERS
+---------------------------------------------------- */
+input{
+  border:1px solid var(--border);
+  padding:10px 12px;
+  border-radius:12px;
+  font:inherit;
+  background:white;
+}
+input:focus-visible{
+  outline:0;
+  border-color:var(--cta);
+  box-shadow:0 0 0 3px rgba(0,147,149,.3);
+}
 
-    .tagline{
-      font-size:13px;
-      color:#64748b;
-      margin-top:6px;
-    }
+/* Slider */
+input[type="range"]{
+  appearance:none;
+  width:100%;
+  height:8px;
+  background:#e2e8f0;
+  border-radius:999px;
+}
+input[type="range"]::-webkit-slider-runnable-track{
+  height:8px;
+  background:linear-gradient(
+    to right,
+    var(--cta) 0%,
+    var(--cta) var(--val,50%),
+    #e2e8f0 var(--val,50%),
+    #e2e8f0 100%
+  );
+  border-radius:999px;
+}
+input[type="range"]::-webkit-slider-thumb{
+  appearance:none;
+  width:24px;
+  height:24px;
+  background:var(--cta);
+  border-radius:50%;
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  margin-top:-8px;
+}
 
-    .list{
-      padding-left:18px;
-      margin:6px 0 0;
-    }
-    .list li{
-      margin:3px 0;
-      color:var(--ink-700);
-      font-size:14px;
-    }
+/* ----------------------------------------------------
+   TOGGLE BUTTON GROUPS
+---------------------------------------------------- */
+.seg-toggle{
+  display:inline-flex;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.seg-btn{
+  padding:8px 12px;
+  background:white;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+}
+.seg-btn[aria-checked="true"]{
+  background:#ecfeff;
+  color:#065f5b;
+}
 
-    .note{
-      margin-top:10px;
-      font-size:13px;
-      color:var(--ink-500);
-    }
+/* ----------------------------------------------------
+   LIVE CHIP
+---------------------------------------------------- */
+.live-chip{
+  padding:6px 10px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--border);
+  font-weight:700;
+}
 
-    .links-row{
-      margin-top:16px;
-      padding:12px 14px;
-      background:#ffffff;
-      border:1px solid var(--muted);
-      border-radius:var(--radius);
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px 14px;
-    }
-    .links-row a{
-      font-weight:600;
-      color:var(--teal-700);
-      text-decoration:none;
-      font-size:14px;
-    }
-    .links-row a:hover{
-      text-decoration:underline;
-    }
+/* ----------------------------------------------------
+   SYRINGE + VIAL VISUALS
+---------------------------------------------------- */
+.syringe-wrap{
+  margin-top:20px;
+}
+.syringe-card{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  background:white;
+  box-shadow:var(--shadow);
+}
+.syringe-head{
+  font-size:0.9rem;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
 
-    footer.embed-footer{
-      margin:28px 0 18px;
-      text-align:center;
-      color:var(--ink-500);
-      font-size:14px;
-    }
+/* ----------------------------------------------------
+   FAQ (optional)
+---------------------------------------------------- */
+.faq summary{
+  font-weight:700;
+  cursor:pointer;
+}
+.faq .card{
+  margin:10px 0;
+}
 
-    @media (max-width:640px){
-      main.embed-wrap{
-        margin-top:16px;
-        padding:0 14px;
-      }
-      .hero,.section{
-        padding:18px 14px 16px;
-      }
-      .code-block{
-        border-radius:10px;
-      }
-      .section-header{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .copy-status{
-        margin-left:0;
-      }
-    }
+/* Hidden helper */
+.is-hidden{display:none!important;}
+
   </style>
 </head>
 <body>
 
-  <!-- Shared nav -->
-  <div id="site-header"></div>
+<!-- Chrome-style tab (NO NAV) -->
+<div class="ib-embed-top">
+  <div class="ib-embed-tabs">
+    <div class="ib-embed-tab active"><span class="dot"></span> Peptide Calculator</div>
+  </div>
+</div>
 
-  <main class="embed-wrap">
+<main class="container">
 
-    <!-- EMBEDS FIRST -->
-    <section class="section">
-      <div class="section-header">
-        <h2>Standard Embed (Recommended)</h2>
-        <div>
-          <button class="copy-btn" type="button" data-target="standard-embed-code">
-            Copy code
-          </button>
-          <span class="copy-status" id="standard-embed-status"></span>
+  <section class="card">
+    <h2 style="margin-top:0">Peptide Reconstitution Calculator</h2>
+
+    <div class="calc-wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <!-- LEFT SIDE -->
+      <div>
+
+        <!-- MG -->
+        <div class="full">
+          <label>Peptide in vial (mg)</label>
+          <div class="live-reads"><div class="live-chip" id="lr-mg">5 mg</div></div>
+          <input id="pepMg" type="number" step="0.1" value="5">
+        </div>
+
+        <!-- ML -->
+        <div class="full">
+          <label>Bacteriostatic water (mL)</label>
+          <div class="live-reads"><div class="live-chip" id="lr-ml">2 mL</div></div>
+          <input id="bacMl-slider" type="range" min="1" max="30" value="2">
+        </div>
+
+        <!-- Strength -->
+        <div class="full">
+          <label>Vial strength</label>
+          <div class="live-reads"><div class="live-chip" id="lr-strength">—</div></div>
+          <div></div>
+        </div>
+
+        <!-- Weekly MG -->
+        <div class="full">
+          <label>Desired mg per week</label>
+          <div class="live-reads"><div class="live-chip" id="lr-weeklyMg">1 mg/week</div></div>
+          <input id="weeklyMg-input" type="number" step="0.1" value="1">
+        </div>
+
+        <!-- Mode -->
+        <div class="full" style="align-items:center;">
+          <label>Dose Mode</label>
+          <div class="seg-toggle" id="modeToggle">
+            <button type="button" class="seg-btn" role="radio" data-mode="perWeek" aria-checked="true">Per week</button>
+            <button type="button" class="seg-btn" role="radio" data-mode="everyNDays" aria-checked="false">Every N days</button>
+          </div>
+        </div>
+
+        <!-- Per week -->
+        <div class="full" id="perWeek-wrap">
+          <label>Injections per week</label>
+          <div class="live-reads"><div class="live-chip" id="lr-injCount">3 / week</div></div>
+          <input id="injCount-slider" type="range" min="1" max="7" value="3">
+        </div>
+
+        <!-- Every N days -->
+        <div class="full is-hidden" id="everyN-wrap">
+          <label>Every N days</label>
+          <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
+          <input id="ndays-slider" type="range" min="1" max="14" value="3">
+        </div>
+
+        <!-- Syringe -->
+        <div class="full">
+          <label>Syringe Size</label>
+          <div class="seg-toggle" id="syringeToggle">
+            <button class="seg-btn" data-ml="0.3">0.3 mL</button>
+            <button class="seg-btn" data-ml="0.5">0.5 mL</button>
+            <button class="seg-btn" data-ml="1" aria-checked="true">1 mL</button>
+            <button class="seg-btn" data-ml="3">3 mL</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE: Syringe -->
+      <div>
+        <div class="syringe-wrap">
+          <div class="syringe-card">
+            <div class="syringe-head">
+              <div><b id="syrVol">0.00 mL</b></div>
+              <div><b id="syrMode">Insulin — 1 mL</b></div>
+            </div>
+
+            <svg id="syringe-svg" viewBox="0 0 1280 240" style="width:100%;height:auto">
+              <!-- simplified syringe body -->
+              <rect x="200" y="80" width="900" height="60" fill="#fff" stroke="#ccc"/>
+              <clipPath id="clipFill"><rect x="200" y="80" width="900" height="60"/></clipPath>
+              <rect id="fill" x="200" y="80" width="0" height="60" fill="url(#gradOil)" clip-path="url(#clipFill)"/>
+
+              <defs>
+                <linearGradient id="gradOil">
+                  <stop offset="0" stop-color="var(--oil1)"/>
+                  <stop offset="1" stop-color="var(--oil2)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <div id="warn" style="color:#9a3412;margin-top:10px;display:none;font-size:0.85rem"></div>
+          </div>
         </div>
       </div>
 
-      <p>Copy and paste this snippet into any page where you want the calculator to appear:</p>
+    </div>
+  </section>
 
-      <div class="code-block">
-        <code id="standard-embed-code">&lt;iframe
-  src="https://www.injectbuddy.com/embed/calculator.html"
-  width="100%"
-  height="960"
-  style="border:0;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.10);"
-  loading="lazy"&gt;
-&lt;/iframe&gt;</code>
-      </div>
+</main>
 
-      <p class="tagline">
-        This uses the embedded version of the TRT calculator, optimised for iframes. 
-        The footer includes a small credit link back to InjectBuddy.
-      </p>
 
-      <ul class="list">
-        <li><strong>Width</strong>: <code>100%</code> so it fits your container.</li>
-        <li><strong>Height</strong>: <code>960</code> suits most layouts (increase if needed).</li>
-        <li><strong>Styling</strong>: remove radius/shadow if you want it flat.</li>
-      </ul>
-    </section>
+<!-- ----------------------------------------------------
+     JAVASCRIPT (PEPTIDE LOGIC)
+---------------------------------------------------- -->
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Minimal Embed (No Extra Styling)</h2>
-        <div>
-          <button class="copy-btn" type="button" data-target="minimal-embed-code">
-            Copy code
-          </button>
-          <span class="copy-status" id="minimal-embed-status"></span>
-        </div>
-      </div>
+<script>
 
-      <p>If you prefer to control all styling yourself, use the minimal version:</p>
+const $ = id => document.getElementById(id);
 
-      <div class="code-block">
-        <code id="minimal-embed-code">&lt;iframe
-  src="https://www.injectbuddy.com/embed/calculator.html"
-  width="100%"
-  height="900"
-  style="border:0;"
-  loading="lazy"&gt;
-&lt;/iframe&gt;</code>
-      </div>
+function paintRange(el){
+  const min = +el.min, max = +el.max, val = +el.value;
+  const pct = ((val - min) * 100) / (max - min);
+  el.style.setProperty('--val', pct + '%');
+}
 
-      <p class="tagline">
-        Wrap this in your own card, column, or section and apply your own borders, spacing, and shadows.
-      </p>
-    </section>
+/* MODE TOGGLE */
+window.__mode = "perWeek";
 
-    <!-- HERO BELOW EMBEDS -->
-    <section class="hero">
-      <div class="pill">For clinic sites, blogs & TRT resources</div>
-      <h1>Embed the InjectBuddy Calculator</h1>
-      <p>
-        Add the InjectBuddy TRT dosage calculator to your own website with a simple iframe. 
-        Your visitors stay on your page while using the calculator, and the tool still links back to InjectBuddy.
-      </p>
+/* Current syringe size */
+let syringeCapMl = 1;
 
-      <div class="links-row" aria-label="Quick links">
-        <a href="/">Home</a>
-        <a href="/calculator.html">TRT Calculator</a>
-        <a href="/peptide.html">Peptide</a>
-        <a href="/free-test.html">Free T</a>
-        <a href="/bmi.html">BMI</a>
-        <a href="/about.html">About</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/contact.html">Contact</a>
-      </div>
-    </section>
+/* Set syringe capacity */
+function setSyringe(ml){
+  syringeCapMl = +ml;
+  const btns = syringeToggle.querySelectorAll(".seg-btn");
+  btns.forEach(b => b.setAttribute("aria-checked", b.dataset.ml == ml));
+  updateSyringeFill(0);
+  compute();
+}
 
-    <section class="section">
-      <h2>Basic Usage Notes</h2>
-      <ul class="list">
-        <li>The calculator runs entirely inside the iframe – no extra scripts are required on your side.</li>
-        <li>All updates and improvements happen on InjectBuddy’s side without you needing to change the embed code.</li>
-        <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for full details.</li>
-        <li>If your site uses a very narrow mobile layout, you may want to increase the iframe height to avoid scroll bars.</li>
-      </ul>
+/* Update fill width */
+function updateSyringeFill(vol){
+  const maxWidth = 900; /* matches SVG */
+  const px = Math.max(0, Math.min(maxWidth, (vol / syringeCapMl) * maxWidth));
+  $("fill").setAttribute("width", px);
+  $("syrVol").textContent = vol.toFixed(3) + " mL";
+  $("syrMode").textContent = (syringeCapMl===3 ? "3 mL" : `Insulin — ${syringeCapMl} mL`);
+}
 
-      <p class="note">
-        If you embed InjectBuddy on a public site, a visible link back (for example under the iframe) is appreciated, 
-        but the embedded version already includes a small credit link by default.
-      </p>
-    </section>
-  </main>
+/* Main calculation */
+function compute(){
 
-  <footer class="embed-footer">
-    <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
-  </footer>
+  const mg = +$("pepMg").value || 0;
+  const ml = +$("bacMl-slider").value || 0;
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+  $("lr-mg").textContent = mg + " mg";
+  $("lr-ml").textContent = ml + " mL";
+  paintRange($("bacMl-slider"));
 
-    function copyEmbedCode(targetId, statusId){
-      var codeEl = document.getElementById(targetId);
-      var statusEl = document.getElementById(statusId);
-      if(!codeEl) return;
+  if(mg <= 0 || ml <= 0){
+    $("lr-strength").textContent = "—";
+    updateSyringeFill(0);
+    return;
+  }
 
-      var text = codeEl.textContent;
+  const mgPerMl = mg / ml;
+  $("lr-strength").textContent = mgPerMl.toFixed(3) + " mg/mL";
 
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(function(){
-          if(statusEl){
-            statusEl.textContent = 'Copied!';
-            setTimeout(function(){ statusEl.textContent = ''; }, 2000);
-          }
-        }).catch(function(){
-          fallbackCopy(text, statusEl);
-        });
-      } else {
-        fallbackCopy(text, statusEl);
-      }
-    }
+  const weeklyMg = +$("weeklyMg-input").value || 0;
+  $("lr-weeklyMg").textContent = weeklyMg + " mg/week";
 
-    function fallbackCopy(text, statusEl){
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.top = '-9999px';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try{
-        document.execCommand('copy');
-        if(statusEl){
-          statusEl.textContent = 'Copied!';
-          setTimeout(function(){ statusEl.textContent = ''; }, 2000);
-        }
-      } catch(e){
-        if(statusEl){
-          statusEl.textContent = 'Press Ctrl+C';
-          setTimeout(function(){ statusEl.textContent = ''; }, 3000);
-        }
-      }
-      document.body.removeChild(ta);
-    }
+  if(weeklyMg <= 0){
+    updateSyringeFill(0);
+    return;
+  }
 
-    document.addEventListener('DOMContentLoaded', function(){
-      var buttons = document.querySelectorAll('.copy-btn');
-      buttons.forEach(function(btn){
-        btn.addEventListener('click', function(){
-          var target = btn.getAttribute('data-target');
-          var statusId = target === 'standard-embed-code' 
-            ? 'standard-embed-status' 
-            : 'minimal-embed-status';
-          copyEmbedCode(target, statusId);
-        });
-      });
-    });
-  </script>
+  let injPerWeek = 0;
 
-  <script src="/assets/nav.js" defer></script>
+  if(window.__mode === "perWeek"){
+    injPerWeek = +$("injCount-slider").value;
+    $("lr-injCount").textContent = injPerWeek + " / week";
+    paintRange($("injCount-slider"));
+  } else {
+    const N = +$("ndays-slider").value;
+    $("lr-ndays").textContent = N + " days";
+    injPerWeek = 7 / N;
+    paintRange($("ndays-slider"));
+  }
+
+  if(injPerWeek <= 0){
+    updateSyringeFill(0);
+    return;
+  }
+
+  const doseMg = weeklyMg / injPerWeek;
+  const doseMl = doseMg / mgPerMl;
+
+  updateSyringeFill(doseMl);
+
+  if(doseMl > syringeCapMl){
+    $("warn").style.display="block";
+    $("warn").textContent = "Volume exceeds syringe capacity.";
+  } else {
+    $("warn").style.display="none";
+  }
+}
+
+
+/* EVENT BINDINGS */
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  $("modeToggle").addEventListener("click", e=>{
+    const b = e.target.closest(".seg-btn");
+    if(!b) return;
+    window.__mode = b.dataset.mode;
+    $("perWeek-wrap").classList.toggle("is-hidden", window.__mode!=="perWeek");
+    $("everyN-wrap").classList.toggle("is-hidden", window.__mode==="perWeek");
+    compute();
+  });
+
+  $("syringeToggle").addEventListener("click", e=>{
+    const b = e.target.closest(".seg-btn");
+    if(!b) return;
+    setSyringe(+b.dataset.ml);
+  });
+
+  ["pepMg","weeklyMg-input"].forEach(id=>{
+    $(id).addEventListener("input", compute);
+  });
+
+  ["bacMl-slider","injCount-slider","ndays-slider"].forEach(id=>{
+    const el=$(id); paintRange(el);
+    el.addEventListener("input", compute);
+  });
+
+  compute();
+});
+
+</script>
+
 </body>
 </html>
-
