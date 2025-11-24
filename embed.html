@@ -62,8 +62,8 @@
     }
 
     main.embed-wrap{
-      max-width:960px;
-      margin:28px auto 32px;
+      max-width:720px;
+      margin:24px auto 32px;
       padding:0 16px;
     }
 
@@ -113,6 +113,12 @@
       max-width:60ch;
       color:var(--ink-700);
       font-size:.95rem;
+    }
+    .hero-future{
+      margin:6px 0 0;
+      max-width:60ch;
+      color:var(--ink-500);
+      font-size:.82rem;
     }
 
     /* TERMS CARD */
@@ -236,14 +242,6 @@
     .btn-primary:active{
       transform:translateY(0);
       box-shadow:0 6px 16px rgba(22,163,74,.4);
-    }
-    .btn-ghost{
-      background:#f9fafb;
-      color:var(--ink-700);
-      border-color:rgba(148,163,184,.9);
-    }
-    .btn-ghost:hover{
-      background:#e5e7eb;
     }
 
     .terms-hint{
@@ -426,23 +424,26 @@
           <div>
             <h1>Embed the InjectBuddy TRT Calculator</h1>
             <p class="hero-sub">
-              One iframe, always up to date. Before we show the embed code, you need to accept the basic usage terms.
+              One iframe, always up to date. Review the usage terms below, then copy the embed code for your site.
+            </p>
+            <p class="hero-future">
+              More embed options (combined tools, dark mode, peptide embeds) will be added over time.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- TERMS FIRST -->
+      <!-- TERMS (always shown) -->
       <section class="terms-card" id="terms-card">
         <div class="terms-inner">
           <div class="terms-header">
             <div class="terms-title">
-              <span class="terms-badge">Step 1 of 2</span>
+              <span class="terms-badge">Usage terms</span>
               <h2>Embed terms &amp; conditions</h2>
             </div>
             <div class="terms-chip">
               <span></span>
-              Required to access embed code
+              Required before using the embed
             </div>
           </div>
 
@@ -464,20 +465,17 @@
 
           <div class="terms-actions">
             <button type="button" class="btn btn-primary" id="accept-terms">
-              I agree — show embed code
-            </button>
-            <button type="button" class="btn btn-ghost" id="decline-terms">
-              I don’t agree
+              I understand — show me the embed section
             </button>
             <span class="terms-hint">
-              Your choice is remembered on this device so you don’t have to accept every visit.
+              The terms will be shown every time this page is loaded.
             </span>
           </div>
         </div>
       </section>
 
-      <!-- EMBED CONTENT (hidden until terms accepted) -->
-      <div id="embed-content" class="is-hidden">
+      <!-- EMBED CONTENT (always visible) -->
+      <div id="embed-content">
         <section class="section">
           <div class="section-header">
             <div>
@@ -540,6 +538,10 @@
           <p class="tagline">
             No radius, no shadow, no extra styling — wrap it in your own component and style it however you want.
           </p>
+
+          <p class="note">
+            Additional embed options (multi-tool tabs, peptide-only embeds, alternate heights) will be added here in future updates.
+          </p>
         </section>
 
         <section class="section">
@@ -559,7 +561,7 @@
             <a href="/">Home</a>
             <a href="/calculator.html">TRT Calculator</a>
             <a href="/peptide.html">Peptide</a>
-            <a href="/free-test.html">Free T</a>
+            <a href="/free-testosterone-calculator.html">Free T</a>
             <a href="/bmi.html">BMI</a>
             <a href="/about.html">About</a>
             <a href="/privacy.html">Privacy</a>
@@ -579,94 +581,59 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Terms gating
-    (function(){
-      var termsCard = document.getElementById('terms-card');
-      var embedContent = document.getElementById('embed-content');
-      var acceptBtn = document.getElementById('accept-terms');
-      var declineBtn = document.getElementById('decline-terms');
-      var STORAGE_KEY = 'ib_trt_embed_terms_v1';
-
-      function showEmbeds(){
-        if(termsCard) termsCard.classList.add('is-hidden');
-        if(embedContent) embedContent.classList.remove('is-hidden');
-      }
-
-      function keepTerms(){
-        if(termsCard) termsCard.classList.remove('is-hidden');
-        if(embedContent) embedContent.classList.add('is-hidden');
-      }
-
-      // Restore state
-      try{
-        var val = localStorage.getItem(STORAGE_KEY);
-        if(val === 'accepted'){
-          showEmbeds();
-        } else {
-          keepTerms();
-        }
-      }catch(e){
-        keepTerms();
-      }
-
-      if(acceptBtn){
-        acceptBtn.addEventListener('click', function(){
-          try{ localStorage.setItem(STORAGE_KEY, 'accepted'); }catch(e){}
-          showEmbeds();
-        });
-      }
-
-      if(declineBtn){
-        declineBtn.addEventListener('click', function(){
-          try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-          keepTerms();
-        });
-      }
-    })();
-
-    // Copy helpers
-    function copyEmbedCode(targetId, statusId){
-      var codeEl = document.getElementById(targetId);
-      var statusEl = document.getElementById(statusId);
-      if(!codeEl) return;
-
-      var text = codeEl.textContent;
-
-      function done(msg){
-        if(!statusEl) return;
-        statusEl.textContent = msg;
-        setTimeout(function(){ statusEl.textContent = ''; }, 2000);
-      }
-
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text)
-          .then(function(){ done('Copied'); })
-          .catch(function(){
-            fallbackCopy(text, done);
-          });
-      } else {
-        fallbackCopy(text, done);
-      }
-    }
-
-    function fallbackCopy(text, cb){
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.top = '-9999px';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try{
-        document.execCommand('copy');
-        cb && cb('Copied');
-      } catch(e){
-        cb && cb('Press Ctrl+C');
-      }
-      document.body.removeChild(ta);
-    }
-
+    // Scroll to embed section when terms button clicked
     document.addEventListener('DOMContentLoaded', function(){
+      var termsBtn = document.getElementById('accept-terms');
+      var embedSection = document.getElementById('embed-content');
+
+      if(termsBtn && embedSection && embedSection.scrollIntoView){
+        termsBtn.addEventListener('click', function(){
+          embedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      // Copy helpers
+      function copyEmbedCode(targetId, statusId){
+        var codeEl = document.getElementById(targetId);
+        var statusEl = document.getElementById(statusId);
+        if(!codeEl) return;
+
+        var text = codeEl.textContent;
+
+        function done(msg){
+          if(!statusEl) return;
+          statusEl.textContent = msg;
+          setTimeout(function(){ statusEl.textContent = ''; }, 2000);
+        }
+
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text)
+            .then(function(){ done('Copied'); })
+            .catch(function(){
+              fallbackCopy(text, done);
+            });
+        } else {
+          fallbackCopy(text, done);
+        }
+      }
+
+      function fallbackCopy(text, cb){
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try{
+          document.execCommand('copy');
+          cb && cb('Copied');
+        } catch(e){
+          cb && cb('Press Ctrl+C');
+        }
+        document.body.removeChild(ta);
+      }
+
       var buttons = document.querySelectorAll('.copy-btn');
       buttons.forEach(function(btn){
         btn.addEventListener('click', function(){
