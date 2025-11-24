@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4EGGZW9P14');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
   <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,12 +59,23 @@
 
     /* Reviews (marquee) */
     .review-mask{position:relative;overflow:hidden;padding-bottom:6px}
-    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 28s linear infinite}
+    .review-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 16s linear infinite}
     .review-mask:hover .review-rail{animation-play-state:paused}
     @keyframes review-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .review-card{flex:0 0 280px;height:170px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
-    .review-card p{margin:0;color:var(--ink);font-size:.95rem;line-height:1.35}
-    .review-card small{color:var(--muted)}
+    .review-card{
+      flex:0 0 240px;
+      height:140px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:8px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:var(--shadow)
+    }
+    .review-card p{margin:0;color:var(--ink);font-size:.85rem;line-height:1.35}
+    .review-card small{color:var(--muted);font-size:.75rem}
     .stars{font-size:1rem;color:var(--gold);letter-spacing:2px}
 
     /* Sections — no whitespace between sections */
@@ -75,7 +85,7 @@
 
     /* Features (marquee like reviews) */
     .features-mask{position:relative;overflow:hidden;padding-bottom:6px;margin-top:12px}
-    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 32s linear infinite}
+    .features-rail{display:inline-flex;gap:16px;will-change:transform;animation:review-marquee 18s linear infinite}
     .features-mask:hover .features-rail{animation-play-state:paused}
     .feature-card{
       flex:0 0 320px;height:220px;display:grid;grid-template-rows:auto 1fr auto;gap:10px;
@@ -135,13 +145,12 @@
     <div class="container hero-inner">
       <div>
         <span class="tag">Clarity. Safety. Confidence.</span>
-        <h1>Take control of your Testosterone & Peptide dosages &amp; without confusion and for free</h1>
-        <p>InjectBuddy turns complex math into simple actions. Accurate mg→mL, clean syringe visuals, and schedules that make sense.</p>
+        <h1>Take control of your Testosterone and Peptide dosing — without confusion.</h1>
+        <p>InjectBuddy turns dosage calculations into simple, accurate outputs. Clean mg→mL conversions, syringe visuals, and schedules that actually make sense.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+          <a class="btn btn-primary" href="/calculator.html">Testosterone Dosage Calculator</a>
           <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
         </div>
-        <p class="muted" style="margin-top:10px;font-size:.9rem">Free. No login needed.</p>
       </div>
     </div>
   </section>
@@ -302,12 +311,13 @@
       else mq.addListener(applyHiddenState);
     })();
   </script>
+
   <iframe
-  src="https://www.injectbuddy.com/embed/calculator.html"
-  width="100%"
-  height="960"
-  style="border:0;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.10);"
-  loading="lazy">
-</iframe>
+    src="https://www.injectbuddy.com/embed/calculator.html"
+    width="100%"
+    height="960"
+    style="border:0;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.10);"
+    loading="lazy">
+  </iframe>
 </body>
 </html>
