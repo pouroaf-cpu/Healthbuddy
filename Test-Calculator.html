@@ -71,7 +71,7 @@
     .form-container h1{
       margin:0 0 10px;
       text-align:center;
-      font-size:18px; /* much smaller heading */
+      font-size:18px; /* small header */
       font-weight:700;
     }
 
@@ -110,8 +110,7 @@
       grid-area:chip;
       margin:0;
     }
-    .calc-grid .full > input[type="range"],
-    .calc-grid .full > input[type="datetime-local"]{
+    .calc-grid .full > input[type="range"]{
       grid-area:slider;
       margin-top:2px;
       width:100%;
@@ -218,14 +217,16 @@
     .live-reads{margin-top:0}
     .live-chip{
       display:inline-block;
-      padding:6px 10px;
+      padding:3px 6px;
       border:1px solid var(--border);
       border-radius:10px;
       color:#475569;
       background:#fff;
       font-weight:700;
+      font-size:12px;
       text-align:right;
-      min-width:4ch;
+      width:4.5ch;
+      min-width:4.5ch;
     }
     .live-chip:focus{
       outline:none;
@@ -240,12 +241,20 @@
       -moz-appearance:textfield;
     }
 
-    .out h3{margin:0 0 10px}
+    .out{
+      text-align:center;
+    }
+    .out h3{
+      margin:0 0 10px;
+      text-align:center;
+    }
+
     .kpi{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:12px;
       margin:12px 0;
+      text-align:left;
     }
     @media (max-width:640px){
       .kpi{grid-template-columns:1fr;gap:10px}
@@ -273,20 +282,31 @@
       border:1px solid var(--border);
       border-radius:16px;
       box-shadow:var(--shadow);
-      padding:22px 6px 22px;
+      padding:18px 6px 18px;
       overflow:hidden;
     }
     .syringe-head{
       display:flex;
+      flex-direction:column;
       align-items:center;
-      justify-content:space-between;
-      margin-bottom:12px;
-      gap:8px;
-      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom:8px;
+      gap:4px;
+      text-align:center;
+    }
+    .syringe-label{
+      font-size:12px;
+      color:#64748b;
     }
     .syringe-head b#syrVol{
-      font-size:17px;
+      font-size:13px; /* smaller */
+      font-weight:700;
     }
+    #syrMode{
+      font-size:12px;
+      font-weight:600;
+    }
+
     .syringe-svg{
       display:block;
       width:100%;
@@ -313,6 +333,7 @@
       border:1px solid #fed7aa;
       color:#9a3412;
       font-size:12px;
+      text-align:left;
     }
     .advice{
       padding:10px;
@@ -321,11 +342,13 @@
       border:1px solid var(--info-bd);
       color:var(--info-ink);
       font-size:12px;
+      text-align:left;
     }
 
     .u100-warning{
       margin-top:10px;
       font-size:12px;
+      text-align:left;
     }
 
     .is-hidden{display:none !important}
@@ -377,7 +400,7 @@
     <div class="calc-wrap">
       <div class="calc-grid">
 
-        <!-- MODE TOGGLE (reordered + renamed) -->
+        <!-- MODE TOGGLE -->
         <div class="full full-toggle">
           <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Inject X days</button>
@@ -386,7 +409,7 @@
           </div>
         </div>
 
-        <!-- SYRINGE SIZES (3 / 1 / 0.5 / 0.3) -->
+        <!-- SYRINGE SIZES 3 / 1 / 0.5 / 0.3 -->
         <div class="full full-toggle">
           <div class="seg-toggle syr-grid" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
             <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
@@ -400,7 +423,7 @@
         <div class="full" id="conc-wrap">
           <label for="conc-slider">Vial strength (mg per mL)</label>
           <div class="live-reads">
-            <input id="lr-conc" class="live-chip" type="number" inputmode="decimal" aria-label="Vial strength mg/mL" />
+            <input id="lr-conc" class="live-chip" type="number" inputmode="decimal" maxlength="4" aria-label="Vial strength mg/mL" />
           </div>
           <input id="conc-slider" type="range" min="5" max="400" step="5" value="20" />
         </div>
@@ -409,7 +432,7 @@
         <div class="full" id="weekly-wrap">
           <label for="weekly-slider">Prescribed total per week (mg/week)</label>
           <div class="live-reads">
-            <input id="lr-weekly" class="live-chip" type="number" inputmode="decimal" aria-label="Total mg per week" />
+            <input id="lr-weekly" class="live-chip" type="number" inputmode="decimal" maxlength="4" aria-label="Total mg per week" />
           </div>
           <input id="weekly-slider" type="range" min="0" max="100" step="1" value="0" />
         </div>
@@ -418,7 +441,7 @@
         <div id="count-wrap" class="full">
           <label for="count-slider">Injections per week</label>
           <div class="live-reads">
-            <input id="lr-count" class="live-chip" type="number" inputmode="numeric" aria-label="Injections per week" />
+            <input id="lr-count" class="live-chip" type="number" inputmode="numeric" maxlength="4" aria-label="Injections per week" />
           </div>
           <input id="count-slider" type="range" min="1" max="7" step="1" value="2" />
         </div>
@@ -427,7 +450,7 @@
         <div class="full is-hidden" id="everyNdaysWrap">
           <label for="ndays-slider">Every N days</label>
           <div class="live-reads">
-            <input id="lr-ndays" class="live-chip" type="number" inputmode="numeric" aria-label="Every N days" />
+            <input id="lr-ndays" class="live-chip" type="number" inputmode="numeric" maxlength="4" aria-label="Every N days" />
           </div>
           <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
         </div>
@@ -436,7 +459,7 @@
         <div class="full is-hidden" id="mlVolumeWrap">
           <label for="ml-volume-slider">Volume injected (mL)</label>
           <div class="live-reads">
-            <input id="lr-ml-volume" class="live-chip" type="number" inputmode="decimal" step="0.1" aria-label="Volume injected in mL" />
+            <input id="lr-ml-volume" class="live-chip" type="number" inputmode="decimal" step="0.1" maxlength="4" aria-label="Volume injected in mL" />
           </div>
           <input id="ml-volume-slider" type="range" min="0" max="3" step="0.1" value="0.9" />
         </div>
@@ -453,7 +476,7 @@
                 <div class="syringe-label">Visual Syringe</div>
                 <div class="syringe-label">
                   <span id="syrLabelPrefix">Volume:</span>
-                  <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1 mL</b>
+                  <b id="syrVol">0.00 mL</b> • Mode: <b id="syrMode">Insulin (U-100) — 1.0 mL</b>
                 </div>
               </div>
 
@@ -679,7 +702,7 @@
       if (selectedCapacityMl === 3){
         const g = groups[3];
         g.g.classList.remove('is-hidden');
-        if (elMode) elMode.textContent = 'Standard — 3 mL';
+        if (elMode) elMode.textContent = 'Standard — 3.0 mL';
         const w = mlToPx3ml(Math.min(3, v));
         g.fill.setAttribute('width', w);
       } else {
