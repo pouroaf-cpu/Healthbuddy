@@ -421,11 +421,16 @@
 
     .tab-panel{display:none;}
     .tab-panel.is-active{display:block;}
+
+    /* Optional: explicit wrapper for syringe so we don't collide with global .syringe */
+    .ib-syringe-block{
+      margin-bottom:12px;
+    }
   </style>
 
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
@@ -537,7 +542,8 @@
         <aside id="out" class="out">
           <h3>Dose &amp; Volume per Injection</h3>
 
-          <div class="syringe" aria-label="Syringe visual" style="margin-bottom:12px">
+          <!-- CHANGED: wrapper class so it doesn't collide with global .syringe -->
+          <div class="ib-syringe-block" aria-label="Syringe visual">
             <div class="syringe-wrap">
               <div class="syringe-card" aria-live="polite">
                 <div class="syringe-head">
@@ -557,8 +563,8 @@
 
                   <!-- 0.3 mL -->
                   <g id="g03ml" class="is-hidden">
-                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="6"  y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26"  height="56" fill="#d7e3e6"/>
                     <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                     <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
                     <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
@@ -566,14 +572,14 @@
                     <rect id="fill03ml" x="194" y="92" width="0" height="56" clip-path="url(#clip03ml)" fill="url(#gradOil)"/>
                     <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                     <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                    <g id="ticks03" stroke="#1f2937"></g>
-                    <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                    <g id="ticks03"   stroke="#1f2937"></g>
+                    <g id="labels03"  font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
                   <!-- 0.5 mL -->
                   <g id="g05ml" class="is-hidden">
-                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="6"  y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26"  height="56" fill="#d7e3e6"/>
                     <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                     <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
                     <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
@@ -581,38 +587,38 @@
                     <rect id="fill05ml" x="194" y="92" width="0" height="56" clip-path="url(#clip05ml)" fill="url(#gradOil)"/>
                     <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                     <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                    <g id="ticks05" stroke="#1f2937"></g>
-                    <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                    <g id="ticks05"   stroke="#1f2937"></g>
+                    <g id="labels05"  font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
                   <!-- 1 mL -->
                   <g id="g1ml">
-                    <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
-                    <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="6"  y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="168" y="92" width="26"  height="56" fill="#d7e3e6"/>
                     <rect x="1160" y="64" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
-                    <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
+                    <rect x="1084" y="112" width="160" height="16" rx="4" fill="#e2e8f0" stroke="#cbd5db"/>
                     <rect x="194" y="92" width="904" height="56" fill="#fff" stroke="#cbd5db"/>
                     <clipPath id="clip1ml"><rect x="194" y="92" width="904" height="56"/></clipPath>
                     <rect id="fill1ml" x="194" y="92" width="0" height="56" clip-path="url(#clip1ml)" fill="url(#gradOil)"/>
                     <rect x="1098" y="92" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                     <text x="1126" y="120" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1126 120)">UNITS</text>
-                    <g id="ticks1ml" stroke="#1f2937"></g>
-                    <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                    <g id="ticks1ml"   stroke="#1f2937"></g>
+                    <g id="labels1ml"  font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
                   <!-- 3 mL -->
                   <g id="g3ml" class="is-hidden">
-                    <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
-                    <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
+                    <rect x="6"   y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
+                    <rect x="176" y="98" width="26"  height="56" fill="#d7e3e6"/>
                     <rect x="1190" y="70" width="26" height="112" rx="6" fill="#d7e3e6" stroke="#b8c7cb"/>
                     <rect x="1108" y="118" width="160" height="16" rx="4" fill="#e8eef0" stroke="#cbd5db"/>
-                    <rect x="202" y="98" width="926" height="56" fill="#fff" stroke="#cbd5db"/>
+                    <rect x="202"  y="98" width="926" height="56" fill="#fff" stroke="#cbd5db"/>
                     <clipPath id="clip3ml"><rect x="202" y="98" width="926" height="56"/></clipPath>
                     <rect id="fill3ml" x="202" y="98" width="0" height="56" clip-path="url(#clip3ml)" fill="url(#gradOil)"/>
                     <rect x="1128" y="98" width="56" height="56" rx="4" fill="#ffffff" stroke="#cbd5db"/>
                     <text x="1156" y="126" font-family="Inter,system-ui,Arial" font-size="16" font-weight="800" fill="#334155" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 1156 126)">mL</text>
-                    <g id="ticks3ml" stroke="#1f2937"></g>
-                    <g id="labels3ml" font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
+                    <g id="ticks3ml"   stroke="#1f2937"></g>
+                    <g id="labels3ml"  font-family="Inter,system-ui,Arial" font-size="20" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
                 </svg>
 
