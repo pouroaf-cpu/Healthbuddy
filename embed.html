@@ -1,1 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Embed the InjectBuddy TRT Calculator</title>
+  <meta name="description" content="Add the InjectBuddy TRT dosage calculator to your own website with a simple iframe embed. Keep your visitors on-site while using our tools." />
+  <link rel="canonical" href="https://www.injectbuddy.com/embed.html" />
+
+  <meta property="og:title" content="Embed the InjectBuddy TRT Calculator" />
+  <meta property="og:description" content="Drop-in iframe code to embed the InjectBuddy TRT dosage calculator on your own website." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/embed.html" />
+  <meta property="og:site_name" content="InjectBuddy" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#009395" />
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <style>
+    :root{
+      --teal-900:#004c4d;
+      --teal-700:#006d6f;
+      --teal-600:#009395;
+      --bg:#f0f4f5;
+      --card:#ffffff;
+      --ink-900:#0f1a1a;
+      --ink-700:#233233;
+      --ink-500:#445b5c;
+      --muted:#dbe5e6;
+      --radius:16px;
+      --shadow:0 4px 24px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink-900);
+      line-height:1.6;
+    }
+
+    main.embed-wrap{
+      max-width:960px;
+      margin:80px auto 24px;
+      padding:0 16px;
+    }
+
+    .hero{
+      background:#fff;
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px 22px 20px;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(26px,4vw,36px);
+      color:var(--teal-900);
+      text-align:left;
+    }
+    .hero p{
+      margin:4px 0 0;
+      color:var(--ink-700);
+      max-width:60ch;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+      background:#ecfeff;
+      color:#036972;
+      border:1px solid #bae6fd;
+      margin-bottom:8px;
+    }
+
+    .section{
+      margin-top:22px;
+      background:var(--card);
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px 18px 18px;
+    }
+    .section h2{
+      color:var(--teal-900);
+      margin:0 0 8px;
+      font-size:20px;
+    }
+    .section p{
+      color:var(--ink-700);
+      margin:6px 0;
+    }
+
+    .code-block{
+      margin-top:10px;
+      background:#0b1120;
+      color:#e5e7eb;
+      border-radius:12px;
+      padding:12px 12px 10px;
+      font-family:ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      font-size:13px;
+      overflow-x:auto;
+      border:1px solid #1f2937;
+    }
+    .code-block code{white-space:pre}
+
+    .tagline{
+      font-size:13px;
+      color:#64748b;
+      margin-top:6px;
+    }
+
+    .list{
+      padding-left:18px;
+      margin:6px 0 0;
+    }
+    .list li{
+      margin:3px 0;
+      color:var(--ink-700);
+      font-size:14px;
+    }
+
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--ink-500);
+    }
+
+    .links-row{
+      margin-top:16px;
+      padding:12px 14px;
+      background:#ffffff;
+      border:1px solid var(--muted);
+      border-radius:var(--radius);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 14px;
+    }
+    .links-row a{
+      font-weight:600;
+      color:var(--teal-700);
+      text-decoration:none;
+      font-size:14px;
+    }
+    .links-row a:hover{
+      text-decoration:underline;
+    }
+
+    footer.embed-footer{
+      margin:28px 0 18px;
+      text-align:center;
+      color:var(--ink-500);
+      font-size:14px;
+    }
+
+    @media (max-width:640px){
+      main.embed-wrap{
+        margin-top:72px;
+        padding:0 14px;
+      }
+      .hero,.section{
+        padding:18px 14px 16px;
+      }
+      .code-block{
+        border-radius:10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared nav -->
+  <div id="site-header"></div>
+
+  <main class="embed-wrap">
+    <section class="hero">
+      <div class="pill">For clinic sites, blogs & TRT resources</div>
+      <h1>Embed the InjectBuddy Calculator</h1>
+      <p>
+        You can add the InjectBuddy TRT dosage calculator to your own website with a simple iframe. 
+        Your visitors stay on your page while using our calculator, and the tool still links back to InjectBuddy.
+      </p>
+
+      <div class="links-row" aria-label="Quick links">
+        <a href="/">Home</a>
+        <a href="/calculator.html">TRT Calculator</a>
+        <a href="/peptide.html">Peptide Calculator</a>
+        <a href="/free-test.html">Free T Index</a>
+        <a href="/bmi.html">BMI Calculator</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Standard Embed (Recommended)</h2>
+      <p>Copy and paste this snippet into any page where you want the calculator to appear:</p>
+
+      <div class="code-block">
+        <code>&lt;iframe
+  src="https://www.injectbuddy.com/embed/calculator.html"
+  width="100%"
+  height="960"
+  style="border:0;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,.10);"
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code>
+      </div>
+
+      <p class="tagline">
+        This uses the embedded version of the TRT calculator, optimised for iframes. 
+        The footer includes a small credit link back to InjectBuddy.
+      </p>
+
+      <ul class="list">
+        <li><strong>Width</strong>: set to <code>100%</code> so it fits whatever container you use.</li>
+        <li><strong>Height</strong>: <code>960</code> works for most layouts (increase if your page feels cramped).</li>
+        <li><strong>Styling</strong>: you can remove the shadow / radius if you want it to blend into your own design.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Minimal Embed (No Extra Styling)</h2>
+      <p>If you prefer to control all styling yourself, use the minimal version:</p>
+
+      <div class="code-block">
+        <code>&lt;iframe
+  src="https://www.injectbuddy.com/embed/calculator.html"
+  width="100%"
+  height="900"
+  style="border:0;"
+  loading="lazy"&gt;
+&lt;/iframe&gt;</code>
+      </div>
+
+      <p class="tagline">
+        You can wrap this in your own card, column, or section and apply your own borders, spacing, and shadows.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Basic Usage Notes</h2>
+      <ul class="list">
+        <li>The calculator runs entirely inside the iframe – no extra scripts are required on your side.</li>
+        <li>All updates and improvements happen on InjectBuddy’s side without you needing to change the embed code.</li>
+        <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for full details.</li>
+        <li>If your site uses a very narrow mobile layout, you may want to increase the iframe height to avoid scroll bars.</li>
+      </ul>
+
+      <p class="note">
+        If you embed InjectBuddy on a public site, a visible link back (for example under the iframe) is appreciated, 
+        but the embedded version already includes a small credit link by default.
+      </p>
+    </section>
+  </main>
+
+  <footer class="embed-footer">
+    <small>© <span id="y"></span> InjectBuddy. Educational use only — not medical advice.</small>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+  <script src="/assets/nav.js" defer></script>
+</body>
+</html>
 
