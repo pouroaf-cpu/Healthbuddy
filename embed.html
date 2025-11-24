@@ -33,25 +33,23 @@
       --teal-900:#004c4d;
       --teal-700:#006d6f;
       --teal-600:#009395;
-      --bg:#0f172a;
-      --bg-soft:#0b1220;
-      --card:#020617;
-      --card-soft:#020617;
-      --ink-900:#e5f4f5;
-      --ink-700:#9ca3af;
+      --bg:#f3f5f7;
+      --card:#ffffff;
+      --card-soft:#f9fafb;
+      --ink-900:#0f172a;
+      --ink-700:#4b5563;
       --ink-500:#6b7280;
-      --muted-border:#111827;
+      --muted-border:#e2e8f0;
       --radius:18px;
-      --shadow:0 18px 55px rgba(15,23,42,.65);
-      --ring:rgba(0,147,149,.5);
-      --pill-bg:#022c22;
+      --shadow:0 14px 40px rgba(15,23,42,.09);
+      --ring:rgba(0,147,149,.35);
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:radial-gradient(circle at top,#0b1729 0,#020617 45%,#000 100%);
+      background:radial-gradient(circle at top,#f9fafb 0,#edf2f7 42%,#e2e8f0 100%);
       color:var(--ink-900);
       line-height:1.6;
       -webkit-font-smoothing:antialiased;
@@ -69,6 +67,7 @@
       padding:0 16px;
     }
 
+    /* HERO */
     .hero{
       margin-bottom:18px;
       padding:18px 0 4px;
@@ -81,9 +80,9 @@
       border-radius:999px;
       font-size:12px;
       font-weight:600;
-      background:rgba(34,197,187,.08);
-      color:#6ee7b7;
-      border:1px solid rgba(34,197,187,.4);
+      background:#ecfeff;
+      color:#036972;
+      border:1px solid #bae6fd;
       margin-bottom:10px;
     }
     .hero-pill span{
@@ -93,7 +92,7 @@
       width:14px;
       height:14px;
       border-radius:999px;
-      background:rgba(34,197,187,.16);
+      background:#cffafe;
       font-size:10px;
     }
     .hero-title-row{
@@ -107,7 +106,7 @@
       margin:0;
       font-size:clamp(26px,4vw,34px);
       letter-spacing:.01em;
-      color:#e5f4f5;
+      color:var(--teal-900);
     }
     .hero-sub{
       margin:4px 0 0;
@@ -118,11 +117,11 @@
 
     /* TERMS CARD */
     .terms-card{
-      background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(15,118,110,.82));
+      background:linear-gradient(135deg,#ffffff,#f0f9ff);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       padding:22px 20px 18px;
-      border:1px solid rgba(148,163,184,.4);
+      border:1px solid rgba(148,163,184,.5);
       position:relative;
       overflow:hidden;
     }
@@ -130,7 +129,7 @@
       content:"";
       position:absolute;
       inset:-40%;
-      background:radial-gradient(circle at top right,rgba(45,212,191,.14),transparent 55%);
+      background:radial-gradient(circle at top right,rgba(56,189,248,.18),transparent 55%);
       opacity:.85;
       pointer-events:none;
     }
@@ -153,22 +152,22 @@
     .terms-title h2{
       margin:0;
       font-size:1.05rem;
-      color:#ecfeff;
+      color:var(--teal-900);
     }
     .terms-badge{
       font-size:.75rem;
       text-transform:uppercase;
       letter-spacing:.12em;
-      color:#a5f3fc;
-      opacity:.9;
+      color:#0f766e;
+      opacity:.85;
     }
     .terms-chip{
       padding:5px 10px;
       border-radius:999px;
       font-size:.75rem;
-      border:1px solid rgba(15,23,42,.5);
-      background:rgba(15,23,42,.6);
-      color:#e5f4f5;
+      border:1px solid rgba(148,163,184,.7);
+      background:#f1f5f9;
+      color:var(--ink-700);
       display:inline-flex;
       align-items:center;
       gap:6px;
@@ -178,13 +177,13 @@
       width:8px;
       height:8px;
       border-radius:999px;
-      background:rgba(248,250,252,.75);
+      background:#22c55e;
     }
 
     .terms-body{
       margin-top:6px;
       font-size:.86rem;
-      color:#e5e7eb;
+      color:#111827;
     }
     .terms-body p{
       margin:4px 0;
@@ -192,7 +191,7 @@
     .terms-list{
       margin:8px 0 0;
       padding-left:18px;
-      color:#e5e7eb;
+      color:#111827;
     }
     .terms-list li{
       margin:3px 0;
@@ -200,7 +199,7 @@
     .terms-small{
       margin-top:8px;
       font-size:.78rem;
-      color:#d1d5db;
+      color:#4b5563;
       max-width:60ch;
     }
 
@@ -224,45 +223,42 @@
       transition:background .12s ease,box-shadow .12s ease,transform .06s ease,border-color .12s ease,color .12s ease;
     }
     .btn-primary{
-      background:#22c55e;
-      border-color:#16a34a;
-      color:#022c22;
-      box-shadow:0 0 0 1px rgba(15,23,42,.3),0 18px 38px rgba(21,128,61,.45);
+      background:#16a34a;
+      border-color:#15803d;
+      color:#f9fafb;
+      box-shadow:0 10px 22px rgba(22,163,74,.45);
     }
     .btn-primary:hover{
-      background:#4ade80;
+      background:#22c55e;
       transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(15,23,42,.35),0 22px 40px rgba(21,128,61,.55);
+      box-shadow:0 14px 26px rgba(22,163,74,.5);
     }
     .btn-primary:active{
       transform:translateY(0);
-      box-shadow:0 0 0 1px rgba(15,23,42,.35),0 8px 20px rgba(21,128,61,.5);
+      box-shadow:0 6px 16px rgba(22,163,74,.4);
     }
     .btn-ghost{
-      background:rgba(15,23,42,.5);
-      color:#e5e7eb;
-      border-color:rgba(148,163,184,.5);
+      background:#f9fafb;
+      color:var(--ink-700);
+      border-color:rgba(148,163,184,.9);
     }
     .btn-ghost:hover{
-      background:rgba(15,23,42,.8);
+      background:#e5e7eb;
     }
 
     .terms-hint{
       font-size:.8rem;
-      color:#e5e7eb;
-      opacity:.85;
+      color:#4b5563;
     }
 
-    /* EMBED CONTENT (initially hidden) */
     .is-hidden{display:none !important;}
 
+    /* EMBED CONTENT */
     .section{
       margin-top:18px;
-      background:radial-gradient(circle at top left,rgba(56,189,248,.05),transparent 55%),
-                 radial-gradient(circle at bottom right,rgba(45,212,191,.06),transparent 55%),
-                 var(--card-soft);
+      background:var(--card);
       border-radius:var(--radius);
-      box-shadow:0 14px 40px rgba(15,23,42,.9);
+      box-shadow:var(--shadow);
       padding:18px 18px 16px;
       border:1px solid var(--muted-border);
     }
@@ -274,7 +270,7 @@
       margin-bottom:8px;
     }
     .section h2{
-      color:#e5f4f5;
+      color:var(--teal-900);
       margin:0;
       font-size:1rem;
     }
@@ -286,7 +282,7 @@
 
     .code-block{
       margin-top:8px;
-      background:#020617;
+      background:#0b1120;
       color:#e5e7eb;
       border-radius:12px;
       padding:11px 12px 9px;
@@ -302,8 +298,8 @@
       padding:6px 10px;
       border-radius:999px;
       border:1px solid rgba(148,163,184,.9);
-      background:rgba(15,23,42,.9);
-      color:#e5e7eb;
+      background:#f9fafb;
+      color:#0f172a;
       font-size:12px;
       font-weight:600;
       cursor:pointer;
@@ -313,10 +309,10 @@
       transition:background .12s ease, box-shadow .12s ease, transform .06s ease, border-color .12s ease,color .12s ease;
     }
     .copy-btn:hover{
-      background:#020617;
+      background:#e0f2fe;
       box-shadow:0 0 0 1px var(--ring);
-      color:#a5f3fc;
-      border-color:rgba(56,189,248,.8);
+      color:#0369a1;
+      border-color:#38bdf8;
     }
     .copy-btn:active{
       transform:translateY(1px);
@@ -354,8 +350,8 @@
     .links-row{
       margin-top:12px;
       padding:10px 12px;
-      background:rgba(15,23,42,.9);
-      border:1px solid #020617;
+      background:var(--card-soft);
+      border:1px solid #e5e7eb;
       border-radius:12px;
       display:flex;
       flex-wrap:wrap;
@@ -363,7 +359,7 @@
     }
     .links-row a{
       font-weight:500;
-      color:#a5f3fc;
+      color:var(--teal-700);
       text-decoration:none;
       font-size:.8rem;
     }
@@ -379,7 +375,7 @@
       padding:0 16px 10px;
     }
     footer.embed-footer a{
-      color:#a5f3fc;
+      color:var(--teal-700);
       text-decoration:none;
       font-weight:500;
     }
@@ -442,7 +438,7 @@
           <div class="terms-header">
             <div class="terms-title">
               <span class="terms-badge">Step 1 of 2</span>
-              <h2>Embed terms & conditions</h2>
+              <h2>Embed terms &amp; conditions</h2>
             </div>
             <div class="terms-chip">
               <span></span>
@@ -461,8 +457,8 @@
             </ul>
 
             <p class="terms-small">
-              These terms apply in addition to the InjectBuddy <a href="/privacy.html" style="color:#a5f3fc;text-decoration:underline;">Privacy</a> 
-              and <a href="/contact.html" style="color:#a5f3fc;text-decoration:underline;">Contact</a> pages. If you do not agree, do not embed the tool.
+              These terms apply in addition to the InjectBuddy <a href="/privacy.html">Privacy</a> 
+              and <a href="/contact.html">Contact</a> pages. If you do not agree, do not embed the tool.
             </p>
           </div>
 
@@ -551,7 +547,7 @@
           <ul class="list">
             <li>The calculator runs fully inside the iframe — no extra scripts required on your side.</li>
             <li>Updates and improvements happen at <code>injectbuddy.com</code> and roll out automatically to your embed.</li>
-            <li>We do not store or track individual dose inputs. See the <a href="/privacy.html" style="color:#a5f3fc;text-decoration:underline;">privacy policy</a> for more detail.</li>
+            <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for more detail.</li>
             <li>If your layout is very tall or narrow on mobile, increase the iframe height to avoid double-scrolling.</li>
           </ul>
 
