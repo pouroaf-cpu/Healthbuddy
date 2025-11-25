@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
+      <!-- DISCLAIMER ABOVE THE LINE -->
+      <p class="ib-footer-disclaimer">
+        © ${new Date().getFullYear()} InjectBuddy · For planning only — not medical advice.
+      </p>
+
+      <!-- NEW LINE ABOVE BOTTOM FOOTER -->
+      <div class="ib-footer-separator"></div>
+
       <div class="ib-footer-bottom">
         <div class="ib-footer-social">
           <a href="https://www.reddit.com" aria-label="Reddit" class="ib-social-icon">
@@ -58,10 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <svg viewBox="0 0 24 24"><path fill="white" d="M22 5.8c-.8.4-1.7.6-2.6.8a4.4 4.4 0 0 0-7.6 3v.7A12.3 12.3 0 0 1 3 4.9s-4 9 5 13c-2.3 1.5-5.2 1.7-7.7 1.2 4 2.6 14 2.8 18.3-5A9 9 0 0 0 22 5.8z"/></svg>
           </a>
         </div>
-
-        <p class="ib-footer-copy">
-          © ${new Date().getFullYear()} InjectBuddy · For planning only — not medical advice.
-        </p>
       </div>
     </footer>
   `;
