@@ -1,182 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
+
+  <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>CATEGORY_NAME Guides | InjectBuddy</title>
-  <meta name="description" content="Browse CATEGORY_NAME guides from InjectBuddy. Find clear, structured explanations and general information grouped under this topic." />
-  <link rel="canonical" href="https://www.injectbuddy.com/CATEGORY_SLUG/index.html" />
+  <title>Guides & Learning Center | InjectBuddy</title>
+  <meta name="description" content="Browse InjectBuddy guides by category. General information on testosterone, peptides, bloodwork, injection technique, hormone basics, and how to use the tools." />
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/" />
 
-  <meta property="og:title" content="CATEGORY_NAME Guides | InjectBuddy" />
-  <meta property="og:description" content="All CATEGORY_NAME guides in one place. Explore topics and follow links through to related tools and calculators." />
+  <meta property="og:title" content="Guides & Learning Center | InjectBuddy" />
+  <meta property="og:description" content="All InjectBuddy guides in one place, grouped by topic. Explore general information on TRT, peptides, bloodwork, injection technique, and more." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/CATEGORY_SLUG/index.html" />
+  <meta property="og:url" content="https://www.injectbuddy.com/guides/" />
   <meta property="og:site_name" content="InjectBuddy" />
 
-  <link rel="icon" href="/assets/favicon.ico" />
+  <link rel="icon" href="/assets/favicon.svg" />
+
+  <!-- Shared site CSS (root-relative so it works from /guides/) -->
   <link rel="stylesheet" href="/style.css" />
+
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "tlo6h3wt7s");
+  </script>
 </head>
 <body>
-  <!-- Site-wide header / nav -->
-  <div id="ib-header"></div>
+
+  <!-- Shared header injected by /assets/nav.js -->
+  <div id="site-header"></div>
 
   <main>
-    <!-- Breadcrumbs -->
-    <nav aria-label="Breadcrumb">
-      <div class="container">
-        <ol>
-          <li><a href="/">Home</a></li>
-          <li><a href="/guides/index.html">Guides</a></li>
-          <li aria-current="page">CATEGORY_NAME</li>
-        </ol>
-      </div>
-    </nav>
-
-    <!-- Category header -->
-    <section>
+    <!-- PAGE HEADER -->
+    <section class="section">
       <div class="container">
         <header>
-          <h1>CATEGORY_NAME Guides</h1>
-          <p>
-            General information that sits under the CATEGORY_NAME topic. This page lists all guides in this
-            category so you can quickly scan and choose what to read next.
+          <span class="tag">Guides &amp; learning</span>
+          <h1>Guides &amp; Learning Center</h1>
+          <p class="muted">
+            General information grouped by topic. Browse by category or search for a specific guide.
+            These pages are for education only and do not replace personalised advice.
           </p>
         </header>
 
-        <!-- Category-specific search -->
-        <form role="search">
-          <label for="category-search-input">
-            Search within CATEGORY_NAME
+        <!-- Global guides search -->
+        <form role="search" style="margin-top:16px;">
+          <label for="guides-search-input">
+            Search all guides
           </label>
-          <div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;max-width:520px;">
             <input
-              id="category-search-input"
+              id="guides-search-input"
               type="search"
               name="q"
-              placeholder="Search guides in this category"
+              placeholder="e.g. injection technique, peptides, bloodwork"
               autocomplete="off"
+              style="flex:1 1 220px;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);"
             />
-            <button type="submit">Search</button>
+            <button type="submit" class="btn btn-secondary">Search</button>
           </div>
-          <p>
-            This search is limited to CATEGORY_NAME guides.
+          <p class="muted" style="margin-top:6px;">
+            This search is intended to look across all guide categories.
           </p>
         </form>
       </div>
     </section>
 
-    <!-- Featured guides in this category -->
-    <section>
+    <!-- CATEGORY GRID -->
+    <section class="section">
       <div class="container">
-        <h2>Good places to start</h2>
-        <p>
-          Highlight one or two guides here that make sense as starting points for most readers.
-          Replace these placeholders when you add real content.
+        <h2>Browse by category</h2>
+        <p class="muted" style="margin-bottom:16px;">
+          Open a category to see all guides that sit under that topic.
         </p>
 
-        <div>
-          <article>
-            <h3>
-              <a href="/CATEGORY_SLUG/example-guide.html">Example guide title for CATEGORY_NAME</a>
-            </h3>
-            <p>
-              Short summary for this guide. Use this area to explain what readers can expect to learn.
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+          <!-- Testosterone -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Testosterone</h3>
+            <p class="muted">
+              General information on testosterone protocols, dose planning, frequency options, and related topics.
             </p>
-            <p>
-              <small>Last updated: 2025-01-01 • Beginner</small>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/Testosterone/index.html">View testosterone guides</a>
+            </p>
+          </article>
+
+          <!-- Peptides -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Peptides</h3>
+            <p class="muted">
+              General information on peptide basics, reconstitution, storage, injection schedules, and handling.
+            </p>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/Peptides/index.html">View peptide guides</a>
+            </p>
+          </article>
+
+          <!-- Bloodwork -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Bloodwork &amp; Monitoring</h3>
+            <p class="muted">
+              General information on hormone-related blood tests, key markers, and tracking changes over time.
+            </p>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/Bloodwork/index.html">View bloodwork guides</a>
+            </p>
+          </article>
+
+          <!-- Injection technique & safety -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Injection Technique &amp; Safety</h3>
+            <p class="muted">
+              General information on injection technique, site rotation, sterile handling, and safety concepts.
+            </p>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/InjectionTechniqueSafety/index.html">
+                View injection technique &amp; safety guides
+              </a>
+            </p>
+          </article>
+
+          <!-- Hormones & health basics -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Hormones &amp; Health Basics</h3>
+            <p class="muted">
+              General information on hormone concepts, symptoms, body composition, and related fundamentals.
+            </p>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/HormonesHealthBasics/index.html">
+                View hormone &amp; health basics guides
+              </a>
+            </p>
+          </article>
+
+          <!-- Tools & calculators -->
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
+            <h3>Tools &amp; calculator guides</h3>
+            <p class="muted">
+              General information on how to use the calculators and tools on this site.
+            </p>
+            <p style="margin-top:8px;">
+              <a class="btn btn-secondary" href="/Tools/index.html">View tools &amp; calculator guides</a>
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- All guides in this category -->
-    <section>
+    <!-- OPTIONAL FEATURED GUIDES -->
+    <section class="section">
       <div class="container">
-        <h2>All CATEGORY_NAME guides</h2>
-        <p>
-          As you add more guides, list them here with clear titles and short summaries.
-          Keep the structure consistent across all categories.
+        <h2>Featured guides</h2>
+        <p class="muted" style="margin-bottom:16px;">
+          You can update this section to highlight guides that are commonly used as starting points.
         </p>
 
-        <div>
-          <!-- Repeat this block per guide in this category -->
-          <article>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
             <h3>
-              <a href="/CATEGORY_SLUG/example-guide.html">Placeholder guide title</a>
+              <a href="/Testosterone/example-guide.html">Example testosterone guide title</a>
             </h3>
-            <p>
-              One or two lines describing what this specific guide covers. Replace these placeholders once you have real content.
+            <p class="muted">
+              Short summary line for this guide. Replace with a real description when you create the guide.
             </p>
             <p>
-              <small>Last updated: 2025-01-01 • Tag one, Tag two</small>
+              <small>Category: Testosterone • Last updated: 2025-01-01</small>
             </p>
           </article>
 
-          <article>
+          <article style="border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:var(--shadow);">
             <h3>
-              <a href="/CATEGORY_SLUG/second-example.html">Second placeholder guide</a>
+              <a href="/Peptides/example-guide.html">Example peptide guide title</a>
             </h3>
-            <p>
-              Another short description line. Repeat this pattern for each guide inside the CATEGORY_NAME folder.
+            <p class="muted">
+              Short summary line for a peptide-related guide. Replace or remove these placeholders as needed.
             </p>
             <p>
-              <small>Last updated: 2025-01-01 • Intermediate</small>
+              <small>Category: Peptides • Last updated: 2025-01-01</small>
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Related categories -->
-    <section>
+    <!-- DISCLAIMER -->
+    <section class="section" aria-label="Guides disclaimer">
       <div class="container">
-        <h2>Related categories</h2>
-        <p>
-          Link to other categories so people can move sideways into related topics.
-        </p>
-
-        <p>
-          <!-- Adjust these per category -->
-          <a href="/Testosterone/index.html">Testosterone</a> ·
-          <a href="/Peptides/index.html">Peptides</a> ·
-          <a href="/Bloodwork/index.html">Bloodwork &amp; Monitoring</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Tools / calculators callout -->
-    <section>
-      <div class="container">
-        <h2>Tools &amp; calculators</h2>
-        <p>
-          Many guides link through to calculators. You can also go directly to the tools from here.
-        </p>
-
-        <ul>
-          <li><a href="/calculator.html">Testosterone dosage calculator</a></li>
-          <li><a href="/peptide.html">Peptide dosage &amp; reconstitution calculator</a></li>
-          <li><a href="/bmi.html">BMI calculator</a></li>
-          <li><a href="/free-test.html">Free testosterone calculator</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Generic disclaimer -->
-    <section>
-      <div class="container">
-        <p>
-          <small>
-            The information in these guides is general in nature and does not replace personalised advice.
-            Always consider local regulations and work with qualified professionals for individual decisions.
-          </small>
-        </p>
+        <div style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow);">
+          <strong>General information only</strong>
+          <p class="muted" style="margin:8px 0 0;">
+            These guides are for general educational purposes only and are not personalised advice. Always follow
+            local regulations and work with a qualified professional for individual decisions.
+          </p>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Site-wide footer -->
+  <!-- Global footer mount -->
   <div id="ib-footer"></div>
+
+  <!-- Shared nav JS -->
+  <script src="/assets/nav.js" defer></script>
+  <!-- Global footer script -->
+  <script src="/Assets/footer.js" defer></script>
+
+  <!-- Scroll to Top Button -->
+  <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
+
+  <script>
+    // Scroll to top button behaviour
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("ib-scroll-top");
+
+      function toggleButton() {
+        if (window.innerWidth <= 980) {
+          if (window.scrollY > 180) {
+            btn.classList.add("visible");
+          } else {
+            btn.classList.remove("visible");
+          }
+        } else {
+          btn.classList.remove("visible");
+        }
+      }
+
+      window.addEventListener("scroll", toggleButton, { passive: true });
+      window.addEventListener("resize", toggleButton);
+
+      btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      toggleButton();
+    });
+  </script>
 </body>
 </html>
