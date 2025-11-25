@@ -1829,3 +1829,40 @@ a{color:inherit;text-decoration:none}
     font-size:12px;
   }
 }
+#ib-scroll-top {
+  position: fixed;
+  bottom: 84px;                 /* sits above your sticky CTA bar */
+  right: 18px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--cta, #00b2b5);
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.20);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 9999;                 /* always on top */
+}
+
+/* Show when active */
+#ib-scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile only */
+@media (min-width: 981px) {
+  #ib-scroll-top {
+    display: none !important;
+  }
+}
