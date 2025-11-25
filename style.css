@@ -1927,3 +1927,60 @@ input[type="range"]::-moz-range-thumb:before {
   top:-14px;
   left:-14px;
 }
+/* Animated slider feedback */
+
+/* Base: keep your existing sizing, this just adds animation + fill support */
+input[type="range"] {
+  --ib-range-fill: 50%; /* default fill if JS hasn't run yet */
+}
+
+/* Track with animated fill */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--cta) 0,
+    var(--cta) var(--ib-range-fill, 50%),
+    var(--border) var(--ib-range-fill, 50%),
+    var(--border) 100%
+  );
+  transition: background 0.15s ease-out;
+}
+
+input[type="range"]::-moz-range-track {
+  background: linear-gradient(
+    to right,
+    var(--cta) 0,
+    var(--cta) var(--ib-range-fill, 50%),
+    var(--border) var(--ib-range-fill, 50%),
+    var(--border) 100%
+  );
+  transition: background 0.15s ease-out;
+}
+
+/* Thumb: add smooth transform / glow transitions */
+input[type="range"]::-webkit-slider-thumb {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    background 0.12s ease-out;
+}
+
+input[type="range"]::-moz-range-thumb {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    background 0.12s ease-out;
+}
+
+/* Active / dragging state */
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+  background: var(--cta-hover);
+  box-shadow: 0 0 0 8px rgba(0, 178, 181, 0.45);
+}
+
+input[type="range"]:active::-moz-range-thumb {
+  transform: scale(1.1);
+  background: var(--cta-hover);
+  box-shadow: 0 0 0 8px rgba(0, 178, 181, 0.45);
+}
