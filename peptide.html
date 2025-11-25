@@ -1196,5 +1196,35 @@
       computePeptide();
     });
   </script>
+  <!-- Scroll to Top Button -->
+<button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("ib-scroll-top");
+
+    function toggleButton() {
+      if (window.innerWidth <= 980) {   // mobile only
+        if (window.scrollY > 180) {
+          btn.classList.add("visible");
+        } else {
+          btn.classList.remove("visible");
+        }
+      } else {
+        btn.classList.remove("visible");
+      }
+    }
+
+    window.addEventListener("scroll", toggleButton, { passive: true });
+    window.addEventListener("resize", toggleButton);
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    toggleButton();
+  });
+</script>
+
 </body>
 </html>
