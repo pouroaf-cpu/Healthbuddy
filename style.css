@@ -541,11 +541,13 @@ input[type="range"]::-moz-range-thumb{
   border:1px solid #d6ecec;
 }
 .hero h1{
-  font-size:clamp(30px,4.6vw,44px);
-  line-height:1.15;
-  margin:0 0 10px;
-  letter-spacing:-.3px;
+  font-size:1.9rem;     /* reduced from 2.4rem */
+  line-height:1.22;
+  margin:8px 0 14px;
+  font-weight:800;
+  color:var(--teal-900);
 }
+
 .hero-sub{
   color:var(--ink-700);
   max-width:720px;
