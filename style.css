@@ -2014,3 +2014,7 @@ input[type="range"]:active::-moz-range-thumb {
   background: rgba(255,255,255,0.18);
   margin: 24px 0 12px 0;
 }
+.ib-footer-heading {
+  color: #ffffff;
+  font-weight: 600;
+}
