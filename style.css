@@ -541,7 +541,7 @@ input[type="range"]::-moz-range-thumb{
   border:1px solid #d6ecec;
 }
 .hero h1{
-  font-size:1.9rem;     /* reduced from 2.4rem */
+  font-size:1.7rem;     /* reduced from 2.4rem */
   line-height:1.22;
   margin:8px 0 14px;
   font-weight:800;
