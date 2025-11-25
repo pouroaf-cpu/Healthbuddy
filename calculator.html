@@ -1166,6 +1166,29 @@
 </script>
 <div id="ib-footer"></div>
 <script src="/assets/footer.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const ranges = document.querySelectorAll('input[type="range"]');
+
+  ranges.forEach(range => {
+    const updateFill = () => {
+      const min = range.min ? parseFloat(range.min) : 0;
+      const max = range.max ? parseFloat(range.max) : 100;
+      const val = parseFloat(range.value);
+      if (max <= min) return;
+      const pct = ((val - min) / (max - min)) * 100;
+      range.style.setProperty('--ib-range-fill', pct + '%');
+    };
+
+    ['input', 'change'].forEach(evt =>
+      range.addEventListener(evt, updateFill)
+    );
+
+    // Initialise on load
+    updateFill();
+  });
+});
+</script>
 
 </body>
 </html>
