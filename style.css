@@ -2018,3 +2018,122 @@ input[type="range"]:active::-moz-range-thumb {
   color: #ffffff;
   font-weight: 600;
 }
+/* Guides layout */
+.ib-guides-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:32px;
+  padding-top:24px;
+  padding-bottom:32px;
+}
+
+/* Left nav column */
+.ib-guides-nav{
+  flex:0 0 260px;
+  max-width:260px;
+  padding-right:24px;
+  border-right:1px solid var(--border);
+  position:sticky;
+  top:80px; /* adjust if header height differs */
+}
+
+.ib-guides-nav-header{
+  margin-bottom:12px;
+}
+
+.ib-guides-nav-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+
+.ib-guides-nav-title{
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+/* Linktree-style list */
+.ib-guides-linktree{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:8px;
+}
+
+.ib-guides-link{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#ffffff;
+  text-decoration:none;
+  cursor:pointer;
+  transition:
+    background-color .12s ease,
+    border-color .12s ease,
+    box-shadow .12s ease,
+    transform .08s ease;
+}
+
+.ib-guides-link-title{
+  font-size:14px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.ib-guides-link-meta{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.ib-guides-link:hover{
+  background:#f0fdff;
+  border-color:var(--cta);
+  box-shadow:0 8px 18px rgba(0,0,0,.04);
+  transform:translateY(-1px);
+}
+
+.ib-guides-link.is-active{
+  border-color:var(--cta);
+  background:#ecfeff;
+  box-shadow:0 0 0 1px var(--ring);
+}
+
+/* Right content column */
+.ib-guides-content{
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.ib-guides-article-header h1{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+.ib-guides-article-subtitle{
+  margin:0 0 18px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* Mobile: stack, remove vertical line */
+@media (max-width:900px){
+  .ib-guides-layout{
+    flex-direction:column;
+    gap:20px;
+  }
+  .ib-guides-nav{
+    position:static;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    padding-right:0;
+    padding-bottom:16px;
+    max-width:100%;
+  }
+}
