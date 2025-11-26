@@ -215,19 +215,19 @@
     }
 
     .live-reads{margin-top:0}
-.live-chip{
-  display:inline-block;
-  padding:3px 6px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  color:#475569;
-  background:#fff;
-  font-weight:700;
-  font-size:12px;
-  text-align:right;
-  width:10ch;      /* ~3x wider */
-  min-width:10ch;  /* enforce width on mobile */
-}
+    .live-chip{
+      display:inline-block;
+      padding:3px 6px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      color:#475569;
+      background:#fff;
+      font-weight:700;
+      font-size:12px;
+      text-align:right;
+      width:10ch;
+      min-width:10ch;
+    }
 
     .live-chip:focus{
       outline:none;
@@ -300,7 +300,7 @@
       color:#64748b;
     }
     .syringe-head b#syrVol{
-      font-size:13px; /* smaller */
+      font-size:13px;
       font-weight:700;
     }
     #syrMode{
@@ -379,6 +379,71 @@
       .calc-grid{
         max-width:100%;
       }
+    }
+
+    /* FAQ block */
+    .ib-faq{
+      margin-top:32px;
+      padding-top:24px;
+      border-top:1px solid var(--border);
+    }
+    .ib-faq-heading{
+      font-size:18px;
+      font-weight:700;
+      margin:0 0 12px;
+      text-align:left;
+    }
+    .ib-faq-intro{
+      margin:0 0 16px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .ib-faq-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .ib-faq-item{
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:#ffffff;
+      overflow:hidden;
+    }
+    .ib-faq-question{
+      width:100%;
+      text-align:left;
+      padding:10px 14px;
+      background:#ffffff;
+      border:0;
+      font-size:14px;
+      font-weight:600;
+      color:#0f172a;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+    }
+    .ib-faq-question:focus-visible{
+      outline:2px solid var(--ring);
+      outline-offset:2px;
+    }
+    .ib-faq-icon{
+      margin-left:8px;
+      font-size:16px;
+      line-height:1;
+      transition:transform .15s ease;
+    }
+    .ib-faq-item.open .ib-faq-icon{
+      transform:rotate(90deg);
+    }
+    .ib-faq-answer{
+      padding:0 14px 10px;
+      font-size:13px;
+      color:#475569;
+      border-top:1px solid var(--border);
+    }
+    .ib-faq-answer[hidden]{
+      display:none;
     }
   </style>
 
@@ -574,6 +639,92 @@
 
     <div class="notice" style="margin-top:8px;color:#64748b">
       This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
+    </div>
+  </section>
+
+  <!-- FAQ block (collapsible, above footer) -->
+  <section class="ib-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="ib-faq-heading">Testosterone dosage calculator FAQ</h2>
+    <p class="ib-faq-intro">
+      A few common questions about how this calculator works and how to use the numbers safely.
+    </p>
+
+    <div class="ib-faq-list">
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>Does this replace advice from my doctor?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          This calculator is for planning and education only. It helps you translate a prescribed milligram
+          dose into mL and visualise how it sits in a syringe. Your actual dose, schedule, and syringe
+          choice should always follow your prescriber’s instructions, not this tool.
+        </div>
+      </div>
+
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>What does “mg per mL” (vial strength) mean?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          Vial strength is how concentrated the testosterone is in the vial. For example, a 200&nbsp;mg/mL
+          vial contains 200&nbsp;mg of testosterone in every 1&nbsp;mL of oil. If the vial is 250&nbsp;mg/mL,
+          the same mL volume will contain more testosterone.
+        </div>
+      </div>
+
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>How should I choose injections per week vs every N days?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          Some clinicians prescribe a fixed number of injections per week (for example twice weekly),
+          while others prefer “every X days” (for example every 3.5&nbsp;days). The per-week mode is
+          best if your script is written as “X injections each week”. The every-N-days mode is helpful
+          if you cycle injections around a regular pattern like every 3 or 4 days.
+        </div>
+      </div>
+
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>Why does syringe size matter?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          Different syringe sizes change how “spread out” the markings are. A smaller syringe (for example
+          0.3&nbsp;mL or 0.5&nbsp;mL) gives finer control over small volumes. A larger syringe (1–3&nbsp;mL)
+          can hold more oil but is less granular at the low end. The calculator flags when your volume
+          exceeds the selected syringe capacity and suggests when a smaller syringe could give better control.
+        </div>
+      </div>
+
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>Why is there a warning about insulin units?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          Not all “insulin” syringes are the same. U-100 syringes are 0.01&nbsp;mL per unit, but some
+          syringes and regions use different unit scales. If you assume all units are identical when they
+          are not, your actual volume (and therefore dose) will be off. Always confirm the unit-to-mL
+          conversion for your specific syringe.
+        </div>
+      </div>
+
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>Is this calculator only for testosterone cypionate?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          The math here is purely mg ↔ mL based on vial strength, so it works the same for testosterone
+          cypionate, enanthate, or other oil-based depot preparations, as long as you enter the correct
+          mg/mL value from your vial. Pharmacology, half-life, and clinical decisions still sit with your
+          prescriber.
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -1135,6 +1286,7 @@
     recompute();
   });
 </script>
+
   <!-- Scroll to Top Button -->
 <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
 
@@ -1164,8 +1316,10 @@
     toggleButton();
   });
 </script>
+
 <div id="ib-footer"></div>
 <script src="/assets/footer.js" defer></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const ranges = document.querySelectorAll('input[type="range"]');
@@ -1186,6 +1340,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialise on load
     updateFill();
+  });
+
+  // FAQ accordion
+  const faqItems = document.querySelectorAll('.ib-faq-item');
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.ib-faq-question');
+    const answer = item.querySelector('.ib-faq-answer');
+    if (!btn || !answer) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // close all
+      faqItems.forEach(other => {
+        const ob = other.querySelector('.ib-faq-question');
+        const oa = other.querySelector('.ib-faq-answer');
+        if (!ob || !oa) return;
+        other.classList.remove('open');
+        ob.setAttribute('aria-expanded', 'false');
+        oa.hidden = true;
+      });
+      // toggle current
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.hidden = false;
+      }
+    });
   });
 });
 </script>
