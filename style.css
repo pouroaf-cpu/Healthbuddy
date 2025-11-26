@@ -2789,3 +2789,42 @@ input[type="range"]:active::-moz-range-thumb {
   text-align: center;
   color: #0f172a; /* adjust if needed */
 }
+/* HERO SECTION */
+.hero {
+  position: relative;
+  width: 100%;
+  padding: 80px 20px;
+  overflow: hidden;
+  text-align: center;
+  z-index: 1;
+}
+
+/* BACKGROUND NEEDLE IMAGE */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/needle1400.webp") center bottom/contain no-repeat;
+  opacity: 0.28;              /* adjust 0.15–0.35 for clarity */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* RESPONSIVE BACKGROUND SWITCHES */
+@media (max-width: 1200px) {
+  .hero::before {
+    background-image: url("/assets/needle1000.webp");
+  }
+}
+
+@media (max-width: 768px) {
+  .hero::before {
+    background-image: url("/assets/needle600.webp");
+  }
+}
+
+/* ENSURE ALL HERO CONTENT SITS ABOVE IMAGE */
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
