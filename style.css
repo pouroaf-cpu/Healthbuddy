@@ -2740,55 +2740,7 @@ input[type="range"]:active::-moz-range-thumb {
     transition:none;
   }
 }
-/* HEADER BASE */
-.ib-header {
-  position: relative;
-  width: 100%;
-  min-height: 280px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
 
-/* BACKGROUND IMAGE LAYER */
-.ib-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("/assets/needle1400.webp") center bottom/cover no-repeat;
-  opacity: 0.25;    /* controls darkness – adjust 0.1 to 0.35 */
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* MOBILE BACKGROUNDS */
-@media (max-width: 1200px) {
-  .ib-header::before {
-    background-image: url("/assets/needle1000.webp");
-  }
-}
-
-@media (max-width: 768px) {
-  .ib-header::before {
-    background-image: url("/assets/needle600.webp");
-  }
-}
-
-/* KEEP TASK ELEMENTS ABOVE IMAGE */
-.ib-header > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* OPTIONAL: TEXT SETTINGS IN HEADER */
-.ib-header h1,
-.ib-header h2,
-.ib-header p {
-  margin: 0;
-  text-align: center;
-  color: #0f172a; /* adjust if needed */
-}
 /* HERO SECTION */
 .hero {
   position: relative;
