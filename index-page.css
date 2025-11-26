@@ -68,3 +68,13 @@
   min-width: 230px;
   text-align: center;
 }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("needle1400.webp") bottom center / contain no-repeat;
+  background-size: 60%;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
