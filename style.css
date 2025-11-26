@@ -2276,3 +2276,146 @@ input[type="range"]:active::-moz-range-thumb {
     max-width:100%;
   }
 }
+/* Sidebar wrapper + vertical divider */
+.ib-guides-nav{
+  flex:0 0 280px;
+  max-width:280px;
+  padding-right:24px;
+  border-right:1px solid var(--border);
+  position:sticky;
+  top:80px;
+}
+
+.ib-guides-nav-header{
+  margin-bottom:12px;
+}
+
+.ib-guides-nav-heading{
+  margin:0 0 4px;
+  font-size:14px;
+  font-weight:700;
+}
+
+.ib-guides-nav-subtitle{
+  margin:0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.ib-guides-accordion{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* Category container */
+.ib-guides-cat{
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#ffffff;
+  overflow:hidden;
+}
+
+/* HARD RESET guide buttons so global .btn styles don't mess them up */
+.ib-guides-cat-toggle{
+  all:unset;                /* wipe inherited button styles */
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+  box-sizing:border-box;
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+/* main row: icon + text */
+.ib-guides-cat-main{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ib-guides-cat-img{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  flex-shrink:0;
+  object-fit:cover;
+  background:#e2e8f0; /* fallback if SVG has no fill */
+}
+
+.ib-guides-cat-text{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.ib-guides-cat-label{
+  font-size:12px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.ib-guides-cat-current{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* arrow on the right */
+.ib-guides-cat-arrow{
+  font-size:14px;
+  line-height:1;
+  color:var(--muted);
+  margin-top:2px;
+  transition:transform .15s ease;
+}
+
+.ib-guides-cat.is-open .ib-guides-cat-arrow{
+  transform:rotate(90deg);
+}
+
+/* Panel with links under category */
+.ib-guides-cat-panel{
+  border-top:1px solid var(--border);
+  padding:6px 10px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.ib-guides-cat-panel[hidden]{
+  display:none;
+}
+
+.ib-guides-cat-link{
+  display:block;
+  padding:4px 6px;
+  border-radius:8px;
+  font-size:13px;
+  color:var(--muted);
+  text-decoration:none;
+}
+
+.ib-guides-cat-link:hover{
+  background:#f1f5f9;
+  color:var(--ink);
+}
+
+.ib-guides-cat-link.is-active{
+  background:#ecfeff;
+  color:var(--ink);
+  font-weight:600;
+}
+
+/* Mobile: stack and drop right border */
+@media (max-width:900px){
+  .ib-guides-nav{
+    position:static;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    padding-right:0;
+    padding-bottom:16px;
+    max-width:100%;
+  }
+}
