@@ -2422,3 +2422,321 @@ input[type="range"]:active::-moz-range-thumb {
 .small-text {
   font-size: 14px;
 }
+/* ---------- Layout / helpers ---------- */
+
+.section{
+  padding:24px 0;
+}
+
+.small-text{
+  font-size:14px;
+}
+
+/* ---------- Hero ---------- */
+
+.hero{
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(0,147,149,.15), transparent 60%),
+    radial-gradient(900px 450px at -10% 10%, rgba(34,211,238,.12), transparent 60%);
+}
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:36px;
+  padding:9px 0;
+}
+
+.hero h1{
+  font-size:2.4rem;
+  line-height:1.15;
+  margin:8px 0 16px;
+  font-weight:900;
+  color:var(--teal-900);
+}
+
+.hero p{
+  font-size:1.1rem;
+  color:var(--muted);
+  margin:0 0 24px;
+}
+
+.tag{
+  display:inline-block;
+  font-size:.8rem;
+  font-weight:800;
+  letter-spacing:.3px;
+  color:#065f5b;
+  background:rgba(0,147,149,.12);
+  padding:6px 10px;
+  border-radius:999px;
+}
+
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+/* ---------- Reviews marquee ---------- */
+
+.review-mask{
+  position:relative;
+  overflow:hidden;
+  padding-bottom:6px;
+}
+
+.review-rail{
+  display:inline-flex;
+  gap:16px;
+  will-change:transform;
+  animation:review-marquee 16s linear infinite;
+}
+
+.review-mask:hover .review-rail{
+  animation-play-state:paused;
+}
+
+@keyframes review-marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+.review-card{
+  flex:0 0 260px;
+  height:150px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+
+.review-card p{
+  margin:0;
+  color:var(--ink);
+  font-size:.85rem;
+  line-height:1.35;
+}
+
+.review-card small{
+  color:var(--muted);
+  font-size:.75rem;
+}
+
+.review-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.review-avatar{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+}
+
+/* ---------- Why InjectBuddy section ---------- */
+
+.ib-why-section{
+  max-width:100%;
+  margin:0 auto;
+  line-height:1.55;
+}
+
+.ib-why-section h2{
+  margin-top:0;
+  color:var(--teal-900);
+}
+
+.why-img{
+  width:120px;
+  float:left;
+  margin:0 14px 10px 0;
+  border-radius:10px;
+}
+
+/* ---------- Features marquee ---------- */
+
+.features-mask{
+  position:relative;
+  overflow:hidden;
+  padding-bottom:6px;
+  margin-top:12px;
+}
+
+.features-rail{
+  display:inline-flex;
+  gap:16px;
+  will-change:transform;
+  animation:review-marquee 18s linear infinite;
+}
+
+.features-mask:hover .features-rail{
+  animation-play-state:paused;
+}
+
+.feature-card{
+  flex:0 0 320px;
+  height:220px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.feature-card h4{
+  margin:0 0 4px;
+  font-size:1.05rem;
+  color:var(--teal-900);
+}
+
+.feature-card p{
+  margin:0;
+  color:var(--muted);
+}
+
+.btn-feature{
+  min-height:44px;
+}
+
+.badge{
+  display:inline-block;
+  margin-left:8px;
+  font-size:.75rem;
+  font-weight:800;
+  color:#6b7280;
+  background:#f1f5f9;
+  border:1px solid #e5e7eb;
+  padding:3px 8px;
+  border-radius:999px;
+}
+
+.is-disabled{
+  pointer-events:none;
+  opacity:.6;
+  border-color:#cbd5e1;
+  color:#64748b;
+  background:#fff;
+}
+
+/* ---------- Cards / disclaimer ---------- */
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+
+.card-disclaimer{
+  padding:18px;
+}
+
+/* ---------- Sticky bottom CTA ---------- */
+
+.cta-bar{
+  position:sticky;
+  bottom:0;
+  z-index:40;
+  background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.86) 18%, #fff 100%);
+  border-top:1px solid var(--border);
+  transition:transform .18s ease, opacity .18s ease;
+  will-change:transform,opacity;
+}
+
+.cta-bar--hidden{
+  transform:translateY(110%);
+  opacity:0;
+  pointer-events:none;
+}
+
+.cta-bar .container{
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+}
+
+.cta-bar-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0;
+}
+
+.cta-bar-title{
+  color:var(--teal-900);
+  margin:0;
+}
+
+.cta-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* Scroll-to-top visible state */
+#ib-scroll-top.visible{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:980px){
+  .hero-inner{
+    grid-template-columns:1fr;
+  }
+  .hero .container{
+    padding-left:24px;
+    padding-right:24px;
+  }
+  .cta-row{
+    justify-content:center;
+  }
+  .cta-row .btn{
+    width:100%;
+    max-width:520px;
+  }
+
+  .cta-bar-inner{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:10px;
+  }
+  .cta-actions{
+    flex-direction:column;
+    width:100%;
+    max-width:520px;
+  }
+  .cta-actions .btn{
+    width:100%;
+  }
+}
+
+@media (max-width:600px){
+  .why-img{
+    float:none;
+    display:block;
+    margin:0 auto 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .review-rail,
+  .features-rail{
+    animation:none;
+  }
+  .cta-bar{
+    transition:none;
+  }
+}
