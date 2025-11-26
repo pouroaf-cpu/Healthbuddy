@@ -7,7 +7,7 @@
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
-</script>
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
   <script>
@@ -1156,6 +1156,82 @@
       }catch(e){}
     }
 
+    // NEW: editable chips that snap sliders (BaW mL, injections/week, every N days)
+    function makeChipEditable(chipId, sliderId) {
+      const chip   = $(chipId);
+      const slider = $(sliderId);
+      if (!chip || !slider) return;
+
+      chip.style.cursor = 'pointer';
+
+      chip.addEventListener('click', () => {
+        if (chip.dataset.editing === 'true') return;
+        chip.dataset.editing = 'true';
+
+        const currentVal = Number(slider.value);
+        const input = document.createElement('input');
+        input.type = 'number';
+
+        if (slider.min !== '') input.min  = slider.min;
+        if (slider.max !== '') input.max  = slider.max;
+        if (slider.step && slider.step !== 'any') input.step = slider.step;
+
+        input.value = isFinite(currentVal) ? currentVal : (slider.min || '');
+        input.style.width = '4em';
+        input.style.border = 'none';
+        input.style.outline = 'none';
+        input.style.background = 'transparent';
+        input.style.textAlign = 'center';
+        input.style.font = 'inherit';
+
+        chip.textContent = '';
+        chip.appendChild(input);
+        input.focus();
+        input.select();
+
+        const finish = (commit) => {
+          chip.dataset.editing = 'false';
+
+          if (!commit) {
+            computePeptide();
+            return;
+          }
+
+          let val = Number(input.value);
+          if (!isFinite(val)) {
+            computePeptide();
+            return;
+          }
+
+          const min = slider.min !== '' ? Number(slider.min) : null;
+          const max = slider.max !== '' ? Number(slider.max) : null;
+          if (min !== null && val < min) val = min;
+          if (max !== null && val > max) val = max;
+
+          const step = (slider.step && slider.step !== 'any') ? Number(slider.step) : null;
+          if (step) {
+            const base = min || 0;
+            val = base + Math.round((val - base) / step) * step;
+          }
+
+          slider.value = val;
+          paintRange(slider);
+          computePeptide();
+        };
+
+        input.addEventListener('blur', () => finish(true));
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            finish(true);
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            finish(false);
+          }
+        });
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', ()=>{
       try{
         const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v6') || '{}');
@@ -1193,38 +1269,44 @@
 
       initSyringeToggle();
 
+      // Wire editable chips -> sliders
+      makeChipEditable('lr-ml',       'bacMl-slider');   // BaW mL
+      makeChipEditable('lr-injCount', 'injCount-slider'); // injections/week
+      makeChipEditable('lr-ndays',    'ndays-slider');    // every N days
+
       computePeptide();
     });
   </script>
+
   <!-- Scroll to Top Button -->
-<button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
+  <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("ib-scroll-top");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("ib-scroll-top");
 
-    function toggleButton() {
-      if (window.innerWidth <= 980) {   // mobile only
-        if (window.scrollY > 180) {
-          btn.classList.add("visible");
+      function toggleButton() {
+        if (window.innerWidth <= 980) {   // mobile only
+          if (window.scrollY > 180) {
+            btn.classList.add("visible");
+          } else {
+            btn.classList.remove("visible");
+          }
         } else {
           btn.classList.remove("visible");
         }
-      } else {
-        btn.classList.remove("visible");
       }
-    }
 
-    window.addEventListener("scroll", toggleButton, { passive: true });
-    window.addEventListener("resize", toggleButton);
+      window.addEventListener("scroll", toggleButton, { passive: true });
+      window.addEventListener("resize", toggleButton);
 
-    btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      toggleButton();
     });
-
-    toggleButton();
-  });
-</script>
+  </script>
 
 </body>
 </html>
