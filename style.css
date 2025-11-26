@@ -2780,3 +2780,8 @@ input[type="range"]:active::-moz-range-thumb {
   position: relative;
   z-index: 1;
 }
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
