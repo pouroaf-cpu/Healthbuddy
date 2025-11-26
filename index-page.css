@@ -1,0 +1,70 @@
+/* HERO – layout + background image */
+.hero {
+  position: relative;
+  padding: 64px 16px 72px;
+  overflow: hidden;
+}
+
+/* Needles image behind the hero (files are in root) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("needle1400.webp") bottom center / contain no-repeat;
+  opacity: 0.35; /* adjust 0.2–0.4 once you see it */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Smaller variants for narrower screens */
+@media (max-width: 1200px) {
+  .hero::before {
+    background-image: url("needle1000.webp");
+  }
+}
+
+@media (max-width: 768px) {
+  .hero::before {
+    background-image: url("needle600.webp");
+  }
+}
+
+/* Keep hero content above the background */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-copy {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-copy .tag {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.hero-copy h1 {
+  margin: 0 0 16px;
+}
+
+.hero-copy p {
+  margin: 0 auto 24px;
+}
+
+/* Centre the two calculator buttons */
+.hero .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hero .cta-row .btn {
+  min-width: 230px;
+  text-align: center;
+}
