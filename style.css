@@ -2137,3 +2137,142 @@ input[type="range"]:active::-moz-range-thumb {
     max-width:100%;
   }
 }
+/* Layout (re-use if you already have something similar) */
+.ib-guides-layout{
+  display:flex;
+  align-items:flex-start;
+  gap:32px;
+  padding-top:24px;
+  padding-bottom:32px;
+}
+
+/* Left nav column with vertical divider */
+.ib-guides-nav{
+  flex:0 0 280px;
+  max-width:280px;
+  padding-right:24px;
+  border-right:1px solid var(--border);
+  position:sticky;
+  top:80px; /* adjust if header height differs */
+}
+
+/* Accordion container */
+.ib-guides-accordion{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* Category block (text inside a single container) */
+.ib-guides-cat{
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#ffffff;
+  overflow:hidden;
+}
+
+/* Top row: "Bloodwork -> Bloodwork basics for TRT" */
+.ib-guides-cat-toggle{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  padding:10px 12px;
+  background:#ffffff;
+  border:0;
+  cursor:pointer;
+  text-align:left;
+}
+
+.ib-guides-cat-main{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.ib-guides-cat-label{
+  font-size:12px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.ib-guides-cat-current{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.ib-guides-cat-icon{
+  font-size:14px;
+  line-height:1;
+  color:var(--muted);
+  margin-top:2px;
+  transition:transform .15s ease;
+}
+
+/* Rotate arrow when open */
+.ib-guides-cat.is-open .ib-guides-cat-icon{
+  transform:rotate(90deg);
+}
+
+/* Panel with links */
+.ib-guides-cat-panel{
+  border-top:1px solid var(--border);
+  padding:6px 10px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.ib-guides-cat-link{
+  display:block;
+  padding:4px 6px;
+  border-radius:8px;
+  font-size:13px;
+  color:var(--muted);
+  text-decoration:none;
+}
+
+.ib-guides-cat-link:hover{
+  background:#f1f5f9;
+  color:var(--ink);
+}
+
+.ib-guides-cat-link.is-active{
+  background:#ecfeff;
+  color:var(--ink);
+  font-weight:600;
+}
+
+/* Right content column */
+.ib-guides-content{
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.ib-guides-article-header h1{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+.ib-guides-article-subtitle{
+  margin:0 0 18px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* Mobile: stack, drop vertical line */
+@media (max-width:900px){
+  .ib-guides-layout{
+    flex-direction:column;
+    gap:20px;
+  }
+  .ib-guides-nav{
+    position:static;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    padding-right:0;
+    padding-bottom:16px;
+    max-width:100%;
+  }
+}
