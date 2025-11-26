@@ -2756,7 +2756,7 @@ input[type="range"]:active::-moz-range-thumb {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/assets/needle1400.webp") center bottom/contain no-repeat;
+  background: url("needle1400.webp") center bottom/contain no-repeat;
   opacity: 0.28;              /* adjust 0.15–0.35 for clarity */
   z-index: 0;
   pointer-events: none;
@@ -2765,13 +2765,13 @@ input[type="range"]:active::-moz-range-thumb {
 /* RESPONSIVE BACKGROUND SWITCHES */
 @media (max-width: 1200px) {
   .hero::before {
-    background-image: url("/assets/needle1000.webp");
+    background-image: url("/needle1000.webp");
   }
 }
 
 @media (max-width: 768px) {
   .hero::before {
-    background-image: url("/assets/needle600.webp");
+    background-image: url("/needle600.webp");
   }
 }
 
