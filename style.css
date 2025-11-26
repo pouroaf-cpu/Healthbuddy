@@ -2419,3 +2419,6 @@ input[type="range"]:active::-moz-range-thumb {
     max-width:100%;
   }
 }
+.small-text {
+  font-size: 14px;
+}
