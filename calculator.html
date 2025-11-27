@@ -271,6 +271,45 @@
     }
     .card .muted{color:#64748b}
 
+    /* KPI collapsible block */
+    .kpi-block{
+      margin:12px 0;
+      text-align:left;
+    }
+    .kpi-toggle{
+      width:100%;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#f8fafc;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:13px;
+      font-weight:600;
+      color:#0f172a;
+      cursor:pointer;
+    }
+    .kpi-toggle:focus-visible{
+      outline:2px solid var(--ring);
+      outline-offset:2px;
+    }
+    .kpi-toggle-icon{
+      margin-left:8px;
+      font-size:14px;
+      line-height:1;
+      transition:transform .15s ease;
+    }
+    .kpi-toggle.open .kpi-toggle-icon{
+      transform:rotate(90deg);
+    }
+    .kpi-panel{
+      margin-top:8px;
+    }
+    .kpi-panel[hidden]{
+      display:none;
+    }
+
     .syringe-wrap{
       display:flex;
       align-items:center;
@@ -629,10 +668,28 @@
           experienced TRT user.
         </p>
 
-        <div class="kpi">
-          <div class="card"><span class="muted" id="kpi_label_inj">Injections / week</span><b id="kpi_inj">—</b></div>
-          <div class="card"><span class="muted" id="kpi_label_dose">Dose per injection</span><b id="kpi_dose">—</b></div>
-          <div class="card"><span class="muted" id="kpi_label_ml">Volume per injection (mL)</span><b id="kpi_ml">—</b></div>
+        <!-- KPI COLLAPSIBLE -->
+        <div class="kpi-block">
+          <button class="kpi-toggle open" type="button" aria-expanded="true">
+            <span>Dose breakdown (KPIs)</span>
+            <span class="kpi-toggle-icon">›</span>
+          </button>
+          <div class="kpi-panel">
+            <div class="kpi">
+              <div class="card">
+                <span class="muted" id="kpi_label_inj">Injections / week</span>
+                <b id="kpi_inj">—</b>
+              </div>
+              <div class="card">
+                <span class="muted" id="kpi_label_dose">Dose per injection</span>
+                <b id="kpi_dose">—</b>
+              </div>
+              <div class="card">
+                <span class="muted" id="kpi_label_ml">Volume per injection (mL)</span>
+                <b id="kpi_ml">—</b>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </div>
@@ -650,6 +707,20 @@
     </p>
 
     <div class="ib-faq-list">
+      <!-- MOVED: Cypionate question FIRST -->
+      <div class="ib-faq-item">
+        <button class="ib-faq-question" type="button" aria-expanded="false">
+          <span>Is this calculator only for testosterone cypionate?</span>
+          <span class="ib-faq-icon">›</span>
+        </button>
+        <div class="ib-faq-answer" hidden>
+          The math here is purely mg ↔ mL based on vial strength, so it works the same for testosterone
+          cypionate, enanthate, or other oil-based depot preparations, as long as you enter the correct
+          mg/mL value from your vial. Pharmacology, half-life, and clinical decisions still sit with your
+          prescriber.
+        </div>
+      </div>
+
       <div class="ib-faq-item">
         <button class="ib-faq-question" type="button" aria-expanded="false">
           <span>Does this replace advice from my doctor?</span>
@@ -710,19 +781,6 @@
           syringes and regions use different unit scales. If you assume all units are identical when they
           are not, your actual volume (and therefore dose) will be off. Always confirm the unit-to-mL
           conversion for your specific syringe.
-        </div>
-      </div>
-
-      <div class="ib-faq-item">
-        <button class="ib-faq-question" type="button" aria-expanded="false">
-          <span>Is this calculator only for testosterone cypionate?</span>
-          <span class="ib-faq-icon">›</span>
-        </button>
-        <div class="ib-faq-answer" hidden>
-          The math here is purely mg ↔ mL based on vial strength, so it works the same for testosterone
-          cypionate, enanthate, or other oil-based depot preparations, as long as you enter the correct
-          mg/mL value from your vial. Pharmacology, half-life, and clinical decisions still sit with your
-          prescriber.
         </div>
       </div>
     </div>
@@ -1368,6 +1426,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // KPI collapsible
+  const kpiToggle = document.querySelector('.kpi-toggle');
+  const kpiPanel = document.querySelector('.kpi-panel');
+  if (kpiToggle && kpiPanel) {
+    kpiToggle.addEventListener('click', () => {
+      const isOpen = kpiToggle.getAttribute('aria-expanded') === 'true';
+      kpiToggle.setAttribute('aria-expanded', String(!isOpen));
+      kpiToggle.classList.toggle('open', !isOpen);
+      kpiPanel.hidden = isOpen;
+    });
+  }
 });
 </script>
 
