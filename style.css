@@ -2970,7 +2970,7 @@ input[type="range"]:active::-moz-range-thumb {
   gap: 8px;
   width: 52px; /* barely wider than the icons */
   padding: 8px 4px;
-  background: #032d35; /* dark teal */
+  background: #0b6470; /* dark teal */
   border-radius: 0 16px 16px 0;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
   z-index: 30;
