@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const shell = document.getElementById('ib-guides-shell');
-  if (!shell) return; // only runs on guides pages
+  if (!shell) return; // only on guides pages
 
   try {
     const res = await fetch('/assets/guides-nav.html');
@@ -45,7 +45,7 @@ function initInjectBuddyGuidesNav(root) {
     panel.dataset.state = 'open';
   }
 
-  // Initial state -> first button’s category
+  // Initial state: first button
   if (iconButtons.length && groups.length) {
     const initialCategory = iconButtons[0].dataset.category;
     setActiveCategory(initialCategory);
@@ -65,12 +65,12 @@ function initInjectBuddyGuidesNav(root) {
         return;
       }
 
-      // Otherwise open and switch category
+      // Otherwise open/switch
       setActiveCategory(category);
     });
   });
 
-  // Clicking outside rail/panel closes panel
+  // Click outside -> close panel
   document.addEventListener('click', (e) => {
     if (!panel.contains(e.target) && !rail.contains(e.target)) {
       panel.dataset.state = 'closed';
