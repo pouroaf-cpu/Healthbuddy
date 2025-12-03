@@ -3549,3 +3549,46 @@ input[type="range"]:active::-moz-range-thumb {
 .ib-guides-panel-group a:hover {
   background: rgba(255, 255, 255, 0.08);
 }
+@media (max-width: 900px) {
+  .ib-guides-layout {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* Keep nav fixed left, slightly lower to match mobile header */
+  .ib-guides-nav-wrap {
+    top: 80px;                      /* adjust to your mobile header height */
+  }
+
+  .ib-guides-rail {
+    width: 48px;
+    padding: 6px 4px;
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ib-guides-icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .ib-guides-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Panel overlays body on the right of the rail */
+  .ib-guides-panel {
+    top: 80px;
+    left: 48px;                     /* rail width */
+    width: 260px;
+    max-width: calc(100vw - 48px);
+    height: calc(100vh - 90px);
+    max-height: none;
+  }
+
+  /* Content still sits to the right of nav, with some breathing room */
+  .ib-guides-content {
+    margin-left: 64px;              /* slightly smaller than desktop */
+    padding-left: 16px;
+  }
+}
