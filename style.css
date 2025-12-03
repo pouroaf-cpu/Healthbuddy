@@ -2953,3 +2953,145 @@ input[type="range"]:active::-moz-range-thumb {
     max-width: 100%;
   }
 }
+/* ===== Guides layout shell ===== */
+.ib-guides-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* ===== Icon rail (very narrow) ===== */
+.ib-guides-rail {
+  position: sticky;
+  top: 80px; /* match your header height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 52px; /* barely wider than the icons */
+  padding: 8px 4px;
+  background: #032d35; /* dark teal */
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+}
+
+.ib-guides-icon-btn {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ib-guides-icon-glyph {
+  font-size: 20px; /* swap for SVG size via CSS if needed */
+}
+
+.ib-guides-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateX(1px);
+}
+
+.ib-guides-icon-btn.is-active {
+  background: #0b7f7a;
+  box-shadow: 0 0 0 2px rgba(11, 127, 122, 0.6);
+}
+
+/* ===== Slide-out panel ===== */
+.ib-guides-panel {
+  position: relative;
+  margin-left: -8px; /* tucks under the rail slightly */
+  z-index: 20;
+  width: 280px;
+  max-width: 80vw;
+  transform: translateX(-290px); /* hidden off to the left by default */
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.18s ease-out,
+    opacity 0.18s ease-out;
+}
+
+.ib-guides-panel[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Panel groups (only one visible at once) */
+.ib-guides-panel-group {
+  display: none;
+  background: #05282f;
+  color: #ecf5f7;
+  border-radius: 16px;
+  padding: 16px 16px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.ib-guides-panel-group.is-active {
+  display: block;
+}
+
+.ib-guides-panel-group h2 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 8px;
+  opacity: 0.8;
+}
+
+.ib-guides-panel-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ib-guides-panel-group li + li {
+  margin-top: 4px;
+}
+
+.ib-guides-panel-group a {
+  display: block;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #e8f7fb;
+  padding: 5px 6px;
+  border-radius: 8px;
+}
+
+.ib-guides-panel-group a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ===== Main content ===== */
+.ib-guides-main {
+  flex: 1;
+  min-width: 0;
+  padding-left: 24px;
+}
+
+/* Mobile: fall back to normal layout, no rail */
+@media (max-width: 899px) {
+  .ib-guides-layout {
+    display: block;
+  }
+
+  .ib-guides-rail,
+  .ib-guides-panel {
+    display: none;
+  }
+
+  .ib-guides-main {
+    padding-left: 0;
+  }
+}
