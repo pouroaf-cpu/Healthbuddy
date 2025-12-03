@@ -1,4 +1,4 @@
-e:root{
+:root{
   /* Brand + palette */
   --teal-900:#004c4d;
   --teal-700:#006d6f;
@@ -3238,15 +3238,48 @@ input[type="range"]:active::-moz-range-thumb {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Mobile: hide the fancy nav, just show main content */
 @media (max-width: 900px) {
   .ib-guides-layout {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
+  /* Nav sits above the content on mobile */
   .ib-guides-nav-wrap {
-    display: none;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    z-index: 1;
+  }
+
+  /* Icon rail becomes a horizontal strip instead of a vertical bar */
+  .ib-guides-rail {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: auto;
+    padding: 6px 8px;
+    border-radius: 12px;
+  }
+
+  .ib-guides-icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ib-guides-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Panel becomes full-width under the icon strip */
+  .ib-guides-panel {
+    width: 100%;
+    max-width: none;
+    transform: translateX(0);        /* no sideways slide on tiny screens */
   }
 
   .ib-guides-content {
