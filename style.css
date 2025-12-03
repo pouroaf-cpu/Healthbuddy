@@ -3239,22 +3239,68 @@ input[type="range"]:active::-moz-range-thumb {
 }
 
 @media (max-width: 900px) {
+  /* Layout: content is full width, nav overlays on top */
   .ib-guides-layout {
-    flex-direction: column;
-    gap: 16px;
+    display: block;
     padding-top: 16px;
     padding-bottom: 16px;
   }
 
-  /* Nav sits above the content on mobile */
+  /* Nav wrapper becomes fixed overlay */
   .ib-guides-nav-wrap {
-    position: static;
+    position: fixed;
+    top: 72px;        /* adjust if your mobile header is taller/shorter */
+    left: 0;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    z-index: 1;
+    align-items: flex-start;
+    gap: 0;
+    z-index: 100;     /* above body content */
   }
+
+  /* Icon rail stays vertical on the left */
+  .ib-guides-rail {
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 52px;
+    padding: 8px 4px;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  }
+
+  .ib-guides-icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ib-guides-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Panel slides out OVER the body, to the right of the rail */
+  .ib-guides-panel {
+    position: fixed;
+    top: 72px;                      /* same as nav-wrap */
+    left: 52px;                     /* rail width */
+    height: calc(100vh - 72px);
+    width: 260px;
+    max-width: calc(100vw - 52px);
+    transform: translateX(-100%);   /* fully hidden when closed */
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ib-guides-panel[data-state="open"] {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Body content underneath is just full width */
+  .ib-guides-content {
+    padding-left: 0;
+  }
+}
 
   /* Icon rail becomes a horizontal strip instead of a vertical bar */
   .ib-guides-rail {
@@ -3285,4 +3331,73 @@ input[type="range"]:active::-moz-range-thumb {
   .ib-guides-content {
     padding-left: 0;
   }
+}
+.ib-guides-nav-wrap {
+  position: sticky;
+  top: 80px; /* align with header */
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  z-index: 30;
+}
+
+.ib-guides-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 52px; /* barely wider than icon */
+  padding: 8px 4px;
+  background: #032d35;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.ib-guides-icon-btn {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ib-guides-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateX(1px);
+}
+
+.ib-guides-icon-btn.is-active {
+  background: #0b7f7a;
+  box-shadow: 0 0 0 2px rgba(11, 127, 122, 0.6);
+}
+
+.ib-guides-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.ib-guides-panel {
+  width: 280px;
+  max-width: 80vw;
+  transform: translateX(-290px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.18s ease-out,
+    opacity 0.18s ease-out;
+}
+
+.ib-guides-panel[data-state="open"] {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
