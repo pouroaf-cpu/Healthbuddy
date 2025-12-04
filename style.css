@@ -75,7 +75,12 @@ img {
 }
 
 .muted {
-  color: var(--muted);
+  color: var(--ink-500);
+  font-size: 14px;
+}
+
+.small-text {
+  font-size: 14px;
 }
 
 /* ============================
@@ -169,6 +174,10 @@ img {
 
 .ib-nav-link.is-active {
   color: var(--cta-dark);
+}
+
+.ib-caret {
+  font-size: 10px;
 }
 
 /* Dropdown */
@@ -438,15 +447,6 @@ button,
 
 .full {
   grid-column: 1 / -1;
-}
-
-.small-text {
-  font-size: 14px;
-}
-
-.muted {
-  color: var(--ink-500);
-  font-size: 14px;
 }
 
 /* Right-hand results / syringe panel */
@@ -1130,7 +1130,7 @@ input[type="range"]:active::-moz-range-thumb {
    Guides – icon rail sidebar
    ============================ */
 
-/* Layout: rail on far left, text to right */
+/* Layout: rail on far left, content to the right */
 .ib-guides-layout {
   display: flex;
   align-items: flex-start;
@@ -1170,35 +1170,37 @@ input[type="range"]:active::-moz-range-thumb {
   z-index: 100;
 }
 
-/* Thin vertical rail */
+/* Thin vertical rail – lighter teal */
 .ib-guides-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 72px;             /* slightly wider for larger icons */
-  padding: 10px 8px;
-  background: #0b6470;     /* lighter teal */
+  width: 64px;
+  padding: 10px 6px;
+  background: #0b6470;
   border-radius: 0 16px 16px 0;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Icon button inside the rail */
+/* Icon button inside the rail (desktop) */
 .ib-guides-icon-btn {
   border: none;
   outline: none;
   background: transparent;
   cursor: pointer;
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #e0f2f1; /* coloured icons via currentColor */
   transition:
     background 0.15s ease,
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    color 0.15s ease;
 }
 
 .ib-guides-icon-btn:hover {
@@ -1209,19 +1211,22 @@ input[type="range"]:active::-moz-range-thumb {
 .ib-guides-icon-btn.is-active {
   background: #0b7f7a;
   box-shadow: 0 0 0 2px rgba(11, 127, 122, 0.6);
+  color: #ffffff;
 }
 
-/* SVG icon size ~75% larger than 22px */
+/* SVG icon – uses currentColor */
 .ib-guides-icon {
-  width: 38px;
-  height: 38px;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: inherit;
 }
 
 /* Slide-out panel that overlays body */
 .ib-guides-panel {
   position: fixed;
   top: 96px;          /* align with rail */
-  left: 72px;         /* exactly to the right of the rail */
+  left: 64px;         /* exactly to the right of the rail */
   width: 280px;
   max-width: 80vw;
   max-height: calc(100vh - 110px);
@@ -1240,10 +1245,11 @@ input[type="range"]:active::-moz-range-thumb {
   pointer-events: auto;
 }
 
-/* Panel content groups – one per category */
+/* Panel content groups – one per category
+   Background matches rail colour */
 .ib-guides-panel-group {
   display: none;
-  background: #05282f;
+  background: #0b6470;  /* MATCHES RAIL */
   color: #ecf5f7;
   border-radius: 16px;
   padding: 16px 16px 12px;
@@ -1259,7 +1265,7 @@ input[type="range"]:active::-moz-range-thumb {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 0 0 8px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .ib-guides-panel-group ul {
@@ -1282,17 +1288,16 @@ input[type="range"]:active::-moz-range-thumb {
 }
 
 .ib-guides-panel-group a:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Guides mobile behaviour */
+/* Guides mobile behaviour – icons 50% bigger on mobile */
 @media (max-width: 900px) {
   .ib-guides-layout {
     padding-top: 16px;
     padding-bottom: 16px;
   }
 
-  /* Keep navigation anchored left, but slightly lower */
   .ib-guides-nav-wrap {
     top: 80px;
   }
@@ -1303,17 +1308,17 @@ input[type="range"]:active::-moz-range-thumb {
     border-radius: 0 12px 12px 0;
   }
 
+  /* +50% size vs desktop: 44x44 -> 66x66, 28 -> 42 */
   .ib-guides-icon-btn {
-    width: 48px;
-    height: 48px;
+    width: 66px;
+    height: 66px;
   }
 
   .ib-guides-icon {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
   }
 
-  /* Panel overlays body to the right of rail */
   .ib-guides-panel {
     top: 80px;
     left: 64px;
@@ -1323,7 +1328,6 @@ input[type="range"]:active::-moz-range-thumb {
     max-height: none;
   }
 
-  /* Content still sits right of nav with padding */
   .ib-guides-content {
     margin-left: 84px;
     padding-left: 16px;
