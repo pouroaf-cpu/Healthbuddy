@@ -78,3 +78,39 @@ function initInjectBuddyGuidesNav(root) {
     }
   });
 }
+// ===============================
+// Guides toolbar behaviour
+// - Desktop: panel shows while hovering toolbar (CSS handles this)
+// - Mobile: tap icon to open, tap outside to close
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+  const navWrap = document.querySelector('.ib-guides-nav-wrap');
+  if (!navWrap) return; // only run on guide pages
+
+  const panel = navWrap.querySelector('.ib-guides-panel');
+  const iconButtons = navWrap.querySelectorAll('.ib-guides-icon-btn');
+  const groups = navWrap.querySelectorAll('.ib-guides-panel-group');
+
+  function isDesktop() {
+    return window.matchMedia('(min-width: 901px)').matches;
+  }
+
+  function openPanel() {
+    if (!panel) return;
+    panel.setAttribute('data-state', 'open');
+    navWrap.classList.add('ib-guides-open');
+  }
+
+  function closePanel() {
+    if (!panel) return;
+    panel.setAttribute('data-state', 'closed');
+    navWrap.classList.remove('ib-guides-open');
+  }
+
+  function activateGroup(groupId) {
+    groups.forEach(g => {
+      g.classList.toggle('is-active', g.dataset.group === groupId);
+    });
+  }
+
+  // Clicking an icon: pick group +
