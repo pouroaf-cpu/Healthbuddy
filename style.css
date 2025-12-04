@@ -3510,3 +3510,74 @@ input[type="range"]:active::-moz-range-thumb {
   background: var(--cta-hover);
   box-shadow: 0 0 0 8px rgba(0, 178, 181, 0.45);
 }
+/* =========================================
+   GUIDES TOOLBAR – fixed, jet black, auto-hide
+   ========================================= */
+
+/* Desktop behaviour */
+@media (min-width: 901px) {
+  /* Wrap fixed to the left, hard up under header */
+  .ib-guides-nav-wrap {
+    position: fixed;
+    top: var(--header-h, 56px);
+    left: 0;
+    gap: 8px;
+    z-index: 40;
+  }
+
+  /* Jet black rail, tight to the edge */
+  .ib-guides-rail {
+    width: 52px;
+    padding: 8px 4px;
+    background: #000000;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Panel sits directly to the right of rail */
+  .ib-guides-panel {
+    margin-left: 0;
+    transform: translateX(-290px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* When toolbar is hovered, show the panel */
+  .ib-guides-nav-wrap:hover .ib-guides-panel {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile behaviour (toolbar pinned to top, still black) */
+@media (max-width: 900px) {
+  .ib-guides-nav-wrap {
+    position: fixed;
+    top: var(--header-h, 56px);
+    left: 0;
+    right: 0;
+    padding: 4px 8px;
+    z-index: 40;
+  }
+
+  .ib-guides-rail {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: auto;
+    background: #000000;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Panel drops full-width under the bar on mobile */
+  .ib-guides-panel {
+    position: fixed;
+    top: calc(var(--header-h, 56px) + 48px);
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    transform: translateY(0);
+  }
+}
