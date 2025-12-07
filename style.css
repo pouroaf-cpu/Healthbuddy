@@ -3581,3 +3581,83 @@ input[type="range"]:active::-moz-range-thumb {
     transform: translateY(0);
   }
 }
+/* Base icon button look */
+.ib-guides-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft, #d0d7e2);
+  background: #fff;
+  color: #76829a; /* fallback grey */
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+  opacity: 0.6;
+}
+
+.ib-guides-icon-btn .ib-guides-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Active state */
+.ib-guides-icon-btn.is-active {
+  opacity: 1;
+  background: #f4f7fb;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.03);
+  transform: translateX(2px);
+}
+
+/* Topic colours */
+.ib-guides-icon-btn[data-category="bloodwork"] {
+  color: #e53935; /* red */
+}
+
+.ib-guides-icon-btn[data-category="hormones"] {
+  color: #8e24aa; /* purple */
+}
+
+.ib-guides-icon-btn[data-category="testosterone"] {
+  color: #fb8c00; /* amber / orange */
+}
+
+.ib-guides-icon-btn[data-category="peptides"] {
+  color: #039be5; /* blue */
+}
+
+.ib-guides-icon-btn[data-category="injection"] {
+  color: #43a047; /* green */
+}
+
+.ib-guides-icon-btn[data-category="tools"] {
+  color: #546e7a; /* blue-grey */
+}
+/* Layout: left rail + right content */
+.ib-guides-layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Rail is always vertical */
+.ib-guides-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Mobile tweaks – keep rail vertical */
+@media (max-width: 900px) {
+  .ib-guides-layout {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: flex-start;
+  }
+
+  .ib-guides-rail {
+    flex-direction: column; /* override any previous row */
+  }
+}
