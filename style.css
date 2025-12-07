@@ -3751,3 +3751,15 @@ input[type="range"]:active::-moz-range-thumb {
 .ib-guides-icon line {
   stroke: currentColor;
 }
+/* === RESTORE ORIGINAL DARK TEAL NAV BAR === */
+.ib-guides-rail {
+  background: #032d35 !important;   /* original dark teal */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  border-radius: 0 16px 16px 0;
+}
+@media (max-width: 900px) {
+  .ib-guides-rail {
+    background: #032d35 !important;
+    border-radius: 0 0 12px 12px;
+  }
+}
