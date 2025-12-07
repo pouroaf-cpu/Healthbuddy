@@ -3763,3 +3763,9 @@ input[type="range"]:active::-moz-range-thumb {
     border-radius: 0 0 12px 12px;
   }
 }
+/* === FINAL MOBILE TWEAK: guides rail flush to screen edge === */
+@media (max-width: 900px) {
+  .ib-guides-nav-wrap {
+    margin-left: -16px;   /* cancels .container { padding: 0 16px } */
+  }
+}
