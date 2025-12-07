@@ -3769,3 +3769,69 @@ input[type="range"]:active::-moz-range-thumb {
     margin-left: -16px;   /* cancels .container { padding: 0 16px } */
   }
 }
+/* === MOBILE RESCUE: make guides nav simple + clickable === */
+@media (max-width: 900px) {
+  /* 1. Simple stacked layout: nav above content */
+  .ib-guides-layout {
+    display: block !important;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* 2. Kill all fixed/overlay behaviour on mobile */
+  .ib-guides-nav-wrap {
+    position: static !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0;
+    z-index: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* 3. Rail: vertical, teal, clickable */
+  .ib-guides-rail {
+    position: static !important;
+    flex-direction: column !important;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: auto;
+    padding: 8px;
+    background: #032d35 !important;  /* your dark teal */
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+
+  .ib-guides-icon-btn {
+    width: 36px;
+    height: 36px;
+    pointer-events: auto;
+  }
+
+  /* 4. Panel: normal block under the rail, no transforms, no pointer-events nonsense */
+  .ib-guides-panel {
+    position: static !important;
+    width: 100%;
+    max-width: none;
+    margin-top: 8px;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Only show the active group */
+  .ib-guides-panel-group {
+    display: none;
+  }
+
+  .ib-guides-panel-group.is-active {
+    display: block;
+  }
+
+  /* 5. Content just flows below the nav block */
+  .ib-guides-content {
+    margin-top: 16px;
+    padding-left: 0;
+  }
+}
