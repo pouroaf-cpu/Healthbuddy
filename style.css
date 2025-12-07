@@ -3661,3 +3661,50 @@ input[type="range"]:active::-moz-range-thumb {
     flex-direction: column; /* override any previous row */
   }
 }
+/* === FINAL OVERRIDE: guides nav on mobile === */
+@media (max-width: 900px) {
+  /* Keep guides layout as two columns even on mobile */
+  .ib-guides-layout {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: flex-start;
+    gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* Nav sits to the left, not full-width */
+  .ib-guides-nav-wrap {
+    position: static;
+    width: auto;
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Rail is vertical, narrow */
+  .ib-guides-rail {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-start;
+    width: 52px;
+    padding: 8px 4px;
+    border-radius: 0 16px 16px 0;
+    background: #032d35;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Panel sits immediately to the right, not full-screen */
+  .ib-guides-panel {
+    position: static;
+    width: 260px;
+    max-width: 70vw;
+    transform: none !important;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Content column just flows as normal */
+  .ib-guides-content {
+    padding-left: 0;
+  }
+}
