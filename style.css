@@ -3708,3 +3708,46 @@ input[type="range"]:active::-moz-range-thumb {
     padding-left: 0;
   }
 }
+/* === FINAL OVERRIDE: guides icons – solid, no white circle === */
+
+/* 1) Flat icon buttons (no white circle background) */
+.ib-guides-icon-btn {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: 1;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+/* Keep hover/active subtle – no pill bg */
+.ib-guides-icon-btn:hover {
+  background: transparent !important;
+  transform: translateX(1px);
+}
+
+.ib-guides-icon-btn.is-active {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: translateX(2px);
+}
+
+/* 2) Make the SVG shapes solid in the topic colour */
+.ib-guides-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Fill the main shapes with currentColor (your per-category colour) */
+.ib-guides-icon path,
+.ib-guides-icon rect,
+.ib-guides-icon circle {
+  fill: currentColor !important;
+  stroke: currentColor;
+}
+
+/* Lines stay as strokes (for the grid / DNA etc.) */
+.ib-guides-icon line {
+  stroke: currentColor;
+}
