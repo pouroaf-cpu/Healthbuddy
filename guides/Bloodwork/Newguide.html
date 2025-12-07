@@ -37,7 +37,7 @@
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
 
-  <!-- Guides-specific layout styles (layout only; sidebar UI handled by universal partial) -->
+  <!-- Guides page layout + article styles (can be moved to global CSS later) -->
   <style>
     .ib-guides-layout{
       display:flex;
@@ -53,7 +53,8 @@
       padding-right:24px;
       border-right:1px solid var(--border);
       position:sticky;
-      top:80px;
+      /* offset so it sits under fixed universal nav */
+      top:96px;
     }
 
     .ib-guides-content{
@@ -136,10 +137,11 @@
   </style>
 </head>
 <body>
-  <!-- Universal nav bar -->
+  <!-- UNIVERSAL TOP NAV BAR (rendered by /assets/nav.js) -->
   <header id="ib-header" data-nav-current="guides"></header>
 
-  <main>
+  <!-- Push content below fixed nav -->
+  <main style="padding-top:72px;">
     <section class="section">
       <div class="container">
         <!-- PAGE-LEVEL HEADER FOR THIS GUIDE -->
@@ -157,7 +159,7 @@
           <aside class="ib-guides-nav" aria-label="Guide navigation">
             <!--
               data-guide-category: bloodwork | hormones | testosterone | peptides | injection | tools
-              data-guide-slug: matches whatever your guides-nav.js/HTML expects for highlighting
+              data-guide-slug: whatever your guides-nav.js uses to highlight current guide
             -->
             <div
               id="ib-guides-shell"
@@ -322,9 +324,9 @@
 
   <div id="ib-footer"></div>
 
+  <!-- Universal nav + footer + guides sidebar -->
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
-  <!-- Universal guides sidebar loader -->
   <script src="/assets/guides-nav.js" defer></script>
 
   <!-- Scroll to Top Button -->
