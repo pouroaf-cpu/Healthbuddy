@@ -1851,3 +1851,27 @@ input[type="range"]:active::-moz-range-thumb {
 .ib-page-title .tag {
   margin-bottom: 4px;
 }
+.ib-title-row {
+  display: inline-flex !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+
+  white-space: nowrap !important; /* prevents wrapping */
+}
+
+.ib-title-row .tag {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ib-title-row h1 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.2;
+  white-space: nowrap !important; /* never wrap title */
+}
