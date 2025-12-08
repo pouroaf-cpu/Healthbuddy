@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,258 +10,204 @@
     gtag('config', 'G-4EGGZW9P14');
   </script>
 
-  <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- SEO: primary + secondary keywords -->
-  <title>Testosterone Dosage Calculator | Free TRT Injection Calculator</title>
-  <meta name="description" content="Use InjectBuddy’s free testosterone dosage calculator to calculate your TRT dose in mg and mL. This TRT calculator works with testosterone cypionate and other esters so you can quickly see how to calculate testosterone dosage for every injection." />
-  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
+  <!-- SEO -->
+  <title>Bloodwork Basics for TRT | Essential Lab Guide</title>
+  <meta name="description" content="Simple bloodwork basics for TRT patients. Learn which labs matter, when to test, and how to read results. Includes practical foundations that support tools like a testosterone dosage calculator, TRT calculator, or testosterone injection calculator." />
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
 
-  <meta property="og:title" content="Testosterone Dosage Calculator | Free TRT Injection Calculator" />
-  <meta property="og:description" content="Fast, no-nonsense TRT calculator. Work out your testosterone cypionate dosage in mg and mL per injection, without doing the maths by hand." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
-  <meta property="og:site_name" content="InjectBuddy" />
+  <meta property="og:title" content="Bloodwork Basics for TRT" />
+  <meta property="og:description" content="A clear guide to essential TRT bloodwork: what to test, when to test, and what it all means." />
+  <meta property="og:type" content="article" />
 
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "tlo6h3wt7s");
-  </script>
 </head>
+
 <body>
-  <!-- Universal nav -->
-  <div id="site-header" data-nav-current="calculator"></div>
+  <!-- Universal top nav -->
+  <div id="site-header" data-nav-current="guides"></div>
 
   <main>
-    <!-- HERO / PRIMARY SECTION -->
-    <section class="section hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="tag">Tool</span>
-          <h1>Testosterone Dosage Calculator</h1>
+    <section class="section">
+      <div class="container">
+        <header>
+          <span class="tag">Guide</span>
+          <h1>Bloodwork Basics for TRT</h1>
           <p class="muted">
-            A fast, no-nonsense TRT calculator that converts your prescribed dose and vial strength into clear
-            mg and mL per injection. Built for testosterone cypionate and other common esters, so you don’t have
-            to do syringe maths in your head.
+            A direct, practical breakdown of the blood tests that actually matter when you're on TRT — no fluff, no panic, just what you need to understand your numbers.
           </p>
+        </header>
 
-          <ul class="hero-bullets">
-            <li>See your exact testosterone dosage per injection in mg and mL.</li>
-            <li>Works as a simple testosterone injection calculator for most TRT schedules.</li>
-            <li>Designed for testosterone cypionate but compatible with other injectable testosterone esters.</li>
-          </ul>
-        </div>
+        <div class="ib-guides-layout">
+          <!-- Sidebar -->
+          <aside class="ib-guides-nav">
+            <div
+              id="ib-guides-shell"
+              data-guide-category="bloodwork"
+              data-guide-slug="basics"
+            ></div>
+          </aside>
 
-        <!-- Calculator shell (your existing JS mounts into this) -->
-        <div class="hero-card">
-          <h2 class="h3">TRT calculator</h2>
-          <p class="muted small">
-            Enter your prescription details and we’ll show you the dose per shot.
-          </p>
+          <!-- Main content -->
+          <article class="ib-guides-content">
 
-          <!-- If you already have a form, keep the same IDs/names so JS still works -->
-          <form id="ib-trt-calculator" class="tool-card" novalidate>
-            <div class="field-group">
-              <label for="vial-strength">Vial strength (e.g. 200&nbsp;mg/mL)</label>
-              <div class="field-inline">
-                <input id="vial-strength" name="vialStrength" type="number" inputmode="decimal" step="0.1" placeholder="200" required />
-                <span class="field-suffix">mg/mL</span>
-              </div>
-            </div>
+            <!-- Breadcrumb -->
+            <nav aria-label="Breadcrumb" style="font-size:12px;margin-bottom:8px;">
+              <a href="/guides/" class="muted">Guides</a> /
+              <a href="/Bloodwork/" class="muted">Bloodwork</a> /
+              <span>Bloodwork Basics</span>
+            </nav>
 
-            <div class="field-group">
-              <label for="total-weekly-dose">Total weekly testosterone dose</label>
-              <div class="field-inline">
-                <input id="total-weekly-dose" name="weeklyDoseMg" type="number" inputmode="decimal" step="1" placeholder="140" required />
-                <span class="field-suffix">mg / week</span>
-              </div>
-            </div>
-
-            <div class="field-group">
-              <label for="injections-per-week">Injections per week</label>
-              <select id="injections-per-week" name="injectionsPerWeek" required>
-                <option value="">Select</option>
-                <option value="1">1× per week</option>
-                <option value="2">2× per week</option>
-                <option value="3">3× per week</option>
-                <option value="4">4× per week</option>
-                <option value="5">5× per week</option>
-                <option value="6">6× per week</option>
-                <option value="7">7× per week (daily)</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">
-              Calculate testosterone dosage
-            </button>
-
-            <div id="ib-trt-results" class="tool-results" hidden>
-              <h3 class="h4">Your injection plan</h3>
-              <p class="muted small">
-                Based on your inputs, here’s your dose per injection:
+            <header class="ib-guides-article-header">
+              <h2>A simple foundation for TRT bloodwork</h2>
+              <p class="ib-guides-article-subtitle">
+                Designed for anyone on testosterone replacement therapy who wants a clean, unbiased understanding of which labs matter — and why.
               </p>
-              <ul class="result-list">
-                <li><strong>Mg per injection:</strong> <span id="ib-result-mg">–</span> mg</li>
-                <li><strong>mL per injection:</strong> <span id="ib-result-ml">–</span> mL</li>
-                <li><strong>Injections per week:</strong> <span id="ib-result-frequency">–</span></li>
+            </header>
+
+            <div class="ib-guide-meta">
+              <span><strong>Category:</strong> Bloodwork</span>
+              <span><strong>Level:</strong> Beginner</span>
+              <span><strong>Reading time:</strong> ~6 minutes</span>
+              <span><strong>Last updated:</strong> 08 Dec 2025</span>
+            </div>
+
+            <!-- WHY IT MATTERS -->
+            <section class="ib-guide-section">
+              <h2>Why bloodwork matters on TRT</h2>
+              <p>
+                TRT changes more than just testosterone levels. It affects liver markers, red blood cell production, hormones, lipids, and sometimes thyroid patterns. Without regular labs, you’re making decisions blind.
+              </p>
+              <p>
+                Most people assume bloodwork is only about checking testosterone numbers. In reality, it’s the safety net that keeps your protocol stable and prevents long-term issues from developing quietly in the background.
+              </p>
+              <p>
+                Even if you use tools like a <em>testosterone dosage calculator</em>, a <em>TRT calculator</em>, or a <em>testosterone injection calculator</em> to manage dosing accuracy, bloodwork remains the only way to see how the body is actually responding.
+              </p>
+
+              <div class="ib-guide-callout">
+                <strong>Big picture</strong>
+                <p class="muted">Bloodwork closes the loop between dose, symptoms, and real physiology.</p>
+              </div>
+            </section>
+
+            <!-- WHAT TO TEST -->
+            <section class="ib-guide-section">
+              <h2>The core labs you should monitor</h2>
+              <p>
+                TRT doesn’t require massive test panels. You need a focused set of markers that reflect hormone function, red blood cell production, and metabolic health.
+              </p>
+
+              <h3>Core panel</h3>
+              <ul>
+                <li><strong>Total Testosterone (TT)</strong> — the baseline hormone level.</li>
+                <li><strong>Free Testosterone (FT)</strong> — the active portion; often correlates best with symptoms.</li>
+                <li><strong>SHBG (Sex Hormone–Binding Globulin)</strong> — explains why two people feel different on the same dose.</li>
+                <li><strong>Estradiol (E2, sensitive assay)</strong> — essential for mood, libido, joints, stability.</li>
+                <li><strong>CBC (Hematocrit / Hemoglobin)</strong> — checks for blood thickening.</li>
+                <li><strong>CMP</strong> — liver, kidneys, electrolytes.</li>
+                <li><strong>Lipid Panel</strong> — TRT can nudge cholesterol levels.</li>
               </ul>
-              <p class="muted xsmall">
-                This testosterone dosage calculator is for educational use only and does not replace medical advice.
-                Always confirm any changes with a qualified professional.
+
+              <h3>Situational tests</h3>
+              <ul>
+                <li><strong>Prolactin</strong> — useful if libido or erection quality doesn’t match testosterone levels.</li>
+                <li><strong>TSH + T3/T4</strong> — if fatigue or weight issues persist despite stable TRT.</li>
+                <li><strong>PSA</strong> — for older individuals or those with prostate history.</li>
+                <li><strong>HbA1c</strong> — metabolic baseline if overweight or insulin resistant.</li>
+              </ul>
+            </section>
+
+            <!-- WHEN TO TEST -->
+            <section class="ib-guide-section">
+              <h2>When to run bloodwork</h2>
+              <p>
+                Bloodwork timing matters. You want consistency so results reflect the protocol, not random fluctuations.
               </p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
 
-    <!-- HOW IT WORKS / “HOW TO CALCULATE TESTOSTERONE DOSAGE” -->
-    <section class="section">
-      <div class="container">
-        <header class="section-header">
-          <h2>How to calculate testosterone dosage with this calculator</h2>
-          <p class="muted">
-            The logic is simple: total weekly dose → dose per injection → volume in mL. The calculator does the
-            maths for you, but here’s what happens under the hood.
-          </p>
-        </header>
+              <ul>
+                <li>
+                  <strong>Before starting TRT:</strong>
+                  Establish your full baseline — hormones, CBC, CMP, lipids. This is the comparison point for everything that follows.
+                </li>
+                <li>
+                  <strong>6–8 weeks after any change:</strong>
+                  Changing dose, ester, or injection frequency requires a follow-up panel once levels stabilise.
+                </li>
+                <li>
+                  <strong>Every 6–12 months once stable:</strong>
+                  Adjust based on symptoms and clinician recommendations. CBC may need more frequent monitoring if hematocrit trends high.
+                </li>
+              </ul>
 
-        <div class="grid grid-2">
-          <div>
-            <h3>1. Start with your prescribed weekly dose</h3>
-            <p>
-              Enter the total amount of testosterone your prescriber has recommended per week (for example,
-              140&nbsp;mg/week of testosterone cypionate). This is the baseline the testosterone dosage calculator
-              works from.
-            </p>
+              <p>
+                Even if you know <em>how to calculate testosterone dosage</em> manually or use a <em>testosterone cypionate calculator</em> to stay consistent, the bloodwork is what confirms whether the dosage is actually right for your physiology.
+              </p>
+            </section>
 
-            <h3>2. Choose how often you inject</h3>
-            <p>
-              Select how many times per week you inject. The TRT calculator divides your total weekly dose by this
-              number to give a clear mg amount per shot. No spreadsheets or manual division needed.
-            </p>
-          </div>
+            <!-- USING TOOLS + KEYWORDS -->
+            <section class="ib-guide-section">
+              <h2>How bloodwork fits into TRT management</h2>
+              <p>
+                Your labs are the reference point for whether your current schedule, dose, and frequency are working. Tools like a TRT calculator or testosterone dosage calculator help keep injection amounts consistent, but bloodwork provides the reality check.
+              </p>
 
-          <div>
-            <h3>3. Convert mg to mL based on vial strength</h3>
-            <p>
-              Finally, you tell the tool your vial strength — for example a common
-              <strong>testosterone cypionate 200&nbsp;mg/mL</strong> vial. The calculator then converts the mg
-              dose into mL, acting as a simple testosterone injection calculator so you know exactly how far to
-              pull the plunger.
-            </p>
+              <ul>
+                <li>Labs show whether your testosterone is peaking or dipping based on your injection rhythm.</li>
+                <li>Hematocrit trends tell you whether your injection frequency needs adjusting.</li>
+                <li>Estradiol shifts can signal timing issues — not just dosage issues.</li>
+                <li>SHBG patterns help determine whether more frequent injections would smooth out levels.</li>
+              </ul>
 
-            <h3>4. Apply it consistently</h3>
-            <p>
-              Once you know your mg and mL per injection, you can repeat the same volume every time. That makes it
-              easier to keep your protocol consistent so your bloodwork and symptoms aren’t all over the place.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+              <p>
+                When paired with data from a <em>testosterone injection calculator</em> or <em>testosterone cypionate calculator</em>, your bloodwork gives you a complete map of how your protocol is performing.
+              </p>
+            </section>
 
-    <!-- WHY USE A TESTOSTERONE INJECTION CALCULATOR -->
-    <section class="section section-alt">
-      <div class="container">
-        <header class="section-header">
-          <h2>Why use a testosterone injection calculator at all?</h2>
-          <p class="muted">
-            You can do it by hand. But if you change dose, vial, or frequency even once, the mental maths gets old fast.
-          </p>
-        </header>
+            <!-- FAQ -->
+            <section class="ib-guide-section">
+              <h2>Common questions</h2>
 
-        <div class="grid grid-3">
-          <div class="card">
-            <h3>Less guesswork</h3>
-            <p>
-              A small mistake in your maths on testosterone dosage can add up over weeks. The calculator keeps each
-              injection aligned to your actual prescribed TRT dose.
-            </p>
-          </div>
+              <h3>Do I need bloodwork even if I feel fine?</h3>
+              <p>Yes. Some issues — especially elevated hematocrit — have no early symptoms at all.</p>
 
-          <div class="card">
-            <h3>Clear mg and mL output</h3>
-            <p>
-              Whether you think in milligrams or millilitres, the tool shows both. That makes it a practical TRT
-              calculator for anyone who just wants to know “what do I actually draw up in the syringe?”.
-            </p>
-          </div>
+              <h3>Which number matters more: total testosterone or free testosterone?</h3>
+              <p>
+                Free testosterone generally aligns better with libido, energy, and cognitive clarity. Total testosterone is still important for context.
+              </p>
 
-          <div class="card">
-            <h3>Works with cypionate and more</h3>
-            <p>
-              Designed first as a <strong>testosterone cypionate calculator</strong>, but flexible enough to use
-              with other injectable testosterone esters as long as you know the mg/mL strength.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+              <h3>Can bloodwork tell me if my dose is correct?</h3>
+              <p>
+                It can validate trends, but dose decisions require both symptom tracking and medical oversight — not just numbers or calculators.
+              </p>
+            </section>
 
-    <!-- FAQ / EXTRA KEYWORD COVERAGE -->
-    <section class="section">
-      <div class="container">
-        <header class="section-header">
-          <h2>Common questions about this TRT calculator</h2>
-        </header>
-
-        <div class="faq">
-          <div class="faq-item">
-            <h3>Is this testosterone dosage calculator only for TRT?</h3>
-            <p>
-              It’s designed as a TRT calculator, meaning it assumes medical supervision and a clear weekly dose
-              from a prescriber. The maths is the same regardless, but this tool is not a recommendation to start
-              or change treatment on your own.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Does it support different vial strengths of testosterone cypionate?</h3>
-            <p>
-              Yes. As long as you enter the correct mg/mL strength, the calculator effectively behaves as a
-              testosterone cypionate calculator. Common examples include 100&nbsp;mg/mL and 200&nbsp;mg/mL vials.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Can I use this as a general testosterone injection calculator?</h3>
-            <p>
-              Yes. The tool simply converts your total weekly dose and injection frequency into a per-shot
-              amount in mg and mL. That makes it a straightforward testosterone injection calculator for most
-              standard injectable testosterone protocols.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3>Does this calculator tell me what dose I should be on?</h3>
-            <p>
-              No. It only helps you calculate testosterone dosage once a medical professional has set your
-              prescription. It does not suggest, optimise, or approve any specific dose.
-            </p>
-          </div>
+            <!-- SUMMARY -->
+            <section class="ib-guide-section">
+              <h2>Key takeaways</h2>
+              <ul>
+                <li>You only need a focused, consistent lab panel — not 40+ markers.</li>
+                <li>Timing matters more than frequency. Test at stable intervals.</li>
+                <li>Bloodwork + consistent dosing produces predictable TRT outcomes.</li>
+              </ul>
+            </section>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- DISCLAIMER -->
-    <section class="section" aria-label="Tool disclaimer">
+    <section class="section">
       <div class="container">
-        <div class="card card-disclaimer">
-          <strong>Not medical advice</strong>
+        <div class="card" style="padding:18px;">
+          <strong>General information only</strong>
           <p class="muted">
-            This testosterone dosage calculator is for general educational use only. It does not interpret your
-            bloodwork, set your treatment plan, or replace advice from a qualified professional. Always confirm any
-            changes to dose, schedule, or medication with your prescriber.
+            This guide is educational. It does not interpret your personal labs or replace medical care.
           </p>
         </div>
       </div>
@@ -270,42 +216,8 @@
 
   <div id="ib-footer"></div>
 
-  <!-- Universal nav + footer -->
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
-
-  <!-- Your existing TRT calculator JS (adjust path/name if different) -->
-  <script src="/assets/trt-calculator.js" defer></script>
-
-  <!-- Scroll to Top Button -->
-  <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
-
-  <script>
-    // Scroll to top button behaviour
-    document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("ib-scroll-top");
-
-      function toggleButton() {
-        if (window.innerWidth <= 980) {
-          if (window.scrollY > 180) {
-            btn.classList.add("visible");
-          } else {
-            btn.classList.remove("visible");
-          }
-        } else {
-          btn.classList.remove("visible");
-        }
-      }
-
-      window.addEventListener("scroll", toggleButton, { passive: true });
-      window.addEventListener("resize", toggleButton);
-
-      btn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      toggleButton();
-    });
-  </script>
+  <script src="/assets/guides-nav.js" defer></script>
 </body>
 </html>
