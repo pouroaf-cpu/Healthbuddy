@@ -1796,3 +1796,38 @@ input[type="range"]:active::-moz-range-thumb {
     left: 52px !important;    /* slide-out sits immediately next to icons */
   }
 }
+.ib-breadcrumbs {
+  font-size: 13px;
+  color: #008c99; /* Teal */
+  margin: 0 0 14px 0;
+}
+
+.ib-breadcrumbs ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ib-breadcrumbs a {
+  text-decoration: none;
+  color: #008c99; /* Teal */
+}
+
+.ib-breadcrumbs li {
+  display: flex;
+  align-items: center;
+  color: #008c99;
+}
+
+.ib-breadcrumbs li::after {
+  content: ">";
+  margin-left: 6px;
+  color: #008c99; /* Teal */
+}
+
+.ib-breadcrumbs li:last-child::after {
+  content: "";
+}
