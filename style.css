@@ -1899,3 +1899,29 @@ input[type="range"]:active::-moz-range-thumb {
   border-color: var(--ib-primary);
   color: var(--ib-primary);
 }
+/* Entire sidebar background a bit lighter */
+.ib-guides-nav {
+  background-color: #f3f7f9 !important; /* soft light grey-blue */
+}
+
+/* Default icon buttons */
+.ib-guides-nav .ib-guides-icon-btn {
+  background-color: #ffffff !important;
+  border: 1px solid #d6e2eb !important;
+  color: #5d6b78 !important;
+}
+
+/* Hover state */
+.ib-guides-nav .ib-guides-icon-btn:hover {
+  background-color: #e9f5f7 !important; /* subtle teal tint */
+  border-color: #bcdce3 !important;
+  color: #0096a8 !important;
+}
+
+/* Active category */
+.ib-guides-nav .ib-guides-icon-btn.is-active {
+  background-color: #e0f4f7 !important; /* light aqua highlight */
+  border-color: #0096a8 !important;
+  color: #0096a8 !important;
+  font-weight: 600 !important;
+}
