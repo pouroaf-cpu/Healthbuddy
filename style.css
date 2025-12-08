@@ -1619,3 +1619,65 @@ input[type="range"]:active::-moz-range-thumb {
     transition: none;
   }
 }
+/* ==== MOBILE FIX: keep guides rail + panel side-by-side ==== */
+@media (max-width: 900px) {
+  /* Layout: small two-column grid, nav on the left, content on the right */
+  .ib-guides-layout {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: flex-start;
+    gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* Nav wrap acts as a single left column (rail + panel in a row) */
+  .ib-guides-nav-wrap {
+    position: sticky !important;
+    top: calc(var(--header-h, 56px) + 8px);
+    display: flex;
+    flex-direction: row;        /* rail + panel next to each other */
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+  }
+
+  /* Rail stays vertical, tight on the left */
+  .ib-guides-rail {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-start;
+    width: 52px;
+    padding: 8px 4px;
+    background: #032d35 !important;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+
+  /* Panel sits immediately to the right of the rail, not underneath */
+  .ib-guides-panel {
+    position: relative !important;
+    width: 240px;
+    max-width: 70vw;
+    margin-top: 0;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Only the active group shows */
+  .ib-guides-panel-group {
+    display: none;
+  }
+  .ib-guides-panel-group.is-active {
+    display: block;
+  }
+
+  /* Content column just flows on the right */
+  .ib-guides-content {
+    margin-top: 0;
+    padding-left: 0;
+  }
+}
