@@ -1831,3 +1831,23 @@ input[type="range"]:active::-moz-range-thumb {
 .ib-breadcrumbs li:last-child::after {
   content: "";
 }
+.ib-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* adjust as needed */
+}
+
+.ib-page-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* push title to the right if desired */
+}
+
+.ib-page-title h1 {
+  margin: 0;
+}
+
+.ib-page-title .tag {
+  margin-bottom: 4px;
+}
