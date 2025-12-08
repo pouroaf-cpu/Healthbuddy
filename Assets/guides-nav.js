@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- ICON RAIL -->
       <aside class="ib-guides-rail">
         <!-- Bloodwork -->
-        <button class="ib-guides-icon-btn is-active" data-category="bloodwork" aria-label="Bloodwork guides">
+        <button class="ib-guides-icon-btn" data-category="bloodwork" aria-label="Bloodwork guides">
           <svg class="ib-guides-icon" viewBox="0 0 64 64" aria-hidden="true" role="img">
             <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
               <path d="M32 8c-5 9-14 16-14 26a14 14 0 0 0 28 0C46 24 37 17 32 8z" />
@@ -167,12 +167,14 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   function setActiveCategory(category) {
+    // buttons
     iconButtons.forEach((btn) => {
       const isActive = btn.dataset.category === category;
       btn.classList.toggle('is-active', isActive);
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
 
+    // panels
     groups.forEach((group) => {
       const match = group.dataset.category === category;
       group.classList.toggle('is-active', match);
@@ -187,19 +189,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function closePanel() {
     panel.dataset.state = 'closed';
     navWrap.classList.remove('ib-guides-open');
+
     iconButtons.forEach((btn) => {
       btn.classList.remove('is-active');
       btn.setAttribute('aria-pressed', 'false');
     });
+
+    groups.forEach((group) => {
+      group.classList.remove('is-active');
+      group.hidden = true;
+      group.setAttribute('aria-hidden', 'true');
+    });
   }
 
-  // Initial state
-  if (iconButtons.length && groups.length) {
-    const initialCategory = iconButtons[0].dataset.category;
-    setActiveCategory(initialCategory);
-  }
+  // Initial state: everything closed
+  closePanel();
 
-  // Icon click behaviour
+  // Icon click behaviour (toggle open/close)
   iconButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
