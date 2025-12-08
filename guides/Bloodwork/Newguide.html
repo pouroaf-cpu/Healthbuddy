@@ -14,15 +14,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- PER-GUIDE META: UPDATE PER PAGE -->
-  <title>[Guide Title] | InjectBuddy Guides</title>
-  <meta name="description" content="[1–2 sentence SEO description of this specific guide.]" />
-  <link rel="canonical" href="https://www.injectbuddy.com/guides/[category]/[slug].html" />
+  <!-- PER-GUIDE META: BLOODWORK BASICS -->
+  <title>Bloodwork Basics for TRT | InjectBuddy Guides</title>
+  <meta name="description" content="Learn which blood tests actually matter on TRT, when to get them, and how to use those results to have better conversations with your prescriber." />
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
 
-  <meta property="og:title" content="[Guide Title] | InjectBuddy Guides" />
-  <meta property="og:description" content="[Short preview of what this guide covers.]" />
+  <meta property="og:title" content="Bloodwork Basics for TRT | InjectBuddy Guides" />
+  <meta property="og:description" content="Simple, no-nonsense bloodwork basics for people on TRT – what to test, when to test, and how to use the numbers." />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://www.injectbuddy.com/guides/[category]/[slug].html" />
+  <meta property="og:url" content="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
   <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" />
@@ -53,7 +53,7 @@
       padding-right:24px;
       border-right:1px solid var(--border);
       position:sticky;
-      /* offset so it sits under fixed universal nav */
+      /* offset so it sits under fixed universal nav if you use fixed header */
       top:96px;
     }
 
@@ -138,19 +138,18 @@
 </head>
 <body>
   <!-- UNIVERSAL TOP NAV BAR (rendered by /assets/nav.js) -->
-  <header id="ib-header" data-nav-current="guides"></header>
+  <div id="site-header" data-nav-current="guides"></div>
 
-  <!-- Push content below fixed nav -->
-  <main style="padding-top:72px;">
+  <main>
     <section class="section">
       <div class="container">
         <!-- PAGE-LEVEL HEADER FOR THIS GUIDE -->
         <header>
           <span class="tag">Guide</span>
-          <!-- UPDATE H1 PER GUIDE -->
-          <h1>[Guide Title – e.g. “Bloodwork basics for TRT”]</h1>
+          <h1>Bloodwork basics for TRT</h1>
           <p class="muted">
-            [1–2 sentence plain-language summary of what the reader will learn in this guide.]
+            This guide walks you through the core labs most people on TRT should know about – what they are, why
+            they matter, and how they fit into dose and safety decisions.
           </p>
         </header>
 
@@ -159,54 +158,64 @@
           <aside class="ib-guides-nav" aria-label="Guide navigation">
             <!--
               data-guide-category: bloodwork | hormones | testosterone | peptides | injection | tools
-              data-guide-slug: whatever your guides-nav.js uses to highlight current guide
+              data-guide-slug must match whatever guides-nav.js uses for this page
             -->
             <div
               id="ib-guides-shell"
               data-guide-category="bloodwork"
-              data-guide-slug="[slug]"
+              data-guide-slug="basics"
             ></div>
           </aside>
 
-          <!-- RIGHT COLUMN: GUIDE CONTENT TEMPLATE -->
+          <!-- RIGHT COLUMN: GUIDE CONTENT -->
           <article class="ib-guides-content">
-            <!-- Optional breadcrumb -->
+            <!-- Breadcrumb -->
             <nav aria-label="Breadcrumb" style="font-size:12px;margin-bottom:8px;">
               <a href="/guides/" class="muted">Guides &amp; learning</a>
               <span class="muted"> / </span>
               <a href="/Bloodwork/" class="muted">Bloodwork</a>
               <span class="muted"> / </span>
-              <span>[Guide Title]</span>
+              <span>Bloodwork basics for TRT</span>
             </nav>
 
             <header class="ib-guides-article-header">
-              <h2>[Short in-page title, can match H1]</h2>
+              <h2>Bloodwork basics for TRT</h2>
               <p class="ib-guides-article-subtitle">
-                [One-liner: who this guide is for – e.g. “For people on TRT who want a no-nonsense breakdown of which labs matter and why.”]
+                For people on TRT who want a simple, practical breakdown of which blood tests matter, when to get
+                them, and how to stop flying blind.
               </p>
             </header>
 
             <!-- Meta row -->
             <div class="ib-guide-meta">
               <span><strong>Category:</strong> Bloodwork</span>
-              <span><strong>Level:</strong> Beginner / Intermediate</span>
+              <span><strong>Level:</strong> Beginner</span>
               <span><strong>Reading time:</strong> ~7 minutes</span>
-              <span><strong>Last updated:</strong> 03 Dec 2025</span>
+              <span><strong>Last updated:</strong> 08 Dec 2025</span>
             </div>
 
             <!-- SECTION 1: Why this matters -->
             <section class="ib-guide-section" id="why-it-matters">
               <h2>Why this matters</h2>
               <p>
-                [Explain, in 2–3 short paragraphs, why this topic is important. Keep it practical and focused on
-                what changes for the reader in real life – symptoms, safety, decision-making, etc.]
+                TRT isn’t just about chasing a “good” total testosterone number. Your bloodwork gives you a
+                snapshot of how your whole system is responding – hormones, blood thickness, lipids, organs, and
+                more. If you only look at one number, you miss half the story.
+              </p>
+              <p>
+                Good labs make conversations with your prescriber less emotional and more objective. Instead of
+                “I feel off, can we just increase my dose?”, you can point to concrete changes in hematocrit,
+                estradiol, or lipids and talk through options with data.
+              </p>
+              <p>
+                Most people don’t need a 40-marker “TRT panel” every time. You need a core set of tests done at
+                sensible intervals, plus a few extras if you’ve got specific risks or symptoms that need digging into.
               </p>
 
               <div class="ib-guide-callout">
                 <strong>Big picture</strong>
                 <p class="muted" style="margin:0;">
-                  [One tight summary sentence that captures the key idea – e.g. “Good labs turn guesswork into data
-                  so you can adjust dose and timing with a cooler head.”]
+                  Bloodwork turns TRT from guesswork into a feedback loop – dose, test, adjust, repeat.
                 </p>
               </div>
             </section>
@@ -215,20 +224,60 @@
             <section class="ib-guide-section" id="what-to-test">
               <h2>What you should actually test</h2>
               <p>
-                [Intro sentence – focus on core markers; keep optional tests clearly labelled as optional or “nice to have”.]
+                Below is a simple “core panel” that covers most people on TRT. Your prescriber may add or remove
+                tests based on your history, medication, and risk factors.
               </p>
 
               <h3>Core panel</h3>
               <ul>
-                <li>[Marker 1] – what it tells you in plain language.</li>
-                <li>[Marker 2] – why it matters on TRT / peptides.</li>
-                <li>[Marker 3] – what high / low usually means at a high level.</li>
+                <li>
+                  <strong>Total testosterone (TT)</strong> – the main signal of where your overall testosterone
+                  level is landing on your current dose and schedule.
+                </li>
+                <li>
+                  <strong>Free testosterone (FT)</strong> – the portion of testosterone that’s not bound and is
+                  available for tissues to use. Often tracks better with symptoms than TT alone.
+                </li>
+                <li>
+                  <strong>Sex hormone–binding globulin (SHBG)</strong> – helps explain why two people on the same
+                  dose can feel very different. High or low SHBG changes how much FT you get from a given TT.
+                </li>
+                <li>
+                  <strong>Estradiol (E2, usually sensitive assay in men)</strong> – tracks how much testosterone is
+                  being converted to estrogen. Both very low and very high can cause issues.
+                </li>
+                <li>
+                  <strong>Complete blood count (CBC)</strong> – especially hematocrit (HCT) and hemoglobin (HGB) to
+                  watch for blood thickening on TRT.
+                </li>
+                <li>
+                  <strong>Comprehensive metabolic panel (CMP)</strong> – looks at kidney function, liver enzymes, and
+                  electrolytes. Useful baseline safety check while on any long-term medication.
+                </li>
+                <li>
+                  <strong>Lipid panel</strong> – cholesterol and triglycerides. TRT, lifestyle, and bodyweight can
+                  all move these numbers over time.
+                </li>
               </ul>
 
               <h3>Optional or situational tests</h3>
               <ul>
-                <li>[Optional marker 1] – when it’s worth paying for.</li>
-                <li>[Optional marker 2] – who should consider it.</li>
+                <li>
+                  <strong>Prolactin</strong> – useful if you have low libido, erectile issues, or nipple sensitivity
+                  that doesn’t line up with your testosterone and estradiol picture.
+                </li>
+                <li>
+                  <strong>PSA (prostate-specific antigen)</strong> – often checked in older men or those with
+                  prostate history as part of general safety monitoring.
+                </li>
+                <li>
+                  <strong>TSH and basic thyroid panel</strong> – worth checking if you have fatigue, weight gain,
+                  or cold intolerance that doesn’t match your testosterone levels.
+                </li>
+                <li>
+                  <strong>Fasting glucose or HbA1c</strong> – more relevant if you’re overweight, insulin resistant,
+                  or have a family history of diabetes.
+                </li>
               </ul>
             </section>
 
@@ -236,14 +285,26 @@
             <section class="ib-guide-section" id="timing">
               <h2>When to test</h2>
               <p>
-                [Lay out simple timing rules – before starting, early follow-up, then long-term monitoring. Keep it
-                realistic and not hyper-precise.]
+                You don’t need labs every few weeks. You need them at a few key decision points, then on a steady
+                rhythm once things are stable.
               </p>
 
               <ul>
-                <li><strong>Before starting:</strong> [When and what to get before first dose.]</li>
-                <li><strong>After changes:</strong> [Rough timeframe after dose / ester / frequency change.]</li>
-                <li><strong>Long term:</strong> [How often once you are stable.]</li>
+                <li>
+                  <strong>Before starting TRT:</strong>
+                  Get a full baseline panel before your first injection or prescription. You want TT, FT, SHBG,
+                  E2, CBC, CMP, lipids, and whatever else your prescriber recommends so you know where you started.
+                </li>
+                <li>
+                  <strong>After a change in dose, ester, or frequency:</strong>
+                  Re-check labs roughly 6–8 weeks after a meaningful change. That gives enough time for levels and
+                  symptoms to settle into the new pattern.
+                </li>
+                <li>
+                  <strong>Long term, once stable:</strong>
+                  Many people do a full panel every 6–12 months, with CBC and hematocrit checked a bit more
+                  frequently if they tend to run high. Some prescribers prefer 3–6-monthly labs in the first year.
+                </li>
               </ul>
             </section>
 
@@ -251,24 +312,28 @@
             <section class="ib-guide-section" id="using-tools">
               <h2>Using this guide with InjectBuddy tools</h2>
               <p>
-                [Explain how the reader can plug their numbers into your calculators or use them alongside this guide.]
+                Your bloodwork tells you if your current TRT plan is working. The InjectBuddy tools help you turn
+                that plan into clear, repeatable doses so you’re not doing maths on scrap paper every time you
+                change something.
               </p>
 
               <ul>
                 <li>
                   <strong>TRT dosage calculator:</strong>
-                  Use your current dose, vial strength, and schedule in the
-                  <a href="/calculator.html">TRT dosage calculator</a> to see mg and mL per injection.
+                  Take the dose and schedule you’ve agreed on with your prescriber and plug it into the
+                  <a href="/calculator.html">TRT dosage calculator</a> to get mg and mL per injection, plus a simple
+                  schedule you can stick to.
                 </li>
                 <li>
                   <strong>Peptide calculator:</strong>
-                  If you are running peptides as well, use the
+                  If you’re also running peptides, use the
                   <a href="/peptide.html">peptide reconstitution &amp; dosage calculator</a>
-                  so your vial math matches the plan in this guide.
+                  so your vial math is consistent with the doses discussed alongside your labs.
                 </li>
                 <li>
                   <strong>Other tools:</strong>
-                  [Mention BMI / free T / other tools if relevant to this specific guide.]
+                  Use your height and weight with the BMI or other calculators if you’re tracking body composition
+                  changes alongside lab improvements.
                 </li>
               </ul>
             </section>
@@ -277,19 +342,24 @@
             <section class="ib-guide-section" id="faq">
               <h2>Common questions</h2>
 
-              <h3>[Question 1]</h3>
+              <h3>Do I need the exact same panel every time?</h3>
               <p>
-                [Short, clear answer. No fluff.]
+                Not always. Most people get a more complete panel at baseline and after big changes, then a slimmer
+                “maintenance” set of labs once things are stable. The core markers above are a good starting point
+                to discuss with your prescriber.
               </p>
 
-              <h3>[Question 2]</h3>
+              <h3>What if I feel bad but my numbers look “fine”?</h3>
               <p>
-                [Short, clear answer.]
+                Labs don’t replace symptoms. They give context. If you feel off, your prescriber may look at timing
+                of injections, SHBG, estradiol, sleep, stress, and other health issues – not just a single TT result.
               </p>
 
-              <h3>[Question 3]</h3>
+              <h3>Can I adjust my dose just based on labs?</h3>
               <p>
-                [Short, clear answer.]
+                No. Labs are one input into dose decisions, alongside symptoms, blood pressure, medical history, and
+                the risks your prescriber is balancing. Treat them as a decision tool, not a DIY green light for
+                pushing doses up or down on your own.
               </p>
             </section>
 
@@ -297,9 +367,9 @@
             <section class="ib-guide-section" id="summary">
               <h2>Key takeaways</h2>
               <ul>
-                <li>[Key point 1 – one line.]</li>
-                <li>[Key point 2 – one line.]</li>
-                <li>[Key point 3 – one line.]</li>
+                <li>Use a consistent core panel instead of random one-off tests.</li>
+                <li>Time your labs around key decisions – baseline, after changes, then on a steady rhythm.</li>
+                <li>Combine bloodwork, symptoms, and InjectBuddy tools to keep TRT structured instead of guessy.</li>
               </ul>
             </section>
           </article>
