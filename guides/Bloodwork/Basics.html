@@ -26,32 +26,21 @@
 
   <!-- MOBILE FIXES -->
   <style>
-    /* Increase padding on mobile so sidebar never overlaps text */
-    @media (max-width: 768px) {
-      .ib-guides-content {
-        padding: 28px 22px !important;
-      }
-    }
-
-    /* Prevent title from running off screen */
+    /* Title resized for mobile so it never runs off the screen */
     @media (max-width: 768px) {
       .ib-title-row h1 {
         font-size: 22px !important;
         line-height: 1.25 !important;
-        max-width: 100%;
         white-space: normal !important;
         word-break: break-word;
       }
-    }
 
-    /* Title row mobile spacing */
-    @media (max-width: 768px) {
       .ib-title-row {
         padding: 16px 20px !important;
       }
     }
 
-    /* Breadcrumb spacing */
+    /* Slight breadcrumb spacing on mobile */
     @media (max-width: 768px) {
       .ib-breadcrumbs {
         padding-left: 4px;
@@ -69,9 +58,8 @@
     <section class="section">
       <div class="container">
 
-        <!-- TITLE ROW (auto-resizes on mobile) -->
+        <!-- TITLE ONLY — Guide label removed completely -->
         <div class="ib-title-row">
-          <span class="tag">Guide</span>
           <h1>Bloodwork Basics for TRT</h1>
         </div>
 
@@ -86,7 +74,7 @@
             ></div>
           </aside>
 
-          <!-- Main content (extra padding added for mobile) -->
+          <!-- Main content -->
           <article class="ib-guides-content" style="padding: 20px 20px 28px;">
 
             <!-- Breadcrumb -->
