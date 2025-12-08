@@ -1743,3 +1743,56 @@ input[type="range"]:active::-moz-range-thumb {
     padding-left: 0;
   }
 }
+/* ============================================
+   FORCE GUIDES NAV TO TOUCH LEFT EDGE (ALL DEVICES)
+   ============================================ */
+
+/* The nav wrapper must ignore container padding */
+.ib-guides-nav-wrap {
+  position: relative;
+  left: calc(-1 * var(--container-padding, 16px));
+  margin-left: calc(-1 * var(--container-padding, 16px));
+}
+
+/* Desktop override — ensure no accidental offset */
+@media (min-width: 901px) {
+  .ib-guides-nav-wrap {
+    left: 0;
+    margin-left: 0;
+    position: absolute;             /* detach from container */
+    top: calc(var(--header-h, 64px) + 12px);
+  }
+
+  .ib-guides-rail {
+    position: fixed;
+    left: 0;                         /* flush against screen */
+    top: calc(var(--header-h, 64px) + 12px);
+    border-radius: 0 16px 16px 0;
+  }
+
+  .ib-guides-panel {
+    position: fixed;
+    left: 52px;                      /* immediately beside rail */
+    top: calc(var(--header-h, 64px) + 12px);
+  }
+}
+
+/* Mobile — floating overlay, always flush left */
+@media (max-width: 900px) {
+  .ib-guides-nav-wrap {
+    position: fixed !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    top: calc(var(--header-h, 56px) + 8px);
+    z-index: 200;
+  }
+
+  .ib-guides-rail {
+    left: 0 !important;
+    border-radius: 0 14px 14px 0;
+  }
+
+  .ib-guides-panel {
+    left: 52px !important;    /* slide-out sits immediately next to icons */
+  }
+}
