@@ -1875,3 +1875,27 @@ input[type="range"]:active::-moz-range-thumb {
   line-height: 1.2;
   white-space: nowrap !important; /* never wrap title */
 }
+/* Side nav wrapper */
+.ib-guides-nav {
+  background-color: transparent;
+}
+
+/* Icon / category buttons in the guides nav */
+.ib-guides-nav .ib-guides-icon-btn {
+  background-color: var(--ib-surface);
+  border: 1px solid var(--ib-border-subtle);
+  color: var(--ib-text-muted);
+}
+
+/* Hover state */
+.ib-guides-nav .ib-guides-icon-btn:hover {
+  background-color: var(--ib-primary-soft);
+  color: var(--ib-primary);
+}
+
+/* Active state */
+.ib-guides-nav .ib-guides-icon-btn.is-active {
+  background-color: var(--ib-primary-soft);
+  border-color: var(--ib-primary);
+  color: var(--ib-primary);
+}
