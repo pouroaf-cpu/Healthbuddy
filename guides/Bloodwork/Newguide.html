@@ -14,15 +14,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- PER-GUIDE META: BLOODWORK BASICS -->
-  <title>Bloodwork Basics for TRT | InjectBuddy Guides</title>
-  <meta name="description" content="Learn which blood tests actually matter on TRT, when to get them, and how to use those results to have better conversations with your prescriber." />
-  <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
+  <!-- SEO: primary + secondary keywords -->
+  <title>Testosterone Dosage Calculator | Free TRT Injection Calculator</title>
+  <meta name="description" content="Use InjectBuddy’s free testosterone dosage calculator to calculate your TRT dose in mg and mL. This TRT calculator works with testosterone cypionate and other esters so you can quickly see how to calculate testosterone dosage for every injection." />
+  <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
 
-  <meta property="og:title" content="Bloodwork Basics for TRT | InjectBuddy Guides" />
-  <meta property="og:description" content="Simple, no-nonsense bloodwork basics for people on TRT – what to test, when to test, and how to use the numbers." />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
+  <meta property="og:title" content="Testosterone Dosage Calculator | Free TRT Injection Calculator" />
+  <meta property="og:description" content="Fast, no-nonsense TRT calculator. Work out your testosterone cypionate dosage in mg and mL per injection, without doing the maths by hand." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
   <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" />
@@ -36,356 +36,232 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
-
-  <!-- Guides page layout + article styles (can be moved to global CSS later) -->
-  <style>
-    .ib-guides-layout{
-      display:flex;
-      align-items:flex-start;
-      gap:32px;
-      padding-top:24px;
-      padding-bottom:24px;
-    }
-
-    .ib-guides-nav{
-      flex:0 0 280px;
-      max-width:280px;
-      padding-right:24px;
-      border-right:1px solid var(--border);
-      position:sticky;
-      /* offset so it sits under fixed universal nav if you use fixed header */
-      top:96px;
-    }
-
-    .ib-guides-content{
-      flex:1 1 auto;
-      min-width:0;
-    }
-
-    .ib-guides-article-header h1{
-      margin:0 0 6px;
-      font-size:24px;
-    }
-
-    .ib-guides-article-subtitle{
-      margin:0 0 16px;
-      font-size:14px;
-      color:var(--muted);
-    }
-
-    .ib-guide-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      font-size:12px;
-      color:var(--muted);
-      margin-bottom:16px;
-    }
-
-    .ib-guide-meta span{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 8px;
-      border-radius:999px;
-      background:#f8fafc;
-      border:1px solid #e2e8f0;
-    }
-
-    .ib-guide-section{
-      margin-bottom:24px;
-    }
-
-    .ib-guide-section h2{
-      margin:0 0 6px;
-      font-size:18px;
-    }
-
-    .ib-guide-section h3{
-      margin:16px 0 6px;
-      font-size:15px;
-    }
-
-    .ib-guide-callout{
-      border-radius:14px;
-      padding:12px 14px;
-      border:1px solid #e2e8f0;
-      background:#f9fafb;
-      font-size:14px;
-      margin:12px 0;
-    }
-
-    .ib-guide-callout strong{
-      display:block;
-      margin-bottom:4px;
-    }
-
-    @media (max-width:900px){
-      .ib-guides-layout{
-        flex-direction:column;
-        gap:20px;
-      }
-      .ib-guides-nav{
-        position:static;
-        border-right:none;
-        border-bottom:1px solid var(--border);
-        padding-right:0;
-        padding-bottom:16px;
-        max-width:100%;
-      }
-    }
-  </style>
 </head>
 <body>
-  <!-- UNIVERSAL TOP NAV BAR (rendered by /assets/nav.js) -->
-  <div id="site-header" data-nav-current="guides"></div>
+  <!-- Universal nav -->
+  <div id="site-header" data-nav-current="calculator"></div>
 
   <main>
-    <section class="section">
-      <div class="container">
-        <!-- PAGE-LEVEL HEADER FOR THIS GUIDE -->
-        <header>
-          <span class="tag">Guide</span>
-          <h1>Bloodwork basics for TRT</h1>
+    <!-- HERO / PRIMARY SECTION -->
+    <section class="section hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="tag">Tool</span>
+          <h1>Testosterone Dosage Calculator</h1>
           <p class="muted">
-            This guide walks you through the core labs most people on TRT should know about – what they are, why
-            they matter, and how they fit into dose and safety decisions.
+            A fast, no-nonsense TRT calculator that converts your prescribed dose and vial strength into clear
+            mg and mL per injection. Built for testosterone cypionate and other common esters, so you don’t have
+            to do syringe maths in your head.
           </p>
-        </header>
 
-        <div class="ib-guides-layout">
-          <!-- LEFT NAV: UNIVERSAL GUIDES SIDEBAR -->
-          <aside class="ib-guides-nav" aria-label="Guide navigation">
-            <!--
-              data-guide-category: bloodwork | hormones | testosterone | peptides | injection | tools
-              data-guide-slug must match whatever guides-nav.js uses for this page
-            -->
-            <div
-              id="ib-guides-shell"
-              data-guide-category="bloodwork"
-              data-guide-slug="basics"
-            ></div>
-          </aside>
+          <ul class="hero-bullets">
+            <li>See your exact testosterone dosage per injection in mg and mL.</li>
+            <li>Works as a simple testosterone injection calculator for most TRT schedules.</li>
+            <li>Designed for testosterone cypionate but compatible with other injectable testosterone esters.</li>
+          </ul>
+        </div>
 
-          <!-- RIGHT COLUMN: GUIDE CONTENT -->
-          <article class="ib-guides-content">
-            <!-- Breadcrumb -->
-            <nav aria-label="Breadcrumb" style="font-size:12px;margin-bottom:8px;">
-              <a href="/guides/" class="muted">Guides &amp; learning</a>
-              <span class="muted"> / </span>
-              <a href="/Bloodwork/" class="muted">Bloodwork</a>
-              <span class="muted"> / </span>
-              <span>Bloodwork basics for TRT</span>
-            </nav>
+        <!-- Calculator shell (your existing JS mounts into this) -->
+        <div class="hero-card">
+          <h2 class="h3">TRT calculator</h2>
+          <p class="muted small">
+            Enter your prescription details and we’ll show you the dose per shot.
+          </p>
 
-            <header class="ib-guides-article-header">
-              <h2>Bloodwork basics for TRT</h2>
-              <p class="ib-guides-article-subtitle">
-                For people on TRT who want a simple, practical breakdown of which blood tests matter, when to get
-                them, and how to stop flying blind.
-              </p>
-            </header>
-
-            <!-- Meta row -->
-            <div class="ib-guide-meta">
-              <span><strong>Category:</strong> Bloodwork</span>
-              <span><strong>Level:</strong> Beginner</span>
-              <span><strong>Reading time:</strong> ~7 minutes</span>
-              <span><strong>Last updated:</strong> 08 Dec 2025</span>
+          <!-- If you already have a form, keep the same IDs/names so JS still works -->
+          <form id="ib-trt-calculator" class="tool-card" novalidate>
+            <div class="field-group">
+              <label for="vial-strength">Vial strength (e.g. 200&nbsp;mg/mL)</label>
+              <div class="field-inline">
+                <input id="vial-strength" name="vialStrength" type="number" inputmode="decimal" step="0.1" placeholder="200" required />
+                <span class="field-suffix">mg/mL</span>
+              </div>
             </div>
 
-            <!-- SECTION 1: Why this matters -->
-            <section class="ib-guide-section" id="why-it-matters">
-              <h2>Why this matters</h2>
-              <p>
-                TRT isn’t just about chasing a “good” total testosterone number. Your bloodwork gives you a
-                snapshot of how your whole system is responding – hormones, blood thickness, lipids, organs, and
-                more. If you only look at one number, you miss half the story.
-              </p>
-              <p>
-                Good labs make conversations with your prescriber less emotional and more objective. Instead of
-                “I feel off, can we just increase my dose?”, you can point to concrete changes in hematocrit,
-                estradiol, or lipids and talk through options with data.
-              </p>
-              <p>
-                Most people don’t need a 40-marker “TRT panel” every time. You need a core set of tests done at
-                sensible intervals, plus a few extras if you’ve got specific risks or symptoms that need digging into.
-              </p>
-
-              <div class="ib-guide-callout">
-                <strong>Big picture</strong>
-                <p class="muted" style="margin:0;">
-                  Bloodwork turns TRT from guesswork into a feedback loop – dose, test, adjust, repeat.
-                </p>
+            <div class="field-group">
+              <label for="total-weekly-dose">Total weekly testosterone dose</label>
+              <div class="field-inline">
+                <input id="total-weekly-dose" name="weeklyDoseMg" type="number" inputmode="decimal" step="1" placeholder="140" required />
+                <span class="field-suffix">mg / week</span>
               </div>
-            </section>
+            </div>
 
-            <!-- SECTION 2: What you should actually test -->
-            <section class="ib-guide-section" id="what-to-test">
-              <h2>What you should actually test</h2>
-              <p>
-                Below is a simple “core panel” that covers most people on TRT. Your prescriber may add or remove
-                tests based on your history, medication, and risk factors.
+            <div class="field-group">
+              <label for="injections-per-week">Injections per week</label>
+              <select id="injections-per-week" name="injectionsPerWeek" required>
+                <option value="">Select</option>
+                <option value="1">1× per week</option>
+                <option value="2">2× per week</option>
+                <option value="3">3× per week</option>
+                <option value="4">4× per week</option>
+                <option value="5">5× per week</option>
+                <option value="6">6× per week</option>
+                <option value="7">7× per week (daily)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              Calculate testosterone dosage
+            </button>
+
+            <div id="ib-trt-results" class="tool-results" hidden>
+              <h3 class="h4">Your injection plan</h3>
+              <p class="muted small">
+                Based on your inputs, here’s your dose per injection:
               </p>
-
-              <h3>Core panel</h3>
-              <ul>
-                <li>
-                  <strong>Total testosterone (TT)</strong> – the main signal of where your overall testosterone
-                  level is landing on your current dose and schedule.
-                </li>
-                <li>
-                  <strong>Free testosterone (FT)</strong> – the portion of testosterone that’s not bound and is
-                  available for tissues to use. Often tracks better with symptoms than TT alone.
-                </li>
-                <li>
-                  <strong>Sex hormone–binding globulin (SHBG)</strong> – helps explain why two people on the same
-                  dose can feel very different. High or low SHBG changes how much FT you get from a given TT.
-                </li>
-                <li>
-                  <strong>Estradiol (E2, usually sensitive assay in men)</strong> – tracks how much testosterone is
-                  being converted to estrogen. Both very low and very high can cause issues.
-                </li>
-                <li>
-                  <strong>Complete blood count (CBC)</strong> – especially hematocrit (HCT) and hemoglobin (HGB) to
-                  watch for blood thickening on TRT.
-                </li>
-                <li>
-                  <strong>Comprehensive metabolic panel (CMP)</strong> – looks at kidney function, liver enzymes, and
-                  electrolytes. Useful baseline safety check while on any long-term medication.
-                </li>
-                <li>
-                  <strong>Lipid panel</strong> – cholesterol and triglycerides. TRT, lifestyle, and bodyweight can
-                  all move these numbers over time.
-                </li>
+              <ul class="result-list">
+                <li><strong>Mg per injection:</strong> <span id="ib-result-mg">–</span> mg</li>
+                <li><strong>mL per injection:</strong> <span id="ib-result-ml">–</span> mL</li>
+                <li><strong>Injections per week:</strong> <span id="ib-result-frequency">–</span></li>
               </ul>
-
-              <h3>Optional or situational tests</h3>
-              <ul>
-                <li>
-                  <strong>Prolactin</strong> – useful if you have low libido, erectile issues, or nipple sensitivity
-                  that doesn’t line up with your testosterone and estradiol picture.
-                </li>
-                <li>
-                  <strong>PSA (prostate-specific antigen)</strong> – often checked in older men or those with
-                  prostate history as part of general safety monitoring.
-                </li>
-                <li>
-                  <strong>TSH and basic thyroid panel</strong> – worth checking if you have fatigue, weight gain,
-                  or cold intolerance that doesn’t match your testosterone levels.
-                </li>
-                <li>
-                  <strong>Fasting glucose or HbA1c</strong> – more relevant if you’re overweight, insulin resistant,
-                  or have a family history of diabetes.
-                </li>
-              </ul>
-            </section>
-
-            <!-- SECTION 3: When to test (timing & frequency) -->
-            <section class="ib-guide-section" id="timing">
-              <h2>When to test</h2>
-              <p>
-                You don’t need labs every few weeks. You need them at a few key decision points, then on a steady
-                rhythm once things are stable.
+              <p class="muted xsmall">
+                This testosterone dosage calculator is for educational use only and does not replace medical advice.
+                Always confirm any changes with a qualified professional.
               </p>
-
-              <ul>
-                <li>
-                  <strong>Before starting TRT:</strong>
-                  Get a full baseline panel before your first injection or prescription. You want TT, FT, SHBG,
-                  E2, CBC, CMP, lipids, and whatever else your prescriber recommends so you know where you started.
-                </li>
-                <li>
-                  <strong>After a change in dose, ester, or frequency:</strong>
-                  Re-check labs roughly 6–8 weeks after a meaningful change. That gives enough time for levels and
-                  symptoms to settle into the new pattern.
-                </li>
-                <li>
-                  <strong>Long term, once stable:</strong>
-                  Many people do a full panel every 6–12 months, with CBC and hematocrit checked a bit more
-                  frequently if they tend to run high. Some prescribers prefer 3–6-monthly labs in the first year.
-                </li>
-              </ul>
-            </section>
-
-            <!-- SECTION 4: How to connect this to InjectBuddy tools -->
-            <section class="ib-guide-section" id="using-tools">
-              <h2>Using this guide with InjectBuddy tools</h2>
-              <p>
-                Your bloodwork tells you if your current TRT plan is working. The InjectBuddy tools help you turn
-                that plan into clear, repeatable doses so you’re not doing maths on scrap paper every time you
-                change something.
-              </p>
-
-              <ul>
-                <li>
-                  <strong>TRT dosage calculator:</strong>
-                  Take the dose and schedule you’ve agreed on with your prescriber and plug it into the
-                  <a href="/calculator.html">TRT dosage calculator</a> to get mg and mL per injection, plus a simple
-                  schedule you can stick to.
-                </li>
-                <li>
-                  <strong>Peptide calculator:</strong>
-                  If you’re also running peptides, use the
-                  <a href="/peptide.html">peptide reconstitution &amp; dosage calculator</a>
-                  so your vial math is consistent with the doses discussed alongside your labs.
-                </li>
-                <li>
-                  <strong>Other tools:</strong>
-                  Use your height and weight with the BMI or other calculators if you’re tracking body composition
-                  changes alongside lab improvements.
-                </li>
-              </ul>
-            </section>
-
-            <!-- SECTION 5: Common questions / quick answers -->
-            <section class="ib-guide-section" id="faq">
-              <h2>Common questions</h2>
-
-              <h3>Do I need the exact same panel every time?</h3>
-              <p>
-                Not always. Most people get a more complete panel at baseline and after big changes, then a slimmer
-                “maintenance” set of labs once things are stable. The core markers above are a good starting point
-                to discuss with your prescriber.
-              </p>
-
-              <h3>What if I feel bad but my numbers look “fine”?</h3>
-              <p>
-                Labs don’t replace symptoms. They give context. If you feel off, your prescriber may look at timing
-                of injections, SHBG, estradiol, sleep, stress, and other health issues – not just a single TT result.
-              </p>
-
-              <h3>Can I adjust my dose just based on labs?</h3>
-              <p>
-                No. Labs are one input into dose decisions, alongside symptoms, blood pressure, medical history, and
-                the risks your prescriber is balancing. Treat them as a decision tool, not a DIY green light for
-                pushing doses up or down on your own.
-              </p>
-            </section>
-
-            <!-- Wrap-up -->
-            <section class="ib-guide-section" id="summary">
-              <h2>Key takeaways</h2>
-              <ul>
-                <li>Use a consistent core panel instead of random one-off tests.</li>
-                <li>Time your labs around key decisions – baseline, after changes, then on a steady rhythm.</li>
-                <li>Combine bloodwork, symptoms, and InjectBuddy tools to keep TRT structured instead of guessy.</li>
-              </ul>
-            </section>
-          </article>
+            </div>
+          </form>
         </div>
       </div>
     </section>
 
-    <!-- DISCLAIMER (REUSE PATTERN) -->
-    <section class="section" aria-label="Guide disclaimer">
+    <!-- HOW IT WORKS / “HOW TO CALCULATE TESTOSTERONE DOSAGE” -->
+    <section class="section">
       <div class="container">
-        <div style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow);">
-          <strong>General information only</strong>
-          <p class="muted" style="margin:8px 0 0;">
-            This guide is for general educational purposes only. It does not interpret your individual results,
-            diagnose conditions, or replace medical advice. Always work with a qualified professional when making
-            decisions about treatment, labs, or dose changes.
+        <header class="section-header">
+          <h2>How to calculate testosterone dosage with this calculator</h2>
+          <p class="muted">
+            The logic is simple: total weekly dose → dose per injection → volume in mL. The calculator does the
+            maths for you, but here’s what happens under the hood.
+          </p>
+        </header>
+
+        <div class="grid grid-2">
+          <div>
+            <h3>1. Start with your prescribed weekly dose</h3>
+            <p>
+              Enter the total amount of testosterone your prescriber has recommended per week (for example,
+              140&nbsp;mg/week of testosterone cypionate). This is the baseline the testosterone dosage calculator
+              works from.
+            </p>
+
+            <h3>2. Choose how often you inject</h3>
+            <p>
+              Select how many times per week you inject. The TRT calculator divides your total weekly dose by this
+              number to give a clear mg amount per shot. No spreadsheets or manual division needed.
+            </p>
+          </div>
+
+          <div>
+            <h3>3. Convert mg to mL based on vial strength</h3>
+            <p>
+              Finally, you tell the tool your vial strength — for example a common
+              <strong>testosterone cypionate 200&nbsp;mg/mL</strong> vial. The calculator then converts the mg
+              dose into mL, acting as a simple testosterone injection calculator so you know exactly how far to
+              pull the plunger.
+            </p>
+
+            <h3>4. Apply it consistently</h3>
+            <p>
+              Once you know your mg and mL per injection, you can repeat the same volume every time. That makes it
+              easier to keep your protocol consistent so your bloodwork and symptoms aren’t all over the place.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY USE A TESTOSTERONE INJECTION CALCULATOR -->
+    <section class="section section-alt">
+      <div class="container">
+        <header class="section-header">
+          <h2>Why use a testosterone injection calculator at all?</h2>
+          <p class="muted">
+            You can do it by hand. But if you change dose, vial, or frequency even once, the mental maths gets old fast.
+          </p>
+        </header>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>Less guesswork</h3>
+            <p>
+              A small mistake in your maths on testosterone dosage can add up over weeks. The calculator keeps each
+              injection aligned to your actual prescribed TRT dose.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Clear mg and mL output</h3>
+            <p>
+              Whether you think in milligrams or millilitres, the tool shows both. That makes it a practical TRT
+              calculator for anyone who just wants to know “what do I actually draw up in the syringe?”.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Works with cypionate and more</h3>
+            <p>
+              Designed first as a <strong>testosterone cypionate calculator</strong>, but flexible enough to use
+              with other injectable testosterone esters as long as you know the mg/mL strength.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ / EXTRA KEYWORD COVERAGE -->
+    <section class="section">
+      <div class="container">
+        <header class="section-header">
+          <h2>Common questions about this TRT calculator</h2>
+        </header>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h3>Is this testosterone dosage calculator only for TRT?</h3>
+            <p>
+              It’s designed as a TRT calculator, meaning it assumes medical supervision and a clear weekly dose
+              from a prescriber. The maths is the same regardless, but this tool is not a recommendation to start
+              or change treatment on your own.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does it support different vial strengths of testosterone cypionate?</h3>
+            <p>
+              Yes. As long as you enter the correct mg/mL strength, the calculator effectively behaves as a
+              testosterone cypionate calculator. Common examples include 100&nbsp;mg/mL and 200&nbsp;mg/mL vials.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can I use this as a general testosterone injection calculator?</h3>
+            <p>
+              Yes. The tool simply converts your total weekly dose and injection frequency into a per-shot
+              amount in mg and mL. That makes it a straightforward testosterone injection calculator for most
+              standard injectable testosterone protocols.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does this calculator tell me what dose I should be on?</h3>
+            <p>
+              No. It only helps you calculate testosterone dosage once a medical professional has set your
+              prescription. It does not suggest, optimise, or approve any specific dose.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section class="section" aria-label="Tool disclaimer">
+      <div class="container">
+        <div class="card card-disclaimer">
+          <strong>Not medical advice</strong>
+          <p class="muted">
+            This testosterone dosage calculator is for general educational use only. It does not interpret your
+            bloodwork, set your treatment plan, or replace advice from a qualified professional. Always confirm any
+            changes to dose, schedule, or medication with your prescriber.
           </p>
         </div>
       </div>
@@ -394,10 +270,12 @@
 
   <div id="ib-footer"></div>
 
-  <!-- Universal nav + footer + guides sidebar -->
+  <!-- Universal nav + footer -->
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
-  <script src="/assets/guides-nav.js" defer></script>
+
+  <!-- Your existing TRT calculator JS (adjust path/name if different) -->
+  <script src="/assets/trt-calculator.js" defer></script>
 
   <!-- Scroll to Top Button -->
   <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
