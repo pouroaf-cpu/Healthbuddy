@@ -1,6 +1,34 @@
+// ✅ ONLY THESE CATEGORIES ARE VISIBLE
+//   - in the SIDE BAR
+//   - and in the TOP NAV (if you tag links, see below)
+const IB_ACTIVE_GUIDES = new Set([
+  'bloodwork',
+  'testosterone',
+  // 'hormones',
+  // 'peptides',
+  // 'injection',
+  // 'tools',
+]);
+
 document.addEventListener('DOMContentLoaded', () => {
+  // ---- 1) TOP NAV: hide unused guide links ----
+  // Add data-guide-link="bloodwork" etc. on your main nav links.
+  const topNavLinks = document.querySelectorAll('[data-guide-link]');
+  topNavLinks.forEach((link) => {
+    const key = link.dataset.guideLink; // e.g. "bloodwork"
+    if (key && !IB_ACTIVE_GUIDES.has(key)) {
+      const li = link.closest('li');
+      if (li) {
+        li.remove();
+      } else {
+        link.remove();
+      }
+    }
+  });
+
+  // ---- 2) GUIDES SIDEBAR: only on pages with #ib-guides-shell ----
   const shell = document.getElementById('ib-guides-shell');
-  if (!shell) return; // only on guides pages
+  if (!shell) return; // no guides shell on this page
 
   // Inject the full nav markup directly
   shell.innerHTML = `
@@ -166,16 +194,39 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.querySelectorAll('.ib-guides-panel-group')
   );
 
+  // ---- 3) HIDE INACTIVE CATEGORIES IN SIDEBAR ----
+  iconButtons.forEach((btn) => {
+    const key = btn.dataset.category; // bloodwork, hormones, etc.
+    if (key && !IB_ACTIVE_GUIDES.has(key)) {
+      btn.remove();
+    }
+  });
+
+  groups.forEach((group) => {
+    const key = group.dataset.category;
+    if (key && !IB_ACTIVE_GUIDES.has(key)) {
+      group.remove();
+    }
+  });
+
+  // Rebuild the arrays AFTER removals
+  const activeButtons = Array.from(
+    rail.querySelectorAll('.ib-guides-icon-btn')
+  );
+  const activeGroups = Array.from(
+    panel.querySelectorAll('.ib-guides-panel-group')
+  );
+
   function setActiveCategory(category) {
     // buttons
-    iconButtons.forEach((btn) => {
+    activeButtons.forEach((btn) => {
       const isActive = btn.dataset.category === category;
       btn.classList.toggle('is-active', isActive);
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
 
     // panels
-    groups.forEach((group) => {
+    activeGroups.forEach((group) => {
       const match = group.dataset.category === category;
       group.classList.toggle('is-active', match);
       group.hidden = !match;
@@ -190,12 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.dataset.state = 'closed';
     navWrap.classList.remove('ib-guides-open');
 
-    iconButtons.forEach((btn) => {
+    activeButtons.forEach((btn) => {
       btn.classList.remove('is-active');
       btn.setAttribute('aria-pressed', 'false');
     });
 
-    groups.forEach((group) => {
+    activeGroups.forEach((group) => {
       group.classList.remove('is-active');
       group.hidden = true;
       group.setAttribute('aria-hidden', 'true');
@@ -206,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
   closePanel();
 
   // Icon click behaviour (toggle open/close)
-  iconButtons.forEach((btn) => {
+  activeButtons.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const category = btn.dataset.category;
