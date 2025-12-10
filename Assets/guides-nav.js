@@ -3,7 +3,7 @@
 //   - and in the TOP NAV (if you tag links, see below)
 const IB_ACTIVE_GUIDES = new Set([
   'bloodwork',
-  'testosterone',
+  //testosterone',
   // 'hormones',
   // 'peptides',
   // 'injection',
