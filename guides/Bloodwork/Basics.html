@@ -41,9 +41,9 @@
 
     /* Desktop layout: sidebar + content */
     @media (min-width: 769px) {
-      /* Decrease left padding on this page’s main container */
-      .section .container {
-        padding-left: 12px !important;
+      /* Decrease left padding only for this page */
+      .ib-guides-page .container {
+        padding-left: 8px !important;
       }
 
       .ib-guides-layout {
@@ -53,9 +53,8 @@
         align-items: flex-start;
       }
 
-      /* Slightly reduced left padding for main article content */
       .ib-guides-content {
-        padding: 20px 24px 32px 16px !important; /* top right bottom left */
+        padding: 20px 28px 32px !important;
       }
     }
 
@@ -83,13 +82,14 @@
         margin-bottom: 12px;
       }
 
-      /* Increase mobile padding to 57px */
-      .section .container {
-        padding: 0 57px 32px !important; /* top, left/right=57px, bottom */
+      /* Increase mobile side padding to 57px on this page only */
+      .ib-guides-page .container {
+        padding-left: 57px !important;
+        padding-right: 57px !important;
       }
 
       .ib-guides-content {
-        padding: 20px 0 28px !important; /* rely on container for side padding */
+        padding: 20px 0 28px !important; /* let container handle side padding */
       }
 
       /* Breadcrumb spacing on mobile */
@@ -106,7 +106,7 @@
   <div id="site-header" data-nav-current="guides"></div>
 
   <main>
-    <section class="section">
+    <section class="section ib-guides-page">
       <div class="container">
 
         <!-- TITLE -->
@@ -251,3 +251,16 @@
       <div class="container">
         <div class="card" style="padding:18px;">
           <strong>General information only</strong>
+          <p class="muted">This guide is educational. It does not interpret your personal labs or replace medical care.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ib-footer"></div>
+
+  <script src="/assets/nav.js" defer></script>
+  <script src="/assets/footer.js" defer></script>
+  <script src="/assets/guides-nav.js" defer></script>
+</body>
+</html>
