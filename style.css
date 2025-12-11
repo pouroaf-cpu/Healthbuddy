@@ -571,7 +571,7 @@ input[type="range"]::-webkit-slider-thumb {
   transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
 }
 
-/* Large invisible hitbox for thumb (WebKit trick is limited, visual stays same) */
+/* Firefox */
 input[type="range"]::-moz-range-track {
   height: 8px;
   border-radius: 999px;
@@ -1619,189 +1619,15 @@ input[type="range"]:active::-moz-range-thumb {
     transition: none;
   }
 }
-/* ==== MOBILE FIX: keep guides rail + panel side-by-side ==== */
-@media (max-width: 900px) {
-  /* Layout: small two-column grid, nav on the left, content on the right */
-  .ib-guides-layout {
-    display: grid !important;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: flex-start;
-    gap: 16px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
 
-  /* Nav wrap acts as a single left column (rail + panel in a row) */
-  .ib-guides-nav-wrap {
-    position: sticky !important;
-    top: calc(var(--header-h, 56px) + 8px);
-    display: flex;
-    flex-direction: row;        /* rail + panel next to each other */
-    align-items: flex-start;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    z-index: 10;
-  }
-
-  /* Rail stays vertical, tight on the left */
-  .ib-guides-rail {
-    flex-direction: column !important;
-    align-items: center;
-    justify-content: flex-start;
-    width: 52px;
-    padding: 8px 4px;
-    background: #032d35 !important;
-    border-radius: 0 16px 16px 0;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-  }
-
-  /* Panel sits immediately to the right of the rail, not underneath */
-  .ib-guides-panel {
-    position: relative !important;
-    width: 240px;
-    max-width: 70vw;
-    margin-top: 0;
-    transform: none !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
-  /* Only the active group shows */
-  .ib-guides-panel-group {
-    display: none;
-  }
-  .ib-guides-panel-group.is-active {
-    display: block;
-  }
-
-  /* Content column just flows on the right */
-  .ib-guides-content {
-    margin-top: 0;
-    padding-left: 0;
-  }
-}
-/* ==== MOBILE FIX: keep guides rail + panel side-by-side ==== */
-@media (max-width: 900px) {
-  /* Layout: small two-column grid, nav on the left, content on the right */
-  .ib-guides-layout {
-    display: grid !important;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: flex-start;
-    gap: 16px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
-  /* Nav wrap acts as a single left column (rail + panel in a row) */
-  .ib-guides-nav-wrap {
-    position: sticky !important;
-    top: calc(var(--header-h, 56px) + 8px);
-    display: flex;
-    flex-direction: row;        /* rail + panel next to each other */
-    align-items: flex-start;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    z-index: 10;
-  }
-
-  /* Rail stays vertical, tight on the left */
-  .ib-guides-rail {
-    flex-direction: column !important;
-    align-items: center;
-    justify-content: flex-start;
-    width: 52px;
-    padding: 8px 4px;
-    background: #032d35 !important;
-    border-radius: 0 16px 16px 0;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-  }
-
-  /* Panel sits immediately to the right of the rail, not underneath */
-  .ib-guides-panel {
-    position: relative !important;
-    width: 240px;
-    max-width: 70vw;
-    margin-top: 0;
-    transform: none !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
-  /* Only the active group shows */
-  .ib-guides-panel-group {
-    display: none;
-  }
-  .ib-guides-panel-group.is-active {
-    display: block;
-  }
-
-  /* Content column just flows on the right */
-  .ib-guides-content {
-    margin-top: 0;
-    padding-left: 0;
-  }
-}
-/* ============================================
-   FORCE GUIDES NAV TO TOUCH LEFT EDGE (ALL DEVICES)
-   ============================================ */
-
-/* The nav wrapper must ignore container padding */
-.ib-guides-nav-wrap {
-  position: relative;
-  left: calc(-1 * var(--container-padding, 16px));
-  margin-left: calc(-1 * var(--container-padding, 16px));
-}
-
-/* Desktop override — ensure no accidental offset */
-@media (min-width: 901px) {
-  .ib-guides-nav-wrap {
-    left: 0;
-    margin-left: 0;
-    position: absolute;             /* detach from container */
-    top: calc(var(--header-h, 12px) + 12px);
-  }
-
-  .ib-guides-rail {
-    position: fixed;
-    left: 0;                         /* flush against screen */
-    top: calc(var(--header-h, 64px) + 12px);
-    border-radius: 0 16px 16px 0;
-  }
-
-  .ib-guides-panel {
-    position: fixed;
-    left: 52px;                      /* immediately beside rail */
-    top: calc(var(--header-h, 64px) + 12px);
-  }
-}
-
-/* Mobile — floating overlay, always flush left */
-@media (max-width: 900px) {
-  .ib-guides-nav-wrap {
-    position: fixed !important;
-    left: 0 !important;
-    margin-left: 0 !important;
-    top: calc(var(--header-h, 56px) + 8px);
-    z-index: 200;
-  }
-
-  .ib-guides-rail {
-    left: 0 !important;
-    border-radius: 0 14px 14px 0;
-  }
-
-  .ib-guides-panel {
-    left: 52px !important;    /* slide-out sits immediately next to icons */
-  }
-}
+/* =========================================
+   BREADCRUMBS + TITLE ROW
+   ========================================= */
 .ib-breadcrumbs {
   font-size: 13px;
   color: #008c99; /* Teal */
   margin: 0 0 14px 0;
 }
-
 .ib-breadcrumbs ol {
   list-style: none;
   padding: 0;
@@ -1810,146 +1636,103 @@ input[type="range"]:active::-moz-range-thumb {
   gap: 6px;
   align-items: center;
 }
-
 .ib-breadcrumbs a {
   text-decoration: none;
   color: #008c99; /* Teal */
 }
-
 .ib-breadcrumbs li {
   display: flex;
   align-items: center;
   color: #008c99;
 }
-
 .ib-breadcrumbs li::after {
   content: ">";
   margin-left: 6px;
   color: #008c99; /* Teal */
 }
-
 .ib-breadcrumbs li:last-child::after {
   content: "";
 }
+
 .ib-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px; /* adjust as needed */
+  margin-bottom: 20px;
 }
-
 .ib-page-title {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* push title to the right if desired */
+  align-items: flex-end;
 }
-
 .ib-page-title h1 {
   margin: 0;
 }
-
 .ib-page-title .tag {
   margin-bottom: 4px;
 }
+
 .ib-title-row {
   display: inline-flex !important;
   flex-direction: row;
   align-items: center;
   gap: 12px;
-
   width: 100%;
   padding: 16px;
   box-sizing: border-box;
-
-  white-space: nowrap !important; /* prevents wrapping */
+  white-space: nowrap !important;
 }
-
 .ib-title-row .tag {
   font-size: 14px;
   font-weight: 600;
 }
-
 .ib-title-row h1 {
   margin: 0;
   font-size: 26px;
   line-height: 1.2;
-  white-space: nowrap !important; /* never wrap title */
-}
-/* Side nav wrapper */
-.ib-guides-nav {
-  background-color: transparent;
+  white-space: nowrap !important;
 }
 
-/* Icon / category buttons in the guides nav */
-.ib-guides-nav .ib-guides-icon-btn {
-  background-color: var(--ib-surface);
-  border: 1px solid var(--ib-border-subtle);
-  color: var(--ib-text-muted);
-}
+/* =========================================
+   GUIDES NAV LIGHTER VARIANT
+   ========================================= */
 
-/* Hover state */
-.ib-guides-nav .ib-guides-icon-btn:hover {
-  background-color: var(--ib-primary-soft);
-  color: var(--ib-primary);
-}
-
-/* Active state */
-.ib-guides-nav .ib-guides-icon-btn.is-active {
-  background-color: var(--ib-primary-soft);
-  border-color: var(--ib-primary);
-  color: var(--ib-primary);
-}
-/* Entire sidebar background a bit lighter */
-.ib-guides-nav {
+/* Treat rail as the visual sidebar */
+.ib-guides-rail {
   background-color: #f3f7f9 !important; /* soft light grey-blue */
 }
 
 /* Default icon buttons */
-.ib-guides-nav .ib-guides-icon-btn {
+.ib-guides-icon-btn {
   background-color: #ffffff !important;
   border: 1px solid #d6e2eb !important;
   color: #5d6b78 !important;
 }
 
 /* Hover state */
-.ib-guides-nav .ib-guides-icon-btn:hover {
+.ib-guides-icon-btn:hover {
   background-color: #e9f5f7 !important; /* subtle teal tint */
   border-color: #bcdce3 !important;
   color: #0096a8 !important;
 }
 
 /* Active category */
-.ib-guides-nav .ib-guides-icon-btn.is-active {
+.ib-guides-icon-btn.is-active {
   background-color: #e0f4f7 !important; /* light aqua highlight */
   border-color: #0096a8 !important;
   color: #0096a8 !important;
   font-weight: 600 !important;
 }
-/* HOTFIX: keep guides sidebar in normal flow on desktop
-   and bring article text closer to the nav on desktop */
-@media (min-width: 901px) {
-  .ib-guides-layout {
-    display: grid !important;
-    grid-template-columns: 260px minmax(0, 1fr);
-    column-gap: 12px; /* was 24px – tighter gap between nav and content */
-    align-items: flex-start;
-  }
 
-  .ib-guides-nav-wrap,
-  .ib-guides-rail,
-  .ib-guides-panel {
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-  }
-}
-/* HOTFIX: keep guides sidebar in normal flow on desktop
-   and bring article text closer to the nav on desktop */
+/* =========================================
+   DESKTOP HOTFIX: keep sidebar in flow and
+   bring article text closer on desktop
+   ========================================= */
 @media (min-width: 901px) {
   .ib-guides-layout {
     display: grid !important;
     grid-template-columns: 260px minmax(0, 1fr);
-    column-gap: 12px; /* tighter gap between nav and article */
+    column-gap: 12px; /* tighter gap between nav and content */
     align-items: flex-start;
   }
 
