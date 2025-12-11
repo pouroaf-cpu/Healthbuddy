@@ -24,9 +24,36 @@
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- MOBILE FIXES -->
+  <!-- PAGE-LEVEL LAYOUT + MOBILE FIXES -->
   <style>
-    /* Title resized for mobile so it never runs off the screen */
+    /* Make side nav lighter: remove white “card” look */
+    .ib-guides-nav {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    .ib-guides-nav .ib-guides-nav-wrap {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    /* Desktop layout: sidebar + content */
+    @media (min-width: 769px) {
+      .ib-guides-layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        column-gap: 24px;
+        align-items: flex-start;
+      }
+
+      .ib-guides-content {
+        padding: 20px 28px 32px !important;
+      }
+    }
+
+    /* Mobile tweaks so nothing sits under the sidebar */
     @media (max-width: 768px) {
       .ib-title-row h1 {
         font-size: 22px !important;
@@ -38,10 +65,23 @@
       .ib-title-row {
         padding: 16px 20px !important;
       }
-    }
 
-    /* Slight breadcrumb spacing on mobile */
-    @media (max-width: 768px) {
+      /* Stack nav above content and avoid overlay */
+      .ib-guides-layout {
+        display: block !important;
+      }
+
+      .ib-guides-nav {
+        position: static !important;
+        width: 100% !important;
+        margin-bottom: 12px;
+      }
+
+      .ib-guides-content {
+        padding: 20px 20px 28px !important;
+      }
+
+      /* Breadcrumb spacing on mobile */
       .ib-breadcrumbs {
         padding-left: 4px;
       }
@@ -58,7 +98,7 @@
     <section class="section">
       <div class="container">
 
-        <!-- TITLE ONLY — Guide label removed completely -->
+        <!-- TITLE -->
         <div class="ib-title-row">
           <h1>Bloodwork Basics for TRT</h1>
         </div>
@@ -75,7 +115,7 @@
           </aside>
 
           <!-- Main content -->
-          <article class="ib-guides-content" style="padding: 20px 20px 28px;">
+          <article class="ib-guides-content">
 
             <!-- Breadcrumb -->
             <nav class="ib-breadcrumbs" aria-label="Breadcrumb">
@@ -147,9 +187,9 @@
               <p>Bloodwork timing matters. You want consistency so your results reflect your protocol, not random fluctuations.</p>
 
               <ul>
-                <li><strong>Before starting TRT</strong></li>
-                <li><strong>6–8 weeks after any change</strong></li>
-                <li><strong>Every 6–12 months once stable</strong></li>
+                <li><strong>Before starting TRT</strong> – to document baseline hormones and health markers.</li>
+                <li><strong>6–8 weeks after any change</strong> – dose, frequency, or compound changes need a follow-up.</li>
+                <li><strong>Every 6–12 months once stable</strong> – to make sure nothing drifts quietly in the wrong direction.</li>
               </ul>
             </section>
 
@@ -157,6 +197,13 @@
             <section class="ib-guide-section">
               <h2>How bloodwork fits into TRT management</h2>
               <p>Labs are the reference point for whether your current schedule, dose, and frequency are working. Tools help you inject accurately, but bloodwork tells you whether the protocol is correct.</p>
+              <p>Think of it as a feedback loop:</p>
+              <ul>
+                <li>You set a dose and injection schedule.</li>
+                <li>You run labs at the right time (not randomly).</li>
+                <li>You compare numbers with symptoms and side effects.</li>
+                <li>You and your prescriber adjust only when the data supports it.</li>
+              </ul>
             </section>
 
             <!-- FAQ -->
@@ -164,21 +211,277 @@
               <h2>Common questions</h2>
 
               <h3>Do I need bloodwork even if I feel fine?</h3>
-              <p>Yes — some issues have zero symptoms early on.</p>
+              <p>Yes. Hematocrit, lipids, liver enzymes, and PSA can drift in the wrong direction without obvious symptoms early on. You do not wait for problems to feel bad before you look for them.</p>
 
               <h3>Which number matters more: TT or FT?</h3>
-              <p>Free testosterone aligns best with symptoms.</p>
+              <p>Total testosterone tells you what’s in circulation. Free testosterone is a better reflection of what’s available to actually do work. In practice, FT plus SHBG and symptoms is more useful than TT alone.</p>
 
-              <h3>Can bloodwork tell me if my dose is correct?</h3>
-              <p>It confirms trends but dose decisions require symptom tracking and professional oversight.</p>
+              <h3>Can bloodwork tell me if my dose is “correct”?</h3>
+              <p>Bloodwork shows where your numbers sit relative to reference ranges and your previous results. Dose decisions still depend on symptoms, side effects, and medical judgement. Labs are a map, not the steering wheel.</p>
             </section>
 
             <section class="ib-guide-section">
               <h2>Key takeaways</h2>
               <ul>
-                <li>Keep labs focused, not bloated.</li>
-                <li>Test at consistent intervals.</li>
-                <li>Bloodwork + consistent dosing = predictable TRT results.</li>
+                <li>Keep labs focused on the markers that matter for TRT.</li>
+                <li>Run them at consistent intervals, not randomly.</li>
+                <li>Use bloodwork alongside dose consistency and symptom tracking.</li>
+                <li>Decisions should be data-backed, not guesswork.</li>
+              </ul>
+            </section>
+
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section class="section">
+      <div class="container">
+        <div class="card" style="padding:18px;">
+          <strong>General information only</strong>
+          <p class="muted">This guide is educational. It does not interpret your personal labs or replace medical care.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="ib-footer"></div>
+
+  <script src="/assets/nav.js" defer></script>
+  <script src="/assets/footer.js" defer></script>
+  <script src="/assets/guides-nav.js" defer></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Bloodwork Basics for TRT | Essential Lab Guide</title>
+  <meta name="description" content="Simple bloodwork basics for TRT patients. Learn which labs matter, when to test, and how to read results. Includes practical foundations that support tools like a testosterone dosage calculator, TRT calculator, or testosterone injection calculator." />
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
+
+  <meta property="og:title" content="Bloodwork Basics for TRT" />
+  <meta property="og:description" content="A clear guide to essential TRT bloodwork: what to test, when to test, and what it all means." />
+  <meta property="og:type" content="article" />
+
+  <link rel="icon" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- PAGE-LEVEL LAYOUT + MOBILE FIXES -->
+  <style>
+    /* Make side nav lighter: remove white “card” look */
+    .ib-guides-nav {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    .ib-guides-nav .ib-guides-nav-wrap {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    /* Desktop layout: sidebar + content */
+    @media (min-width: 769px) {
+      .ib-guides-layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        column-gap: 24px;
+        align-items: flex-start;
+      }
+
+      .ib-guides-content {
+        padding: 20px 28px 32px !important;
+      }
+    }
+
+    /* Mobile tweaks so nothing sits under the sidebar */
+    @media (max-width: 768px) {
+      .ib-title-row h1 {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        word-break: break-word;
+      }
+
+      .ib-title-row {
+        padding: 16px 20px !important;
+      }
+
+      /* Stack nav above content and avoid overlay */
+      .ib-guides-layout {
+        display: block !important;
+      }
+
+      .ib-guides-nav {
+        position: static !important;
+        width: 100% !important;
+        margin-bottom: 12px;
+      }
+
+      .ib-guides-content {
+        padding: 20px 20px 28px !important;
+      }
+
+      /* Breadcrumb spacing on mobile */
+      .ib-breadcrumbs {
+        padding-left: 4px;
+      }
+    }
+  </style>
+
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
+</head>
+
+<body>
+  <div id="site-header" data-nav-current="guides"></div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+
+        <!-- TITLE -->
+        <div class="ib-title-row">
+          <h1>Bloodwork Basics for TRT</h1>
+        </div>
+
+        <div class="ib-guides-layout">
+
+          <!-- Sidebar -->
+          <aside class="ib-guides-nav">
+            <div
+              id="ib-guides-shell"
+              data-guide-category="bloodwork"
+              data-guide-slug="basics"
+            ></div>
+          </aside>
+
+          <!-- Main content -->
+          <article class="ib-guides-content">
+
+            <!-- Breadcrumb -->
+            <nav class="ib-breadcrumbs" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="/guides/">Guides</a></li>
+                <li><a href="/guides/bloodwork/">Bloodwork</a></li>
+                <li aria-current="page">Bloodwork Basics</li>
+              </ol>
+            </nav>
+
+            <p class="ib-guides-article-kicker">
+              A simple foundation for TRT bloodwork
+            </p>
+
+            <div class="ib-guide-meta">
+              <span><strong>Category:</strong> Bloodwork</span>
+              <span><strong>Level:</strong> Beginner</span>
+              <span><strong>Reading time:</strong> ~6 minutes</span>
+              <span><strong>Last updated:</strong> 08 Dec 2025</span>
+            </div>
+
+            <header class="ib-guides-article-header">
+              <h2>Bloodwork Basics for TRT</h2>
+              <p>A direct, practical breakdown of the blood tests that actually matter when you're on TRT — no fluff, no panic, just what you need to understand your numbers.</p>
+              <p>Designed for anyone on testosterone replacement therapy who wants a clean, unbiased understanding of which labs matter — and why.</p>
+            </header>
+
+            <!-- WHY IT MATTERS -->
+            <section class="ib-guide-section">
+              <h2>Why bloodwork matters on TRT</h2>
+              <p>TRT changes more than just testosterone levels. It affects liver markers, red blood cell production, hormones, lipids, and sometimes thyroid patterns. Without regular labs, you’re making decisions blind.</p>
+              <p>Most people assume bloodwork is only about checking testosterone numbers. In reality, it’s the safety net that keeps your protocol stable and prevents long-term issues from developing quietly in the background.</p>
+              <p>Even if you use tools like a <em>testosterone dosage calculator</em>, a <em>TRT calculator</em>, or a <em>testosterone injection calculator</em>, bloodwork is the only way to see how your body is actually responding.</p>
+
+              <div class="ib-guide-callout">
+                <strong>Big picture</strong>
+                <p class="muted">Bloodwork closes the loop between dose, symptoms, and real physiology.</p>
+              </div>
+            </section>
+
+            <!-- WHAT TO TEST -->
+            <section class="ib-guide-section">
+              <h2>The core labs you should monitor</h2>
+              <p>TRT doesn’t require massive test panels. You need a focused set of markers that reflect hormone function, red blood cell production, and metabolic health.</p>
+
+              <h3>Core panel</h3>
+              <ul>
+                <li><strong>Total Testosterone (TT)</strong></li>
+                <li><strong>Free Testosterone (FT)</strong></li>
+                <li><strong>SHBG</strong></li>
+                <li><strong>Estradiol (E2, sensitive)</strong></li>
+                <li><strong>CBC (Hematocrit / Hemoglobin)</strong></li>
+                <li><strong>CMP</strong></li>
+                <li><strong>Lipid Panel</strong></li>
+              </ul>
+
+              <h3>Situational tests</h3>
+              <ul>
+                <li><strong>Prolactin</strong></li>
+                <li><strong>TSH + T3/T4</strong></li>
+                <li><strong>PSA</strong></li>
+                <li><strong>HbA1c</strong></li>
+              </ul>
+            </section>
+
+            <!-- WHEN TO TEST -->
+            <section class="ib-guide-section">
+              <h2>When to run bloodwork</h2>
+              <p>Bloodwork timing matters. You want consistency so your results reflect your protocol, not random fluctuations.</p>
+
+              <ul>
+                <li><strong>Before starting TRT</strong> – to document baseline hormones and health markers.</li>
+                <li><strong>6–8 weeks after any change</strong> – dose, frequency, or compound changes need a follow-up.</li>
+                <li><strong>Every 6–12 months once stable</strong> – to make sure nothing drifts quietly in the wrong direction.</li>
+              </ul>
+            </section>
+
+            <!-- USING TOOLS -->
+            <section class="ib-guide-section">
+              <h2>How bloodwork fits into TRT management</h2>
+              <p>Labs are the reference point for whether your current schedule, dose, and frequency are working. Tools help you inject accurately, but bloodwork tells you whether the protocol is correct.</p>
+              <p>Think of it as a feedback loop:</p>
+              <ul>
+                <li>You set a dose and injection schedule.</li>
+                <li>You run labs at the right time (not randomly).</li>
+                <li>You compare numbers with symptoms and side effects.</li>
+                <li>You and your prescriber adjust only when the data supports it.</li>
+              </ul>
+            </section>
+
+            <!-- FAQ -->
+            <section class="ib-guide-section">
+              <h2>Common questions</h2>
+
+              <h3>Do I need bloodwork even if I feel fine?</h3>
+              <p>Yes. Hematocrit, lipids, liver enzymes, and PSA can drift in the wrong direction without obvious symptoms early on. You do not wait for problems to feel bad before you look for them.</p>
+
+              <h3>Which number matters more: TT or FT?</h3>
+              <p>Total testosterone tells you what’s in circulation. Free testosterone is a better reflection of what’s available to actually do work. In practice, FT plus SHBG and symptoms is more useful than TT alone.</p>
+
+              <h3>Can bloodwork tell me if my dose is “correct”?</h3>
+              <p>Bloodwork shows where your numbers sit relative to reference ranges and your previous results. Dose decisions still depend on symptoms, side effects, and medical judgement. Labs are a map, not the steering wheel.</p>
+            </section>
+
+            <section class="ib-guide-section">
+              <h2>Key takeaways</h2>
+              <ul>
+                <li>Keep labs focused on the markers that matter for TRT.</li>
+                <li>Run them at consistent intervals, not randomly.</li>
+                <li>Use bloodwork alongside dose consistency and symptom tracking.</li>
+                <li>Decisions should be data-backed, not guesswork.</li>
               </ul>
             </section>
 
