@@ -1744,3 +1744,31 @@ input[type="range"]:active::-moz-range-thumb {
     top: auto !important;
   }
 }
+/* FINAL DESKTOP TIGHTEN: sidebar hard against content */
+@media (min-width: 901px) {
+  /* Kill extra padding/gap around the layout */
+  .ib-main .container,
+  .container .ib-guides-layout {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .ib-guides-layout {
+    display: grid !important;
+    grid-template-columns: 230px minmax(0, 1fr);
+    column-gap: 4px !important; /* almost no gap */
+    align-items: flex-start;
+  }
+
+  /* Make the nav column slightly narrower */
+  .ib-guides-panel {
+    width: 220px !important;
+    max-width: 220px !important;
+  }
+
+  /* Ensure the content starts immediately next to the panel */
+  .ib-guides-content {
+    margin: 0 !important;
+    padding-left: 0 !important;
+  }
+}
