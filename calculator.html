@@ -23,468 +23,381 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
+  <!-- Global InjectBuddy styles -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Page-specific overrides to match new styling -->
   <style>
-    :root{
-      --ink:#0f172a; --muted:#475569; --bg:#ffffff;
-      --cta:#00b2b5; --cta-hover:#00c7ca; --cta-dark:#036d6f; --ring:rgba(0,147,149,.35);
-      --border:#e2e8f0; --shadow:0 10px 30px rgba(2,6,23,.06);
-      --orange:#ff7a00; --oil1:#fbbf24; --oil2:#fde68a;
-      --info-bg:#f0f9ff; --info-bd:#bae6fd; --info-ink:#075985;
+    /* =========================================
+       CALCULATOR PAGE – ALIGN WITH NEW THEME
+       ========================================= */
+
+    /* Keep main padding light; layout handled by global styles */
+    main.container {
+      padding: 32px 0;
+    }
+    @media (max-width: 640px) {
+      main.container {
+        padding: 16px 0;
+      }
     }
 
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    }
-    a{color:inherit;text-decoration:none}
-
-    .container{max-width:1200px;margin:0 auto;padding:0 24px}
-    @media (max-width:640px){ .container{padding:0 20px} }
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      gap:.5rem;font-weight:700;letter-spacing:.2px;
-      border-radius:16px;padding:12px 18px;border:2px solid transparent;
-      cursor:pointer;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.08);
-      background:#fff;
-      transition:transform .12s,box-shadow .12s,background-color .12s,border-color .12s;
-    }
-    .btn-primary{
-      background:var(--cta);
-      color:#fff;
-    }
-    .btn-primary:hover{
-      transform:translateY(-1px);
-      background:var(--cta-hover);
-      box-shadow:0 0 0 1px var(--ring),0 0 18px rgba(0,178,181,.60);
+    /* Page title – use new ink + sizing */
+    .form-container h1 {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink-900);
     }
 
-    main.container{padding:28px 0}
-    @media (max-width:640px){ main.container{padding:9px 0} }
+    /* Let global #calculator.form-container, .calc-wrap, .calc-grid handle the core layout.
+       We only keep the “full” compound-row behaviour and mode toggle tweaks. */
 
-    .form-container h1{
-      margin:0 0 10px;
-      text-align:center;
-      font-size:18px; /* small header */
-      font-weight:700;
-    }
-
-    .calc-wrap{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:28px;
-    }
-    @media (max-width:980px){
-      .calc-wrap{grid-template-columns:1fr;gap:18px}
-    }
-
-    .calc-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:16px;
-      max-width:520px;
-      width:100%;
-    }
-
-    .calc-grid .full{
-      display:grid;
-      grid-template-columns:1fr auto;
+    .calc-grid .full {
+      display: grid;
+      grid-template-columns: 1fr auto;
       grid-template-areas:
         "label chip"
         "slider slider";
-      align-items:center;
-      gap:6px 12px;
-      width:100%;
+      align-items: center;
+      gap: 6px 12px;
+      width: 100%;
     }
-    .calc-grid .full > label{
-      grid-area:label;
-      margin:0;
+    .calc-grid .full > label {
+      grid-area: label;
+      margin: 0;
     }
-    .calc-grid .full > .live-reads{
-      grid-area:chip;
-      margin:0;
+    .calc-grid .full > .live-reads {
+      grid-area: chip;
+      margin: 0;
+      justify-content: flex-end;
     }
-    .calc-grid .full > input[type="range"]{
-      grid-area:slider;
-      margin-top:2px;
-      width:100%;
-    }
-
-    .calc-grid .full.full-toggle{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      width:100%;
+    .calc-grid .full > input[type="range"] {
+      grid-area: slider;
+      margin-top: 2px;
+      width: 100%;
     }
 
-    .seg-toggle{
-      display:inline-flex;
-      border:1px solid var(--border);
-      border-radius:12px;
-      overflow:hidden;
-      background:#fff;
-      width:100%;
-    }
-.seg-btn{
-  flex:1 1 0;
-  min-width:0;                  /* allow shrinking inside flex */
-  padding:8px 10px;
-  font-weight:700;
-  font-size:13px;
-  border:0;
-  background:#fff;
-  color:#334155;
-  cursor:pointer;
-  text-align:center;
-  transition:background-color .12s,box-shadow .12s,color .12s;
-  white-space:normal;           /* ✅ allow wrapping instead of overflowing */
-}
-
-    .seg-btn[aria-checked="true"]{
-      background:#ecfeff;
-      color:#065f5b;
-    }
-    .seg-btn:hover{
-      box-shadow:0 0 0 1px var(--ring),0 0 14px rgba(0,178,181,.45);
-      background:#f0fdff;
+    .calc-grid .full.full-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
     }
 
-    .syr-grid{
-      display:grid !important;
-      grid-template-columns:repeat(4,1fr);
-      width:100%;
-      max-width:420px;
-      margin-inline:auto;
-      border:1px solid var(--border);
-      border-radius:12px;
-      overflow:hidden;
-      background:#fff;
+    /* MODE TOGGLE – override global seg-toggle layout to support 3 buttons full-width */
+    .seg-toggle {
+      display: inline-flex;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 4px;
+      gap: 4px;
     }
-    .syr-grid .seg-btn{
-      padding:10px 0;
-      font-size:13px;
-      border-right:1px solid var(--border);
+    .seg-btn {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 8px 10px;
+      font-weight: 700;
+      font-size: 13px;
+      border: 0;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      color: var(--ink-700);
+      cursor: pointer;
+      text-align: center;
+      white-space: normal;
+      transition: background-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
     }
-    .syr-grid .seg-btn:last-child{
-      border-right:none;
+    .seg-btn[aria-checked="true"] {
+      background: var(--cta);
+      color: #fff;
+      box-shadow: var(--shadow-sm);
     }
-
-    label{font-weight:700}
-
-    input[type=range]{
-      display:block;
-      width:100%;
-    }
-
-    input[type="range"]{
-      -webkit-appearance:none;
-      appearance:none;
-      height:6px;
-      border-radius:999px;
-      background:linear-gradient(to right, var(--cta) 0, var(--cta) var(--val,50%), #e2e8f0 var(--val,50%), #e2e8f0 100%);
-      outline:none;
-    }
-    input[type="range"]::-webkit-slider-thumb{
-      -webkit-appearance:none;
-      height:24px;
-      width:24px;
-      border-radius:50%;
-      background:var(--cta);
-      border:2px solid #ffffff;
-      box-shadow:0 2px 6px rgba(15,23,42,.35);
-      cursor:pointer;
-      margin-top:-9px;
-    }
-    input[type="range"]::-moz-range-thumb{
-      height:24px;
-      width:24px;
-      border-radius:50%;
-      background:var(--cta);
-      border:2px solid #ffffff;
-      box-shadow:0 2px 6px rgba(15,23,42,.35);
-      cursor:pointer;
-    }
-    input[type="range"]::-moz-range-track{
-      height:6px;
-      border-radius:999px;
-      background:linear-gradient(to right, var(--cta) 0, var(--cta) var(--val,50%), #e2e8f0 var(--val,50%), #e2e8f0 100%);
+    .seg-btn:hover {
+      box-shadow: 0 0 0 1px var(--ring);
+      background: var(--cta-hover);
+      color: #fff;
     }
 
-    .live-reads{margin-top:0}
-    .live-chip{
-      display:inline-block;
-      padding:3px 6px;
-      border:1px solid var(--border);
-      border-radius:10px;
-      color:#475569;
-      background:#fff;
-      font-weight:700;
-      font-size:12px;
-      text-align:right;
-      width:10ch;
-      min-width:10ch;
+    /* Syringe size segmented control */
+    .syr-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr);
+      width: 100%;
+      max-width: 420px;
+      margin-inline: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #fff;
+    }
+    .syr-grid .seg-btn {
+      padding: 10px 0;
+      font-size: 13px;
+      border-radius: 0;
+      border-right: 1px solid var(--border);
+      background: #f9fafb;
+      color: var(--ink-700);
+    }
+    .syr-grid .seg-btn:last-child {
+      border-right: none;
     }
 
-    .live-chip:focus{
-      outline:none;
-      box-shadow:0 0 0 1px var(--ring);
-    }
-    .live-chip::-webkit-outer-spin-button,
-    .live-chip::-webkit-inner-spin-button{
-      -webkit-appearance:none;
-      margin:0;
-    }
-    .live-chip[type=number]{
-      -moz-appearance:textfield;
+    /* Live read container – layout only; styling uses global .live-chip */
+    .live-reads {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: nowrap;
     }
 
-    .out{
-      text-align:center;
-    }
-    .out h3{
-      margin:0 0 10px;
-      text-align:center;
+    /* =========================================
+       SYRINGE BLOCK – MATCH NEW CARD STYLE
+       ========================================= */
+
+    .syringe-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .kpi{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      margin:12px 0;
-      text-align:left;
-    }
-    @media (max-width:640px){
-      .kpi{grid-template-columns:1fr;gap:10px}
-    }
-    .card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .card .muted{color:#64748b}
-
-    /* KPI collapsible block */
-    .kpi-block{
-      margin:12px 0;
-      text-align:left;
-    }
-    .kpi-toggle{
-      width:100%;
-      padding:8px 12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:#f8fafc;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      font-size:13px;
-      font-weight:600;
-      color:#0f172a;
-      cursor:pointer;
-    }
-    .kpi-toggle:focus-visible{
-      outline:2px solid var(--ring);
-      outline-offset:2px;
-    }
-    .kpi-toggle-icon{
-      margin-left:8px;
-      font-size:14px;
-      line-height:1;
-      transition:transform .15s ease;
-    }
-    .kpi-toggle.open .kpi-toggle-icon{
-      transform:rotate(90deg);
-    }
-    .kpi-panel{
-      margin-top:8px;
-    }
-    .kpi-panel[hidden]{
-      display:none;
+    /* Container card: slightly tinted so the white syringe pops */
+    .syringe-card {
+      width: 100%;
+      max-width: 1350px;
+      background: #eef5f7; /* light grey-blue so the white barrel contrasts */
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 18px 8px 18px;
+      overflow: hidden;
     }
 
-    .syringe-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .syringe-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      gap: 4px;
+      text-align: center;
     }
-    .syringe-card{
-      width:100%;
-      max-width:1350px;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-      padding:18px 6px 18px;
-      overflow:hidden;
+    .syringe-label {
+      font-size: 12px;
+      color: var(--ink-500);
     }
-    .syringe-head{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:8px;
-      gap:4px;
-      text-align:center;
+    .syringe-head b#syrVol {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-900);
     }
-    .syringe-label{
-      font-size:12px;
-      color:#64748b;
-    }
-    .syringe-head b#syrVol{
-      font-size:13px;
-      font-weight:700;
-    }
-    #syrMode{
-      font-size:12px;
-      font-weight:600;
+    #syrMode {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-700);
     }
 
-    .syringe-svg{
-      display:block;
-      width:100%;
-      max-width:100%;
-      height:auto;
-      transform-origin:left center;
+    .syringe-svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      transform-origin: left center;
     }
 
-    .syringe-status{
-      margin-top:12px;
-      min-height:72px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+    .syringe-status {
+      margin-top: 12px;
+      min-height: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .syringe-status > [hidden]{
-      display:none;
-    }
-
-    .warn{
-      padding:10px;
-      border-radius:10px;
-      background:#fff7ed;
-      border:1px solid #fed7aa;
-      color:#9a3412;
-      font-size:12px;
-      text-align:left;
-    }
-    .advice{
-      padding:10px;
-      border-radius:10px;
-      background:var(--info-bg);
-      border:1px solid var(--info-bd);
-      color:var(--info-ink);
-      font-size:12px;
-      text-align:left;
+    .syringe-status > [hidden] {
+      display: none;
     }
 
-    .u100-warning{
-      margin-top:10px;
-      font-size:12px;
-      text-align:left;
+    /* Advice panel – use info tokens from global theme */
+    .advice {
+      padding: 10px;
+      border-radius: var(--radius-md);
+      background: var(--info-bg);
+      border: 1px solid var(--info-bd);
+      color: var(--ink-700);
+      font-size: 12px;
+      text-align: left;
     }
 
-    .is-hidden{display:none !important}
-
-    footer{
-      padding:9px 0;
-      color:#64748b;
-      border-top:1px solid var(--border);
+    .u100-warning {
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: left;
     }
 
-    @media (max-width:400px){
-      .live-reads .live-chip{
-        max-width:40vw;
-        text-overflow:ellipsis;
-        overflow:hidden;
+    /* KPI block – align visuals with new card style */
+    .kpi-block {
+      margin: 12px 0;
+      text-align: left;
+    }
+    .kpi-toggle {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-900);
+      cursor: pointer;
+    }
+    .kpi-toggle:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+    .kpi-toggle-icon {
+      margin-left: 8px;
+      font-size: 14px;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+    .kpi-toggle.open .kpi-toggle-icon {
+      transform: rotate(90deg);
+    }
+    .kpi-panel {
+      margin-top: 8px;
+    }
+    .kpi-panel[hidden] {
+      display: none;
+    }
+
+    /* KPI grid – rely on global .card but control layout here */
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 12px 0;
+      text-align: left;
+    }
+    @media (max-width: 640px) {
+      .kpi {
+        grid-template-columns: 1fr;
+        gap: 10px;
       }
     }
 
-    @media (max-width:640px){
-      body{
-        background:#f9fafb !important;
+    /* Footer on this page – light meta strip to match new palette */
+    footer {
+      padding: 9px 0;
+      color: var(--ink-500);
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      font-size: 13px;
+    }
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    footer a {
+      color: var(--cta);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* FAQ block – use page layout only; colours come from global tokens */
+    .ib-faq {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .ib-faq-heading {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      text-align: left;
+      color: var(--ink-900);
+    }
+    .ib-faq-intro {
+      margin: 0 0 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .ib-faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ib-faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .ib-faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-900);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .ib-faq-question:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+    .ib-faq-icon {
+      margin-left: 8px;
+      font-size: 16px;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+    .ib-faq-item.open .ib-faq-icon {
+      transform: rotate(90deg);
+    }
+    .ib-faq-answer {
+      padding: 0 14px 10px;
+      font-size: 13px;
+      color: var(--ink-700);
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+    }
+    .ib-faq-answer[hidden] {
+      display: none;
+    }
+
+    /* Mobile tweaks – keep consistent with global background */
+    @media (max-width: 640px) {
+      body {
+        background: var(--bg) !important;
       }
-      main.container{
-        padding-left:9px !important;
-        padding-right:9px !important;
-      }
-      .calc-grid{
-        max-width:100%;
+      main.container {
+        padding-left: 9px !important;
+        padding-right: 9px !important;
       }
     }
 
-    /* FAQ block */
-    .ib-faq{
-      margin-top:32px;
-      padding-top:24px;
-      border-top:1px solid var(--border);
-    }
-    .ib-faq-heading{
-      font-size:18px;
-      font-weight:700;
-      margin:0 0 12px;
-      text-align:left;
-    }
-    .ib-faq-intro{
-      margin:0 0 16px;
-      font-size:14px;
-      color:var(--muted);
-    }
-    .ib-faq-list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .ib-faq-item{
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#ffffff;
-      overflow:hidden;
-    }
-    .ib-faq-question{
-      width:100%;
-      text-align:left;
-      padding:10px 14px;
-      background:#ffffff;
-      border:0;
-      font-size:14px;
-      font-weight:600;
-      color:#0f172a;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      cursor:pointer;
-    }
-    .ib-faq-question:focus-visible{
-      outline:2px solid var(--ring);
-      outline-offset:2px;
-    }
-    .ib-faq-icon{
-      margin-left:8px;
-      font-size:16px;
-      line-height:1;
-      transition:transform .15s ease;
-    }
-    .ib-faq-item.open .ib-faq-icon{
-      transform:rotate(90deg);
-    }
-    .ib-faq-answer{
-      padding:0 14px 10px;
-      font-size:13px;
-      color:#475569;
-      border-top:1px solid var(--border);
-    }
-    .ib-faq-answer[hidden]{
-      display:none;
+    @media (max-width: 400px) {
+      .live-reads .live-chip {
+        max-width: 40vw;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
   </style>
 
@@ -696,7 +609,7 @@
       </aside>
     </div>
 
-    <div class="notice" style="margin-top:8px;color:#64748b">
+    <div class="notice" style="margin-top:8px;">
       This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
     </div>
   </section>
@@ -709,7 +622,7 @@
     </p>
 
     <div class="ib-faq-list">
-      <!-- MOVED: Cypionate question FIRST -->
+      <!-- Cypionate question FIRST -->
       <div class="ib-faq-item">
         <button class="ib-faq-question" type="button" aria-expanded="false">
           <span>Is this calculator only for testosterone cypionate?</span>
@@ -811,7 +724,7 @@
     if(!el) return;
     const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
     const pct = ((val - min) * 100) / (max - min || 1);
-    el.style.setProperty('--val', pct + '%');
+    el.style.setProperty('--ib-range-fill', pct + '%');
   }
 
   const Syringe = (function(){
