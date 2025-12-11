@@ -1943,3 +1943,21 @@ input[type="range"]:active::-moz-range-thumb {
     top: auto !important;
   }
 }
+/* HOTFIX: keep guides sidebar in normal flow on desktop
+   and bring article text closer to the nav on desktop */
+@media (min-width: 901px) {
+  .ib-guides-layout {
+    display: grid !important;
+    grid-template-columns: 260px minmax(0, 1fr);
+    column-gap: 12px; /* tighter gap between nav and article */
+    align-items: flex-start;
+  }
+
+  .ib-guides-nav-wrap,
+  .ib-guides-rail,
+  .ib-guides-panel {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+  }
+}
