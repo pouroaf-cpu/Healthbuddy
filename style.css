@@ -1925,3 +1925,20 @@ input[type="range"]:active::-moz-range-thumb {
   color: #0096a8 !important;
   font-weight: 600 !important;
 }
+/* HOTFIX: keep guides sidebar in normal flow on desktop */
+@media (min-width: 901px) {
+  .ib-guides-layout {
+    display: grid !important;
+    grid-template-columns: 260px minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: flex-start;
+  }
+
+  .ib-guides-nav-wrap,
+  .ib-guides-rail,
+  .ib-guides-panel {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+  }
+}
