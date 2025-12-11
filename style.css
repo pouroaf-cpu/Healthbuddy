@@ -1760,7 +1760,7 @@ input[type="range"]:active::-moz-range-thumb {
     left: 0;
     margin-left: 0;
     position: absolute;             /* detach from container */
-    top: calc(var(--header-h, 64px) + 12px);
+    top: calc(var(--header-h, 12px) + 12px);
   }
 
   .ib-guides-rail {
