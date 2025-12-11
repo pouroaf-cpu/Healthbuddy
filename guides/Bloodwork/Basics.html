@@ -24,13 +24,15 @@
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- PAGE-LEVEL LAYOUT + MOBILE / DESKTOP PADDING -->
+  <!-- PAGE-LEVEL LAYOUT -->
   <style>
     /* Make side nav lighter: remove white “card” look */
     .ib-guides-nav {
       background: transparent !important;
       box-shadow: none !important;
       border: none !important;
+      display: block !important;
+      box-sizing: border-box;
     }
 
     .ib-guides-nav .ib-guides-nav-wrap {
@@ -39,18 +41,30 @@
       border: none !important;
     }
 
+    /* Ensure the shell itself always takes space */
+    #ib-guides-shell {
+      display: block;
+      width: 100%;
+    }
+
     /* Desktop layout: sidebar + content */
     @media (min-width: 769px) {
-      /* Decrease left padding only for this page */
-      .ib-guides-page .container {
-        padding-left: 8px !important;
+      /* Slightly decrease left padding on this page only */
+      .section.ib-guides-page > .container {
+        padding-left: 16px !important;
+        padding-right: 24px !important;
       }
 
       .ib-guides-layout {
-        display: grid;
-        grid-template-columns: 260px minmax(0, 1fr);
+        display: grid !important;
+        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
         column-gap: 24px;
         align-items: flex-start;
+      }
+
+      .ib-guides-nav {
+        width: 100%;
+        max-width: 260px;
       }
 
       .ib-guides-content {
@@ -58,7 +72,7 @@
       }
     }
 
-    /* Mobile tweaks */
+    /* Mobile tweaks (you said mobile is fine – only keep padding) */
     @media (max-width: 768px) {
       .ib-title-row h1 {
         font-size: 22px !important;
@@ -71,7 +85,6 @@
         padding: 16px 20px !important;
       }
 
-      /* Stack nav above content and avoid overlay */
       .ib-guides-layout {
         display: block !important;
       }
@@ -82,17 +95,16 @@
         margin-bottom: 12px;
       }
 
-      /* Increase mobile side padding to 57px on this page only */
-      .ib-guides-page .container {
+      /* Increase mobile padding to 57px on this page only */
+      .section.ib-guides-page > .container {
         padding-left: 57px !important;
         padding-right: 57px !important;
       }
 
       .ib-guides-content {
-        padding: 20px 0 28px !important; /* let container handle side padding */
+        padding: 20px 0 28px !important; /* container handles side padding */
       }
 
-      /* Breadcrumb spacing on mobile */
       .ib-breadcrumbs {
         padding-left: 0;
       }
