@@ -131,19 +131,21 @@
       background:#fff;
       width:100%;
     }
-    .seg-btn{
-      flex:1 1 0;
-      padding:8px 12px;
-      font-weight:700;
-      font-size:13px;
-      border:0;
-      background:#fff;
-      color:#334155;
-      cursor:pointer;
-      white-space:nowrap;
-      text-align:center;
-      transition:background-color .12s,box-shadow .12s,color .12s;
-    }
+.seg-btn{
+  flex:1 1 0;
+  min-width:0;                  /* allow shrinking inside flex */
+  padding:8px 10px;
+  font-weight:700;
+  font-size:13px;
+  border:0;
+  background:#fff;
+  color:#334155;
+  cursor:pointer;
+  text-align:center;
+  transition:background-color .12s,box-shadow .12s,color .12s;
+  white-space:normal;           /* ✅ allow wrapping instead of overflowing */
+}
+
     .seg-btn[aria-checked="true"]{
       background:#ecfeff;
       color:#065f5b;
