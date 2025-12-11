@@ -24,7 +24,7 @@
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- PAGE-LEVEL LAYOUT + MOBILE FIXES -->
+  <!-- PAGE-LEVEL LAYOUT + MOBILE / DESKTOP PADDING -->
   <style>
     /* Make side nav lighter: remove white “card” look */
     .ib-guides-nav {
@@ -41,6 +41,11 @@
 
     /* Desktop layout: sidebar + content */
     @media (min-width: 769px) {
+      /* Decrease left padding on this page’s main container */
+      .section .container {
+        padding-left: 12px !important;
+      }
+
       .ib-guides-layout {
         display: grid;
         grid-template-columns: 260px minmax(0, 1fr);
@@ -48,12 +53,13 @@
         align-items: flex-start;
       }
 
+      /* Slightly reduced left padding for main article content */
       .ib-guides-content {
-        padding: 20px 28px 32px !important;
+        padding: 20px 24px 32px 16px !important; /* top right bottom left */
       }
     }
 
-    /* Mobile tweaks so nothing sits under the sidebar */
+    /* Mobile tweaks */
     @media (max-width: 768px) {
       .ib-title-row h1 {
         font-size: 22px !important;
@@ -77,24 +83,20 @@
         margin-bottom: 12px;
       }
 
+      /* Increase mobile padding to 57px */
+      .section .container {
+        padding: 0 57px 32px !important; /* top, left/right=57px, bottom */
+      }
+
       .ib-guides-content {
-        padding: 20px 20px 28px !important;
+        padding: 20px 0 28px !important; /* rely on container for side padding */
       }
 
       /* Breadcrumb spacing on mobile */
       .ib-breadcrumbs {
-        padding-left: 20px;
+        padding-left: 0;
       }
     }
-    /* MOBILE ONLY — increase content padding so sidebar never overlaps */
-@media (max-width: 768px) {
-
-  .container {
-    padding: 20 25px !important;
-  }
-
-}
-
   </style>
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
@@ -249,16 +251,3 @@
       <div class="container">
         <div class="card" style="padding:18px;">
           <strong>General information only</strong>
-          <p class="muted">This guide is educational. It does not interpret your personal labs or replace medical care.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div id="ib-footer"></div>
-
-  <script src="/assets/nav.js" defer></script>
-  <script src="/assets/footer.js" defer></script>
-  <script src="/assets/guides-nav.js" defer></script>
-</body>
-</html>
