@@ -61,6 +61,7 @@
       background:var(--bg);
       color:var(--ink);
       font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-size:16px; /* slightly larger base */
     }
 
     a{
@@ -96,6 +97,7 @@
       background:var(--surface);
       color:var(--ink);
       transition:transform .12s,box-shadow .12s,background-color .12s,border-color .12s,color .12s;
+      font-size:15px;
     }
     .btn-primary{
       background:var(--cta);
@@ -119,7 +121,7 @@
     .form-container h1{
       margin:0 0 10px;
       text-align:center;
-      font-size:18px;
+      font-size:20px; /* up from 18px */
       font-weight:700;
       color:var(--ink);
     }
@@ -150,6 +152,7 @@
       align-items:center;
       gap:6px 12px;
       width:100%;
+      font-size:15px; /* form row size up */
     }
     .calc-grid .full > label{
       grid-area:label;
@@ -185,9 +188,9 @@
     .seg-btn{
       flex:1 1 0;
       min-width:0;
-      padding:8px 10px;
+      padding:9px 12px;
       font-weight:700;
-      font-size:13px;
+      font-size:14px; /* up from 13px */
       border:0;
       background:transparent;
       color:var(--muted);
@@ -218,8 +221,8 @@
       background:var(--panel);
     }
     .syr-grid .seg-btn{
-      padding:10px 0;
-      font-size:13px;
+      padding:11px 0;
+      font-size:14px;
       border-right:1px solid var(--border);
     }
     .syr-grid .seg-btn:last-child{
@@ -235,11 +238,11 @@
       width:100%;
     }
 
-    /* Dark slider track using CSS var from JS */
+    /* Larger slider track + thumb */
     input[type="range"]{
       -webkit-appearance:none;
       appearance:none;
-      height:6px;
+      height:8px; /* up from 6px */
       border-radius:999px;
       background:linear-gradient(
         to right,
@@ -252,18 +255,18 @@
     }
     input[type="range"]::-webkit-slider-thumb{
       -webkit-appearance:none;
-      height:24px;
-      width:24px;
+      height:28px; /* up from 24px */
+      width:28px;  /* up from 24px */
       border-radius:50%;
       background:var(--cta);
       border:2px solid #020617;
       box-shadow:0 2px 6px rgba(0,0,0,.75);
       cursor:pointer;
-      margin-top:-9px;
+      margin-top:-11px; /* recenter for taller track */
     }
     input[type="range"]::-moz-range-thumb{
-      height:24px;
-      width:24px;
+      height:28px;
+      width:28px;
       border-radius:50%;
       background:var(--cta);
       border:2px solid #020617;
@@ -271,7 +274,7 @@
       cursor:pointer;
     }
     input[type="range"]::-moz-range-track{
-      height:6px;
+      height:8px;
       border-radius:999px;
       background:linear-gradient(
         to right,
@@ -285,13 +288,13 @@
     .live-reads{margin-top:0}
     .live-chip{
       display:inline-block;
-      padding:3px 6px;
+      padding:4px 8px;
       border:1px solid var(--border);
       border-radius:10px;
       color:var(--ink);
       background:#020617;
       font-weight:700;
-      font-size:12px;
+      font-size:13px; /* up from 12px */
       text-align:right;
       width:10ch;
       min-width:10ch;
@@ -313,11 +316,13 @@
     .out{
       text-align:center;
       color:var(--ink);
+      font-size:15px;
     }
     .out h3{
       margin:0 0 10px;
       text-align:center;
       color:var(--ink);
+      font-size:18px;
     }
 
     .kpi{
@@ -326,6 +331,7 @@
       gap:12px;
       margin:12px 0;
       text-align:left;
+      font-size:14px;
     }
     @media (max-width:640px){
       .kpi{grid-template-columns:1fr;gap:10px}
@@ -348,14 +354,14 @@
     }
     .kpi-toggle{
       width:100%;
-      padding:8px 12px;
+      padding:9px 12px;
       border-radius:10px;
       border:1px solid var(--border);
       background:#020617;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      font-size:13px;
+      font-size:14px;
       font-weight:600;
       color:var(--ink);
       cursor:pointer;
@@ -366,7 +372,7 @@
     }
     .kpi-toggle-icon{
       margin-left:8px;
-      font-size:14px;
+      font-size:16px;
       line-height:1;
       transition:transform .15s ease;
     }
@@ -474,6 +480,7 @@
       color:var(--muted);
       border-top:1px solid var(--border);
       background:#020617;
+      font-size:14px;
     }
 
     @media (max-width:400px){
@@ -504,7 +511,7 @@
       border-top:1px solid var(--border);
     }
     .ib-faq-heading{
-      font-size:18px;
+      font-size:19px; /* up slightly */
       font-weight:700;
       margin:0 0 12px;
       text-align:left;
@@ -512,7 +519,7 @@
     }
     .ib-faq-intro{
       margin:0 0 16px;
-      font-size:14px;
+      font-size:15px;
       color:var(--muted);
     }
     .ib-faq-list{
@@ -529,10 +536,10 @@
     .ib-faq-question{
       width:100%;
       text-align:left;
-      padding:10px 14px;
+      padding:11px 14px;
       background:#020617;
       border:0;
-      font-size:14px;
+      font-size:15px;
       font-weight:600;
       color:var(--ink);
       display:flex;
@@ -555,7 +562,7 @@
     }
     .ib-faq-answer{
       padding:0 14px 10px;
-      font-size:13px;
+      font-size:14px;
       color:var(--muted);
       border-top:1px solid var(--border);
       background:#020617;
@@ -773,7 +780,7 @@
         </aside>
       </div>
 
-      <div class="notice" style="margin-top:8px;color:#9ca3af">
+      <div class="notice" style="margin-top:8px;color:#9ca3af;font-size:14px">
         This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
       </div>
     </section>
@@ -1441,6 +1448,7 @@
           });
           // toggle current
           if (!isOpen) {
+            item.addEventListener;
             item.classList.add('open');
             btn.setAttribute('aria-expanded', 'true');
             answer.hidden = false;
@@ -1473,11 +1481,11 @@
 
       function toggleButton() {
         if (window.innerWidth <= 980) {   // mobile only
-          if (window.scrollY > 180) {
+        if (window.scrollY > 180) {
             btn.classList.add("visible");
-          } else {
+        } else {
             btn.classList.remove("visible");
-          }
+        }
         } else {
           btn.classList.remove("visible");
         }
