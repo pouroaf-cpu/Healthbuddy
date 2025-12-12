@@ -1780,3 +1780,47 @@ input[type="range"]:active::-moz-range-thumb {
     padding-left: 0 !important;
   }
 }
+/* Full-width photo banner below nav */
+.hero{
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+
+  /* Banner heights */
+  min-height: 420px;                /* desktop banner height */
+  display: flex;
+  align-items: center;
+
+  /* Photo */
+  background-image: url("/assets/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Keep inner content readable and aligned */
+.hero .hero-inner{
+  width: 100%;
+  padding: 64px 0;                  /* vertical breathing room */
+}
+
+/* If your .container is constraining width (it should), keep it. */
+.hero .container{
+  width: min(1100px, 92vw);
+}
+
+/* Mobile resize */
+@media (max-width: 768px){
+  .hero{
+    min-height: 240px;              /* mobile banner height */
+    background-position: center top;
+  }
+  .hero .hero-inner{
+    padding: 28px 0;
+  }
+  .hero h1{
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    line-height: 1.15;
+  }
+}
