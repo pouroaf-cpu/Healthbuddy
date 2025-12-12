@@ -129,4 +129,10 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.hero-copy{
+  backdrop-filter: blur(6px) saturate(0.9);
+  background: rgba(0,0,0,0.35);
+  padding: 2.5rem 3rem;
+  border-radius: 6px;
+}
 
