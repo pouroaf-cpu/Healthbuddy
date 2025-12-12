@@ -1824,3 +1824,7 @@ input[type="range"]:active::-moz-range-thumb {
     line-height: 1.15;
   }
 }
+/* Encourage horizontal slider interaction on touch */
+input[type="range"]{
+  touch-action: pan-x;
+}
