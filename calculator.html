@@ -26,9 +26,6 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* =========================================
-       DARK THEME TOKENS (page-level)
-       ========================================= */
     :root{
       --ink:#e5e7eb;
       --muted:#9ca3af;
@@ -76,9 +73,7 @@
       .container{padding:0 20px}
     }
 
-    main.container{
-      padding:28px 0;
-    }
+    main.container{padding:28px 0}
     @media (max-width:640px){
       main.container{padding:9px 0}
     }
@@ -141,9 +136,6 @@
       width:100%;
     }
 
-    /* =========================================
-       SEGMENTED TOGGLES — UNCLICKED POP MORE
-       ========================================= */
     .seg-toggle{
       display:inline-flex;
       border:1px solid rgba(255,255,255,.10);
@@ -157,92 +149,44 @@
     .seg-btn{
       flex:1 1 0;
       min-width:0;
-
       padding:11px 12px;
       font-weight:800;
       font-size:14px;
-
       border:1px solid rgba(255,255,255,.14);
       border-left:0;
       border-top:0;
       border-bottom:0;
-
-      background:linear-gradient(
-        180deg,
-        rgba(255,255,255,.12),
-        rgba(255,255,255,.05)
-      );
-
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
       color:#f1f5f9;
       cursor:pointer;
       text-align:center;
       white-space:normal;
-
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.14),
-        0 8px 18px rgba(0,0,0,.58);
-
-      transition:
-        background-color .12s ease,
-        box-shadow .12s ease,
-        transform .12s ease,
-        color .12s ease,
-        filter .12s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 8px 18px rgba(0,0,0,.58);
+      transition: background-color .12s ease, box-shadow .12s ease, transform .12s ease, color .12s ease, filter .12s ease;
     }
-
     .seg-btn + .seg-btn{
-      box-shadow:
-        inset 1px 0 0 rgba(255,255,255,.06),
-        inset 0 1px 0 rgba(255,255,255,.14),
-        0 8px 18px rgba(0,0,0,.58);
+      box-shadow: inset 1px 0 0 rgba(255,255,255,.06), inset 0 1px 0 rgba(255,255,255,.14), 0 8px 18px rgba(0,0,0,.58);
     }
-
     .seg-btn:hover{
-      background:linear-gradient(
-        180deg,
-        rgba(255,255,255,.18),
-        rgba(255,255,255,.08)
-      );
+      background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
       transform:translateY(-1px);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 12px 26px rgba(0,0,0,.7);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 26px rgba(0,0,0,.7);
       color:#ffffff;
       filter:saturate(1.08);
     }
-
     .seg-btn:active{
       transform:translateY(0px) scale(.99);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.16),
-        0 10px 20px rgba(0,0,0,.65);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 10px 20px rgba(0,0,0,.65);
     }
-
     .seg-btn:focus-visible{
       outline:none;
-      box-shadow:
-        0 0 0 3px rgba(2,6,23,.85),
-        0 0 0 6px var(--ring),
-        0 12px 26px rgba(0,0,0,.7);
+      box-shadow: 0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 12px 26px rgba(0,0,0,.7);
     }
-
     .seg-btn[aria-checked="true"]{
-      background:linear-gradient(
-        180deg,
-        #37fbff 0%,
-        var(--cta) 55%,
-        #00a1a4 100%
-      );
+      background:linear-gradient(180deg, #37fbff 0%, var(--cta) 55%, #00a1a4 100%);
       color:#061014;
-
       border-color:rgba(25,242,245,.45);
-
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.22),
-        0 0 0 1px rgba(0,199,202,.35),
-        0 0 24px rgba(0,199,202,.45),
-        0 16px 34px rgba(0,0,0,.7);
-
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.22), 0 0 0 1px rgba(0,199,202,.35), 0 0 24px rgba(0,199,202,.45), 0 16px 34px rgba(0,0,0,.7);
       transform:none;
       filter:none;
     }
@@ -268,18 +212,14 @@
 
     label{font-weight:700}
 
-    /* =========================================
-       SLIDERS — smoother + larger invisible touch target
-       ========================================= */
+    /* Sliders: bigger touch target wrapper (safe) */
     .range-hitbox{
       position:relative;
-      padding:14px 0; /* bigger touch target */
+      padding:14px 0; /* increases touch area without breaking input */
       width:100%;
     }
 
-    /* You said you've already added global touch-action; kept here as a safety net */
     input[type="range"]{
-      touch-action: pan-x;
       -webkit-appearance:none;
       appearance:none;
       display:block;
@@ -294,6 +234,9 @@
         #111827 100%
       );
       outline:none;
+      user-select:none;
+      -webkit-user-select:none;
+      touch-action:pan-x; /* helps Android/Chrome; iOS may ignore, but it won’t break */
     }
 
     input[type="range"]::-webkit-slider-thumb{
@@ -306,22 +249,6 @@
       box-shadow:0 2px 6px rgba(0,0,0,.8), 0 0 16px rgba(0,199,202,.25);
       cursor:pointer;
       margin-top:-11px;
-    }
-
-    /* Invisible larger thumb hit area (webkit only) */
-    input[type="range"]::-webkit-slider-thumb{
-      position:relative;
-    }
-    input[type="range"]::-webkit-slider-thumb::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:56px;
-      height:56px;
-      transform:translate(-50%,-50%);
-      border-radius:999px;
-      background:transparent;
     }
 
     input[type="range"]::-moz-range-thumb{
@@ -359,23 +286,13 @@
       width:10ch;
       min-width:10ch;
     }
-
     .live-chip:focus{outline:none;box-shadow:0 0 0 1px var(--ring)}
     .live-chip::-webkit-outer-spin-button,
     .live-chip::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     .live-chip[type=number]{-moz-appearance:textfield}
 
-    .out{
-      text-align:center;
-      color:var(--ink);
-      font-size:15px;
-    }
-    .out h3{
-      margin:0 0 10px;
-      text-align:center;
-      color:var(--ink);
-      font-size:18px;
-    }
+    .out{text-align:center;color:var(--ink);font-size:15px}
+    .out h3{margin:0 0 10px;text-align:center;color:var(--ink);font-size:18px}
 
     .kpi{
       display:grid;
@@ -419,10 +336,7 @@
     .kpi-toggle:hover{background:rgba(255,255,255,.06)}
     .kpi-toggle:focus-visible{
       outline:none;
-      box-shadow:
-        0 0 0 3px rgba(2,6,23,.85),
-        0 0 0 6px var(--ring),
-        0 10px 22px rgba(0,0,0,.45);
+      box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 10px 22px rgba(0,0,0,.45);
     }
     .kpi-toggle-icon{
       margin-left:8px;
@@ -434,14 +348,7 @@
     .kpi-panel{margin-top:8px}
     .kpi-panel[hidden]{display:none}
 
-    /* =========================================
-       SYRINGE VISUAL — white card for contrast
-       ========================================= */
-    .syringe-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
+    .syringe-wrap{display:flex;align-items:center;justify-content:center}
     .syringe-card{
       width:100%;
       max-width:1350px;
@@ -461,28 +368,11 @@
       gap:4px;
       text-align:center;
     }
-    .syringe-label{
-      font-size:12px;
-      color:#64748b;
-    }
-    .syringe-head b#syrVol{
-      font-size:13px;
-      font-weight:700;
-      color:#0f172a;
-    }
-    #syrMode{
-      font-size:12px;
-      font-weight:600;
-      color:#0f172a;
-    }
+    .syringe-label{font-size:12px;color:#64748b}
+    .syringe-head b#syrVol{font-size:13px;font-weight:700;color:#0f172a}
+    #syrMode{font-size:12px;font-weight:600;color:#0f172a}
 
-    .syringe-svg{
-      display:block;
-      width:100%;
-      max-width:100%;
-      height:auto;
-      transform-origin:left center;
-    }
+    .syringe-svg{display:block;width:100%;max-width:100%;height:auto;transform-origin:left center}
 
     .syringe-status{
       margin-top:12px;
@@ -512,13 +402,7 @@
       text-align:left;
     }
 
-    .u100-warning{
-      margin-top:10px;
-      font-size:12px;
-      text-align:left;
-      color:var(--muted);
-    }
-
+    .u100-warning{margin-top:10px;font-size:12px;text-align:left;color:var(--muted)}
     .is-hidden{display:none !important}
 
     footer{
@@ -530,23 +414,14 @@
     }
 
     @media (max-width:400px){
-      .live-reads .live-chip{
-        max-width:40vw;
-        text-overflow:ellipsis;
-        overflow:hidden;
-      }
+      .live-reads .live-chip{max-width:40vw;text-overflow:ellipsis;overflow:hidden}
     }
-
     @media (max-width:640px){
       body{background:var(--bg) !important}
-      main.container{
-        padding-left:9px !important;
-        padding-right:9px !important;
-      }
+      main.container{padding-left:9px !important;padding-right:9px !important}
       .calc-grid{max-width:100%}
     }
 
-    /* FAQ block */
     .ib-faq{
       margin-top:32px;
       padding-top:24px;
@@ -559,16 +434,8 @@
       text-align:left;
       color:var(--ink);
     }
-    .ib-faq-intro{
-      margin:0 0 16px;
-      font-size:15px;
-      color:var(--muted);
-    }
-    .ib-faq-list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+    .ib-faq-intro{margin:0 0 16px;font-size:15px;color:var(--muted)}
+    .ib-faq-list{display:flex;flex-direction:column;gap:10px}
     .ib-faq-item{
       border-radius:12px;
       border:1px solid rgba(255,255,255,.08);
@@ -593,16 +460,9 @@
     .ib-faq-question:hover{background:rgba(255,255,255,.06)}
     .ib-faq-question:focus-visible{
       outline:none;
-      box-shadow:
-        0 0 0 3px rgba(2,6,23,.85),
-        0 0 0 6px var(--ring);
+      box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring);
     }
-    .ib-faq-icon{
-      margin-left:8px;
-      font-size:16px;
-      line-height:1;
-      transition:transform .15s ease;
-    }
+    .ib-faq-icon{margin-left:8px;font-size:16px;line-height:1;transition:transform .15s ease}
     .ib-faq-item.open .ib-faq-icon{transform:rotate(90deg)}
     .ib-faq-answer{
       padding:0 14px 10px;
@@ -633,7 +493,6 @@
       <div class="calc-wrap">
         <div class="calc-grid">
 
-          <!-- MODE TOGGLE -->
           <div class="full full-toggle">
             <div class="seg-toggle" role="radiogroup" aria-label="Dose mode" id="modeToggle">
               <button type="button" class="seg-btn" role="radio" aria-checked="false" data-mode="everyNDays">Inject X days</button>
@@ -642,7 +501,6 @@
             </div>
           </div>
 
-          <!-- SYRINGE SIZES 3 / 1 / 0.5 / 0.3 -->
           <div class="full full-toggle">
             <div class="seg-toggle syr-grid" role="radiogroup" aria-label="Syringe size" id="syringeToggle">
               <button type="button" class="seg-btn" role="radio" aria-checked="false" data-ml="3">3 mL</button>
@@ -652,7 +510,6 @@
             </div>
           </div>
 
-          <!-- Vial strength -->
           <div class="full" id="conc-wrap">
             <label for="conc-slider">Vial strength (mg per mL)</label>
             <div class="live-reads">
@@ -663,7 +520,6 @@
             </div>
           </div>
 
-          <!-- Prescribed total per week -->
           <div class="full" id="weekly-wrap">
             <label for="weekly-slider">Prescribed total per week (mg/week)</label>
             <div class="live-reads">
@@ -674,7 +530,6 @@
             </div>
           </div>
 
-          <!-- Injections per week -->
           <div id="count-wrap" class="full">
             <label for="count-slider">Injections per week</label>
             <div class="live-reads">
@@ -685,7 +540,6 @@
             </div>
           </div>
 
-          <!-- Every N days -->
           <div class="full is-hidden" id="everyNdaysWrap">
             <label for="ndays-slider">Every N days</label>
             <div class="live-reads">
@@ -696,7 +550,6 @@
             </div>
           </div>
 
-          <!-- mL → mg volume slider -->
           <div class="full is-hidden" id="mlVolumeWrap">
             <label for="ml-volume-slider">Volume injected (mL)</label>
             <div class="live-reads">
@@ -730,7 +583,6 @@
                     </linearGradient>
                   </defs>
 
-                  <!-- 0.3 mL -->
                   <g id="g03ml" class="is-hidden">
                     <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                     <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -745,7 +597,6 @@
                     <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
-                  <!-- 0.5 mL -->
                   <g id="g05ml" class="is-hidden">
                     <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                     <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -760,7 +611,6 @@
                     <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
-                  <!-- 1 mL -->
                   <g id="g1ml">
                     <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                     <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -775,7 +625,6 @@
                     <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                   </g>
 
-                  <!-- 3 mL -->
                   <g id="g3ml" class="is-hidden">
                     <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
                     <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
@@ -806,7 +655,6 @@
             experienced TRT user.
           </p>
 
-          <!-- KPI COLLAPSIBLE -->
           <div class="kpi-block">
             <button class="kpi-toggle open" type="button" aria-expanded="true">
               <span>Dose breakdown (KPIs)</span>
@@ -837,12 +685,9 @@
       </div>
     </section>
 
-    <!-- FAQ block (collapsible, above footer) -->
     <section class="ib-faq" aria-labelledby="faq-title">
       <h2 id="faq-title" class="ib-faq-heading">Testosterone dosage calculator FAQ</h2>
-      <p class="ib-faq-intro">
-        A few common questions about how this calculator works and how to use the numbers safely.
-      </p>
+      <p class="ib-faq-intro">A few common questions about how this calculator works and how to use the numbers safely.</p>
 
       <div class="ib-faq-list">
         <div class="ib-faq-item">
@@ -949,38 +794,6 @@
       el.style.setProperty('--val', pct + '%');
       el.style.setProperty('--ib-range-fill', pct + '%');
     }
-
-    /* Smooth mobile: prevent page scroll while dragging sliders */
-    (function smoothMobileSliderLock(){
-      let dragging = false;
-
-      function isMobile(){
-        return window.matchMedia('(max-width: 980px)').matches;
-      }
-
-      function start(){
-        if (!isMobile()) return;
-        dragging = true;
-        document.body.style.overscrollBehavior = 'none';
-      }
-
-      function end(){
-        dragging = false;
-        document.body.style.overscrollBehavior = '';
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('input[type="range"]').forEach(slider => {
-          slider.addEventListener('touchstart', start, { passive:true });
-          slider.addEventListener('touchend', end, { passive:true });
-          slider.addEventListener('touchcancel', end, { passive:true });
-
-          slider.addEventListener('touchmove', (e) => {
-            if (dragging && isMobile()) e.preventDefault();
-          }, { passive:false });
-        });
-      });
-    })();
 
     const Syringe = (function(){
       const elVol   = $('syrVol');
@@ -1096,7 +909,6 @@
       }
 
       render(0.25);
-
       return { setCapacity, render };
     })();
 
@@ -1264,9 +1076,9 @@
     }
 
     function recompute(){
-      if (currentMode === 'perWeek')      computePerWeek();
+      if (currentMode === 'perWeek') computePerWeek();
       else if (currentMode === 'everyNDays') computeEveryNDays();
-      else if (currentMode === 'mlToMg')  computeMlToMg();
+      else if (currentMode === 'mlToMg') computeMlToMg();
     }
 
     function setMode(newMode){
@@ -1562,26 +1374,5 @@
 
   <div id="ib-footer"></div>
   <script src="/assets/footer.js" defer></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const ranges = document.querySelectorAll('input[type="range"]');
-
-      ranges.forEach(range => {
-        const updateFill = () => {
-          const min = range.min ? parseFloat(range.min) : 0;
-          const max = range.max ? parseFloat(range.max) : 100;
-          const val = parseFloat(range.value);
-          if (max <= min) return;
-          const pct = ((val - min) / (max - min)) * 100;
-          range.style.setProperty('--val', pct + '%');
-          range.style.setProperty('--ib-range-fill', pct + '%');
-        };
-
-        ['input', 'change'].forEach(evt => range.addEventListener(evt, updateFill));
-        updateFill();
-      });
-    });
-  </script>
 </body>
 </html>
