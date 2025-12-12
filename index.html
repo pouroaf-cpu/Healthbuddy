@@ -14,11 +14,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>InjectBuddy — Confident, Safe TRT & Peptide Dosing</title>
+  <title>InjectBuddy — Confident, Safe TRT &amp; Peptide Dosing</title>
   <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
   <link rel="canonical" href="https://www.injectbuddy.com/" />
 
-  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT & Peptide Dosing" />
+  <meta property="og:title" content="InjectBuddy — Confident, Safe TRT &amp; Peptide Dosing" />
   <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
@@ -28,9 +28,144 @@
 
   <!-- Shared site CSS -->
   <link rel="stylesheet" href="style.css" />
-
   <!-- Page-specific CSS -->
   <link rel="stylesheet" href="index-page.css" />
+
+  <!-- Page overrides: HERO image readability + Reddit dark teal section -->
+  <style>
+    /* =========================
+       HERO PHOTO BANNER (below nav)
+       ========================= */
+    .hero{
+      position: relative;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+
+      /* Banner heights */
+      min-height: 420px; /* desktop */
+      display: flex;
+      align-items: center;
+
+      /* Photo (UPDATE THIS PATH) */
+      background-image: url("/assets/hero.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Readability overlay */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.70) 0%,
+        rgba(0,0,0,0.55) 40%,
+        rgba(0,0,0,0.25) 70%,
+        rgba(0,0,0,0.10) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero .hero-inner{
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 64px 0;
+    }
+
+    .hero h1, .hero p, .hero .tag{
+      color: #fff;
+    }
+
+    .hero h1{
+      text-shadow: 0 2px 8px rgba(0,0,0,0.65);
+    }
+
+    .hero p{
+      text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+    }
+
+    @media (max-width: 768px){
+      .hero{
+        min-height: 240px; /* mobile */
+        background-position: center top;
+      }
+      .hero .hero-inner{
+        padding: 28px 0;
+      }
+      .hero h1{
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+        line-height: 1.15;
+      }
+    }
+
+    /* =========================
+       REDDIT REVIEWS — DARK TEAL BAND
+       ========================= */
+    #reviews.section{
+      background-color: #003f40; /* solid dark teal */
+      color: #ffffff;
+      padding: 4.5rem 0;
+    }
+
+    #reviews h3{
+      color: #ffffff;
+      margin-bottom: 2rem;
+    }
+
+    #reviews .review-main-card{
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 1.75rem 2rem;
+      border-radius: 8px;
+    }
+
+    #reviews .review-header strong{
+      color: #ffffff;
+    }
+
+    #reviews .review-header small{
+      color: rgba(255,255,255,0.75);
+    }
+
+    #reviews [data-review-main-text]{
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    #reviews .review-avatar-btn{
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-right: 0.5rem;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    #reviews .review-avatar-btn:hover{
+      opacity: 0.8;
+    }
+
+    #reviews .review-avatar-btn.is-active{
+      opacity: 1;
+      outline: 2px solid #00b2b5;
+      outline-offset: 3px;
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px){
+      #reviews.section{
+        padding: 3rem 0;
+      }
+      #reviews .review-main-card{
+        padding: 1.5rem;
+      }
+    }
+  </style>
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
   <script type="text/javascript">
@@ -41,6 +176,7 @@
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
 </head>
+
 <body>
 
   <!-- Shared header injected by /assets/nav.js -->
@@ -137,7 +273,6 @@
   <section class="section" id="why">
     <div class="container">
       <section class="ib-why-section small-text">
-
         <img
           src="/confusedimage.svg"
           alt="Person confused by ml and mg dosing numbers"
@@ -177,7 +312,6 @@
           Simply put, <a href="/">InjectBuddy</a> exists to bring structure, accuracy, and clarity to hormone management
           without ads, noise, or guesswork.
         </p>
-
       </section>
     </div>
   </section>
@@ -188,7 +322,6 @@
       <h3>What you can do here</h3>
       <div class="features-mask">
         <div class="features-rail">
-
           <article class="feature-card">
             <h4>TRT dosage calculator</h4>
             <p class="muted">
@@ -220,7 +353,6 @@
             </p>
             <a class="btn btn-secondary btn-feature" href="/bmi.html">BMI Calculator</a>
           </article>
-
         </div>
       </div>
     </div>
@@ -367,11 +499,8 @@
 
       function toggleButton() {
         if (window.innerWidth <= 980) {
-          if (window.scrollY > 180) {
-            btn.classList.add("visible");
-          } else {
-            btn.classList.remove("visible");
-          }
+          if (window.scrollY > 180) btn.classList.add("visible");
+          else btn.classList.remove("visible");
         } else {
           btn.classList.remove("visible");
         }
