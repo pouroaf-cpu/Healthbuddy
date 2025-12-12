@@ -5,30 +5,6 @@
   overflow: hidden;
 }
 
-/* Needles image behind the hero (files are in root) */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("needle1400.webp") bottom center / contain no-repeat;
-  opacity: 0.35; /* adjust 0.2–0.4 once you see it */
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Smaller variants for narrower screens */
-@media (max-width: 1200px) {
-  .hero::before {
-    background-image: url("needle1000.webp");
-  }
-}
-
-@media (max-width: 768px) {
-  .hero::before {
-    background-image: url("needle600.webp");
-  }
-}
-
 /* Keep hero content above the background */
 .hero-inner {
   position: relative;
