@@ -68,100 +68,112 @@
   <section class="section" id="reviews" aria-label="User Reviews">
     <div class="container">
       <h3>What users are saying on Reddit</h3>
-      <div class="review-mask">
-        <div class="review-rail">
 
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/LabRat92</strong>
-            </div>
-            <p>Cleanest TRT calculator I’ve used — finally something that just works.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/ChemCore</strong>
-            </div>
-            <p>This makes vial math and syringe units a no-brainer.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/NeedleNeutral</strong>
-            </div>
-            <p>Reconstitution steps plus exact dose? Saved me from second-guessing every pin.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/PeakProtocol</strong>
-            </div>
-            <p>Mobile layout is super clean, no ads or junk.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/SmoothPin</strong>
-            </div>
-            <p>The syringe visual is clutch for checking I’m not overdrawing.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/CalcJunkie</strong>
-            </div>
-            <p>Way better than the sketchy calculators I’d been using.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/PinPlanner</strong>
-            </div>
-            <p>Dial in mg/week, get mL per shot instantly. Done.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/ClinicChecker</strong>
-            </div>
-            <p>Perfect for double-checking what my clinic wrote on the script.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/PeptidePilot</strong>
-            </div>
-            <p>Peptide mixing finally makes sense after this.</p>
-            <small>Reddit user</small>
-          </article>
-
-          <article class="review-card">
-            <div class="review-header">
-              <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
-              <strong>u/MobileMedic</strong>
-            </div>
-            <p>Simple UI, clear outputs, and fast on mobile.</p>
-            <small>Reddit user</small>
-          </article>
-
+      <!-- Main review text above -->
+      <div class="review-main-card">
+        <div class="review-header">
+          <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
+          <div>
+            <strong data-review-main-user>u/LabRat92</strong><br>
+            <small data-review-main-tag>Reddit user</small>
+          </div>
         </div>
+        <p data-review-main-text>
+          Cleanest TRT calculator I’ve used — finally something that just works.
+        </p>
+      </div>
+
+      <!-- Avatars stacked horizontally under the text -->
+      <div class="review-avatars-row" role="listbox" aria-label="Select a Reddit user review">
+        <button
+          type="button"
+          class="review-avatar-btn is-active"
+          data-username="u/LabRat92"
+          data-quote="Cleanest TRT calculator I’ve used — finally something that just works."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/LabRat92" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/ChemCore"
+          data-quote="This makes vial math and syringe units a no-brainer."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/ChemCore" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/NeedleNeutral"
+          data-quote="Reconstitution steps plus exact dose? Saved me from second-guessing every pin."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/NeedleNeutral" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/PeakProtocol"
+          data-quote="Mobile layout is super clean, no ads or junk."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/PeakProtocol" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/SmoothPin"
+          data-quote="The syringe visual is clutch for checking I’m not overdrawing."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/SmoothPin" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/CalcJunkie"
+          data-quote="Way better than the sketchy calculators I’d been using."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/CalcJunkie" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/PinPlanner"
+          data-quote="Dial in mg/week, get mL per shot instantly. Done."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/PinPlanner" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/ClinicChecker"
+          data-quote="Perfect for double-checking what my clinic wrote on the script."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/ClinicChecker" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/PeptidePilot"
+          data-quote="Peptide mixing finally makes sense after this."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/PeptidePilot" class="review-avatar">
+        </button>
+
+        <button
+          type="button"
+          class="review-avatar-btn"
+          data-username="u/MobileMedic"
+          data-quote="Simple UI, clear outputs, and fast on mobile."
+        >
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/MobileMedic" class="review-avatar">
+        </button>
       </div>
     </div>
   </section>
@@ -328,8 +340,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      makeMarquee('#reviews .review-mask',   '#reviews .review-rail');
-      makeMarquee('#features .features-mask','#features .features-rail');
+      // Only keep marquee for features
+      makeMarquee('#features .features-mask', '#features .features-rail');
+
+      // Reddit review switcher
+      const mainQuote = document.querySelector('[data-review-main-text]');
+      const mainUser  = document.querySelector('[data-review-main-user]');
+      const mainTag   = document.querySelector('[data-review-main-tag]');
+      const buttons   = document.querySelectorAll('.review-avatar-btn');
+
+      if (mainQuote && mainUser && mainTag && buttons.length) {
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+
+            const quote = btn.getAttribute('data-quote') || '';
+            const user  = btn.getAttribute('data-username') || '';
+
+            mainQuote.textContent = quote;
+            mainUser.textContent  = user;
+            mainTag.textContent   = 'Reddit user';
+          });
+        });
+      }
     });
 
     // Hide bottom CTA at very top on mobile; show once scrolled
