@@ -79,4 +79,54 @@
   pointer-events: none;
   z-index: 0;
 }
+/* ============================
+   REDDIT REVIEWS – CENTER & NO PADDING
+   ============================ */
+
+/* Center the whole reviews section content */
+#reviews .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Center the main review card and tighten width */
+.review-main-card {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto 16px;
+}
+
+/* Avatar buttons: no padding, no background, no border */
+.review-avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 6px;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+/* Remove any "active" styling except maybe a tiny outline if you want */
+.review-avatar-btn.is-active {
+  outline: none;
+}
+
+/* Just the Reddit image visible */
+.review-avatar {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Optional: center the avatar row explicitly */
+#reviews .container > div:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
