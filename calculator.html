@@ -31,7 +31,7 @@
        ========================================= */
     :root{
       --ink:#e5e7eb;          /* main text */
-      --muted:#94a3b8;        /* secondary text */
+      --muted:#9ca3af;        /* secondary text */
       --bg:#020617;           /* page background */
       --surface:#020617;      /* main surfaces / cards */
       --panel:#020617;        /* small blocks */
@@ -39,10 +39,10 @@
       --cta:#00b2b5;
       --cta-hover:#00c7ca;
       --cta-dark:#008489;
-      --ring:rgba(0,178,181,.45);
+      --ring:rgba(0,178,181,.6);
 
       --border:#1f2937;
-      --shadow:0 10px 30px rgba(0,0,0,.6);
+      --shadow:0 10px 30px rgba(0,0,0,.7);
 
       --orange:#ff7a00;
       --oil1:#fbbf24;
@@ -79,7 +79,7 @@
     }
 
     /* =========================================
-       BUTTONS
+       BUTTONS (generic)
        ========================================= */
     .btn{
       display:inline-flex;
@@ -101,12 +101,13 @@
     }
     .btn-primary{
       background:var(--cta);
-      color:#fff;
+      color:#020617;
     }
     .btn-primary:hover{
       transform:translateY(-1px);
       background:var(--cta-hover);
-      box-shadow:0 0 0 1px var(--ring),0 0 20px rgba(0,178,181,.7);
+      box-shadow:0 0 0 1px var(--ring),0 0 20px rgba(0,178,181,.8);
+      color:#020617;
     }
 
     main.container{
@@ -121,7 +122,7 @@
     .form-container h1{
       margin:0 0 10px;
       text-align:center;
-      font-size:20px; /* up from 18px */
+      font-size:20px;
       font-weight:700;
       color:var(--ink);
     }
@@ -152,7 +153,7 @@
       align-items:center;
       gap:6px 12px;
       width:100%;
-      font-size:15px; /* form row size up */
+      font-size:15px;
     }
     .calc-grid .full > label{
       grid-area:label;
@@ -176,7 +177,7 @@
       width:100%;
     }
 
-    /* Segmented toggle (mode + syringes) */
+    /* Segmented toggles (mode + syringes) */
     .seg-toggle{
       display:inline-flex;
       border:1px solid var(--border);
@@ -190,7 +191,7 @@
       min-width:0;
       padding:9px 12px;
       font-weight:700;
-      font-size:14px; /* up from 13px */
+      font-size:14px;
       border:0;
       background:transparent;
       color:var(--muted);
@@ -200,12 +201,12 @@
       white-space:normal;
     }
     .seg-btn[aria-checked="true"]{
-      background:rgba(0,178,181,0.18);
-      color:#e0faff;
-      box-shadow:0 0 0 1px var(--ring),0 0 12px rgba(0,178,181,.4);
+      background:var(--cta);
+      color:#020617;
+      box-shadow:0 0 0 1px var(--ring),0 0 14px rgba(0,178,181,.7);
     }
     .seg-btn:hover{
-      background:rgba(15,23,42,.8);
+      background:#0b1120;
       color:var(--ink);
     }
 
@@ -242,27 +243,27 @@
     input[type="range"]{
       -webkit-appearance:none;
       appearance:none;
-      height:8px; /* up from 6px */
+      height:8px;
       border-radius:999px;
       background:linear-gradient(
         to right,
         var(--cta) 0,
         var(--cta) var(--val,50%),
-        #1f2933 var(--val,50%),
-        #1f2933 100%
+        #111827 var(--val,50%),
+        #111827 100%
       );
       outline:none;
     }
     input[type="range"]::-webkit-slider-thumb{
       -webkit-appearance:none;
-      height:28px; /* up from 24px */
-      width:28px;  /* up from 24px */
+      height:28px;
+      width:28px;
       border-radius:50%;
       background:var(--cta);
       border:2px solid #020617;
-      box-shadow:0 2px 6px rgba(0,0,0,.75);
+      box-shadow:0 2px 6px rgba(0,0,0,.8);
       cursor:pointer;
-      margin-top:-11px; /* recenter for taller track */
+      margin-top:-11px;
     }
     input[type="range"]::-moz-range-thumb{
       height:28px;
@@ -270,7 +271,7 @@
       border-radius:50%;
       background:var(--cta);
       border:2px solid #020617;
-      box-shadow:0 2px 6px rgba(0,0,0,.75);
+      box-shadow:0 2px 6px rgba(0,0,0,.8);
       cursor:pointer;
     }
     input[type="range"]::-moz-range-track{
@@ -280,8 +281,8 @@
         to right,
         var(--cta) 0,
         var(--cta) var(--val,50%),
-        #1f2933 var(--val,50%),
-        #1f2933 100%
+        #111827 var(--val,50%),
+        #111827 100%
       );
     }
 
@@ -294,7 +295,7 @@
       color:var(--ink);
       background:#020617;
       font-weight:700;
-      font-size:13px; /* up from 12px */
+      font-size:13px;
       text-align:right;
       width:10ch;
       min-width:10ch;
@@ -387,7 +388,7 @@
     }
 
     /* =========================================
-       SYRINGE VISUAL — UNCHANGED (white card)
+       SYRINGE VISUAL — white card for contrast
        ========================================= */
     .syringe-wrap{
       display:flex;
@@ -397,7 +398,7 @@
     .syringe-card{
       width:100%;
       max-width:1350px;
-      background:#fff; /* keep white for contrast */
+      background:#ffffff; /* keep white */
       border:1px solid var(--border);
       border-radius:16px;
       box-shadow:var(--shadow);
@@ -511,7 +512,7 @@
       border-top:1px solid var(--border);
     }
     .ib-faq-heading{
-      font-size:19px; /* up slightly */
+      font-size:19px;
       font-weight:700;
       margin:0 0 12px;
       text-align:left;
@@ -546,6 +547,9 @@
       align-items:center;
       justify-content:space-between;
       cursor:pointer;
+    }
+    .ib-faq-question:hover{
+      background:#0b1120;
     }
     .ib-faq-question:focus-visible{
       outline:2px solid var(--ring);
@@ -780,7 +784,7 @@
         </aside>
       </div>
 
-      <div class="notice" style="margin-top:8px;color:#9ca3af;font-size:14px">
+      <div class="notice" style="margin-top:8px;color:var(--muted);font-size:14px">
         This tool is for planning only and not medical advice. Always follow your clinician’s instructions.
       </div>
     </section>
@@ -1448,7 +1452,6 @@
           });
           // toggle current
           if (!isOpen) {
-            item.addEventListener;
             item.classList.add('open');
             btn.setAttribute('aria-expanded', 'true');
             answer.hidden = false;
@@ -1468,6 +1471,7 @@
         });
       }
 
+      // initial compute
       recompute();
     });
   </script>
@@ -1481,11 +1485,11 @@
 
       function toggleButton() {
         if (window.innerWidth <= 980) {   // mobile only
-        if (window.scrollY > 180) {
+          if (window.scrollY > 180) {
             btn.classList.add("visible");
-        } else {
+          } else {
             btn.classList.remove("visible");
-        }
+          }
         } else {
           btn.classList.remove("visible");
         }
