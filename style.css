@@ -1828,3 +1828,18 @@ input[type="range"]:active::-moz-range-thumb {
 input[type="range"]{
   touch-action: pan-x;
 }
+/* Wider desktop page width */
+.container{
+  max-width:1480px;   /* was 1200px */
+  margin:0 auto;
+  padding:0 28px;     /* a touch more breathing room */
+}
+
+@media (max-width:640px){
+  .container{padding:0 20px}
+}
+
+/* Optional: slightly more space around the calculator area on big screens */
+@media (min-width:1100px){
+  main.container{padding:34px 0}
+}
