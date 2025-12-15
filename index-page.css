@@ -135,4 +135,25 @@
 #features .subhead{
   opacity: 0.85;
 }
+/* =========================
+   REDDIT – heavy edge vignette
+   ========================= */
+#reviews.section{
+  color:#fff;
+  padding: 3rem 0;
+
+  background:
+    radial-gradient(
+      130% 100% at 50% 45%,
+      rgba(0, 109, 111, 0.55) 0%,
+      rgba(0, 60, 61, 0.85) 45%,
+      rgba(0, 32, 33, 1) 80%
+    ),
+    linear-gradient(
+      180deg,
+      #003637 0%,
+      #004c4d 50%,
+      #003637 100%
+    );
+}
 
