@@ -1843,3 +1843,10 @@ input[type="range"]{
 @media (min-width:1100px){
   main.container{padding:34px 0}
 }
+/* Replace this:
+.ib-mobile-menu.open { display: block; }
+with this (covers both cases safely): */
+.ib-mobile-menu.open,
+.ib-mobile-menu.ib-mobile-open {
+  display: block;
+}
