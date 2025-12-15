@@ -957,4 +957,21 @@ input[type="range"]:active::-moz-range-thumb{
 @media (prefers-reduced-motion: reduce){
   .cta-bar{ transition:none; }
 }
+/* =========================================
+   NAV BAR – EXTRA TRANSPARENT OVERRIDE
+   (paste at very bottom)
+   ========================================= */
+.ib-header{
+  background: linear-gradient(
+    180deg,
+    rgba(0, 163, 176, 0.12) 0%,
+    rgba(2, 6, 23, 0.38) 55%,
+    rgba(2, 6, 23, 0.55) 100%
+  ) !important;
+
+  backdrop-filter: saturate(140%) blur(16px) !important;
+  -webkit-backdrop-filter: saturate(140%) blur(16px) !important;
+
+  border-bottom: 1px solid rgba(0, 163, 176, 0.18) !important;
+}
 
