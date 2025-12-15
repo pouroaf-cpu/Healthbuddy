@@ -160,11 +160,36 @@
     /* =========================
        FEATURES (modern grid)
        ========================= */
-    #features.section{
-      background: linear-gradient(180deg, #eef7f7 0%, #e5f2f2 100%);
-      border-top: 1px solid rgba(0,109,111,.15);
-      border-bottom: 1px solid rgba(0,109,111,.15);
-    }
+/* =========================
+   FEATURES – edge-weighted teal
+   ========================= */
+#features.section{
+  background:
+    radial-gradient(
+      170% 120% at 50% 45%,
+      rgba(0, 150, 150, 0.45) 0%,
+      rgba(0, 95, 97, 0.85) 45%,
+      rgba(0, 35, 36, 1) 84%
+    ),
+    linear-gradient(
+      180deg,
+      #003637 0%,
+      #006d6f 55%,
+      #003637 100%
+    );
+
+  border-top: 1px solid rgba(255,255,255,0.14);
+  border-bottom: 1px solid rgba(0,0,0,0.35);
+}
+
+#features h3{
+  color: #ffffff;
+}
+
+#features .muted{
+  color: rgba(255,255,255,0.85);
+}
+
     #features h3{
       margin-bottom: 1.1rem;
     }
