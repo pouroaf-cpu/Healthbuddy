@@ -8,6 +8,7 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
   <script>
@@ -30,7 +31,7 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
-  <!-- Shared site stylesheet (same as BMI / index) -->
+  <!-- Shared site stylesheet (same as TRT / BMI / index) -->
   <link rel="stylesheet" href="style.css" />
 
   <style>
@@ -69,8 +70,9 @@
 
     a{color:inherit;text-decoration:none}
 
+    /* Match TRT page width/spacing */
     .container{
-      max-width:1120px;
+      max-width:1240px; /* wider desktop */
       margin:0 auto;
       padding:0 20px;
     }
@@ -91,45 +93,30 @@
       background:#fff;
       transition:transform .12s, box-shadow .12s, background-color .12s, border-color .12s;
     }
-    .btn:focus-visible{
-      outline:0;
-      box-shadow:0 0 0 6px var(--ring);
-    }
-    .btn-primary{
-      background:var(--cta);
-      color:#fff;
-    }
-    .btn-primary:hover{
-      transform:translateY(-1px);
-      background:var(--cta-hover);
-    }
-    .btn-secondary{
-      background:#fff;
-      color:var(--teal-900);
-      border-color:var(--teal-900);
-    }
-    .btn-secondary:hover{
-      transform:translateY(-1px);
-    }
+    .btn:focus-visible{outline:0; box-shadow:0 0 0 6px var(--ring);}
+    .btn-primary{background:var(--cta); color:#fff;}
+    .btn-primary:hover{transform:translateY(-1px); background:var(--cta-hover);}
+    .btn-secondary{background:#fff; color:var(--teal-900); border-color:var(--teal-900);}
+    .btn-secondary:hover{transform:translateY(-1px);}
 
     /* Layout */
-    main.container{
-      padding:24px 0;
-    }
-    @media (max-width:640px){
-      main.container{padding:20px 0;}
-    }
+    main.container{padding:16px 0;} /* less vertical padding like TRT */
+    @media (max-width:640px){ main.container{padding:14px 0;} }
 
     .page-head{
-      padding:26px 0 14px;
+      padding:12px 0 10px; /* remove big gap above H1 */
+      text-align:left;
     }
     .page-head h1{
-      margin:0 0 6px;
-      font-size:1.6rem;
+      margin:0 0 6px;      /* no top gap */
+      font-size:1.35rem;   /* smaller like TRT */
+      line-height:1.2;
+      letter-spacing:-0.01em;
     }
     .sub{
       color:#3b3b3b;
       max-width:780px;
+      margin:0;
     }
 
     .info-collapse{margin-top:4px;}
@@ -152,13 +139,10 @@
     .calc-wrap{
       display:grid;
       grid-template-columns:1.1fr .9fr;
-      gap:24px;
+      gap:20px;
     }
     @media (max-width:980px){
-      .calc-wrap{
-        grid-template-columns:1fr;
-        gap:18px;
-      }
+      .calc-wrap{grid-template-columns:1fr; gap:16px;}
     }
 
     .calc-grid{
@@ -199,7 +183,7 @@
     .seg-btn{
       flex:1 0 auto;
       padding:8px 14px;
-      font-weight:700;
+      font-weight:800;
       border:0;
       background:#fff;
       color:#334155;
@@ -211,12 +195,12 @@
       color:#065f5b;
     }
 
-    /* Slider styling (range) */
+    /* Slider styling (range) — match TRT: bigger thumb + better hit area */
     input[type="range"]{
       -webkit-appearance:none !important;
       appearance:none !important;
       width:100%;
-      height:8px;
+      height:10px;
       background:#e2e8f0;
       border-radius:999px;
       outline:none;
@@ -225,7 +209,7 @@
       position:relative;
     }
     input[type="range"]::-webkit-slider-runnable-track{
-      height:8px;
+      height:10px;
       border-radius:999px;
       background:linear-gradient(
         to right,
@@ -237,32 +221,32 @@
     }
     input[type="range"]::-webkit-slider-thumb{
       -webkit-appearance:none !important;
-      height:24px;
-      width:24px;
+      height:30px;
+      width:30px;
       border-radius:50%;
       background:var(--cta);
-      border:2px solid #ffffff;
-      box-shadow:0 2px 6px rgba(15,23,42,.35);
+      border:3px solid #ffffff;
+      box-shadow:0 2px 8px rgba(15,23,42,.35);
       cursor:pointer;
-      margin-top:-8px;
+      margin-top:-10px;
     }
     input[type="range"]::-moz-range-track{
-      height:8px;
+      height:10px;
       border-radius:999px;
       background:#e2e8f0;
     }
     input[type="range"]::-moz-range-thumb{
-      height:24px;
-      width:24px;
+      height:30px;
+      width:30px;
       border-radius:50%;
       background:var(--cta);
-      border:2px solid #ffffff;
-      box-shadow:0 2px 6px rgba(15,23,42,.35);
+      border:3px solid #ffffff;
+      box-shadow:0 2px 8px rgba(15,23,42,.35);
       cursor:pointer;
     }
     input[type="range"]::-moz-range-progress{
       background:var(--cta);
-      height:8px;
+      height:10px;
       border-radius:999px;
     }
 
@@ -275,14 +259,9 @@
       color:#475569;
       background:#fff;
       white-space:nowrap;
-      font-weight:700;
+      font-weight:800;
     }
-
-    /* Make BaW chip wide enough so 10–30 mL is visible */
-    #lr-ml{
-      min-width:72px;
-      text-align:center;
-    }
+    #lr-ml{min-width:72px; text-align:center;}
 
     /* Label / chip / control layout */
     .full{
@@ -294,14 +273,8 @@
       align-items:center;
       gap:6px 12px;
     }
-    .full > label{
-      grid-area:label;
-      margin:0;
-    }
-    .full > .live-reads{
-      grid-area:chip;
-      margin:0;
-    }
+    .full > label{grid-area:label; margin:0;}
+    .full > .live-reads{grid-area:chip; margin:0;}
     .full > input[type="range"],
     .full > input[type="datetime-local"],
     .full > input[type="number"]{
@@ -313,29 +286,18 @@
       display:flex;
       align-items:center;
       gap:8px;
-      flex-wrap:wrap; /* allow wrapping for wide toggle groups */
+      flex-wrap:wrap;
     }
-    .full.full-toggle > label{
-      margin:0;
-      flex:0 0 auto;
-    }
+    .full.full-toggle > label{margin:0; flex:0 0 auto;}
     .full.full-toggle > .seg-toggle{margin:0;}
 
     .muted{color:#6b6b6b;}
 
     /* Right column visuals */
-    .visuals{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-    }
+    .visuals{display:flex; flex-direction:column; gap:16px;}
 
     /* Vial + KPIs layout */
-    .vial-layout{
-      display:flex;
-      gap:16px;
-      align-items:center;
-    }
+    .vial-layout{display:flex; gap:16px; align-items:center;}
     .vial-kpis{
       display:flex;
       flex-direction:column;
@@ -343,50 +305,29 @@
       max-width:260px;
       flex:0 0 auto;
     }
-    .vial-kpis .card{
-      padding:10px 12px;
-      border-radius:12px;
-    }
-    .vial-kpis .card b{
-      font-size:1rem;
-      margin-top:2px;
-    }
+    .vial-kpis .card{padding:10px 12px; border-radius:12px;}
+    .vial-kpis .card b{font-size:1rem; margin-top:2px;}
     .small-label{font-size:.8rem;}
 
     /* Vial layout */
-    .vial-card{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
+    .vial-card{display:flex; align-items:center; justify-content:center;}
     .vial{
       width:150px;
       max-width:40vw;
       filter:drop-shadow(0 10px 24px rgba(0,0,0,.10));
     }
-    .vial [data-liquid]{
-      transition:y .35s ease,height .35s ease;
-    }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+    .vial [data-liquid]{transition:y .35s ease,height .35s ease;}
+    .row{display:flex; gap:10px; flex-wrap:wrap;}
 
     /* Syringe container */
-    .syringe-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
+    .syringe-wrap{display:flex; align-items:center; justify-content:center;}
     .syringe-card{
       width:100%;
       background:#fff;
       border:1px solid var(--border);
       border-radius:16px;
       box-shadow:var(--shadow);
-      padding:20px 20px 32px;
+      padding:18px 18px 28px; /* slightly tighter */
       overflow:hidden;
     }
     .syringe-head{
@@ -435,7 +376,7 @@
     /* Centered FAQ */
     .section.center-faq{
       max-width:900px;
-      margin:24px auto 0;
+      margin:22px auto 0;
       text-align:center;
     }
     .section.center-faq .faq{
@@ -443,20 +384,15 @@
       margin:12px auto 0;
       text-align:left;
     }
-    .section.center-faq .faq .card{
-      margin:10px 0;
-    }
-    .section.center-faq .faq summary{
-      cursor:pointer;
-      list-style:none;
-    }
+    .section.center-faq .faq .card{margin:10px 0;}
+    .section.center-faq .faq summary{cursor:pointer; list-style:none;}
     .section.center-faq .faq summary::-webkit-details-marker{display:none;}
 
     footer{
-      padding:36px 0;
+      padding:32px 0;
       color:#475569;
       border-top:1px solid var(--border);
-      margin-top:28px;
+      margin-top:24px;
     }
 
     @media (max-width:400px){
@@ -468,55 +404,39 @@
     }
 
     @media (prefers-reduced-motion:reduce){
-      .btn,
-      .btn:hover{
-        transition:none;
-        transform:none;
-      }
+      .btn, .btn:hover{transition:none; transform:none;}
     }
 
     /* MOBILE-ONLY tweaks */
     @media (max-width:640px){
-      .page-head{
-        text-align:center;
-      }
-      .page-head .sub{
-        margin-left:auto;
-        margin-right:auto;
-        text-align:center;
-      }
-      .info-collapse summary{
-        text-align:center;
+      .page-head{text-align:center;}
+      .page-head .sub{margin-left:auto; margin-right:auto; text-align:center;}
+      .info-collapse summary{text-align:center;}
+
+      .vial-layout{flex-direction:column; align-items:center;}
+      .vial-kpis{width:100%; max-width:320px;}
+
+      /* Mobile: bring sliders in ~1/16 each side */
+      .full > input[type="range"]{
+        width:calc(100% - 12px);
+        margin-left:6px;
+        margin-right:6px;
       }
 
-      .vial-layout{
-        flex-direction:column;
-        align-items:center;
-      }
-      .vial-kpis{
-        width:100%;
-        max-width:320px;
-      }
-
-      /* Mobile fix for Syringe Size buttons */
-      #syringeToggle{
-        max-width:100%;
-        flex-wrap:wrap;          /* allow buttons to wrap */
-      }
+      /* Syringe Size buttons: wrap cleanly */
+      #syringeToggle{max-width:100%; flex-wrap:wrap;}
       #syringeToggle .seg-btn{
-        flex:1 1 50%;            /* two buttons per row */
-        padding:6px 10px;
-        font-size:0.85rem;
+        flex:1 1 50%;
+        padding:7px 10px;
+        font-size:0.88rem;
       }
-      .full.full-toggle > label{
-        flex:0 0 100%;           /* label on its own line */
-      }
+      .full.full-toggle > label{flex:0 0 100%;}
     }
   </style>
 </head>
-<body>
 
-  <!-- Shared header injected by /assets/nav.js (same as BMI / index) -->
+<body>
+  <!-- Shared header injected by /assets/nav.js -->
   <div id="site-header"></div>
 
   <main class="container">
@@ -533,44 +453,35 @@
     </section>
 
     <section class="card" aria-labelledby="pep-main-title">
-      <h2 id="pep-main-title" style="margin-top:0;">Vial, Dose & Schedule</h2>
+      <h2 id="pep-main-title" style="margin:0 0 10px;">Vial, Dose & Schedule</h2>
 
       <div class="calc-wrap">
         <!-- LEFT: inputs -->
         <div class="calc-grid">
-
           <!-- Peptide in vial (mg) -->
           <div class="full">
             <label for="pepMg">Peptide in vial (mg)</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-mg">5 mg</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-mg">5 mg</div></div>
             <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
           </div>
 
           <!-- BaW slider 1–30 mL -->
           <div class="full">
             <label for="bacMl-slider">Bacteriostatic water (mL added)</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-ml">2 mL</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-ml">2 mL</div></div>
             <input id="bacMl-slider" type="range" min="1" max="30" step="1" value="2" />
           </div>
 
-          <!-- Vial strength chip (computed, no helper text) -->
+          <!-- Vial strength chip -->
           <div class="full">
             <label>Vial strength (computed)</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-strength">—</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-strength">—</div></div>
           </div>
 
-          <!-- Desired total per week (TEXT BOX, mg/week) -->
+          <!-- Desired total per week -->
           <div class="full">
             <label for="weeklyMg-input">Desired total per week (mg/week)</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-weeklyMg">1 mg/week</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-weeklyMg">1 mg/week</div></div>
             <input id="weeklyMg-input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
           </div>
 
@@ -583,21 +494,17 @@
             </div>
           </div>
 
-          <!-- Injections per week (Per week mode) -->
+          <!-- Injections per week -->
           <div id="perWeek-wrap" class="full">
             <label for="injCount-slider">Injections per week</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-injCount">3 / week</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-injCount">3 / week</div></div>
             <input id="injCount-slider" type="range" min="1" max="7" step="1" value="3" />
           </div>
 
-          <!-- Every N days (Every N days mode) -->
+          <!-- Every N days -->
           <div id="everyN-wrap" class="full is-hidden">
             <label for="ndays-slider">Every N days</label>
-            <div class="live-reads">
-              <div class="live-chip" id="lr-ndays">3 days</div>
-            </div>
+            <div class="live-reads"><div class="live-chip" id="lr-ndays">3 days</div></div>
             <input id="ndays-slider" type="range" min="1" max="14" step="1" value="3" />
           </div>
 
@@ -615,8 +522,7 @@
 
         <!-- RIGHT: syringe ABOVE vial + KPIs beside vial -->
         <div class="visuals">
-
-          <!-- Syringe visual (first) -->
+          <!-- Syringe visual -->
           <div class="syringe-wrap">
             <div class="syringe-card" aria-live="polite">
               <div class="syringe-head">
@@ -626,7 +532,6 @@
                 </div>
               </div>
 
-              <!-- SINGLE SVG with 4 capacity groups -->
               <svg id="syringe-svg" class="syringe-svg" viewBox="0 0 1280 240" role="img" aria-label="Syringe visual">
                 <defs>
                   <linearGradient id="gradOil" x1="0" x2="1" y1="0" y2="0">
@@ -635,7 +540,6 @@
                   </linearGradient>
                 </defs>
 
-                <!-- 0.3 mL (insulin) -->
                 <g id="g03ml" class="is-hidden">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -650,7 +554,6 @@
                   <g id="labels03" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 0.5 mL (insulin) -->
                 <g id="g05ml" class="is-hidden">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -665,7 +568,6 @@
                   <g id="labels05" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 1 mL (insulin) -->
                 <g id="g1ml">
                   <rect x="6" y="92" width="162" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="168" y="92" width="26" height="56" fill="#d7e3e6"/>
@@ -680,7 +582,6 @@
                   <g id="labels1ml" font-family="Inter,system-ui,Arial" font-size="22" font-weight="800" fill="#0f172a" opacity="0.95" text-anchor="middle"></g>
                 </g>
 
-                <!-- 3 mL (mL scale) -->
                 <g id="g3ml" class="is-hidden">
                   <rect x="6" y="98" width="170" height="56" rx="4" fill="var(--orange)"/>
                   <rect x="176" y="98" width="26" height="56" fill="#d7e3e6"/>
@@ -703,9 +604,8 @@
             </div>
           </div>
 
-          <!-- Vial layout with KPIs beside the vial -->
+          <!-- Vial + KPIs -->
           <div class="vial-layout">
-            <!-- Vial SVG (left) -->
             <div class="vial-card">
               <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
                 <title id="vialTitle">Peptide vial visualization with live label</title>
@@ -715,20 +615,13 @@
                   <clipPath id="labelClip"><rect x="34" y="160" width="132" height="92" rx="10"/></clipPath>
                 </defs>
 
-                <!-- Cap + ring -->
                 <rect x="40" y="12" width="120" height="42" rx="8" fill="#2f3a44"/>
                 <rect x="48" y="54" width="104" height="10" rx="5" fill="#b6c2cc"/>
-
-                <!-- Neck -->
                 <rect x="60" y="64" width="80" height="16" rx="8" fill="#d9e2ec"/>
-
-                <!-- Glass body -->
                 <rect x="30" y="80" width="140" height="240" rx="18" fill="#f4f7fb" stroke="#c9d3dd"/>
 
-                <!-- Liquid block -->
                 <rect data-liquid x="34" y="96" width="132" height="204" rx="14" fill="#42b7ba" opacity="0.9"/>
 
-                <!-- Label -->
                 <g>
                   <rect x="34" y="160" width="132" height="92" rx="10" fill="#ffffff" stroke="#d5dee5"/>
                   <rect x="34"  y="160" width="6"  height="92" rx="6" fill="#000000" opacity=".02"/>
@@ -744,14 +637,12 @@
                   </g>
                 </g>
 
-                <!-- Highlights -->
                 <ellipse cx="100" cy="86" rx="60" ry="6" fill="#ffffff" opacity="0.6"/>
                 <rect x="42" y="88" width="6" height="190" rx="3" fill="#ffffff" opacity="0.3"/>
                 <rect x="152" y="94" width="4" height="170" rx="2" fill="#ffffff" opacity="0.15"/>
               </svg>
             </div>
 
-            <!-- KPIs (right of vial) -->
             <div class="vial-kpis">
               <div class="card">
                 <span class="muted small-label">Vial strength</span>
@@ -767,10 +658,10 @@
         </div>
       </div>
 
-      <p class="muted" style="margin-top:10px;">For planning only. Always follow your clinician’s and product supplier’s instructions.</p>
+      <p class="muted" style="margin:12px 0 0;">For planning only. Always follow your clinician’s and product supplier’s instructions.</p>
     </section>
 
-    <section class="section center-faq" aria-labelledby="pep-faq-title" style="margin-top:18px;">
+    <section class="section center-faq" aria-labelledby="pep-faq-title" style="margin-top:16px;">
       <h2 id="pep-faq-title">Peptide Reconstitution & Dosage FAQ</h2>
       <p class="muted" style="margin-top:-4px;">For planning only — not medical advice.</p>
 
@@ -793,7 +684,7 @@
         </details>
         <details class="card">
           <summary><strong>What are “insulin units (U-100)” in this tool?</strong></summary>
-          <p>On a standard U-100 insulin syringe, 1&nbsp;mL = 100&nbsp;units. The tool multiplies the mL dose by 100 so you can see an approximate mark on a U-100 syringe (for example, 0.20&nbsp;mL ≈ 20&nbsp;units). Always check your own equipment and follow professional guidance.</p>
+          <p>On a standard U-100 insulin syringe, 1&nbsp;mL = 100&nbsp;units. The tool multiplies the mL dose by 100 so you can see an approximate mark on a U-100 syringe (for example, 0.20&nbsp;mL ≈ 20&nbsp;units).</p>
         </details>
         <details class="card">
           <summary><strong>Storage after reconstitution</strong></summary>
@@ -826,11 +717,9 @@
     </div>
   </footer>
 
-  <!-- Shared nav JS (same as BMI / index) -->
   <script src="/assets/nav.js" defer></script>
 
   <script>
-    // Year only – nav is handled by /assets/nav.js
     (function(){
       const y = document.getElementById('y');
       if (y) y.textContent = new Date().getFullYear();
@@ -845,7 +734,7 @@
       el.style.setProperty('--val', pct + '%');
     }
 
-    // Syringe SVG logic
+    /* Syringe SVG logic */
     (function(){
       const elVol  = $('syrVol');
       const elMode = $('syrMode');
@@ -982,9 +871,7 @@
         e.preventDefault();
         const arr=[...btns];
         const current = arr.findIndex(b=>b.getAttribute('aria-checked')==='true');
-        const next = (e.key==='ArrowRight')
-          ? (current+1)%arr.length
-          : (current-1+arr.length)%arr.length;
+        const next = (e.key==='ArrowRight') ? (current+1)%arr.length : (current-1+arr.length)%arr.length;
         setSyringe(Number(arr[next].dataset.ml));
         arr[next].focus();
       });
@@ -1061,7 +948,6 @@
 
       if (mgVal > 0 && mlVal > 0){
         mgPerMl = mgVal / mlVal;
-
         const mgMlText = `${fmt(mgPerMl,3)} mg/mL`;
 
         lrStrength.textContent = mgMlText;
@@ -1156,7 +1042,7 @@
       }catch(e){}
     }
 
-    // NEW: editable chips that snap sliders (BaW mL, injections/week, every N days)
+    /* Editable chips for sliders */
     function makeChipEditable(chipId, sliderId) {
       const chip   = $(chipId);
       const slider = $(sliderId);
@@ -1192,16 +1078,10 @@
         const finish = (commit) => {
           chip.dataset.editing = 'false';
 
-          if (!commit) {
-            computePeptide();
-            return;
-          }
+          if (!commit) { computePeptide(); return; }
 
           let val = Number(input.value);
-          if (!isFinite(val)) {
-            computePeptide();
-            return;
-          }
+          if (!isFinite(val)) { computePeptide(); return; }
 
           const min = slider.min !== '' ? Number(slider.min) : null;
           const max = slider.max !== '' ? Number(slider.max) : null;
@@ -1221,13 +1101,8 @@
 
         input.addEventListener('blur', () => finish(true));
         input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            finish(true);
-          } else if (e.key === 'Escape') {
-            e.preventDefault();
-            finish(false);
-          }
+          if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+          else if (e.key === 'Escape') { e.preventDefault(); finish(false); }
         });
       });
     }
@@ -1245,8 +1120,7 @@
         if (saved.mode === 'everyNDays' || saved.mode === 'perWeek') updateMode(saved.mode);
       }catch(e){}
 
-      const modeToggle = $('modeToggle');
-      modeToggle.addEventListener('click', e=>{
+      $('modeToggle').addEventListener('click', e=>{
         const btn = e.target.closest('.seg-btn'); if(!btn) return;
         updateMode(btn.dataset.mode);
       });
@@ -1269,10 +1143,9 @@
 
       initSyringeToggle();
 
-      // Wire editable chips -> sliders
-      makeChipEditable('lr-ml',       'bacMl-slider');   // BaW mL
-      makeChipEditable('lr-injCount', 'injCount-slider'); // injections/week
-      makeChipEditable('lr-ndays',    'ndays-slider');    // every N days
+      makeChipEditable('lr-ml',       'bacMl-slider');
+      makeChipEditable('lr-injCount', 'injCount-slider');
+      makeChipEditable('lr-ndays',    'ndays-slider');
 
       computePeptide();
     });
@@ -1280,18 +1153,14 @@
 
   <!-- Scroll to Top Button -->
   <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const btn = document.getElementById("ib-scroll-top");
 
       function toggleButton() {
-        if (window.innerWidth <= 980) {   // mobile only
-          if (window.scrollY > 180) {
-            btn.classList.add("visible");
-          } else {
-            btn.classList.remove("visible");
-          }
+        if (window.innerWidth <= 980) {
+          if (window.scrollY > 180) btn.classList.add("visible");
+          else btn.classList.remove("visible");
         } else {
           btn.classList.remove("visible");
         }
@@ -1307,6 +1176,6 @@
       toggleButton();
     });
   </script>
-
 </body>
 </html>
+
