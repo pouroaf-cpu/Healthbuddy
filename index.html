@@ -80,27 +80,27 @@
       .hero h1{ font-size:clamp(1.6rem, 5.5vw, 2.2rem); line-height:1.15; }
     }
 
-/* =========================
-   REDDIT – strong edge vignette
-   ========================= */
-#reviews.section{
-  color:#fff;
-  padding: 3rem 0;
+    /* =========================
+       REDDIT – strong edge vignette
+       ========================= */
+    #reviews.section{
+      color:#fff;
+      padding: 3rem 0;
 
-  background:
-    radial-gradient(
-      180% 120% at 50% 50%,
-      rgba(0, 125, 126, 0.65) 0%,
-      rgba(0, 70, 71, 0.92) 48%,
-      rgba(0, 25, 26, 1) 82%
-    ),
-    linear-gradient(
-      180deg,
-      #002b2c 0%,
-      #004c4d 50%,
-      #002b2c 100%
-    );
-}
+      background:
+        radial-gradient(
+          180% 120% at 50% 50%,
+          rgba(0, 125, 126, 0.65) 0%,
+          rgba(0, 70, 71, 0.92) 48%,
+          rgba(0, 25, 26, 1) 82%
+        ),
+        linear-gradient(
+          180deg,
+          #002b2c 0%,
+          #004c4d 50%,
+          #002b2c 100%
+        );
+    }
     #reviews h3{
       color:#fff;
       margin-bottom: 1.25rem;
@@ -158,41 +158,36 @@
     }
 
     /* =========================
-       FEATURES (modern grid)
+       FEATURES – edge-weighted teal
        ========================= */
-/* =========================
-   FEATURES – edge-weighted teal
-   ========================= */
-#features.section{
-  background:
-    radial-gradient(
-      170% 120% at 50% 45%,
-      rgba(0, 150, 150, 0.45) 0%,
-      rgba(0, 95, 97, 0.85) 45%,
-      rgba(0, 35, 36, 1) 84%
-    ),
-    linear-gradient(
-      180deg,
-      #003637 0%,
-      #006d6f 55%,
-      #003637 100%
-    );
+    #features.section{
+      background:
+        radial-gradient(
+          170% 120% at 50% 45%,
+          rgba(0, 150, 150, 0.45) 0%,
+          rgba(0, 95, 97, 0.85) 45%,
+          rgba(0, 35, 36, 1) 84%
+        ),
+        linear-gradient(
+          180deg,
+          #003637 0%,
+          #006d6f 55%,
+          #003637 100%
+        );
 
-  border-top: 1px solid rgba(255,255,255,0.14);
-  border-bottom: 1px solid rgba(0,0,0,0.35);
-}
-
-#features h3{
-  color: #ffffff;
-}
-
-#features .muted{
-  color: rgba(255,255,255,0.85);
-}
+      border-top: 1px solid rgba(255,255,255,0.14);
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+    }
 
     #features h3{
+      color: #ffffff;
       margin-bottom: 1.1rem;
     }
+
+    #features .muted{
+      color: rgba(255,255,255,0.85);
+    }
+
     .features-grid{
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -213,6 +208,37 @@
     }
     .feature-card .btn{
       margin-top: auto;
+    }
+
+    /* =========================
+       WHY IMAGE (new bodybuilder image)
+       ========================= */
+    .why-media{
+      float: left;
+      width: 220px;
+      margin: 0 16px 12px 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000000 100%);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden; /* ensures rounded corners apply to image */
+    }
+    .why-media img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media (max-width: 768px){
+      .why-media{
+        width: 140px;
+        margin: 0 12px 10px 0;
+      }
+    }
+    @media (max-width: 480px){
+      .why-media{
+        width: 120px;
+        margin: 0 10px 10px 0;
+      }
     }
   </style>
 </head>
@@ -294,11 +320,10 @@
     <div class="container">
       <section class="ib-why-section small-text">
 
-        <img
-          src="/confusedimage.svg"
-          alt="Person confused by ml and mg dosing numbers"
-          class="why-img"
-        />
+        <!-- New image (root folder) with site-matching corners + text wrap -->
+        <div class="why-media">
+          <img src="/bodybuilder.jpg" alt="Bodybuilder training in gym" loading="lazy" decoding="async" />
+        </div>
 
         <h2>Why <a href="/">InjectBuddy</a> Exists</h2>
 
@@ -333,6 +358,8 @@
           Simply put, <a href="/">InjectBuddy</a> exists to bring structure, accuracy, and clarity to hormone management
           without ads, noise, or guesswork.
         </p>
+
+        <div style="clear: both;"></div>
 
       </section>
     </div>
