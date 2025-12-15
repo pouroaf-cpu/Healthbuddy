@@ -108,4 +108,31 @@
 .hero p{
   text-shadow: 0 1px 6px rgba(0,0,0,0.55);
 }
+#reviews .review-main-card{
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+}
+/* =========================
+   TOOLS – teal brand gradient
+   ========================= */
+#features.section{
+  background: linear-gradient(
+    180deg,
+    #004c4d 0%,
+    #006d6f 55%,
+    #004c4d 100%
+  );
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+#features h3,
+#features .subhead{
+  color: #ffffff;
+}
+
+#features .subhead{
+  opacity: 0.85;
+}
 
