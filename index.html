@@ -80,19 +80,27 @@
       .hero h1{ font-size:clamp(1.6rem, 5.5vw, 2.2rem); line-height:1.15; }
     }
 
-    /* =========================
-       REDDIT REVIEWS (tighter + faint gradient)
-       ========================= */
-    #reviews.section{
-      color:#fff;
-      padding: 2.5rem 0;
-      background: linear-gradient(
-        180deg,
-        #003f40 0%,
-        #00494a 50%,
-        #003f40 100%
-      );
-    }
+/* =========================
+   REDDIT – strong edge vignette
+   ========================= */
+#reviews.section{
+  color:#fff;
+  padding: 3rem 0;
+
+  background:
+    radial-gradient(
+      180% 120% at 50% 50%,
+      rgba(0, 125, 126, 0.65) 0%,
+      rgba(0, 70, 71, 0.92) 48%,
+      rgba(0, 25, 26, 1) 82%
+    ),
+    linear-gradient(
+      180deg,
+      #002b2c 0%,
+      #004c4d 50%,
+      #002b2c 100%
+    );
+}
     #reviews h3{
       color:#fff;
       margin-bottom: 1.25rem;
