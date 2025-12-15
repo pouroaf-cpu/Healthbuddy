@@ -974,4 +974,52 @@ input[type="range"]:active::-moz-range-thumb{
 
   border-bottom: 1px solid rgba(0, 163, 176, 0.18) !important;
 }
+/* =========================================
+   NAV DROPDOWN – STAY OPEN (HOVER + FOCUS)
+   Paste at bottom of style.css
+   ========================================= */
+
+/* Ensure the dropdown is anchored to the whole item */
+.ib-has-dropdown { position: relative; }
+
+/* Remove the "hover buffer" gap if it exists (it causes flicker) */
+.ib-has-dropdown::after { display: none !important; }
+
+/* Make the dropdown easier to hit */
+.ib-dropdown{
+  margin-top: 0 !important;          /* kills hover gap */
+  padding-top: 8px;                  /* keeps visual spacing inside */
+}
+
+/* Keep open while hovering the parent OR the dropdown itself */
+@media (min-width: 821px){
+  .ib-has-dropdown:hover > .ib-dropdown,
+  .ib-has-dropdown:focus-within > .ib-dropdown,
+  .ib-dropdown:hover{
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Stop "pointer-events:none" from breaking hover-to-dropdown */
+  .ib-dropdown{
+    pointer-events: auto !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.12s ease;
+  }
+
+  /* When active via hover/focus, make it visible */
+  .ib-has-dropdown:hover > .ib-dropdown,
+  .ib-has-dropdown:focus-within > .ib-dropdown{
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Optional: bigger hitbox on the Tools button */
+.ib-dropdown-toggle{
+  padding: 8px 10px !important;
+}
 
