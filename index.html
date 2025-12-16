@@ -158,7 +158,7 @@
     }
 
     /* =========================
-       FEATURES – edge-weighted teal
+       FEATURES / TOOLS – edge-weighted teal
        ========================= */
     #features.section{
       background:
@@ -174,44 +174,16 @@
           #006d6f 55%,
           #003637 100%
         );
-
       border-top: 1px solid rgba(255,255,255,0.14);
       border-bottom: 1px solid rgba(0,0,0,0.35);
     }
-
     #features h3{
       color: #ffffff;
       margin-bottom: 1.1rem;
     }
 
-    #features .muted{
-      color: rgba(255,255,255,0.85);
-    }
-
-    .features-grid{
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-      margin-top: 1rem;
-    }
-    @media (max-width: 1100px){
-      .features-grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px){
-      .features-grid{ grid-template-columns: 1fr; }
-    }
-    /* Ensure CTAs sit at bottom of each card */
-    .feature-card{
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .feature-card .btn{
-      margin-top: auto;
-    }
-
     /* =========================
-       WHY IMAGE (new bodybuilder image)
+       WHY IMAGE (reference style)
        ========================= */
     .why-media{
       float: left;
@@ -221,7 +193,7 @@
       border: 1px solid var(--border);
       background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000000 100%);
       box-shadow: var(--shadow-sm);
-      overflow: hidden; /* ensures rounded corners apply to image */
+      overflow: hidden;
     }
     .why-media img{
       display: block;
@@ -238,6 +210,120 @@
       .why-media{
         width: 120px;
         margin: 0 10px 10px 0;
+      }
+    }
+
+    /* =========================
+       TOOLS GRID (images + button under)
+       ========================= */
+    .tools-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      align-items: start;
+    }
+    /* Desktop only: 4 side-by-side */
+    @media (max-width: 1100px){
+      .tools-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tool-item{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      text-align:center;
+      opacity: 0;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+
+    /* Same “format + size” feel as why-media, but not floated */
+    .tool-media{
+      width: 220px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000000 100%);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .tool-media img{
+      display:block;
+      width:100%;
+      height: 220px;           /* force uniform block height */
+      object-fit: cover;       /* auto crop to match size/shape */
+      object-position: center; /* safe default */
+    }
+
+    /* Button under image */
+    .tool-cta{
+      margin-top: 0.75rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      width: 220px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .tool-cta:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,0.26);
+      border-color: rgba(255,255,255,0.26);
+    }
+
+    /* Slight stagger: 2 and 4 lower than 1 and 3 */
+    .tool-item.is-lower{
+      margin-top: 16px;
+    }
+
+    /* Responsive tool media sizing aligned to your why-media breakpoints */
+    @media (max-width: 768px){
+      .tool-media{ width: 140px; }
+      .tool-media img{ height: 140px; }
+      .tool-cta{ width: 140px; padding: 0.65rem 0.85rem; font-size: 0.95rem; }
+      .tool-item.is-lower{ margin-top: 10px; }
+    }
+    @media (max-width: 480px){
+      .tool-media{ width: 120px; }
+      .tool-media img{ height: 120px; }
+      .tool-cta{ width: 120px; padding: 0.6rem 0.75rem; font-size: 0.92rem; }
+    }
+
+    /* =========================
+       Slide-in animations (fast -> slow)
+       Images 1 & 3: from top (down)
+       Images 2 & 4: from bottom (up)
+       ========================= */
+    .tool-item.animate-from-top{
+      transform: translateY(-22px);
+    }
+    .tool-item.animate-from-bottom{
+      transform: translateY(22px);
+    }
+    .tool-item.is-in{
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        transform 520ms cubic-bezier(0.2, 1.1, 0.2, 1),
+        opacity 320ms ease-out;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .tool-item,
+      .tool-item.animate-from-top,
+      .tool-item.animate-from-bottom{
+        opacity: 1;
+        transform: none;
+        transition: none !important;
       }
     }
   </style>
@@ -365,46 +451,45 @@
     </div>
   </section>
 
-  <!-- FEATURES (modern grid, no horizontal scroll) -->
+  <!-- TOOLS (replaces old cards; image + button under) -->
   <section class="section" id="features">
     <div class="container">
-      <h3>What you can do here</h3>
+      <h3>Tools</h3>
 
-      <div class="features-grid">
+      <div class="tools-grid" aria-label="InjectBuddy tools">
+        <!-- 1 (from top) -->
+        <div class="tool-item animate-from-top" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b1.jpg" alt="TRT dosage calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/calculator.html">TRT Dosage Calculator</a>
+        </div>
 
-        <article class="feature-card">
-          <h4>TRT dosage calculator</h4>
-          <p class="muted">
-            Convert mg/week and vial strength into exact mL per injection, with injection frequency you can actually follow.
-          </p>
-          <a class="btn btn-secondary" href="/calculator.html">Use TRT Calculator</a>
-        </article>
+        <!-- 2 (from bottom, slightly lower) -->
+        <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b2.jpg" alt="Peptide reconstitution calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/peptide.html">Peptide Calculator</a>
+        </div>
 
-        <article class="feature-card">
-          <h4>Peptide dosage calculator</h4>
-          <p class="muted">
-            Plan peptide reconstitution and injection volumes so each shot delivers your target dose without manual math.
-          </p>
-          <a class="btn btn-secondary" href="/peptide.html">Peptide Calculator</a>
-        </article>
+        <!-- 3 (from top) -->
+        <div class="tool-item animate-from-top" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b3.jpg" alt="Free testosterone calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/free-testosterone-calculator.html">Free T Calculator</a>
+        </div>
 
-        <article class="feature-card">
-          <h4>Free testosterone calculator</h4>
-          <p class="muted">
-            Estimate a simple Free Androgen Index (FAI) from your total testosterone and SHBG lab values.
-          </p>
-          <a class="btn btn-secondary" href="/free-testosterone-calculator.html">Free T Calculator</a>
-        </article>
-
-        <article class="feature-card">
-          <h4>BMI calculator</h4>
-          <p class="muted">
-            Get a quick Body Mass Index (BMI) estimate using your height and weight.
-          </p>
-          <a class="btn btn-secondary" href="/bmi.html">BMI Calculator</a>
-        </article>
-
+        <!-- 4 (from bottom, slightly lower) -->
+        <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b4.jpg" alt="BMI calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/bmi.html">BMI Calculator</a>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -459,6 +544,23 @@
             mainTag.textContent   = 'Reddit user';
           });
         });
+      }
+
+      // Tools section: slide in when visible
+      const toolEls = Array.from(document.querySelectorAll('[data-ib-tool]'));
+      if (toolEls.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+
+        toolEls.forEach(el => io.observe(el));
+      } else {
+        toolEls.forEach(el => el.classList.add('is-in'));
       }
     });
 
