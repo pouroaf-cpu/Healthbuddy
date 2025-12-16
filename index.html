@@ -438,6 +438,46 @@
     width: 165px !important;
   }
 }
+/* =========================================
+   TOOLS – SLOWER, SMOOTHER ENTRY ANIMATION
+   Paste at VERY BOTTOM of inline <style>
+   ========================================= */
+
+/* Start positions (unchanged directions) */
+#features .tool-item.animate-from-top{
+  transform: translateY(-26px);
+}
+#features .tool-item.animate-from-bottom{
+  transform: translateY(26px);
+}
+
+/* Slower, eased arrival */
+#features .tool-item.is-in{
+  opacity: 1;
+  transform: translateY(0);
+
+  /* Key change: longer duration + heavy ease-out */
+  transition:
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 420ms ease-out;
+}
+
+/* Optional: micro delay so they don’t feel abrupt */
+#features .tool-item:nth-child(1).is-in{ transition-delay: 0ms; }
+#features .tool-item:nth-child(2).is-in{ transition-delay: 60ms; }
+#features .tool-item:nth-child(3).is-in{ transition-delay: 120ms; }
+#features .tool-item:nth-child(4).is-in{ transition-delay: 180ms; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #features .tool-item,
+  #features .tool-item.animate-from-top,
+  #features .tool-item.animate-from-bottom{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 
   </style>
 </head>
