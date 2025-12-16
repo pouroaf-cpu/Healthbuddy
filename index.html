@@ -223,11 +223,8 @@
       margin-top: 1.25rem;
       align-items: start;
     }
-    /* Desktop only: 4 side-by-side */
     @media (max-width: 1100px){
-      .tools-grid{
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .tools-grid{ grid-template-columns: repeat(2, 1fr); }
     }
 
     .tool-item{
@@ -240,7 +237,6 @@
       will-change: transform, opacity;
     }
 
-    /* Same “format + size” feel as why-media, but not floated */
     .tool-media{
       width: 220px;
       border-radius: var(--radius-lg);
@@ -252,12 +248,11 @@
     .tool-media img{
       display:block;
       width:100%;
-      height: 220px;           /* force uniform block height */
-      object-fit: cover;       /* auto crop to match size/shape */
-      object-position: center; /* safe default */
+      height: 220px;
+      object-fit: cover;
+      object-position: center;
     }
 
-    /* Button under image */
     .tool-cta{
       margin-top: 0.75rem;
       display:inline-flex;
@@ -279,12 +274,8 @@
       border-color: rgba(255,255,255,0.26);
     }
 
-    /* Slight stagger: 2 and 4 lower than 1 and 3 */
-    .tool-item.is-lower{
-      margin-top: 16px;
-    }
+    .tool-item.is-lower{ margin-top: 16px; }
 
-    /* Responsive tool media sizing aligned to your why-media breakpoints */
     @media (max-width: 768px){
       .tool-media{ width: 140px; }
       .tool-media img{ height: 140px; }
@@ -299,24 +290,21 @@
 
     /* =========================
        Slide-in animations (fast -> slow)
-       Images 1 & 3: from top (down)
-       Images 2 & 4: from bottom (up)
        ========================= */
-    .tool-item.animate-from-top{
-      transform: translateY(-22px);
-    }
-    .tool-item.animate-from-bottom{
-      transform: translateY(22px);
-    }
+    .tool-item.animate-from-top{ transform: translateY(-22px); }
+    .tool-item.animate-from-bottom{ transform: translateY(22px); }
     .tool-item.is-in{
       opacity: 1;
       transform: translateY(0);
       transition:
-        transform 520ms cubic-bezier(0.2, 1.1, 0.2, 1),
-        opacity 320ms ease-out;
+        transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 420ms ease-out;
     }
+    .tool-item:nth-child(1).is-in{ transition-delay: 0ms; }
+    .tool-item:nth-child(2).is-in{ transition-delay: 60ms; }
+    .tool-item:nth-child(3).is-in{ transition-delay: 120ms; }
+    .tool-item:nth-child(4).is-in{ transition-delay: 180ms; }
 
-    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       .tool-item,
       .tool-item.animate-from-top,
@@ -326,159 +314,76 @@
         transition: none !important;
       }
     }
+
     /* =========================================
-   TOOLS – bigger images + equal spacing
-   Paste at VERY BOTTOM of index-page.css
-   ========================================= */
+       TOOLS – tighter + larger (FORCE OVERRIDE)
+       ========================================= */
+    #features .container{
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    #features .tools-grid{
+      gap: 0.35rem !important;
+      margin-top: 0.75rem !important;
+    }
+    #features .tool-media{ width: 300px !important; }
+    #features .tool-media img{
+      height: 300px !important;
+      object-fit: cover !important;
+    }
+    #features .tool-cta{
+      width: 300px !important;
+      margin-top: 0.35rem !important;
+      padding: 0.65rem 0.9rem !important;
+    }
+    #features .tool-item.is-lower{ margin-top: 34px !important; }
 
-:root{
-  --tool-gap: 0.5rem;
-}
+    @media (max-width: 768px){
+      #features .tools-grid{ gap: 0.35rem !important; }
+      #features .tool-media{ width: 185px !important; }
+      #features .tool-media img{ height: 185px !important; }
+      #features .tool-cta{
+        width: 185px !important;
+        margin-top: 0.35rem !important;
+      }
+      #features .tool-item.is-lower{ margin-top: 20px !important; }
+    }
+    @media (max-width: 480px){
+      #features .tool-media{ width: 165px !important; }
+      #features .tool-media img{ height: 165px !important; }
+      #features .tool-cta{ width: 165px !important; }
+    }
 
-/* Equal spacing everywhere */
-#features .tools-grid{
-  gap: var(--tool-gap) !important;
-}
-
-#features .tool-cta{
-  margin-top: var(--tool-gap) !important;
-}
-
-/* Bigger images */
-#features .tool-media{
-  width: 260px !important;
-}
-#features .tool-media img{
-  height: 260px !important;
-}
-
-/* Stagger 2 & 4 lower */
-#features .tool-item.is-lower{
-  margin-top: calc(var(--tool-gap) * 3) !important;
-}
-
-/* Mobile */
-@media (max-width: 768px){
-  #features .tool-media{ width: 170px !important; }
-  #features .tool-media img{ height: 170px !important; }
-  #features .tool-cta{ width: 170px !important; }
-  #features .tool-item.is-lower{ margin-top: calc(var(--tool-gap) * 2) !important; }
-}
-@media (max-width: 480px){
-  #features .tool-media{ width: 150px !important; }
-  #features .tool-media img{ height: 150px !important; }
-  #features .tool-cta{ width: 150px !important; }
-}
-/* =========================================
-   TOOLS – tighter + larger (FORCE OVERRIDE)
-   Paste at VERY BOTTOM of the inline <style>
-   ========================================= */
-
-#features .container { /* optional: tighter section feel */
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* Tighten spacing */
-#features .tools-grid{
-  gap: 0.35rem !important;              /* tighter image-to-image */
-  margin-top: 0.75rem !important;
-}
-
-/* Larger media blocks */
-#features .tool-media{
-  width: 300px !important;              /* bigger on desktop */
-}
-#features .tool-media img{
-  height: 300px !important;             /* same shape */
-  object-fit: cover !important;
-}
-
-/* Keep button tight to image and same width */
-#features .tool-cta{
-  width: 300px !important;
-  margin-top: 0.35rem !important;       /* match grid gap */
-  padding: 0.65rem 0.9rem !important;
-}
-
-/* Make 2 & 4 sit LOWER (more noticeable) */
-#features .tool-item.is-lower{
-  margin-top: 34px !important;
-}
-
-/* Tablet / mobile: still 2 columns, larger + tighter */
-@media (max-width: 768px){
-  #features .tools-grid{
-    gap: 0.35rem !important;
-  }
-  #features .tool-media{
-    width: 185px !important;
-  }
-  #features .tool-media img{
-    height: 185px !important;
-  }
-  #features .tool-cta{
-    width: 185px !important;
-    margin-top: 0.35rem !important;
-  }
-  #features .tool-item.is-lower{
-    margin-top: 20px !important;
-  }
-}
-
-/* Small mobile */
-@media (max-width: 480px){
-  #features .tool-media{
-    width: 165px !important;
-  }
-  #features .tool-media img{
-    height: 165px !important;
-  }
-  #features .tool-cta{
-    width: 165px !important;
-  }
-}
-/* =========================================
-   TOOLS – SLOWER, SMOOTHER ENTRY ANIMATION
-   Paste at VERY BOTTOM of inline <style>
-   ========================================= */
-
-/* Start positions (unchanged directions) */
-#features .tool-item.animate-from-top{
-  transform: translateY(-26px);
-}
-#features .tool-item.animate-from-bottom{
-  transform: translateY(26px);
-}
-
-/* Slower, eased arrival */
-#features .tool-item.is-in{
-  opacity: 1;
-  transform: translateY(0);
-
-  /* Key change: longer duration + heavy ease-out */
-  transition:
-    transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 420ms ease-out;
-}
-
-/* Optional: micro delay so they don’t feel abrupt */
-#features .tool-item:nth-child(1).is-in{ transition-delay: 0ms; }
-#features .tool-item:nth-child(2).is-in{ transition-delay: 60ms; }
-#features .tool-item:nth-child(3).is-in{ transition-delay: 120ms; }
-#features .tool-item:nth-child(4).is-in{ transition-delay: 180ms; }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  #features .tool-item,
-  #features .tool-item.animate-from-top,
-  #features .tool-item.animate-from-bottom{
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
+    /* =========================
+       SAFETY DISCLAIMER – YELLOW STANDOUT
+       ========================= */
+    .card.card-disclaimer{
+      border-color: rgba(250, 204, 21, 0.55) !important;
+      background:
+        radial-gradient(120% 140% at 20% 0%,
+          rgba(250, 204, 21, 0.22) 0%,
+          rgba(2, 6, 23, 0.92) 55%,
+          rgba(2, 6, 23, 1) 100%
+        ) !important;
+      box-shadow:
+        0 0 0 1px rgba(250, 204, 21, 0.18),
+        0 18px 44px rgba(0,0,0,0.55) !important;
+    }
+    .card.card-disclaimer strong{
+      color: #fde68a !important; /* warm yellow */
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card.card-disclaimer strong::before{
+      content: "⚠";
+      color: #facc15;
+      font-size: 1.05em;
+      line-height: 1;
+    }
+    .card.card-disclaimer .muted{
+      color: rgba(255, 255, 255, 0.88) !important;
+    }
   </style>
 </head>
 
@@ -510,7 +415,6 @@
     <div class="container">
       <h3>What users are saying on Reddit</h3>
 
-      <!-- Main review text above -->
       <div class="review-main-card">
         <div class="review-header">
           <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
@@ -524,7 +428,6 @@
         </p>
       </div>
 
-      <!-- Clean avatar strip -->
       <div class="review-avatar-row">
         <button type="button" class="review-avatar-btn is-active" data-username="u/LabRat92"
           data-quote="Cleanest TRT calculator I’ve used — finally something that just works.">
@@ -559,7 +462,6 @@
     <div class="container">
       <section class="ib-why-section small-text">
 
-        <!-- New image (root folder) with site-matching corners + text wrap -->
         <div class="why-media">
           <img src="/bodybuilder.jpg" alt="Bodybuilder training in gym" loading="lazy" decoding="async" />
         </div>
@@ -604,13 +506,12 @@
     </div>
   </section>
 
-  <!-- TOOLS (replaces old cards; image + button under) -->
+  <!-- TOOLS (image + button under) -->
   <section class="section" id="features">
     <div class="container">
       <h3>Tools</h3>
 
       <div class="tools-grid" aria-label="InjectBuddy tools">
-        <!-- 1 (from top) -->
         <div class="tool-item animate-from-top" data-ib-tool>
           <div class="tool-media">
             <img src="/b1.jpg" alt="TRT dosage calculator preview" loading="lazy" decoding="async">
@@ -618,7 +519,6 @@
           <a class="tool-cta" href="/calculator.html">TRT Dosage Calculator</a>
         </div>
 
-        <!-- 2 (from bottom, slightly lower) -->
         <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
           <div class="tool-media">
             <img src="/b2.jpg" alt="Peptide reconstitution calculator preview" loading="lazy" decoding="async">
@@ -626,7 +526,6 @@
           <a class="tool-cta" href="/peptide.html">Peptide Calculator</a>
         </div>
 
-        <!-- 3 (from top) -->
         <div class="tool-item animate-from-top" data-ib-tool>
           <div class="tool-media">
             <img src="/b3.jpg" alt="Free testosterone calculator preview" loading="lazy" decoding="async">
@@ -634,7 +533,6 @@
           <a class="tool-cta" href="/free-testosterone-calculator.html">Free T Calculator</a>
         </div>
 
-        <!-- 4 (from bottom, slightly lower) -->
         <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
           <div class="tool-media">
             <img src="/b4.jpg" alt="BMI calculator preview" loading="lazy" decoding="async">
