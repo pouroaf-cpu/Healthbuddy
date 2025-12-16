@@ -438,7 +438,7 @@ button,
 }
 
 .out h3{
-  margin: 0 0 12px;
+  margin: 0 0 0.2px;
   font-size: 18px;
   color: var(--cta-hover);
 }
