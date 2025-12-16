@@ -21,7 +21,7 @@
   text-align: center;
 
   /* readability on image */
-  backdrop-filter: blur(2px) saturate(0.9);
+  backdrop-filter: bleur(2px) saturate(0.9);
   background: rgba(0,0,0,0.35);
   padding: 0.2rem 0.5rem;
   border-radius: 3px;
@@ -215,5 +215,48 @@
 /* Optional: bigger hitbox on the Tools button */
 .ib-dropdown-toggle{
   padding: 8px 10px !important;
+}
+/* =========================================
+   TOOLS – bigger images + equal spacing
+   Paste at VERY BOTTOM of index-page.css
+   ========================================= */
+
+:root{
+  --tool-gap: 0.5rem;
+}
+
+/* Equal spacing everywhere */
+#features .tools-grid{
+  gap: var(--tool-gap) !important;
+}
+
+#features .tool-cta{
+  margin-top: var(--tool-gap) !important;
+}
+
+/* Bigger images */
+#features .tool-media{
+  width: 260px !important;
+}
+#features .tool-media img{
+  height: 260px !important;
+}
+
+/* Stagger 2 & 4 lower */
+#features .tool-item.is-lower{
+  margin-top: calc(var(--tool-gap) * 3) !important;
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  #features .tool-media{ width: 170px !important; }
+  #features .tool-media img{ height: 170px !important; }
+  #features .tool-cta{ width: 170px !important; }
+  #features .tool-item.is-lower{ margin-top: calc(var(--tool-gap) * 2) !important; }
+}
+@media (max-width: 480px){
+  #features .tool-media{ width: 150px !important; }
+  #features .tool-media img{ height: 150px !important; }
+  #features .tool-cta{ width: 150px !important; }
 }
 
