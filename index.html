@@ -369,6 +369,75 @@
   #features .tool-media img{ height: 150px !important; }
   #features .tool-cta{ width: 150px !important; }
 }
+/* =========================================
+   TOOLS – tighter + larger (FORCE OVERRIDE)
+   Paste at VERY BOTTOM of the inline <style>
+   ========================================= */
+
+#features .container { /* optional: tighter section feel */
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Tighten spacing */
+#features .tools-grid{
+  gap: 0.35rem !important;              /* tighter image-to-image */
+  margin-top: 0.75rem !important;
+}
+
+/* Larger media blocks */
+#features .tool-media{
+  width: 300px !important;              /* bigger on desktop */
+}
+#features .tool-media img{
+  height: 300px !important;             /* same shape */
+  object-fit: cover !important;
+}
+
+/* Keep button tight to image and same width */
+#features .tool-cta{
+  width: 300px !important;
+  margin-top: 0.35rem !important;       /* match grid gap */
+  padding: 0.65rem 0.9rem !important;
+}
+
+/* Make 2 & 4 sit LOWER (more noticeable) */
+#features .tool-item.is-lower{
+  margin-top: 34px !important;
+}
+
+/* Tablet / mobile: still 2 columns, larger + tighter */
+@media (max-width: 768px){
+  #features .tools-grid{
+    gap: 0.35rem !important;
+  }
+  #features .tool-media{
+    width: 185px !important;
+  }
+  #features .tool-media img{
+    height: 185px !important;
+  }
+  #features .tool-cta{
+    width: 185px !important;
+    margin-top: 0.35rem !important;
+  }
+  #features .tool-item.is-lower{
+    margin-top: 20px !important;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px){
+  #features .tool-media{
+    width: 165px !important;
+  }
+  #features .tool-media img{
+    height: 165px !important;
+  }
+  #features .tool-cta{
+    width: 165px !important;
+  }
+}
 
   </style>
 </head>
