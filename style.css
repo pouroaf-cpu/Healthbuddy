@@ -757,10 +757,10 @@ input[type="range"]:active::-moz-range-thumb{
    FOOTER (DARK)
    ========================================= */
 .ib-footer{
-  background:#020617;
+  background:#06514c;
   color:#e5e7eb;
-  padding:48px 20px 32px;
-  margin-top:60px;
+  padding:12px 12px 12px;
+  margin-top:12px;
 }
 
 .ib-footer-inner{
