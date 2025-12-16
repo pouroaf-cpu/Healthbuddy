@@ -259,4 +259,11 @@
   #features .tool-media img{ height: 150px !important; }
   #features .tool-cta{ width: 150px !important; }
 }
+#reviews.section{
+  padding-top: 2rem; /* was 3rem */
+}
+
+#reviews h3{
+  margin-top: 0;
+}
 
