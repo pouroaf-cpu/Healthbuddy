@@ -178,7 +178,7 @@
     border-color:rgba(0,199,202,.55);
   }
 
-  /* Grid rows (same structure as your peptide page) */
+  /* Grid rows */
   .full{
     display:grid;
     grid-template-columns:1fr auto;
@@ -209,7 +209,7 @@
   }
 
   /* =========================================
-     SEGMENTED TOGGLES (copy from TRT)
+     SEGMENTED TOGGLES
      ========================================= */
   .seg-toggle{
     display:inline-flex;
@@ -341,7 +341,7 @@
     );
   }
 
-  /* Your live chips (divs) styled like TRT */
+  /* Live chips */
   .live-reads{margin-top:0;}
   .live-chip{
     display:inline-block;
@@ -362,7 +362,7 @@
   /* Right column */
   .visuals{display:flex;flex-direction:column;gap:16px;}
 
-  /* Syringe card (use TRT look) */
+  /* Syringe card */
   .syringe-wrap{display:flex;align-items:center;justify-content:center;}
   .syringe-card{
     width:100%;
@@ -432,7 +432,7 @@
 
   .is-hidden{display:none !important;}
 
-  /* Vial + KPI cards (match TRT cards) */
+  /* Vial + KPI cards */
   .vial-layout{display:flex;gap:16px;align-items:center;}
   @media (max-width:640px){
     .vial-layout{flex-direction:column;align-items:center;}
@@ -452,7 +452,7 @@
   .vial-kpis .card{padding:12px;border-radius:12px;}
   .small-label{font-size:12px;color:var(--muted);}
 
-  /* FAQ section: use TRT dark cards */
+  /* FAQ section */
   .section.center-faq{
     max-width:900px;
     margin:22px auto 0;
@@ -530,11 +530,12 @@
       <div class="calc-wrap">
         <!-- LEFT: inputs -->
         <div class="calc-grid">
-          <!-- Peptide in vial (mg) -->
+
+          <!-- Peptide in vial (mg) -> SLIDER (0.5 increments) -->
           <div class="full">
-            <label for="pepMg">Peptide in vial (mg)</label>
+            <label for="pepMg-slider">Peptide in vial (mg)</label>
             <div class="live-reads"><div class="live-chip" id="lr-mg">5 mg</div></div>
-            <input id="pepMg" type="number" min="0" step="0.1" value="5" inputmode="decimal" />
+            <input id="pepMg-slider" type="range" min="0.5" max="20" step="0.5" value="5" />
           </div>
 
           <!-- BaW slider 1–30 mL -->
@@ -999,17 +1000,19 @@
     }
 
     function computePeptide(){
-      const mgEl      = $('pepMg');
+      const mgSlider  = $('pepMg-slider');
       const mlSlider  = $('bacMl-slider');
       const lrMg      = $('lr-mg');
       const lrMl      = $('lr-ml');
       const lrStrength= $('lr-strength');
 
-      const mgVal = +mgEl.value || 0;
+      const mgVal = +mgSlider.value || 0;
       const mlVal = +mlSlider.value || 0;
 
-      lrMg.textContent = mgVal ? `${fmt(mgVal,3)} mg` : '— mg';
+      lrMg.textContent = mgVal ? `${fmt(mgVal,1)} mg` : '— mg';
       lrMl.textContent = mlVal ? `${fmt(mlVal,0)} mL` : '— mL';
+
+      paintRange(mgSlider);
       paintRange(mlSlider);
 
       const kMgMl = $('kMgMl');
@@ -1025,10 +1028,10 @@
         lrStrength.textContent = mgMlText;
         if (kMgMl) kMgMl.textContent = mgMlText;
 
-        lblTop.textContent = `${fmt(mgVal,3)} mg / ${fmt(mlVal,3)} mL`;
+        lblTop.textContent = `${fmt(mgVal,1)} mg / ${fmt(mlVal,3)} mL`;
         lblSub.textContent = mgMlText;
       } else {
-        lrStrength.textContent = 'Enter peptide mg and BaW mL above';
+        lrStrength.textContent = 'Set peptide mg and BaW mL above';
         if (kMgMl) kMgMl.textContent = '—';
         lblTop.textContent = '— mg / — mL';
         lblSub.textContent = '— mg/mL';
@@ -1135,7 +1138,7 @@
         if (slider.step && slider.step !== 'any') input.step = slider.step;
 
         input.value = isFinite(currentVal) ? currentVal : (slider.min || '');
-        input.style.width = '4em';
+        input.style.width = '4.5em';
         input.style.border = 'none';
         input.style.outline = 'none';
         input.style.background = 'transparent';
@@ -1164,6 +1167,7 @@
           if (step) {
             const base = min || 0;
             val = base + Math.round((val - base) / step) * step;
+            val = Number(val.toFixed(6));
           }
 
           slider.value = val;
@@ -1182,13 +1186,16 @@
     document.addEventListener('DOMContentLoaded', ()=>{
       try{
         const saved = JSON.parse(localStorage.getItem('ib_pep_vial_v6') || '{}');
-        if (typeof saved.mg === 'number') $('pepMg').value = saved.mg;
+
+        if (typeof saved.mg === 'number') $('pepMg-slider').value = saved.mg;
         if (typeof saved.ml === 'number') $('bacMl-slider').value = saved.ml;
         if (typeof saved.weeklyMg === 'number') $('weeklyMg-input').value = saved.weeklyMg;
+
         const inj = $('injCount-slider');
         const nd  = $('ndays-slider');
         if (saved.injPerWeek && inj) inj.value = saved.injPerWeek;
         if (saved.ndays && nd) nd.value = saved.ndays;
+
         if (saved.mode === 'everyNDays' || saved.mode === 'perWeek') updateMode(saved.mode);
       }catch(e){}
 
@@ -1197,7 +1204,9 @@
         updateMode(btn.dataset.mode);
       });
 
-      $('pepMg').addEventListener('input', computePeptide);
+      const mgSlider = $('pepMg-slider');
+      paintRange(mgSlider);
+      mgSlider.addEventListener('input', ()=>{ paintRange(mgSlider); computePeptide(); });
 
       const bawSlider = $('bacMl-slider');
       paintRange(bawSlider);
@@ -1215,9 +1224,10 @@
 
       initSyringeToggle();
 
-      makeChipEditable('lr-ml',       'bacMl-slider');
+      makeChipEditable('lr-mg', 'pepMg-slider');
+      makeChipEditable('lr-ml', 'bacMl-slider');
       makeChipEditable('lr-injCount', 'injCount-slider');
-      makeChipEditable('lr-ndays',    'ndays-slider');
+      makeChipEditable('lr-ndays', 'ndays-slider');
 
       computePeptide();
     });
@@ -1250,4 +1260,3 @@
   </script>
 </body>
 </html>
-
