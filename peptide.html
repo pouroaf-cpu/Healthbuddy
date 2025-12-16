@@ -100,19 +100,19 @@
     .page-head{ text-align:center; }
   }
 
-  /* H1 smaller (per your instruction) */
+  /* H1 smaller (per request) */
   .page-head h1{
     margin:0 0 10px;
-    font-size:18px;
+    font-size:16px;
     font-weight:700;
     color:var(--ink);
     letter-spacing:-0.01em;
   }
   @media (max-width:640px){
-    .page-head h1{font-size:14px;}
+    .page-head h1{font-size:13px;}
   }
 
-  /* Cards -> TRT dark cards */
+  /* Cards */
   .card{
     background:#0b1224;
     border:1px solid rgba(255,255,255,.08);
@@ -437,6 +437,32 @@
   .vial-kpis .card{padding:12px;border-radius:12px;}
   .small-label{font-size:12px;color:var(--muted);}
 
+  /* FAQ section */
+  .section.center-faq{
+    max-width:900px;
+    margin:22px auto 0;
+    text-align:center;
+  }
+  .section.center-faq .faq{
+    max-width:680px;
+    margin:12px auto 0;
+    text-align:left;
+  }
+  .section.center-faq .faq .card{margin:10px 0;}
+  .section.center-faq details.card{
+    background:#0b1224;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 10px 22px rgba(0,0,0,.45);
+  }
+  .section.center-faq summary{
+    cursor:pointer;
+    list-style:none;
+    color:var(--ink);
+  }
+  .section.center-faq summary::-webkit-details-marker{display:none;}
+  .section.center-faq p,
+  .section.center-faq li{color:var(--muted);}
+
   footer{
     padding:9px 0;
     color:var(--muted);
@@ -463,7 +489,6 @@
     }
   }
 </style>
-
 </head>
 
 <body>
@@ -472,12 +497,12 @@
 
   <main class="container">
     <section class="page-head">
-      <h1>Peptide Dosage &amp; Reconstitution</h1>
-      <!-- removed: How this calculator works (per your instruction) -->
+      <h1>Peptide Dosage & Reconstitution</h1>
     </section>
 
     <section class="card" aria-labelledby="pep-main-title">
-      <!-- removed: "Vial, Dose & Schedule" heading (per your instruction) -->
+      <!-- kept for accessibility; text removed per request -->
+      <h2 id="pep-main-title" class="is-hidden">Peptide Calculator</h2>
 
       <div class="calc-wrap">
         <!-- LEFT: inputs -->
@@ -497,13 +522,11 @@
             <input id="bacMl-slider" type="range" min="1" max="30" step="1" value="2" />
           </div>
 
-          <!-- removed: Vial strength (computed) row (per your instruction) -->
-
-          <!-- Desired total per week -->
+          <!-- Weekly dose -> SLIDER with custom step zones -->
           <div class="full">
-            <label for="weeklyMg-input">Desired total per week (mg/week)</label>
+            <label for="weeklyMg-slider">Desired total per week (mg/week)</label>
             <div class="live-reads"><div class="live-chip" id="lr-weeklyMg">1 mg/week</div></div>
-            <input id="weeklyMg-input" type="number" min="0" step="0.1" value="1" inputmode="decimal" />
+            <input id="weeklyMg-slider" type="range" min="1" max="100" step="0.5" value="1" />
           </div>
 
           <!-- DOSE MODE -->
@@ -625,7 +648,7 @@
             </div>
           </div>
 
-          <!-- Vial + KPIs -->
+          <!-- Vial + KPIs (computed strength lives here; computed row removed per request) -->
           <div class="vial-layout">
             <div class="vial-card">
               <svg class="vial" viewBox="0 0 200 360" role="img" aria-labelledby="vialTitle vialDesc">
@@ -668,12 +691,6 @@
               <div class="card">
                 <span class="muted small-label">Vial strength</span>
                 <b id="kMgMl">—</b>
-              </div>
-              <!-- moved figure here: show peptide mg + BaW mL (from the removed computed row) -->
-              <div class="card">
-                <span class="muted small-label">Vial mix</span>
-                <b id="kVialMixTop">—</b>
-                <span class="muted" id="kVialMixSub">—</span>
               </div>
               <div class="card">
                 <span class="muted small-label">Dose per injection</span>
@@ -759,6 +776,20 @@
       const min = +el.min || 0, max = +el.max || 100, val = +el.value || 0;
       const pct = ((val - min) * 100) / (max - min);
       el.style.setProperty('--val', pct + '%');
+    }
+
+    /* Weekly dose step zones:
+       1–20 => 0.5 increments
+       20–30 => 1 increments
+       30–100 => 2 increments
+    */
+    function snapWeeklyDose(val){
+      val = Number(val);
+      if (!isFinite(val)) return 1;
+
+      if (val <= 20) return Math.round(val * 2) / 2;
+      if (val <= 30) return Math.round(val);
+      return Math.round(val / 2) * 2;
     }
 
     /* Syringe SVG logic */
@@ -889,10 +920,12 @@
     function initSyringeToggle(){
       const group = $('syringeToggle');
       const btns = group.querySelectorAll('.seg-btn');
+
       group.addEventListener('click', (e)=>{
         const btn = e.target.closest('.seg-btn'); if(!btn) return;
         setSyringe(Number(btn.dataset.ml));
       });
+
       group.addEventListener('keydown', (e)=>{
         if(e.key!=='ArrowLeft' && e.key!=='ArrowRight') return;
         e.preventDefault();
@@ -902,6 +935,7 @@
         setSyringe(Number(arr[next].dataset.ml));
         arr[next].focus();
       });
+
       const saved = (()=>{ try{ return Number(localStorage.getItem('ib_pep_syr_ml')); }catch(e){ return NaN; } })();
       setSyringe( (saved===0.3||saved===0.5||saved===1||saved===3) ? saved : 1 );
     }
@@ -956,8 +990,11 @@
     function computePeptide(){
       const mgSlider  = $('pepMg-slider');
       const mlSlider  = $('bacMl-slider');
+      const wkSlider  = $('weeklyMg-slider');
+
       const lrMg      = $('lr-mg');
       const lrMl      = $('lr-ml');
+      const lrWeekly  = $('lr-weeklyMg');
 
       const mgVal = +mgSlider.value || 0;
       const mlVal = +mlSlider.value || 0;
@@ -968,12 +1005,15 @@
       paintRange(mgSlider);
       paintRange(mlSlider);
 
-      const kMgMl = $('kMgMl');
+      // Weekly dose with step zones
+      let weeklyMgVal = snapWeeklyDose(wkSlider.value);
+      wkSlider.value = weeklyMgVal;
+      paintRange(wkSlider);
+      lrWeekly.textContent = `${fmt(weeklyMgVal,3)} mg/week`;
+
+      const kMgMl  = $('kMgMl');
       const lblTop = $('lblTop');
       const lblSub = $('lblSub');
-
-      const kMixTop = $('kVialMixTop');
-      const kMixSub = $('kVialMixSub');
 
       let mgPerMl = 0;
 
@@ -985,16 +1025,10 @@
 
         lblTop.textContent = `${fmt(mgVal,1)} mg / ${fmt(mlVal,3)} mL`;
         lblSub.textContent = mgMlText;
-
-        if (kMixTop) kMixTop.textContent = `${fmt(mgVal,1)} mg + ${fmt(mlVal,3)} mL`;
-        if (kMixSub) kMixSub.textContent = mgMlText;
       } else {
         if (kMgMl) kMgMl.textContent = '—';
         lblTop.textContent = '— mg / — mL';
         lblSub.textContent = '— mg/mL';
-
-        if (kMixTop) kMixTop.textContent = '—';
-        if (kMixSub) kMixSub.textContent = '—';
 
         $('kDoseMg').textContent = '—';
         $('kDoseMl').textContent = '—';
@@ -1003,11 +1037,6 @@
         updateSmallerSyringeAdvice(0);
         return;
       }
-
-      const weeklyInput = $('weeklyMg-input');
-      const lrWeekly    = $('lr-weeklyMg');
-      const weeklyMgVal = +weeklyInput.value || 0;
-      lrWeekly.textContent = weeklyMgVal ? `${fmt(weeklyMgVal,3)} mg/week` : '— mg/week';
 
       if (weeklyMgVal <= 0 || mgPerMl <= 0){
         $('kDoseMg').textContent = '—';
@@ -1071,7 +1100,7 @@
           ml: mlVal,
           weeklyMg: weeklyMgVal,
           mode: window.__mode,
-          injPerWeek: (window.__mode === 'perWeek') ? Math.round(injPerWeek) : null,
+          injPerWeek: (window.__mode === 'perWeek') ? injPerWeek : null,
           ndays: (window.__mode === 'everyNDays') ? +$('ndays-slider').value || 3 : null
         }));
       }catch(e){}
@@ -1149,7 +1178,7 @@
 
         if (typeof saved.mg === 'number') $('pepMg-slider').value = saved.mg;
         if (typeof saved.ml === 'number') $('bacMl-slider').value = saved.ml;
-        if (typeof saved.weeklyMg === 'number') $('weeklyMg-input').value = saved.weeklyMg;
+        if (typeof saved.weeklyMg === 'number') $('weeklyMg-slider').value = saved.weeklyMg;
 
         const inj = $('injCount-slider');
         const nd  = $('ndays-slider');
@@ -1172,7 +1201,14 @@
       paintRange(bawSlider);
       bawSlider.addEventListener('input', ()=>{ paintRange(bawSlider); computePeptide(); });
 
-      $('weeklyMg-input').addEventListener('input', computePeptide);
+      const wkSlider = $('weeklyMg-slider');
+      wkSlider.value = snapWeeklyDose(wkSlider.value);
+      paintRange(wkSlider);
+      wkSlider.addEventListener('input', ()=>{
+        wkSlider.value = snapWeeklyDose(wkSlider.value);
+        paintRange(wkSlider);
+        computePeptide();
+      });
 
       const injSlider = $('injCount-slider');
       paintRange(injSlider);
