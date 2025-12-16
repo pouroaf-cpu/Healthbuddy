@@ -1022,4 +1022,40 @@ input[type="range"]:active::-moz-range-thumb{
 .ib-dropdown-toggle{
   padding: 8px 10px !important;
 }
+/* =========================================
+   FOOTER FIX (paste at very bottom)
+   - One line at top of footer bottom area
+   - One line at very bottom of footer
+   - Bigger footer typography
+   ========================================= */
+
+/* Remove the extra horizontal line (was duplicating separator) */
+.ib-footer-bottom{
+  border-top: none !important;
+}
+
+/* Keep separator as the TOP line above the bottom row */
+.ib-footer-separator{
+  height: 1px !important;
+  background: rgba(148,163,184,0.35) !important;
+  margin: 18px 0 12px 0 !important;
+}
+
+/* Add a single BOTTOM line for the whole footer */
+.ib-footer{
+  border-bottom: 1px solid rgba(148,163,184,0.35) !important;
+}
+
+/* Increase footer font sizes */
+.ib-footer-tagline{ font-size: 16px !important; }
+.ib-footer-heading{ font-size: 14px !important; }
+.ib-footer-links a{ font-size: 16px !important; }
+.ib-footer-disclaimer{ font-size: 15px !important; }
+.ib-footer-copy{ font-size: 15px !important; }
+
+/* Keep mobile from getting too big */
+@media (max-width: 480px){
+  .ib-footer-links a{ font-size: 15px !important; }
+  .ib-footer-disclaimer{ font-size: 14px !important; }
+}
 
