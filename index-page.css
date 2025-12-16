@@ -60,7 +60,7 @@
    ========================= */
 #reviews.section{
   color:#fff;
-  padding: 3rem 0;
+  padding: 0.25rem 0;
 
   /* Stronger on screen edges (left/right), lighter center */
   background:
@@ -103,7 +103,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: 2px;
 }
 
 /* Avatar buttons: no padding, no background, no border */
