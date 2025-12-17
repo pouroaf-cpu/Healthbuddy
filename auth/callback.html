@@ -24,72 +24,64 @@
     <button class="btn" id="goLogin" style="display:none">Back to login</button>
   </div>
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const msgEl = document.getElementById("msg");
-    const dbgEl = document.getElementById("dbg");
-    const goDash = document.getElementById("goDash");
-    const goLogin = document.getElementById("goLogin");
+  const msgEl = document.getElementById("msg");
+  const dbgEl = document.getElementById("dbg");
+  const goLogin = document.getElementById("goLogin");
 
-    const msg = (t) => (msgEl.textContent = t);
-    const dbg = (t) => (dbgEl.textContent = t);
+  const msg = (t) => (msgEl.textContent = t);
+  const dbg = (t) => (dbgEl.textContent = t);
 
-    goDash.onclick = () => location.replace("/dashboard.html");
-    goLogin.onclick = () => location.replace("/login.html");
+  goLogin.onclick = () => location.replace("/login.html");
 
-    // Must match login.html (no custom storageKey)
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      {
-        auth: {
-          flowType: "pkce",
-          persistSession: true,
-          autoRefreshToken: true
-        }
+  const supabase = createClient(
+    "https://psrtdoglooijxzeyhmpc.supabase.co",
+    "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+    {
+      auth: {
+        flowType: "pkce",
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true   // ✅ let supabase handle the code exchange
       }
+    }
+  );
+
+  msg("Finalising sign-in…");
+  dbg("URL:\n" + location.href);
+
+  // Give the library a tick to process the URL
+  setTimeout(async () => {
+    const { data, error } = await supabase.auth.getSession();
+
+    const keys = Object.keys(localStorage || {}).filter(k =>
+      k.toLowerCase().includes("supabase") || k.toLowerCase().includes("pkce") || k.toLowerCase().includes("code") || k.startsWith("ib_")
     );
 
-    (async () => {
-      try {
-        dbg("URL:\n" + location.href);
+    dbg(dbgEl.textContent + "\n\nLOCALSTORAGE KEYS:\n" + (keys.length ? keys.join("\n") : "(none)"));
 
-        const code = new URLSearchParams(location.search).get("code");
-        if (!code) {
-          msg("FAIL: Missing ?code= in URL.");
-          goLogin.style.display = "inline-block";
-          throw new Error("Missing ?code=. Fix Supabase redirect allow-list + login redirectTo.");
-        }
+    if (error) {
+      msg("Login failed.");
+      dbg(dbgEl.textContent + "\n\nERROR:\n" + error.message);
+      goLogin.style.display = "inline-block";
+      return;
+    }
 
-        msg("Exchanging code for session…");
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
-        if (error) throw error;
+    if (!data.session) {
+      msg("Login failed: no session created.");
+      goLogin.style.display = "inline-block";
+      return;
+    }
 
-        // Clean URL after exchange
-        history.replaceState({}, document.title, "/auth/callback.html");
+    // Clean URL
+    history.replaceState({}, document.title, "/auth/callback.html");
 
-        const { data } = await supabase.auth.getSession();
-        if (!data.session) throw new Error("No session after exchange.");
+    msg("Success. Redirecting…");
+    location.replace("/dashboard.html");
+  }, 250);
+</script>
 
-        msg("SUCCESS: Session created. Redirecting…");
-        dbg("OK: session exists locally.");
-        location.replace("/dashboard.html");
-      } catch (e) {
-        msg("Login failed.");
-        dbg((dbgEl.textContent || "") + "\n\nERROR:\n" + (e?.message || e));
-
-        // Debug storage keys
-        try {
-          const keys = Object.keys(localStorage).filter(k =>
-            k.toLowerCase().includes("supabase") || k.toLowerCase().includes("pkce") || k.toLowerCase().includes("code")
-          );
-          dbg(dbgEl.textContent + "\n\nLOCALSTORAGE KEYS:\n" + (keys.length ? keys.join("\n") : "(none)"));
-        } catch {}
-
-        goLogin.style.display = "inline-block";
-      }
-    })();
-  </script>
 </body>
 </html>
