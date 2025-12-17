@@ -180,33 +180,26 @@
     </div>
   </div>
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const statusEl = document.getElementById("status");
-    const setStatus = (t) => statusEl.textContent = t || "";
+  const supabase = createClient(
+    "https://psrtdoglooijxzeyhmpc.supabase.co",
+    "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+    { auth: { flowType: "pkce" } }
+  );
 
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      { auth: { flowType: "pkce" } } // ✅ the edit
-    );
+  async function oauth(provider) {
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: "https://www.injectbuddy.com/auth/callback.html" }
+    });
+  }
 
-    async function oauth(provider) {
-      setStatus("Opening sign-in…");
-      try {
-        await supabase.auth.signInWithOAuth({
-          provider,
-          options: { redirectTo: "https://www.injectbuddy.com/auth/callback.html" }
-        });
-      } catch (e) {
-        setStatus("Sign-in failed. Check provider setup and redirect URLs.");
-      }
-    }
+  document.getElementById("google").onclick = () => oauth("google");
+  document.getElementById("facebook").onclick = () => oauth("facebook");
+  document.getElementById("discord").onclick = () => oauth("discord");
+</script>
 
-    document.getElementById("google").onclick = () => oauth("google");
-    document.getElementById("facebook").onclick = () => oauth("facebook");
-    document.getElementById("discord").onclick = () => oauth("discord");
-  </script>
 </body>
 </html>
