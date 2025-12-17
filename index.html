@@ -98,13 +98,63 @@
         #002b2c 100%
       );
     }
+
+    /* ONLY CHANGE: horizontal text scroll (marquee) inside teal */
+    #reviews .quote-ticker{
+      margin: 0 0 1.4rem;
+    }
+    #reviews .quote-ticker .qt-line{
+      height: 1px;
+      background: rgba(255,255,255,0.92);
+      width: 100%;
+    }
+    #reviews .quote-ticker .qt-gap{
+      height: 10px;
+    }
+    #reviews .quote-ticker .qt-viewport{
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      padding: 4px 0;
+    }
+    #reviews .quote-ticker .qt-track{
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      white-space: nowrap;
+      will-change: transform;
+      animation: qt-scroll 44s linear infinite;
+    }
+    #reviews .quote-ticker .qt-item{
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.92);
+    }
+    #reviews .quote-ticker .qt-sep{
+      opacity: 0.65;
+    }
+    @keyframes qt-scroll{
+      from{ transform: translateX(0); }
+      to{ transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce){
+      #reviews .quote-ticker .qt-track{ animation: none; }
+    }
+    @media (max-width:768px){
+      #reviews.section{ padding: 2rem 0; }
+      #reviews .quote-ticker{ margin: 0 0 1.1rem; }
+      #reviews .quote-ticker .qt-gap{ height: 8px; }
+      #reviews .quote-ticker .qt-item{ font-size: 0.86rem; }
+      #reviews .quote-ticker .qt-line{ height: 1px; }
+    }
+
     #reviews h3{
       color:#fff;
       margin-bottom: 1.25rem;
       text-align:center;
     }
 
-    /* REQUESTED: remove visual container around reddit text */
+    /* remove visual container around reddit text */
     #reviews .review-main-card{
       background: transparent !important;
       border: none !important;
@@ -112,11 +162,9 @@
       border-radius: 0 !important;
       box-shadow: none !important;
     }
-    #reviews .review-header{
-      display:none !important;
-    }
+    #reviews .review-header{ display:none !important; }
 
-    /* REQUESTED: centered + larger text */
+    /* centered + larger text */
     #reviews [data-review-main-text]{
       color:#fff;
       line-height:1.75;
@@ -126,7 +174,6 @@
       max-width: 920px;
     }
 
-    /* Inline meta line under quote (uses existing data hooks) */
     #reviews .review-meta-inline{
       margin: 0 auto 1.25rem;
       text-align:center;
@@ -135,7 +182,6 @@
       max-width: 920px;
     }
 
-    /* Clean avatar strip */
     #reviews .review-avatar-row{
       display:flex;
       gap:0.75rem;
@@ -167,13 +213,8 @@
       border-radius: 50%;
     }
 
-    /* =========================
-       ONLY CHANGE: Trust logos bigger + white + site name under (linked)
-       ========================= */
-    #reviews .trust-logos-wrap{
-      margin-top: 2.2rem;
-      text-align:center;
-    }
+    /* Trust logos (bigger + white + site name under) */
+    #reviews .trust-logos-wrap{ margin-top: 2.2rem; text-align:center; }
     #reviews .trust-logos-title{
       margin: 0 0 0.9rem;
       font-size: 1rem;
@@ -195,12 +236,12 @@
       min-width: 160px;
     }
     #reviews .trust-logo-img{
-      width: 84px;   /* bigger */
-      height: 84px;  /* bigger */
+      width: 84px;
+      height: 84px;
       object-fit: contain;
       display:block;
       opacity: 0.98;
-      filter: brightness(0) invert(1) drop-shadow(0 10px 22px rgba(0,0,0,0.28)); /* white */
+      filter: brightness(0) invert(1) drop-shadow(0 10px 22px rgba(0,0,0,0.28));
     }
     #reviews .trust-logo-link{
       font-size: 0.92rem;
@@ -213,11 +254,9 @@
     }
 
     @media (max-width:768px){
-      #reviews.section{ padding: 2rem 0; }
       #reviews [data-review-main-text]{ font-size: 1.08rem; }
       #reviews .review-avatar-row{ gap:0.5rem; margin-top:0.55rem; }
       #reviews .review-avatar-btn img{ width:38px; height:38px; }
-
       #reviews .trust-logo-img{ width: 70px; height: 70px; }
       #reviews .trust-logo-item{ min-width: 140px; }
     }
@@ -243,9 +282,7 @@
     }
     #features h3{ color: #ffffff; margin-bottom: 1.1rem; }
 
-    /* =========================
-       WHY IMAGE (reference style)
-       ========================= */
+    /* WHY IMAGE */
     .why-media{
       float: left;
       width: 220px;
@@ -264,9 +301,7 @@
       .why-media{ width: 120px; margin: 0 10px 10px 0; }
     }
 
-    /* =========================
-       TOOLS GRID (images + button under)
-       ========================= */
+    /* TOOLS GRID */
     .tools-grid{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -334,9 +369,7 @@
       .tool-cta{ width: 120px; padding: 0.6rem 0.75rem; font-size: 0.92rem; }
     }
 
-    /* =========================
-       Slide-in animations (fast -> slow)
-       ========================= */
+    /* Slide-in animations */
     .tool-item.animate-from-top{ transform: translateY(-22px); }
     .tool-item.animate-from-bottom{ transform: translateY(22px); }
     .tool-item.is-in{
@@ -354,9 +387,7 @@
       }
     }
 
-    /* =========================================
-       TOOLS – tighter + larger (FORCE OVERRIDE)
-       ========================================= */
+    /* TOOLS – tighter + larger (FORCE OVERRIDE) */
     #features .container{ padding-left: 12px; padding-right: 12px; }
     #features .tools-grid{ gap: 0.35rem !important; margin-top: 0.75rem !important; }
     #features .tool-media{ width: 300px !important; }
@@ -376,10 +407,7 @@
       #features .tool-cta{ width: 165px !important; }
     }
 
-    /* =========================
-       SAFETY DISCLAIMER – YELLOW STANDOUT
-       (kept in CSS but the HTML section is removed as you requested)
-       ========================= */
+    /* DISCLAIMER CSS kept (HTML removed) */
     .card.card-disclaimer{
       border-color: rgba(250, 204, 21, 0.55) !important;
       background: radial-gradient(120% 140% at 20% 0%, rgba(250, 204, 21, 0.22) 0%, rgba(2, 6, 23, 0.92) 55%, rgba(2, 6, 23, 1) 100% ) !important;
@@ -425,10 +453,36 @@
   <!-- REVIEWS (Reddit-based) -->
   <section class="section" id="reviews" aria-label="User Reviews">
     <div class="container">
+
+      <!-- ONLY CHANGE: ticker inserted at top of reddit section -->
+      <div class="quote-ticker" aria-label="Inspirational quotes">
+        <div class="qt-line"></div>
+        <div class="qt-gap"></div>
+        <div class="qt-viewport">
+          <div class="qt-track" aria-hidden="true">
+            <span class="qt-item">Consistency beats intensity.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Small steps, done daily, compound.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Clarity creates confidence.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Measure twice. Inject once.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Progress is proof.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Do the math. Trust the plan.</span><span class="qt-sep">•</span>
+
+            <!-- duplicate set for seamless loop -->
+            <span class="qt-item">Consistency beats intensity.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Small steps, done daily, compound.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Clarity creates confidence.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Measure twice. Inject once.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Progress is proof.</span><span class="qt-sep">•</span>
+            <span class="qt-item">Do the math. Trust the plan.</span><span class="qt-sep">•</span>
+          </div>
+        </div>
+        <div class="qt-gap"></div>
+        <div class="qt-line"></div>
+      </div>
+
       <h3>What users are saying on Reddit</h3>
 
       <div class="review-main-card">
-        <!-- header hidden via CSS to remove container look -->
         <div class="review-header">
           <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
           <div>
@@ -441,7 +495,6 @@
           Cleanest TRT calculator I’ve used — finally something that just works.
         </p>
 
-        <!-- meta line (visible) -->
         <p class="review-meta-inline">
           <strong data-review-main-user>u/LabRat92</strong> <span style="opacity:.85;">·</span>
           <span data-review-main-tag>Reddit user</span>
@@ -476,7 +529,6 @@
         </button>
       </div>
 
-      <!-- ONLY CHANGE: trust logos markup updated -->
       <div class="trust-logos-wrap" aria-label="Trusted by">
         <p class="trust-logos-title">Our tools are used by the following</p>
 
@@ -564,8 +616,6 @@
       </div>
     </div>
   </section>
-
-  <!-- REMOVED: DISCLAIMER SECTION (per your instruction) -->
 
   <!-- STICKY BOTTOM CTA -->
   <div class="cta-bar" role="region" aria-label="Quick action bar">
