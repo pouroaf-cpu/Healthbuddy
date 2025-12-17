@@ -266,4 +266,90 @@
 #reviews h3{
   margin-top: 0;
 }
+/* =========================================
+   REDDIT QUOTE TICKER – LOCKED & FLUSH TO HERO
+   ========================================= */
+
+/* Remove any gap between hero and teal section */
+.hero{
+  margin-bottom: 0 !important;
+}
+
+/* Make the ticker the very first thing in the teal section */
+#reviews.section{
+  padding-top: 0 !important;
+  margin-top: -1px; /* kills hairline gap */
+}
+
+/* Ticker container */
+#reviews .quote-ticker{
+  margin: 0;
+  padding: 0;
+}
+
+/* Thin white divider lines */
+#reviews .quote-ticker .qt-line{
+  height: 1px;
+  background: rgba(255,255,255,0.9);
+  width: 100%;
+}
+
+/* Tight vertical spacing */
+#reviews .quote-ticker .qt-gap{
+  height: 6px;
+}
+
+/* Lock horizontal scrolling */
+#reviews .quote-ticker .qt-viewport{
+  overflow: hidden;
+  width: 100%;
+  touch-action: none;
+  overscroll-behavior: none;
+  pointer-events: none;
+}
+
+/* Auto-scrolling track */
+#reviews .quote-ticker .qt-track{
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  white-space: nowrap;
+  animation: qt-scroll 44s linear infinite;
+  will-change: transform;
+}
+
+/* Quote text */
+#reviews .quote-ticker .qt-item{
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: 0.01em;
+}
+
+/* Separator */
+#reviews .quote-ticker .qt-sep{
+  opacity: 0.6;
+}
+
+/* Animation */
+@keyframes qt-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
+  #reviews .quote-ticker .qt-track{
+    animation: none;
+  }
+}
+
+/* Mobile tuning */
+@media (max-width: 768px){
+  #reviews .quote-ticker .qt-item{
+    font-size: 0.86rem;
+  }
+  #reviews .quote-ticker .qt-gap{
+    height: 5px;
+  }
+}
 
