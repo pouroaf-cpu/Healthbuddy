@@ -155,59 +155,60 @@
       </div>
     </div>
   </div>
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  const statusEl = document.getElementById("status");
+  const setStatus = (t) => statusEl.textContent = t || "";
 
-    const statusEl = document.getElementById("status");
-    const setStatus = (t) => statusEl.textContent = t || "";
-
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      {
-        auth: {
-          flowType: "pkce",
-          persistSession: true,
-          autoRefreshToken: true
-        }
+  // Single, consistent client
+  const supabase = createClient(
+    "https://psrtdoglooijxzeyhmpc.supabase.co",
+    "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+    {
+      auth: {
+        flowType: "pkce",
+        persistSession: true,
+        autoRefreshToken: true
       }
-    );
-
-    async function oauth(provider) {
-      setStatus("Opening sign-in…");
-// PROVE the script is running + storage works
-setStatus("Login script loaded.");
-
-try {
-  localStorage.setItem("ib_probe", "ok");
-  const v = localStorage.getItem("ib_probe");
-  setStatus("Storage OK on login page: " + v);
-} catch (e) {
-  setStatus("Storage BLOCKED on login page.");
-}
-
-      // Sanity check: can we write storage? PKCE requires it.
-      try {
-        localStorage.setItem("__ib_test", "1");
-        localStorage.removeItem("__ib_test");
-      } catch {
-        setStatus("Storage blocked in this browser. Disable privacy tools for this site or use Incognito.");
-        return;
-      }
-
-      await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: "https://www.injectbuddy.com/auth/callback.html",
-          skipBrowserRedirect: false
-        }
-      });
     }
+  );
 
-    document.getElementById("google").onclick = () => oauth("google");
-    document.getElementById("facebook").onclick = () => oauth("facebook");
-    document.getElementById("discord").onclick = () => oauth("discord");
-  </script>
+  // If already logged in, skip login page
+  const { data: existing } = await supabase.auth.getSession();
+  if (existing.session) location.replace("/dashboard.html");
+
+  // Prove storage + keep a marker across redirect
+  try {
+    localStorage.setItem("ib_probe", "ok");
+    setStatus("Storage OK on login page: " + localStorage.getItem("ib_probe"));
+  } catch {
+    setStatus("Storage BLOCKED on login page.");
+  }
+
+  async function oauth(provider) {
+    setStatus("Opening sign-in…");
+
+    // Marker to confirm storage survives redirect
+    localStorage.setItem("ib_before_oauth", String(Date.now()));
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: "https://www.injectbuddy.com/auth/callback.html",
+        queryParams: { prompt: "select_account" }
+      }
+    });
+
+    if (error) setStatus("Error: " + error.message);
+    // data.url exists but browser will redirect automatically
+  }
+
+  document.getElementById("google").addEventListener("click", () => oauth("google"));
+  document.getElementById("facebook").addEventListener("click", () => oauth("facebook"));
+  document.getElementById("discord").addEventListener("click", () => oauth("discord"));
+</script>
+
+
 </body>
 </html>
