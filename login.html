@@ -1,3 +1,43 @@
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+  const statusEl = document.getElementById("status");
+  const setStatus = (t) => statusEl.textContent = t || "";
+
+  // Use default storage keys. Do not force a custom storageKey.
+  const supabase = createClient(
+    "https://psrtdoglooijxzeyhmpc.supabase.co",
+    "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+    {
+      auth: {
+        flowType: "pkce",
+        persistSession: true,
+        autoRefreshToken: true
+      }
+    }
+  );
+
+  async function oauth(provider) {
+    setStatus("Opening sign-in…");
+
+    // sanity check: localStorage works
+    try { localStorage.setItem("__ib_test", "1"); localStorage.removeItem("__ib_test"); }
+    catch { setStatus("Browser storage blocked. Disable privacy extensions."); return; }
+
+    // Start OAuth
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: "https://www.injectbuddy.com/auth/callback.html",
+        skipBrowserRedirect: false
+      }
+    });
+  }
+
+  document.getElementById("google").onclick = () => oauth("google");
+  document.getElementById("facebook").onclick = () => oauth("facebook");
+  document.getElementById("discord").onclick = () => oauth("discord");
+</script>
 <!doctype html>
 <html lang="en">
 <head>
@@ -183,24 +223,36 @@
 <script type="module">
   import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const supabase = createClient(
-  "https://psrtdoglooijxzeyhmpc.supabase.co",
-  "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-  {
-    auth: {
-      flowType: "pkce",
-      storageKey: "injectbuddy-auth",     // <- critical
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
+  const statusEl = document.getElementById("status");
+  const setStatus = (t) => statusEl.textContent = t || "";
+
+  // Use default storage keys. Do not force a custom storageKey.
+  const supabase = createClient(
+    "https://psrtdoglooijxzeyhmpc.supabase.co",
+    "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+    {
+      auth: {
+        flowType: "pkce",
+        persistSession: true,
+        autoRefreshToken: true
+      }
     }
-  }
-);
+  );
 
   async function oauth(provider) {
+    setStatus("Opening sign-in…");
+
+    // sanity check: localStorage works
+    try { localStorage.setItem("__ib_test", "1"); localStorage.removeItem("__ib_test"); }
+    catch { setStatus("Browser storage blocked. Disable privacy extensions."); return; }
+
+    // Start OAuth
     await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: "https://www.injectbuddy.com/auth/callback.html" }
+      options: {
+        redirectTo: "https://www.injectbuddy.com/auth/callback.html",
+        skipBrowserRedirect: false
+      }
     });
   }
 
@@ -208,6 +260,7 @@ const supabase = createClient(
   document.getElementById("facebook").onclick = () => oauth("facebook");
   document.getElementById("discord").onclick = () => oauth("discord");
 </script>
+
 
 </body>
 </html>
