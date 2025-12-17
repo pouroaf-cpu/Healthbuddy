@@ -176,6 +176,16 @@
 
     async function oauth(provider) {
       setStatus("Opening sign-in…");
+// PROVE the script is running + storage works
+setStatus("Login script loaded.");
+
+try {
+  localStorage.setItem("ib_probe", "ok");
+  const v = localStorage.getItem("ib_probe");
+  setStatus("Storage OK on login page: " + v);
+} catch (e) {
+  setStatus("Storage BLOCKED on login page.");
+}
 
       // Sanity check: can we write storage? PKCE requires it.
       try {
