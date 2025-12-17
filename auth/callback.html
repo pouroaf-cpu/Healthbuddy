@@ -39,20 +39,18 @@
     goLogin.onclick = () => location.replace("/login.html");
 
     // MUST match login + dashboard
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      {
-        auth: {
-          flowType: "pkce",
-          storageKey: "injectbuddy-auth",
-          storage: window.localStorage,     // ✅ force same storage
-          persistSession: true,
-          autoRefreshToken: true,
-          detectSessionInUrl: true
-        }
-      }
-    );
+const supabase = createClient(
+  "https://psrtdoglooijxzeyhmpc.supabase.co",
+  "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+  {
+    auth: {
+      flowType: "pkce",
+      persistSession: true,
+      autoRefreshToken: true
+    }
+  }
+);
+
 
     (async () => {
       try {
