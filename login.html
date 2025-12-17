@@ -197,7 +197,7 @@
       try {
         await supabase.auth.signInWithOAuth({
           provider,
-          options: { redirectTo: `${location.origin}/auth/callback.html` }
+          options: { redirectTo: "https://www.injectbuddy.com/auth/callback.html" }
         });
       } catch (e) {
         setStatus("Sign-in failed. Check provider setup and redirect URLs.");
