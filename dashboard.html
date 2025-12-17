@@ -1,152 +1,393 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4EGGZW9P14');
+  </script>
+
+  <meta name="google-site-verification" content="t_uS5ANFPbNnQNU38AcOMoVPfuvCgrZTngfkEqpqfZE" />
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard | InjectBuddy</title>
-  <meta name="robots" content="noindex,nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>InjectBuddy — Dashboard</title>
+  <meta name="description" content="Your InjectBuddy dashboard: quick access to tools, saved settings, and progress." />
+  <link rel="canonical" href="https://www.injectbuddy.com/dashboard.html" />
+  <meta property="og:title" content="InjectBuddy — Dashboard" />
+  <meta property="og:description" content="Quick access to InjectBuddy tools and saved settings." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/dashboard.html" />
+  <meta property="og:site_name" content="InjectBuddy" />
+  <link rel="icon" href="/assets/favicon.svg" />
+
   <style>
-    :root{--bg:#020617;--card:#0b1220;--border:#1f2937;--text:#e5e7eb;--muted:#94a3b8;--cta:#00a3b0;}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);padding:24px}
-    .wrap{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
-    h1{margin:0;font-size:22px}
-    .pill{font-size:12px;color:rgba(229,231,235,.9);background:linear-gradient(90deg, rgba(0,163,176,.22), rgba(3,105,114,.14));
-      border:1px solid rgba(0,163,176,.25);padding:6px 10px;border-radius:999px;white-space:nowrap}
-    .btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer}
-    .btn:hover{border-color:var(--cta)}
-    .btnPrimary{background:rgba(0,163,176,.12);border-color:rgba(0,163,176,.35)}
-    .grid{display:grid;gap:14px;grid-template-columns:1fr; }
-    @media(min-width:900px){ .grid{grid-template-columns: 1fr 1fr;} }
-    .card{background:linear-gradient(180deg,#0b1220,#070d18);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 18px 50px rgba(15,23,42,.75)}
-    .muted{color:var(--muted);font-size:14px;margin-bottom:10px}
-    textarea{width:100%;min-height:220px;background:rgba(2,6,23,.35);color:#cbd5f5;border:1px solid var(--border);border-radius:14px;padding:12px;font-size:13px;line-height:1.45}
-    pre{margin:0;font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word;color:#cbd5f5}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    :root{
+      --bg:#020617;
+      --card:#0b1224;
+      --ink:#e5e7eb;
+      --muted:#9ca3af;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 16px 36px rgba(0,0,0,.65);
+      --cta:#00b2b5;
+      --cta-hover:#00c7ca;
+      --ring:rgba(0,199,202,.55);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 24px}
+    @media (max-width:640px){.container{padding:0 20px}}
+
+    main.container{padding:22px 0}
+    @media (max-width:640px){main.container{padding:12px 0}}
+
+    /* Header row */
+    .hero{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px;
+      background:linear-gradient(180deg, rgba(0,178,181,.14), rgba(2,6,23,0));
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0;font-size:22px;letter-spacing:-.02em}
+    .hero p{margin:6px 0 0;color:var(--muted);line-height:1.4}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    @media (max-width:720px){
+      .hero{flex-direction:column}
+      .hero-actions{justify-content:flex-start}
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      color:var(--ink);
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      box-shadow:0 10px 22px rgba(0,0,0,.45);
+      transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(0,0,0,.6)}
+    .btn:active{transform:translateY(0)}
+    .btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 14px 28px rgba(0,0,0,.6)}
+
+    .btn.primary{
+      border-color:rgba(0,199,202,.35);
+      background:linear-gradient(180deg, #37fbff 0%, var(--cta) 55%, #00a1a4 100%);
+      color:#061014;
+    }
+    .btn.primary:hover{background:linear-gradient(180deg, #55fcff 0%, var(--cta-hover) 60%, #00a1a4 100%)}
+
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .panel-hd{
+      padding:14px 14px 10px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .panel-hd h2{margin:0;font-size:15px;letter-spacing:-.01em}
+    .panel-hd .sub{color:var(--muted);font-size:13px}
+
+    .panel-bd{padding:14px}
+
+    /* Tool tiles */
+    .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width:640px){.tiles{grid-template-columns:1fr}}
+
+    .tile{
+      display:block;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:0 10px 22px rgba(0,0,0,.35);
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .tile:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(0,0,0,.55);border-color:rgba(0,199,202,.18)}
+    .tile:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 14px 28px rgba(0,0,0,.55)}
+    .tile .t{font-weight:900;font-size:14px;margin:0 0 4px}
+    .tile .d{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
+
+    /* Saved settings */
+    .kv{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .kv-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      background:rgba(255,255,255,.03);
+    }
+    .kv-row .k{color:var(--muted);font-size:13px}
+    .kv-row .v{font-weight:900;font-size:13px}
+
+    .note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.45;
+    }
+
+    /* Small inline badge */
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,199,202,.10);
+      color:#bffcff;
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    /* Footer spacing (footer.js renders content) */
+    #ib-footer{margin-top:16px}
   </style>
+
+  <!-- Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "tlo6h3wt7s");
+  </script>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
+  <!-- Universal header inject -->
+  <div id="site-header"></div>
+
+  <main class="container">
+    <section class="hero" aria-label="Dashboard overview">
       <div>
-        <h1>Your Dashboard</h1>
-        <div class="muted" id="who">Checking session…</div>
+        <h1>Dashboard</h1>
+        <p>Your shortcuts, saved calculator defaults, and quick actions.</p>
       </div>
-      <div class="row">
-        <span class="pill" id="statusPill">Loading…</span>
-        <button class="btn" id="logout">Log out</button>
+      <div class="hero-actions">
+        <a class="btn primary" href="/calculator.html">Open TRT Calculator</a>
+        <a class="btn" href="/peptide-calculator.html">Open Peptide Calculator</a>
+        <a class="btn" href="/guides.html">Guides</a>
       </div>
-    </header>
+    </section>
 
     <div class="grid">
-      <div class="card">
-        <div class="muted">Saved state (JSON). This is what your Feb app will also read/write.</div>
-        <textarea id="stateBox" spellcheck="false">{}</textarea>
-        <div class="row">
-          <button class="btn btnPrimary" id="save">Save</button>
-          <button class="btn" id="reload">Reload from cloud</button>
+      <!-- LEFT: tools -->
+      <section class="panel" aria-label="Tools">
+        <div class="panel-hd">
+          <div>
+            <h2>Tools</h2>
+            <div class="sub">Fast access to your most-used calculators</div>
+          </div>
+          <span class="badge" id="authBadge">Checking session…</span>
         </div>
-        <div class="muted" id="msg"></div>
-      </div>
 
-      <div class="card">
-        <div class="muted">Debug</div>
-        <pre id="out"></pre>
-      </div>
+        <div class="panel-bd">
+          <div class="tiles">
+            <a class="tile" href="/calculator.html">
+              <p class="t">Testosterone Dosage Calculator</p>
+              <p class="d">Per-week, every-N-days, and mL → mg modes with syringe visual.</p>
+            </a>
+
+            <a class="tile" href="/peptide-calculator.html">
+              <p class="t">Peptide Reconstitution Calculator</p>
+              <p class="d">Dose planning with units/mL conversions and clean outputs.</p>
+            </a>
+
+            <a class="tile" href="/bmi.html">
+              <p class="t">BMI / Weight Tools</p>
+              <p class="d">Quick checks and simple tracking support.</p>
+            </a>
+
+            <a class="tile" href="/guides.html">
+              <p class="t">Guides &amp; Learning Center</p>
+              <p class="d">Bloodwork, TRT basics, injection technique, and safety.</p>
+            </a>
+          </div>
+
+          <p class="note">
+            Tip: if you’re logged in, your calculator defaults can load automatically (weekly dose, vial strength, syringe size, etc.).
+          </p>
+        </div>
+      </section>
+
+      <!-- RIGHT: saved defaults + quick actions -->
+      <aside class="panel" aria-label="Saved settings">
+        <div class="panel-hd">
+          <div>
+            <h2>Saved defaults</h2>
+            <div class="sub">Pulled from your last calculator session</div>
+          </div>
+        </div>
+
+        <div class="panel-bd">
+          <div class="kv" id="savedState">
+            <div class="kv-row"><span class="k">Mode</span><span class="v" id="vMode">—</span></div>
+            <div class="kv-row"><span class="k">Syringe</span><span class="v" id="vSyringe">—</span></div>
+            <div class="kv-row"><span class="k">Vial strength</span><span class="v" id="vConc">—</span></div>
+            <div class="kv-row"><span class="k">Weekly total</span><span class="v" id="vWeekly">—</span></div>
+            <div class="kv-row"><span class="k">Every N days</span><span class="v" id="vNDays">—</span></div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <button class="btn" id="btnRefresh" type="button">Refresh</button>
+            <button class="btn" id="btnClear" type="button">Clear view</button>
+          </div>
+
+          <p class="note" id="stateNote">Not loaded yet.</p>
+        </div>
+      </aside>
     </div>
-  </div>
+  </main>
 
+  <!-- Universal footer inject -->
+  <div id="ib-footer"></div>
+
+  <!-- Universal header/footer scripts -->
+  <script src="/assets/nav.js" defer></script>
+  <script src="/assets/footer.js" defer></script>
+
+  <!-- Optional: if you already use Supabase on calculator, this will read the same app_state row -->
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const who = document.getElementById("who");
-    const pill = document.getElementById("statusPill");
-    const out = document.getElementById("out");
-    const msg = document.getElementById("msg");
-    const stateBox = document.getElementById("stateBox");
+    const authBadge = document.getElementById("authBadge");
+    const note = document.getElementById("stateNote");
 
-    const setPill = (t) => pill.textContent = t;
-    const setMsg = (t) => msg.textContent = t || "";
-    const setOut = (t) => out.textContent = t || "";
+    const vMode   = document.getElementById("vMode");
+    const vSyr    = document.getElementById("vSyringe");
+    const vConc   = document.getElementById("vConc");
+    const vWeekly = document.getElementById("vWeekly");
+    const vNDays  = document.getElementById("vNDays");
 
+    const btnRefresh = document.getElementById("btnRefresh");
+    const btnClear   = document.getElementById("btnClear");
+
+    function setText(el, t){ if (el) el.textContent = t; }
+
+    function niceMode(m){
+      if (m === "everyNDays") return "Inject X days";
+      if (m === "perWeek") return "Inject per week";
+      if (m === "mlToMg") return "mL → mg";
+      return "—";
+    }
+    function niceSyringe(s){
+      if (!s && s !== 0) return "—";
+      return Number(s).toFixed(1) + " mL";
+    }
+    function niceConc(c){
+      if (!c) return "—";
+      return Number(c).toFixed(0) + " mg/mL";
+    }
+    function niceWeeklyIdxOrMg(st){
+      // your calculator saves weeklyIdx; if present, we can't reconstruct mg without the same options array
+      // so we show what we have: weeklyIdx OR weeklyMg if you later store it.
+      if (st.weeklyMg) return Number(st.weeklyMg).toFixed(0) + " mg/week";
+      if (typeof st.weeklyIdx === "number") return "Index " + st.weeklyIdx + " (saved)";
+      return "—";
+    }
+
+    function clearView(){
+      setText(vMode, "—");
+      setText(vSyr, "—");
+      setText(vConc, "—");
+      setText(vWeekly, "—");
+      setText(vNDays, "—");
+      setText(note, "Cleared.");
+    }
+
+    // ====== Supabase client (same as calculator) ======
     const supabase = createClient(
       "https://psrtdoglooijxzeyhmpc.supabase.co",
       "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
       { auth: { flowType: "pkce", persistSession: true, autoRefreshToken: true } }
     );
 
-    // Session gate
-    const { data: s } = await supabase.auth.getSession();
-    if (!s.session) location.replace("/login.html");
+    async function loadState(){
+      try{
+        const { data: sess } = await supabase.auth.getSession();
+        const user = sess?.session?.user || null;
 
-    const user = s.session.user;
-    who.textContent = `Signed in as ${user.email || "user"}`
-    setOut("user_id: " + user.id);
+        if (!user){
+          authBadge.textContent = "Not logged in";
+          clearView();
+          setText(note, "Log in to see saved defaults.");
+          return;
+        }
 
-    async function loadState() {
-      setPill("Loading saved state…");
-      setMsg("");
+        authBadge.textContent = "Logged in";
+        const { data, error } = await supabase
+          .from("app_state")
+          .select("state, updated_at")
+          .eq("user_id", user.id)
+          .maybeSingle();
 
-      const { data, error } = await supabase
-        .from("app_state")
-        .select("state,updated_at")
-        .eq("user_id", user.id)
-        .maybeSingle();
+        if (error || !data?.state){
+          clearView();
+          setText(note, "No saved defaults found yet. Open the calculator and change a slider.");
+          return;
+        }
 
-      if (error) {
-        setPill("Load failed");
-        setMsg(error.message);
-        return;
+        const st = data.state;
+
+        setText(vMode, niceMode(st.mode));
+        setText(vSyr, niceSyringe(st.syringe));
+        setText(vConc, niceConc(st.conc));
+        setText(vWeekly, niceWeeklyIdxOrMg(st));
+        setText(vNDays, (st.ndays ? String(st.ndays) + " days" : "—"));
+
+        setText(note, "Loaded from your last saved calculator session.");
+      } catch(e){
+        authBadge.textContent = "Error";
+        setText(note, "Could not load saved state.");
       }
-
-      if (!data) {
-        setPill("No saved state yet");
-        stateBox.value = JSON.stringify({}, null, 2);
-        return;
-      }
-
-      setPill("Loaded");
-      stateBox.value = JSON.stringify(data.state || {}, null, 2);
-      setMsg("Last updated: " + data.updated_at);
     }
 
-    async function saveState() {
-      setPill("Saving…");
-      setMsg("");
+    btnRefresh?.addEventListener("click", loadState);
+    btnClear?.addEventListener("click", clearView);
 
-      let parsed;
-      try {
-        parsed = JSON.parse(stateBox.value || "{}");
-      } catch (e) {
-        setPill("Save failed");
-        setMsg("Invalid JSON in the box. Fix it and try again.");
-        return;
-      }
-
-      const { error } = await supabase
-        .from("app_state")
-        .upsert({ user_id: user.id, state: parsed, updated_at: new Date().toISOString() });
-
-      if (error) {
-        setPill("Save failed");
-        setMsg(error.message);
-        return;
-      }
-
-      setPill("Saved");
-      setMsg("Saved to cloud.");
-    }
-
-    document.getElementById("save").onclick = saveState;
-    document.getElementById("reload").onclick = loadState;
-
-    document.getElementById("logout").onclick = async () => {
-      await supabase.auth.signOut();
-      location.replace("/login.html");
-    };
-
-    await loadState();
+    loadState();
   </script>
 </body>
 </html>
