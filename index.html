@@ -17,16 +17,16 @@
   <title>InjectBuddy — Confident, Safe TRT &amp; Peptide Dosing</title>
   <meta name="description" content="InjectBuddy helps you manage TRT and peptide dosing with clarity—accurate calculators, syringe visuals, and simple schedules. Start free." />
   <link rel="canonical" href="https://www.injectbuddy.com/" />
-
   <meta property="og:title" content="InjectBuddy — Confident, Safe TRT &amp; Peptide Dosing" />
   <meta property="og:description" content="Accurate calculators, syringe visuals, and simple schedules. Start free." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.injectbuddy.com/" />
   <meta property="og:site_name" content="InjectBuddy" />
-
   <link rel="icon" href="/assets/favicon.svg" />
 
+  <!-- Shared site CSS -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Page-specific CSS -->
   <link rel="stylesheet" href="index-page.css" />
 
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
@@ -41,17 +41,139 @@
 
   <!-- PAGE OVERRIDES -->
   <style>
-    /* (UNCHANGED STYLES ABOVE THIS POINT) */
+    /* =========================
+       HERO (photo + readability)
+       ========================= */
+    .hero{
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      background: url("/assets/hero.jpg") center / cover no-repeat;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.70) 0%,
+        rgba(0,0,0,0.55) 40%,
+        rgba(0,0,0,0.25) 70%,
+        rgba(0,0,0,0.10) 100%
+      );
+      pointer-events: none;
+    }
+    .hero .hero-inner{
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 3.5rem 0;
+    }
+    .hero h1,.hero p,.hero .tag{ color:#fff; }
+    .hero h1{ text-shadow:0 2px 8px rgba(0,0,0,0.65); }
+    .hero p{ text-shadow:0 1px 6px rgba(0,0,0,0.55); }
+    @media (max-width:768px){
+      .hero{ min-height:240px; background-position:center top; }
+      .hero .hero-inner{ padding:1.75rem 0; }
+      .hero h1{ font-size:clamp(1.6rem, 5.5vw, 2.2rem); line-height:1.15; }
+    }
 
     /* =========================
-       TRUST LOGOS – ONLY CHANGE
+       REDDIT – strong edge vignette
        ========================= */
+    #reviews.section{
+      color:#fff;
+      padding: 3rem 0;
+      background: radial-gradient(
+        180% 120% at 50% 50%,
+        rgba(0, 125, 126, 0.65) 0%,
+        rgba(0, 70, 71, 0.92) 48%,
+        rgba(0, 25, 26, 1) 82%
+      ),
+      linear-gradient(
+        180deg,
+        #002b2c 0%,
+        #004c4d 50%,
+        #002b2c 100%
+      );
+    }
+    #reviews h3{
+      color:#fff;
+      margin-bottom: 1.25rem;
+      text-align:center; /* requested: centered */
+    }
+
+    /* REQUESTED: remove visual container around reddit text */
+    #reviews .review-main-card{
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    #reviews .review-header{
+      display:none !important; /* removes the header block container look */
+    }
+
+    /* REQUESTED: centered + larger text */
+    #reviews [data-review-main-text]{
+      color:#fff;
+      line-height:1.75;
+      margin: 0 auto 0.85rem;
+      text-align:center;
+      font-size: 1.18rem;
+      max-width: 920px;
+    }
+
+    /* Inline meta line under quote (uses existing data hooks) */
+    #reviews .review-meta-inline{
+      margin: 0 auto 1.25rem;
+      text-align:center;
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 920px;
+    }
+
+    /* Clean avatar strip */
+    #reviews .review-avatar-row{
+      display:flex;
+      gap:0.75rem;
+      margin-top:0.6rem;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center; /* centered */
+    }
+    #reviews .review-avatar-btn{
+      all: unset;
+      cursor: pointer;
+      opacity: 0.45;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #reviews .review-avatar-btn img{
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: block;
+    }
+    #reviews .review-avatar-btn:hover{
+      opacity: 0.75;
+      transform: translateY(-1px);
+    }
+    #reviews .review-avatar-btn.is-active{
+      opacity: 1;
+      outline: 2px solid #00b2b5;
+      outline-offset: 3px;
+      border-radius: 50%;
+    }
+
+    /* REQUESTED: logos “coin size” desktop + responsive */
     #reviews .trust-logos-wrap{
       margin-top: 2.2rem;
-      text-align: center;
+      text-align:center;
     }
     #reviews .trust-logos-title{
-      margin: 0 0 1rem;
+      margin: 0 0 0.9rem;
       font-size: 1rem;
       font-weight: 700;
       color: rgba(255,255,255,0.9);
@@ -59,105 +181,481 @@
     #reviews .trust-logos-row{
       display:flex;
       justify-content:center;
-      align-items:flex-start;
-      gap: 36px;
+      align-items:center;
+      gap: 18px;
       flex-wrap:wrap;
     }
-    #reviews .trust-logo-item{
-      display:flex;
-      flex-direction:column;
+    #reviews .trust-logos-row a{
+      display:inline-flex;
       align-items:center;
-      gap: 10px;
-      min-width: 160px;
+      justify-content:center;
     }
-    #reviews .trust-logo-img{
-      width: 84px;     /* 100% bigger */
-      height: 84px;
+    #reviews .trust-logos-row img{
+      width: 42px;
+      height: 42px;
       object-fit: contain;
       display:block;
-      filter: brightness(0) invert(1)
-        drop-shadow(0 10px 22px rgba(0,0,0,0.28));
+      opacity: 0.95;
     }
-    #reviews .trust-logo-link{
-      font-size: 0.92rem;
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-    }
-    #reviews .trust-logo-link:hover{
-      color: rgba(255,255,255,1);
-      text-decoration: underline;
+    #reviews .trust-logos-row a:hover img{
+      opacity: 1;
+      transform: translateY(-1px);
+      transition: transform 160ms ease, opacity 160ms ease;
     }
     @media (max-width:768px){
-      #reviews .trust-logo-img{
-        width: 70px;
-        height: 70px;
+      #reviews.section{ padding: 2rem 0; }
+      #reviews [data-review-main-text]{ font-size: 1.08rem; }
+      #reviews .review-avatar-row{ gap:0.5rem; margin-top:0.55rem; }
+      #reviews .review-avatar-btn img{ width:38px; height:38px; }
+      #reviews .trust-logos-row img{ width: 36px; height: 36px; }
+    }
+
+    /* =========================
+       FEATURES / TOOLS – edge-weighted teal
+       ========================= */
+    #features.section{
+      background: radial-gradient(
+        170% 120% at 50% 45%,
+        rgba(0, 150, 150, 0.45) 0%,
+        rgba(0, 95, 97, 0.85) 45%,
+        rgba(0, 35, 36, 1) 84%
+      ),
+      linear-gradient(
+        180deg,
+        #003637 0%,
+        #006d6f 55%,
+        #003637 100%
+      );
+      border-top: 1px solid rgba(255,255,255,0.14);
+      border-bottom: 1px solid rgba(0,0,0,0.35);
+    }
+    #features h3{ color: #ffffff; margin-bottom: 1.1rem; }
+
+    /* =========================
+       WHY IMAGE (reference style)
+       ========================= */
+    .why-media{
+      float: left;
+      width: 220px;
+      margin: 0 16px 12px 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000000 100%);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .why-media img{ display: block; width: 100%; height: auto; }
+    @media (max-width: 768px){
+      .why-media{ width: 140px; margin: 0 12px 10px 0; }
+    }
+    @media (max-width: 480px){
+      .why-media{ width: 120px; margin: 0 10px 10px 0; }
+    }
+
+    /* =========================
+       TOOLS GRID (images + button under)
+       ========================= */
+    .tools-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 1100px){
+      .tools-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .tool-item{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      text-align:center;
+      opacity: 0;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+    .tool-media{
+      width: 220px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.18);
+      background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000000 100%);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .tool-media img{
+      display:block;
+      width:100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .tool-cta{
+      margin-top: 0.75rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      width: 220px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .tool-cta:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,0.26);
+      border-color: rgba(255,255,255,0.26);
+    }
+    .tool-item.is-lower{ margin-top: 16px; }
+    @media (max-width: 768px){
+      .tool-media{ width: 140px; }
+      .tool-media img{ height: 140px; }
+      .tool-cta{ width: 140px; padding: 0.65rem 0.85rem; font-size: 0.95rem; }
+      .tool-item.is-lower{ margin-top: 10px; }
+    }
+    @media (max-width: 480px){
+      .tool-media{ width: 120px; }
+      .tool-media img{ height: 120px; }
+      .tool-cta{ width: 120px; padding: 0.6rem 0.75rem; font-size: 0.92rem; }
+    }
+
+    /* =========================
+       Slide-in animations (fast -> slow)
+       ========================= */
+    .tool-item.animate-from-top{ transform: translateY(-22px); }
+    .tool-item.animate-from-bottom{ transform: translateY(22px); }
+    .tool-item.is-in{
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1), opacity 420ms ease-out;
+    }
+    .tool-item:nth-child(1).is-in{ transition-delay: 0ms; }
+    .tool-item:nth-child(2).is-in{ transition-delay: 60ms; }
+    .tool-item:nth-child(3).is-in{ transition-delay: 120ms; }
+    .tool-item:nth-child(4).is-in{ transition-delay: 180ms; }
+    @media (prefers-reduced-motion: reduce){
+      .tool-item, .tool-item.animate-from-top, .tool-item.animate-from-bottom{
+        opacity: 1; transform: none; transition: none !important;
       }
     }
+
+    /* =========================================
+       TOOLS – tighter + larger (FORCE OVERRIDE)
+       ========================================= */
+    #features .container{ padding-left: 12px; padding-right: 12px; }
+    #features .tools-grid{ gap: 0.35rem !important; margin-top: 0.75rem !important; }
+    #features .tool-media{ width: 300px !important; }
+    #features .tool-media img{ height: 300px !important; object-fit: cover !important; }
+    #features .tool-cta{ width: 300px !important; margin-top: 0.35rem !important; padding: 0.65rem 0.9rem !important; }
+    #features .tool-item.is-lower{ margin-top: 34px !important; }
+    @media (max-width: 768px){
+      #features .tools-grid{ gap: 0.35rem !important; }
+      #features .tool-media{ width: 185px !important; }
+      #features .tool-media img{ height: 185px !important; }
+      #features .tool-cta{ width: 185px !important; margin-top: 0.35rem !important; }
+      #features .tool-item.is-lower{ margin-top: 20px !important; }
+    }
+    @media (max-width: 480px){
+      #features .tool-media{ width: 165px !important; }
+      #features .tool-media img{ height: 165px !important; }
+      #features .tool-cta{ width: 165px !important; }
+    }
+
+    /* =========================
+       SAFETY DISCLAIMER – YELLOW STANDOUT
+       (kept in CSS but the HTML section is removed as you requested)
+       ========================= */
+    .card.card-disclaimer{
+      border-color: rgba(250, 204, 21, 0.55) !important;
+      background: radial-gradient(120% 140% at 20% 0%, rgba(250, 204, 21, 0.22) 0%, rgba(2, 6, 23, 0.92) 55%, rgba(2, 6, 23, 1) 100% ) !important;
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.18), 0 18px 44px rgba(0,0,0,0.55) !important;
+    }
+    .card.card-disclaimer strong{
+      color: #fde68a !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card.card-disclaimer strong::before{
+      content: "⚠";
+      color: #facc15;
+      font-size: 1.05em;
+      line-height: 1;
+    }
+    .card.card-disclaimer .muted{ color: rgba(255, 255, 255, 0.88) !important; }
   </style>
 </head>
 
 <body>
+  <!-- Shared header injected by /assets/nav.js -->
+  <div id="site-header"></div>
 
-<div id="site-header"></div>
-
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="container hero-inner">
-    <div class="hero-copy">
-      <span class="tag">Clarity. Safety. Confidence.</span>
-      <h1>Take control of your testosterone and peptide dosing — without confusion.</h1>
-      <p>
-        InjectBuddy turns dosage calculations into simple, accurate outputs.
-        Clean mg→mL conversions, syringe visuals, and schedules that actually make sense.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/calculator.html">Testosterone Dosage Calculator</a>
-        <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="tag">Clarity. Safety. Confidence.</span>
+        <h1>Take control of your testosterone and peptide dosing — without confusion.</h1>
+        <p>
+          InjectBuddy turns dosage calculations into simple, accurate outputs. Clean mg→mL conversions, syringe visuals, and schedules that actually make sense.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/calculator.html">Testosterone Dosage Calculator</a>
+          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- REVIEWS -->
-<section class="section" id="reviews">
-  <div class="container">
+  <!-- REVIEWS (Reddit-based) -->
+  <section class="section" id="reviews" aria-label="User Reviews">
+    <div class="container">
+      <h3>What users are saying on Reddit</h3>
 
-    <h3>What users are saying on Reddit</h3>
+      <div class="review-main-card">
+        <!-- header hidden via CSS to remove container look -->
+        <div class="review-header">
+          <img src="/assets/avatar_reddit.svg" alt="" class="review-avatar">
+          <div>
+            <strong data-review-main-user>u/LabRat92</strong><br>
+            <small data-review-main-tag>Reddit user</small>
+          </div>
+        </div>
 
-    <!-- (YOUR EXISTING REVIEW MARKUP UNCHANGED) -->
+        <p data-review-main-text>
+          Cleanest TRT calculator I’ve used — finally something that just works.
+        </p>
 
-    <!-- TRUST LOGOS -->
-    <div class="trust-logos-wrap">
-      <p class="trust-logos-title">Our tools are used by the following</p>
+        <!-- meta line (visible) -->
+        <p class="review-meta-inline">
+          <strong data-review-main-user>u/LabRat92</strong> <span style="opacity:.85;">·</span>
+          <span data-review-main-tag>Reddit user</span>
+        </p>
+      </div>
 
-      <div class="trust-logos-row">
-        <div class="trust-logo-item">
+      <div class="review-avatar-row">
+        <button type="button" class="review-avatar-btn is-active"
+          data-username="u/LabRat92"
+          data-quote="Cleanest TRT calculator I’ve used — finally something that just works.">
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/LabRat92" class="review-avatar">
+        </button>
+        <button type="button" class="review-avatar-btn"
+          data-username="u/ChemCore"
+          data-quote="This makes vial math and syringe units a no-brainer.">
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/ChemCore" class="review-avatar">
+        </button>
+        <button type="button" class="review-avatar-btn"
+          data-username="u/NeedleNeutral"
+          data-quote="Reconstitution steps plus exact dose? Saved me from second-guessing every pin.">
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/NeedleNeutral" class="review-avatar">
+        </button>
+        <button type="button" class="review-avatar-btn"
+          data-username="u/PeakProtocol"
+          data-quote="Mobile layout is super clean, no ads or junk.">
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/PeakProtocol" class="review-avatar">
+        </button>
+        <button type="button" class="review-avatar-btn"
+          data-username="u/SmoothPin"
+          data-quote="The syringe visual is clutch for checking I’m not overdrawing.">
+          <img src="/assets/avatar_reddit.svg" alt="Reddit user u/SmoothPin" class="review-avatar">
+        </button>
+      </div>
+
+      <!-- REQUESTED: logos inside same teal section -->
+      <div class="trust-logos-wrap" aria-label="Trusted by">
+        <p class="trust-logos-title">Our tools are used by the following</p>
+        <div class="trust-logos-row">
           <a href="https://remotefitlabs.com/" target="_blank" rel="noopener">
-            <img src="Assets/RFL.svg" alt="Remote Fit Labs" class="trust-logo-img">
+            <img src="Assets/RFL.svg" alt="Remote Fit Labs">
           </a>
-          <a href="https://remotefitlabs.com/" target="_blank" rel="noopener" class="trust-logo-link">
-            remotefitlabs.com
-          </a>
-        </div>
-
-        <div class="trust-logo-item">
           <a href="https://plulaboratories.com/" target="_blank" rel="noopener">
-            <img src="Assets/Plu_labs.svg" alt="Plu Laboratories" class="trust-logo-img">
-          </a>
-          <a href="https://plulaboratories.com/" target="_blank" rel="noopener" class="trust-logo-link">
-            plulaboratories.com
+            <img src="Assets/Plu_labs.svg" alt="Plu Laboratories">
           </a>
         </div>
       </div>
+
     </div>
+  </section>
 
+  <!-- WHY INJECTBUDDY EXISTS -->
+  <section class="section" id="why">
+    <div class="container">
+      <section class="ib-why-section small-text">
+        <div class="why-media">
+          <img src="/bodybuilder.jpg" alt="Bodybuilder training in gym" loading="lazy" decoding="async" />
+        </div>
+        <h2>Why <a href="/">InjectBuddy</a> Exists</h2>
+        <p>
+          People managing testosterone therapy, peptides, or general hormone optimisation at home need accuracy, not improvisation. Most users are given a vial, a number, and a loose schedule—then left to calculate mg-to-mL conversions, injection frequency, syringe sizing, and day-to-day dosing without clear guidance. <a href="/">InjectBuddy</a> was built to remove that uncertainty.
+        </p>
+        <p>
+          The <a href="/calculator.html">Testosterone Dosage Calculator</a> provides structured dosing maths and a realistic syringe visual so users can see exactly what they should be drawing. The <a href="/peptide.html">Peptide Calculator</a> handles reconstitution and injection volumes consistently, preventing common mistakes caused by incorrect dilution maths.
+        </p>
+        <p>
+          Supporting tools like the <a href="/bmi.html">BMI Calculator</a> and the <a href="/free-testosterone-calculator.html">Free Testosterone Calculator</a> exist because hormones don’t operate in isolation. BMI influences metabolic health, and free testosterone gives a clearer picture of hormonal balance than total levels alone.
+        </p>
+        <p>
+          To complement the tools, the <a href="/guides/">Guides &amp; Learning Center</a> consolidates the information users usually have to piece together from forums and conflicting advice—bloodwork basics, TRT dosing concepts, peptide fundamentals, and injection-technique safety.
+        </p>
+        <p>
+          Simply put, <a href="/">InjectBuddy</a> exists to bring structure, accuracy, and clarity to hormone management without ads, noise, or guesswork.
+        </p>
+        <div style="clear: both;"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- TOOLS (image + button under) -->
+  <section class="section" id="features">
+    <div class="container">
+      <h3>Tools</h3>
+      <div class="tools-grid" aria-label="InjectBuddy tools">
+        <div class="tool-item animate-from-top" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b1.jpg" alt="TRT dosage calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/calculator.html">TRT Dosage Calculator</a>
+        </div>
+        <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b2.jpg" alt="Peptide reconstitution calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/peptide.html">Peptide Calculator</a>
+        </div>
+        <div class="tool-item animate-from-top" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b3.jpg" alt="Free testosterone calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/free-testosterone-calculator.html">Free T Calculator</a>
+        </div>
+        <div class="tool-item animate-from-bottom is-lower" data-ib-tool>
+          <div class="tool-media">
+            <img src="/b4.jpg" alt="BMI calculator preview" loading="lazy" decoding="async">
+          </div>
+          <a class="tool-cta" href="/bmi.html">BMI Calculator</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REMOVED: DISCLAIMER SECTION (per your instruction) -->
+
+  <!-- STICKY BOTTOM CTA -->
+  <div class="cta-bar" role="region" aria-label="Quick action bar">
+    <div class="container">
+      <div class="cta-bar-inner">
+        <strong class="cta-bar-title">Ready to make dosing simple?</strong>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+          <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- (EVERYTHING BELOW THIS POINT IS YOUR ORIGINAL FILE, UNCHANGED) -->
+  <!-- Shared nav JS -->
+  <script src="/assets/nav.js" defer></script>
 
-<script src="/assets/nav.js" defer></script>
-<script src="/Assets/footer.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Reddit review switcher
+      const mainQuote = document.querySelector('[data-review-main-text]');
+      const mainUser = document.querySelectorAll('[data-review-main-user]'); // note: now two nodes
+      const mainTag = document.querySelectorAll('[data-review-main-tag]');   // note: now two nodes
+      const buttons = document.querySelectorAll('.review-avatar-btn');
 
+      if (mainQuote && mainUser.length && mainTag.length && buttons.length) {
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+
+            const quote = btn.getAttribute('data-quote') || '';
+            const user = btn.getAttribute('data-username') || '';
+
+            mainQuote.textContent = quote;
+            mainUser.forEach(n => n.textContent = user);
+            mainTag.forEach(n => n.textContent = 'Reddit user');
+          });
+        });
+      }
+
+      // Tools section: slide in when visible
+      const toolEls = Array.from(document.querySelectorAll('[data-ib-tool]'));
+      if (toolEls.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+
+        toolEls.forEach(el => io.observe(el));
+      } else {
+        toolEls.forEach(el => el.classList.add('is-in'));
+      }
+    });
+
+    // Hide bottom CTA at very top on mobile; show once scrolled
+    (function () {
+      const mq = window.matchMedia('(max-width: 980px)');
+      const bar = document.querySelector('.cta-bar');
+      if (!bar) return;
+
+      let ticking = false;
+
+      function applyHiddenState() {
+        const atTop = window.scrollY <= 4;
+        if (mq.matches && atTop) bar.classList.add('cta-bar--hidden');
+        else bar.classList.remove('cta-bar--hidden');
+        ticking = false;
+      }
+
+      function onScrollOrResize() {
+        if (!ticking) {
+          window.requestAnimationFrame(applyHiddenState);
+          ticking = true;
+        }
+      }
+
+      applyHiddenState();
+      window.addEventListener('scroll', onScrollOrResize, { passive: true });
+      window.addEventListener('resize', onScrollOrResize);
+      if (mq.addEventListener) mq.addEventListener('change', applyHiddenState);
+      else mq.addListener(applyHiddenState);
+    })();
+  </script>
+
+  <!-- Global footer mount -->
+  <div id="ib-footer"></div>
+  <!-- Global footer script -->
+  <script src="/Assets/footer.js" defer></script>
+
+  <!-- Scroll to Top Button -->
+  <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("ib-scroll-top");
+      function toggleButton() {
+        if (window.innerWidth <= 980) {
+          if (window.scrollY > 180) btn.classList.add("visible");
+          else btn.classList.remove("visible");
+        } else {
+          btn.classList.remove("visible");
+        }
+      }
+      window.addEventListener("scroll", toggleButton, { passive: true });
+      window.addEventListener("resize", toggleButton);
+      btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      toggleButton();
+    });
+  </script>
 </body>
 </html>
