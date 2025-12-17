@@ -84,7 +84,6 @@
 
     /* =========================
        REDDIT – strong edge vignette
-       (adjusted: no visible container around text, centered, larger text)
        ========================= */
     #reviews.section{
       color:#fff;
@@ -102,56 +101,20 @@
         #002b2c 100%
       );
     }
-
     #reviews h3{
       color:#fff;
-      margin-bottom: 1.0rem;
-      text-align: center;
-    }
-
-    /* remove the card look (no container around text) */
-    #reviews .review-main-card{
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      border-radius: 0 !important;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-
-    #reviews .review-header{
-      display:none !important; /* hide header block so it doesn't look "boxed" */
-    }
-
-    /* Center + larger text */
-    #reviews [data-review-main-text]{
-      color:#fff;
-      line-height:1.75;
-      margin: 0 auto 0.85rem;
-      text-align:center;
-      font-size: 1.18rem;
-      max-width: 920px;
-    }
-
-    /* user line shown under quote */
-    #reviews .review-meta-inline{
-      margin: 0 auto 1.25rem;
-      text-align:center;
-      font-size: 0.98rem;
-      color: rgba(255,255,255,0.82);
-      max-width: 920px;
+      margin-bottom: 1.25rem;
     }
 
     /* Clean avatar strip */
     #reviews .review-avatar-row{
       display:flex;
       gap:0.75rem;
-      margin-top: 0.2rem;
-      justify-content:center;
+      margin-top:1.1rem;
       align-items:center;
       flex-wrap:wrap;
+      justify-content:center; /* centered */
     }
-
     #reviews .review-avatar-btn{
       all: unset;
       cursor: pointer;
@@ -177,8 +140,7 @@
 
     @media (max-width:768px){
       #reviews.section{ padding: 2rem 0; }
-      #reviews [data-review-main-text]{ font-size: 1.08rem; }
-      #reviews .review-avatar-row{ gap:0.5rem; }
+      #reviews .review-avatar-row{ gap:0.5rem; margin-top:0.9rem; }
       #reviews .review-avatar-btn img{ width:38px; height:38px; }
     }
 
@@ -201,7 +163,10 @@
       border-top: 1px solid rgba(255,255,255,0.14);
       border-bottom: 1px solid rgba(0,0,0,0.35);
     }
-    #features h3{ color: #ffffff; margin-bottom: 1.1rem; }
+    #features h3{
+      color: #ffffff;
+      margin-bottom: 1.1rem;
+    }
 
     /* =========================
        WHY IMAGE (reference style)
@@ -216,7 +181,11 @@
       box-shadow: var(--shadow-sm);
       overflow: hidden;
     }
-    .why-media img{ display: block; width: 100%; height: auto; }
+    .why-media img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
     @media (max-width: 768px){
       .why-media{ width: 140px; margin: 0 12px 10px 0; }
     }
@@ -237,6 +206,7 @@
     @media (max-width: 1100px){
       .tools-grid{ grid-template-columns: repeat(2, 1fr); }
     }
+
     .tool-item{
       display:flex;
       flex-direction: column;
@@ -300,7 +270,6 @@
        ========================= */
     .tool-item.animate-from-top{ transform: translateY(-22px); }
     .tool-item.animate-from-bottom{ transform: translateY(22px); }
-
     .tool-item.is-in{
       opacity: 1;
       transform: translateY(0);
@@ -328,7 +297,6 @@
     #features .tool-media img{ height: 300px !important; object-fit: cover !important; }
     #features .tool-cta{ width: 300px !important; margin-top: 0.35rem !important; padding: 0.65rem 0.9rem !important; }
     #features .tool-item.is-lower{ margin-top: 34px !important; }
-
     @media (max-width: 768px){
       #features .tools-grid{ gap: 0.35rem !important; }
       #features .tool-media{ width: 185px !important; }
@@ -368,18 +336,31 @@
   <!-- REVIEWS (Reddit-based) -->
   <section class="section" id="reviews" aria-label="User Reviews">
     <div class="container">
-      <h3>What users are saying on Reddit</h3>
 
-      <!-- No container around text: we keep the element for JS targeting, but visually it is transparent -->
-      <div class="review-main-card">
-        <p data-review-main-text>
-          Cleanest TRT calculator I’ve used — finally something that just works.
-        </p>
-        <p class="review-meta-inline">
-          <strong data-review-main-user>u/LabRat92</strong> <span style="opacity:.85;">·</span>
-          <span data-review-main-tag>Reddit user</span>
-        </p>
-      </div>
+      <h3 style="text-align:center;">What users are saying on Reddit</h3>
+
+      <!-- NO visual container around text (inline styles, centered, larger) -->
+      <p data-review-main-text style="
+        max-width: 920px;
+        margin: 0 auto 0.85rem;
+        text-align: center;
+        font-size: 1.18rem;
+        line-height: 1.75;
+        color: #fff;
+      ">
+        Cleanest TRT calculator I’ve used — finally something that just works.
+      </p>
+
+      <p style="
+        text-align: center;
+        font-size: 0.98rem;
+        color: rgba(255,255,255,0.82);
+        margin: 0 0 1.25rem;
+      ">
+        <strong data-review-main-user>u/LabRat92</strong>
+        <span style="opacity:.85;"> · </span>
+        <span data-review-main-tag>Reddit user</span>
+      </p>
 
       <div class="review-avatar-row">
         <button type="button" class="review-avatar-btn is-active"
@@ -412,6 +393,7 @@
           <img src="/assets/avatar_reddit.svg" alt="Reddit user u/SmoothPin" class="review-avatar">
         </button>
       </div>
+
     </div>
   </section>
 
@@ -432,20 +414,18 @@
         </p>
 
         <p>
-          The <a href="/calculator.html">Testosterone Dosage Calculator</a> provides structured dosing maths and a realistic syringe visual
-          so users can see exactly what they should be drawing. The <a href="/peptide.html">Peptide Calculator</a> handles reconstitution
-          and injection volumes consistently, preventing common mistakes caused by incorrect dilution maths.
+          The <a href="/calculator.html">Testosterone Dosage Calculator</a> provides structured dosing maths and a realistic syringe visual so users can see exactly what they should be drawing.
+          The <a href="/peptide.html">Peptide Calculator</a> handles reconstitution and injection volumes consistently, preventing common mistakes caused by incorrect dilution maths.
         </p>
 
         <p>
-          Supporting tools like the <a href="/bmi.html">BMI Calculator</a> and the <a href="/free-testosterone-calculator.html">Free Testosterone Calculator</a>
-          exist because hormones don’t operate in isolation. BMI influences metabolic health, and free testosterone gives a clearer picture of hormonal
-          balance than total levels alone.
+          Supporting tools like the <a href="/bmi.html">BMI Calculator</a> and the <a href="/free-testosterone-calculator.html">Free Testosterone Calculator</a> exist because hormones don’t operate in isolation.
+          BMI influences metabolic health, and free testosterone gives a clearer picture of hormonal balance than total levels alone.
         </p>
 
         <p>
-          To complement the tools, the <a href="/guides/">Guides &amp; Learning Center</a> consolidates the information users usually have to piece
-          together from forums and conflicting advice—bloodwork basics, TRT dosing concepts, peptide fundamentals, and injection-technique safety.
+          To complement the tools, the <a href="/guides/">Guides &amp; Learning Center</a> consolidates the information users usually have to piece together from forums and conflicting advice—bloodwork basics,
+          TRT dosing concepts, peptide fundamentals, and injection-technique safety.
         </p>
 
         <p>
@@ -493,6 +473,8 @@
       </div>
     </div>
   </section>
+
+  <!-- (REMOVED) DISCLAIMER SECTION: moved to universal footer per your request -->
 
   <!-- STICKY BOTTOM CTA -->
   <div class="cta-bar" role="region" aria-label="Quick action bar">
@@ -589,15 +571,17 @@
 
   <!-- Scroll to Top Button -->
   <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const btn = document.getElementById("ib-scroll-top");
 
       function toggleButton() {
         if (window.innerWidth <= 980) {
-          if (window.scrollY > 180) btn.classList.add("visible");
-          else btn.classList.remove("visible");
+          if (window.scrollY > 180) {
+            btn.classList.add("visible");
+          } else {
+            btn.classList.remove("visible");
+          }
         } else {
           btn.classList.remove("visible");
         }
