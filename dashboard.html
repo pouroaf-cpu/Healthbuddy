@@ -1,34 +1,118 @@
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard | InjectBuddy</title>
+  <meta name="robots" content="noindex,nofollow" />
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#0b1220;
+      --border:#1f2937;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --cta:#00a3b0;
+    }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:#020617;
+      color:var(--text);
+      padding:24px;
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0;
+      font-size:22px;
+    }
+    button{
+      background:transparent;
+      border:1px solid var(--border);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+    button:hover{
+      border-color:var(--cta);
+    }
+    .card{
+      background:linear-gradient(180deg,#0b1220,#070d18);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+      box-shadow:0 18px 50px rgba(15,23,42,.75);
+    }
+    .empty{
+      color:var(--muted);
+      font-size:14px;
+    }
+    pre{
+      margin:0;
+      font-size:13px;
+      line-height:1.4;
+      white-space:pre-wrap;
+      word-break:break-word;
+      color:#cbd5f5;
+    }
+  </style>
+</head>
+
 <body>
-  <h1>Your Saved Data</h1>
-  <button id="logout">Log out</button>
-  <pre id="out">Loading…</pre>
+  <div class="wrap">
+    <header>
+      <h1>Your Dashboard</h1>
+      <button id="logout">Log out</button>
+    </header>
+
+    <div class="card">
+      <pre id="out">Loading your data…</pre>
+    </div>
+  </div>
 
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
     const supabase = createClient(
       "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S"
+      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+      { auth: { flowType: "pkce" } }
     );
 
     const out = document.getElementById("out");
 
     const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) location.href = "/login.html";
+    if (!sessionData.session) {
+      window.location.replace("/login.html");
+    }
 
     const { data, error } = await supabase
       .from("lab_tests")
       .select("id,taken_at,lab_name,notes,lab_markers(*)")
-      .order("taken_at", { ascending: false });
+      .order("taken_at", { ascending:false });
 
-    out.textContent = error ? ("Error: " + error.message) : JSON.stringify(data, null, 2);
+    if (error) {
+      out.textContent = "Error loading data.";
+    } else if (!data || data.length === 0) {
+      out.innerHTML = `<span class="empty">No saved lab data yet.</span>`;
+    } else {
+      out.textContent = JSON.stringify(data, null, 2);
+    }
 
     document.getElementById("logout").onclick = async () => {
       await supabase.auth.signOut();
-      location.href = "/login.html";
+      window.location.replace("/login.html");
     };
   </script>
 </body>
