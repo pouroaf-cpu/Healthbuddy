@@ -36,11 +36,19 @@
     goDash.onclick = () => location.replace("/dashboard.html");
     goLogin.onclick = () => location.replace("/login.html");
 
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      { auth: { flowType: "pkce" } }
-    );
+const supabase = createClient(
+  "https://psrtdoglooijxzeyhmpc.supabase.co",
+  "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+  {
+    auth: {
+      flowType: "pkce",
+      storageKey: "injectbuddy-auth",     // <- critical
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  }
+);
 
     try {
       dbg("URL:\n" + location.href);
