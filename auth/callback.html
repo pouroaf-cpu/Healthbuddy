@@ -27,54 +27,72 @@
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const msg = (t) => document.getElementById("msg").textContent = t;
-    const dbg = (t) => document.getElementById("dbg").textContent = t;
-
+    const msgEl = document.getElementById("msg");
+    const dbgEl = document.getElementById("dbg");
     const goDash = document.getElementById("goDash");
     const goLogin = document.getElementById("goLogin");
+
+    const msg = (t) => (msgEl.textContent = t);
+    const dbg = (t) => (dbgEl.textContent = t);
 
     goDash.onclick = () => location.replace("/dashboard.html");
     goLogin.onclick = () => location.replace("/login.html");
 
-const supabase = createClient(
-  "https://psrtdoglooijxzeyhmpc.supabase.co",
-  "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-  {
-    auth: {
-      flowType: "pkce",
-      storageKey: "injectbuddy-auth",     // <- critical
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  }
-);
-
-    try {
-      dbg("URL:\n" + location.href);
-
-      const code = new URLSearchParams(location.search).get("code");
-      if (!code) {
-        msg("FAIL: No ?code= found. This is a redirect allow-list / domain mismatch.");
-        goLogin.style.display = "inline-block";
-        throw new Error("Missing ?code=. Fix Supabase Auth URL Configuration + hardcode redirectTo to https://www.injectbuddy.com/auth/callback.html");
+    // MUST match login + dashboard
+    const supabase = createClient(
+      "https://psrtdoglooijxzeyhmpc.supabase.co",
+      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+      {
+        auth: {
+          flowType: "pkce",
+          storageKey: "injectbuddy-auth",
+          storage: window.localStorage,     // ✅ force same storage
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
       }
+    );
 
-      msg("Exchanging code for session…");
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
-      if (error) throw error;
+    (async () => {
+      try {
+        dbg("URL:\n" + location.href);
 
-      const { data } = await supabase.auth.getSession();
-      if (!data.session) throw new Error("No session after exchange.");
+        const code = new URLSearchParams(location.search).get("code");
+        if (!code) {
+          msg("FAIL: Missing ?code= in URL.");
+          goLogin.style.display = "inline-block";
+          throw new Error("Missing ?code=. Fix redirect allow-list + redirectTo.");
+        }
 
-      msg("SUCCESS: Session created.");
-      dbg("OK: session exists locally.\nYou can go to dashboard now.");
-      goDash.style.display = "inline-block";
+        msg("Exchanging code for session…");
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (error) throw error;
 
-      history.replaceState({}, document.title, "/auth/callback.html");
-    } catch (e) {
-      dbg(dbg.textContent + "\n\nERROR:\n" + (e?.message || e));
-    }
+        // Clean URL after exchange
+        history.replaceState({}, document.title, "/auth/callback.html");
+
+        const { data } = await supabase.auth.getSession();
+        if (!data.session) throw new Error("No session after exchange.");
+
+        msg("SUCCESS: Session created.");
+        dbg("OK: session exists locally.\nYou can go to dashboard now.");
+        goDash.style.display = "inline-block";
+      } catch (e) {
+        msg("Login failed.");
+        dbg((dbgEl.textContent || "") + "\n\nERROR:\n" + (e?.message || e));
+
+        // Extra storage debug
+        try {
+          const keys = Object.keys(localStorage).filter(k =>
+            k.includes("injectbuddy-auth") || k.includes("supabase") || k.includes("pkce") || k.includes("code-verifier")
+          );
+          dbg(dbgEl.textContent + "\n\nLOCALSTORAGE KEYS:\n" + (keys.length ? keys.join("\n") : "(none)"));
+        } catch {}
+
+        goLogin.style.display = "inline-block";
+      }
+    })();
   </script>
 </body>
 </html>
