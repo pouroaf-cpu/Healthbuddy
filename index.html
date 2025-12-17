@@ -101,7 +101,7 @@
     #reviews h3{
       color:#fff;
       margin-bottom: 1.25rem;
-      text-align:center; /* requested: centered */
+      text-align:center;
     }
 
     /* REQUESTED: remove visual container around reddit text */
@@ -113,7 +113,7 @@
       box-shadow: none !important;
     }
     #reviews .review-header{
-      display:none !important; /* removes the header block container look */
+      display:none !important;
     }
 
     /* REQUESTED: centered + larger text */
@@ -142,7 +142,7 @@
       margin-top:0.6rem;
       align-items:center;
       flex-wrap:wrap;
-      justify-content:center; /* centered */
+      justify-content:center;
     }
     #reviews .review-avatar-btn{
       all: unset;
@@ -167,7 +167,9 @@
       border-radius: 50%;
     }
 
-    /* REQUESTED: logos “coin size” desktop + responsive */
+    /* =========================
+       ONLY CHANGE: Trust logos bigger + white + site name under (linked)
+       ========================= */
     #reviews .trust-logos-wrap{
       margin-top: 2.2rem;
       text-align:center;
@@ -181,33 +183,43 @@
     #reviews .trust-logos-row{
       display:flex;
       justify-content:center;
-      align-items:center;
-      gap: 18px;
+      align-items:flex-start;
+      gap: 34px;
       flex-wrap:wrap;
     }
-    #reviews .trust-logos-row a{
-      display:inline-flex;
+    #reviews .trust-logo-item{
+      display:flex;
+      flex-direction:column;
       align-items:center;
-      justify-content:center;
+      gap: 10px;
+      min-width: 160px;
     }
-    #reviews .trust-logos-row img{
-      width: 42px;
-      height: 42px;
+    #reviews .trust-logo-img{
+      width: 84px;   /* bigger */
+      height: 84px;  /* bigger */
       object-fit: contain;
       display:block;
-      opacity: 0.95;
+      opacity: 0.98;
+      filter: brightness(0) invert(1) drop-shadow(0 10px 22px rgba(0,0,0,0.28)); /* white */
     }
-    #reviews .trust-logos-row a:hover img{
-      opacity: 1;
-      transform: translateY(-1px);
-      transition: transform 160ms ease, opacity 160ms ease;
+    #reviews .trust-logo-link{
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
     }
+    #reviews .trust-logo-link:hover{
+      color: rgba(255,255,255,1);
+      text-decoration: underline;
+    }
+
     @media (max-width:768px){
       #reviews.section{ padding: 2rem 0; }
       #reviews [data-review-main-text]{ font-size: 1.08rem; }
       #reviews .review-avatar-row{ gap:0.5rem; margin-top:0.55rem; }
       #reviews .review-avatar-btn img{ width:38px; height:38px; }
-      #reviews .trust-logos-row img{ width: 36px; height: 36px; }
+
+      #reviews .trust-logo-img{ width: 70px; height: 70px; }
+      #reviews .trust-logo-item{ min-width: 140px; }
     }
 
     /* =========================
@@ -464,16 +476,28 @@
         </button>
       </div>
 
-      <!-- REQUESTED: logos inside same teal section -->
+      <!-- ONLY CHANGE: trust logos markup updated -->
       <div class="trust-logos-wrap" aria-label="Trusted by">
         <p class="trust-logos-title">Our tools are used by the following</p>
+
         <div class="trust-logos-row">
-          <a href="https://remotefitlabs.com/" target="_blank" rel="noopener">
-            <img src="Assets/RFL.svg" alt="Remote Fit Labs">
-          </a>
-          <a href="https://plulaboratories.com/" target="_blank" rel="noopener">
-            <img src="Assets/Plu_labs.svg" alt="Plu Laboratories">
-          </a>
+          <div class="trust-logo-item">
+            <a href="https://remotefitlabs.com/" target="_blank" rel="noopener" aria-label="Remote Fit Labs">
+              <img src="Assets/RFL.svg" alt="Remote Fit Labs" class="trust-logo-img">
+            </a>
+            <a href="https://remotefitlabs.com/" target="_blank" rel="noopener" class="trust-logo-link">
+              remotefitlabs.com
+            </a>
+          </div>
+
+          <div class="trust-logo-item">
+            <a href="https://plulaboratories.com/" target="_blank" rel="noopener" aria-label="Plu Laboratories">
+              <img src="Assets/Plu_labs.svg" alt="Plu Laboratories" class="trust-logo-img">
+            </a>
+            <a href="https://plulaboratories.com/" target="_blank" rel="noopener" class="trust-logo-link">
+              plulaboratories.com
+            </a>
+          </div>
         </div>
       </div>
 
@@ -563,8 +587,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       // Reddit review switcher
       const mainQuote = document.querySelector('[data-review-main-text]');
-      const mainUser = document.querySelectorAll('[data-review-main-user]'); // note: now two nodes
-      const mainTag = document.querySelectorAll('[data-review-main-tag]');   // note: now two nodes
+      const mainUser = document.querySelectorAll('[data-review-main-user]');
+      const mainTag = document.querySelectorAll('[data-review-main-tag]');
       const buttons = document.querySelectorAll('.review-avatar-btn');
 
       if (mainQuote && mainUser.length && mainTag.length && buttons.length) {
