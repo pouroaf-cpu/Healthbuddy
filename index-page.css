@@ -352,4 +352,75 @@
     height: 5px;
   }
 }
+/* =========================================
+   REDDIT QUOTE TICKER – TRUE INFINITE LOOP
+   ========================================= */
+
+/* Hard lock section to hero */
+.hero{ margin-bottom:0 !important; }
+#reviews.section{ padding-top:0 !important; margin-top:-1px; }
+
+/* Structure */
+#reviews .quote-ticker{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Divider lines */
+#reviews .quote-ticker .qt-line{
+  height:1px;
+  background:rgba(255,255,255,0.9);
+}
+#reviews .quote-ticker .qt-gap{
+  height:6px;
+}
+
+/* Viewport */
+#reviews .quote-ticker .qt-viewport{
+  width:100%;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* Track — duplicated content REQUIRED */
+#reviews .quote-ticker .qt-track{
+  display:flex;
+  width:max-content;
+  animation: qt-scroll 40s linear infinite;
+}
+
+/* Each group of quotes */
+#reviews .quote-ticker .qt-group{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  white-space:nowrap;
+  padding-right:22px;
+}
+
+/* Text */
+#reviews .quote-ticker .qt-item{
+  font-size:0.95rem;
+  color:rgba(255,255,255,0.92);
+  letter-spacing:0.01em;
+}
+#reviews .quote-ticker .qt-sep{ opacity:0.6; }
+
+/* KEY FIX: translate only half (because content is doubled) */
+@keyframes qt-scroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #reviews .quote-ticker .qt-track{ animation:none; }
+}
+
+/* Mobile */
+@media (max-width:768px){
+  #reviews .quote-ticker .qt-item{ font-size:0.86rem; }
+  #reviews .quote-ticker .qt-gap{ height:5px; }
+}
 
