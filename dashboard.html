@@ -18,6 +18,7 @@
     pre{margin:0;font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word;color:#cbd5f5}
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -37,30 +38,31 @@
     const statusEl = document.getElementById("status");
     const out = document.getElementById("out");
 
+    // ✅ MUST MATCH login.html + callback.html (no custom storageKey)
     const supabase = createClient(
       "https://psrtdoglooijxzeyhmpc.supabase.co",
       "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
       {
         auth: {
           flowType: "pkce",
-          storageKey: "injectbuddy-auth",
-          storage: window.localStorage,   // ✅ force same storage
           persistSession: true,
-          autoRefreshToken: true,
-          detectSessionInUrl: true
+          autoRefreshToken: true
         }
       }
     );
 
     const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) location.replace("/login.html");
+    if (!sessionData.session) {
+      location.replace("/login.html");
+      throw new Error("No session");
+    }
 
     statusEl.textContent = "Signed in. Loading your saved data…";
 
     const { data, error } = await supabase
       .from("lab_tests")
       .select("id,taken_at,lab_name,notes,lab_markers(*)")
-      .order("taken_at", { ascending:false });
+      .order("taken_at", { ascending: false });
 
     if (error) {
       statusEl.textContent = "Error loading data.";
