@@ -83,12 +83,19 @@
 
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-    const supabase = createClient(
-      "https://psrtdoglooijxzeyhmpc.supabase.co",
-      "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      { auth: { flowType: "pkce" } }
-    );
+const supabase = createClient(
+  "https://psrtdoglooijxzeyhmpc.supabase.co",
+  "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
+  {
+    auth: {
+      flowType: "pkce",
+      storageKey: "injectbuddy-auth",     // <- critical
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  }
+);
 
     const out = document.getElementById("out");
 
