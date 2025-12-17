@@ -9,76 +9,144 @@
     :root{--bg:#020617;--card:#0b1220;--border:#1f2937;--text:#e5e7eb;--muted:#94a3b8;--cta:#00a3b0;}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);padding:24px}
     .wrap{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
     h1{margin:0;font-size:22px}
-    button{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer}
-    button:hover{border-color:var(--cta)}
+    .pill{font-size:12px;color:rgba(229,231,235,.9);background:linear-gradient(90deg, rgba(0,163,176,.22), rgba(3,105,114,.14));
+      border:1px solid rgba(0,163,176,.25);padding:6px 10px;border-radius:999px;white-space:nowrap}
+    .btn{background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer}
+    .btn:hover{border-color:var(--cta)}
+    .btnPrimary{background:rgba(0,163,176,.12);border-color:rgba(0,163,176,.35)}
+    .grid{display:grid;gap:14px;grid-template-columns:1fr; }
+    @media(min-width:900px){ .grid{grid-template-columns: 1fr 1fr;} }
     .card{background:linear-gradient(180deg,#0b1220,#070d18);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 18px 50px rgba(15,23,42,.75)}
     .muted{color:var(--muted);font-size:14px;margin-bottom:10px}
+    textarea{width:100%;min-height:220px;background:rgba(2,6,23,.35);color:#cbd5f5;border:1px solid var(--border);border-radius:14px;padding:12px;font-size:13px;line-height:1.45}
     pre{margin:0;font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word;color:#cbd5f5}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <header>
-      <h1>Your Dashboard</h1>
-      <button id="logout">Log out</button>
+      <div>
+        <h1>Your Dashboard</h1>
+        <div class="muted" id="who">Checking session…</div>
+      </div>
+      <div class="row">
+        <span class="pill" id="statusPill">Loading…</span>
+        <button class="btn" id="logout">Log out</button>
+      </div>
     </header>
 
-    <div class="card">
-      <div class="muted" id="status">Loading…</div>
-      <pre id="out"></pre>
+    <div class="grid">
+      <div class="card">
+        <div class="muted">Saved state (JSON). This is what your Feb app will also read/write.</div>
+        <textarea id="stateBox" spellcheck="false">{}</textarea>
+        <div class="row">
+          <button class="btn btnPrimary" id="save">Save</button>
+          <button class="btn" id="reload">Reload from cloud</button>
+        </div>
+        <div class="muted" id="msg"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">Debug</div>
+        <pre id="out"></pre>
+      </div>
     </div>
   </div>
 
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const statusEl = document.getElementById("status");
+    const who = document.getElementById("who");
+    const pill = document.getElementById("statusPill");
     const out = document.getElementById("out");
+    const msg = document.getElementById("msg");
+    const stateBox = document.getElementById("stateBox");
 
-    // ✅ MUST MATCH login.html + callback.html (no custom storageKey)
+    const setPill = (t) => pill.textContent = t;
+    const setMsg = (t) => msg.textContent = t || "";
+    const setOut = (t) => out.textContent = t || "";
+
     const supabase = createClient(
       "https://psrtdoglooijxzeyhmpc.supabase.co",
       "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
-      {
-        auth: {
-          flowType: "pkce",
-          persistSession: true,
-          autoRefreshToken: true
-        }
-      }
+      { auth: { flowType: "pkce", persistSession: true, autoRefreshToken: true } }
     );
 
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) {
-      location.replace("/login.html");
-      throw new Error("No session");
+    // Session gate
+    const { data: s } = await supabase.auth.getSession();
+    if (!s.session) location.replace("/login.html");
+
+    const user = s.session.user;
+    who.textContent = `Signed in as ${user.email || "user"}`
+    setOut("user_id: " + user.id);
+
+    async function loadState() {
+      setPill("Loading saved state…");
+      setMsg("");
+
+      const { data, error } = await supabase
+        .from("app_state")
+        .select("state,updated_at")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (error) {
+        setPill("Load failed");
+        setMsg(error.message);
+        return;
+      }
+
+      if (!data) {
+        setPill("No saved state yet");
+        stateBox.value = JSON.stringify({}, null, 2);
+        return;
+      }
+
+      setPill("Loaded");
+      stateBox.value = JSON.stringify(data.state || {}, null, 2);
+      setMsg("Last updated: " + data.updated_at);
     }
 
-    statusEl.textContent = "Signed in. Loading your saved data…";
+    async function saveState() {
+      setPill("Saving…");
+      setMsg("");
 
-    const { data, error } = await supabase
-      .from("lab_tests")
-      .select("id,taken_at,lab_name,notes,lab_markers(*)")
-      .order("taken_at", { ascending: false });
+      let parsed;
+      try {
+        parsed = JSON.parse(stateBox.value || "{}");
+      } catch (e) {
+        setPill("Save failed");
+        setMsg("Invalid JSON in the box. Fix it and try again.");
+        return;
+      }
 
-    if (error) {
-      statusEl.textContent = "Error loading data.";
-      out.textContent = error.message;
-    } else if (!data || data.length === 0) {
-      statusEl.textContent = "No saved lab data yet.";
-      out.textContent = "";
-    } else {
-      statusEl.textContent = "Loaded.";
-      out.textContent = JSON.stringify(data, null, 2);
+      const { error } = await supabase
+        .from("app_state")
+        .upsert({ user_id: user.id, state: parsed, updated_at: new Date().toISOString() });
+
+      if (error) {
+        setPill("Save failed");
+        setMsg(error.message);
+        return;
+      }
+
+      setPill("Saved");
+      setMsg("Saved to cloud.");
     }
+
+    document.getElementById("save").onclick = saveState;
+    document.getElementById("reload").onclick = loadState;
 
     document.getElementById("logout").onclick = async () => {
       await supabase.auth.signOut();
       location.replace("/login.html");
     };
+
+    await loadState();
   </script>
 </body>
 </html>
