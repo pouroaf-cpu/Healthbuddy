@@ -495,3 +495,24 @@
   #reviews .quote-ticker .qt-gap{ height:5px; }
 }
 
+/* =========================================
+   FULL-BLEED TICKER (STRETCHES TO SCREEN EDGE)
+   Works even if ticker is inside .container
+   ========================================= */
+
+#reviews .quote-ticker{
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Make sure the lines/ticker truly reach the edges */
+#reviews .quote-ticker .qt-line,
+#reviews .quote-ticker .qt-viewport{
+  width: 100%;
+}
+
+/* Prevent any accidental horizontal overflow from creating a right-side “wide” feel */
+html, body{
+  overflow-x: hidden;
+}
