@@ -24,119 +24,30 @@
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- PAGE-LEVEL LAYOUT -->
-  <style>
-    /* Make side nav lighter: remove white “card” look */
-    .ib-guides-nav {
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-      display: block !important;
-      box-sizing: border-box;
-    }
-
-    .ib-guides-nav .ib-guides-nav-wrap {
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-
-    /* Ensure the shell itself always takes space */
-    #ib-guides-shell {
-      display: block;
-      width: 100%;
-    }
-
-    /* Desktop layout: sidebar + content */
-    @media (min-width: 769px) {
-      /* Slightly decrease left padding on this page only */
-      .section.ib-guides-page > .container {
-        padding-left: 16px !important;
-        padding-right: 24px !important;
-      }
-
-      .ib-guides-layout {
-        display: grid !important;
-        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
-        column-gap: 24px;
-        align-items: flex-start;
-      }
-
-      .ib-guides-nav {
-        width: 100%;
-        max-width: 260px;
-      }
-
-      .ib-guides-content {
-        padding: 20px 28px 32px !important;
-      }
-    }
-
-    /* Mobile tweaks (you said mobile is fine – only keep padding) */
-    @media (max-width: 768px) {
-      .ib-title-row h1 {
-        font-size: 22px !important;
-        line-height: 1.25 !important;
-        white-space: normal !important;
-        word-break: break-word;
-      }
-
-      .ib-title-row {
-        padding: 16px 20px !important;
-      }
-
-      .ib-guides-layout {
-        display: block !important;
-      }
-
-      .ib-guides-nav {
-        position: static !important;
-        width: 100% !important;
-        margin-bottom: 12px;
-      }
-
-      /* Increase mobile padding to 57px on this page only */
-      .section.ib-guides-page > .container {
-        padding-left: 57px !important;
-        padding-right: 57px !important;
-      }
-
-      .ib-guides-content {
-        padding: 20px 0 28px !important; /* container handles side padding */
-      }
-
-      .ib-breadcrumbs {
-        padding-left: 0;
-      }
-    }
-  </style>
-
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
 </head>
 
-<!-- NEW UNIVERSAL GUIDES SIDEBAR CONTROL -->
 <body data-guides-cat="bloodwork" data-guides-active="bloodwork:basics">
   <div id="site-header" data-nav-current="guides"></div>
 
   <main>
-    <section class="section ib-guides-page">
+    <section class="section">
       <div class="container">
-
-        <!-- TITLE -->
-        <div class="ib-title-row">
+        <header>
+          <span class="tag">Bloodwork</span>
           <h1>Bloodwork Basics for TRT</h1>
-        </div>
+          <p class="muted">
+            A simple foundation for TRT bloodwork: which labs matter, when to test, and how to use results to stay
+            inside the guardrails.
+          </p>
+        </header>
 
         <div class="ib-guides-layout">
-
-          <!-- Sidebar (NEW universal sidebar) -->
-          <aside class="ib-guides-nav" aria-label="Guide navigation">
-            <div id="ib-guides-nav"></div>
-          </aside>
+          <!-- LEFT NAV (UNIVERSAL) -->
+          <div id="ib-guides-nav"></div>
 
           <!-- Main content -->
           <article class="ib-guides-content">
-
             <!-- Breadcrumb -->
             <nav class="ib-breadcrumbs" aria-label="Breadcrumb">
               <ol>
@@ -146,9 +57,7 @@
               </ol>
             </nav>
 
-            <p class="ib-guides-article-kicker">
-              A simple foundation for TRT bloodwork
-            </p>
+            <p class="ib-guides-article-kicker">A simple foundation for TRT bloodwork</p>
 
             <div class="ib-guide-meta">
               <span><strong>Category:</strong> Bloodwork</span>
@@ -249,18 +158,19 @@
                 <li>Decisions should be data-backed, not guesswork.</li>
               </ul>
             </section>
-
           </article>
         </div>
       </div>
     </section>
 
-    <!-- DISCLAIMER -->
-    <section class="section">
+    <!-- DISCLAIMER (matches your other pages style) -->
+    <section class="section" aria-label="Guide disclaimer">
       <div class="container">
-        <div class="card" style="padding:18px;">
+        <div style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow);">
           <strong>General information only</strong>
-          <p class="muted">This guide is educational. It does not interpret your personal labs or replace medical care.</p>
+          <p class="muted" style="margin:8px 0 0;">
+            This guide is educational. It does not interpret your personal labs or replace medical care.
+          </p>
         </div>
       </div>
     </section>
@@ -270,8 +180,6 @@
 
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
-
-  <!-- NEW universal guides sidebar loader -->
   <script src="/assets/guides-nav.js" defer></script>
 </body>
 </html>
