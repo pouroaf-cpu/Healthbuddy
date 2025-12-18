@@ -114,7 +114,8 @@
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
 </head>
 
-<body>
+<!-- NEW UNIVERSAL GUIDES SIDEBAR CONTROL -->
+<body data-guides-cat="bloodwork" data-guides-active="bloodwork:basics">
   <div id="site-header" data-nav-current="guides"></div>
 
   <main>
@@ -128,13 +129,9 @@
 
         <div class="ib-guides-layout">
 
-          <!-- Sidebar -->
-          <aside class="ib-guides-nav">
-            <div
-              id="ib-guides-shell"
-              data-guide-category="bloodwork"
-              data-guide-slug="basics"
-            ></div>
+          <!-- Sidebar (NEW universal sidebar) -->
+          <aside class="ib-guides-nav" aria-label="Guide navigation">
+            <div id="ib-guides-nav"></div>
           </aside>
 
           <!-- Main content -->
@@ -273,6 +270,8 @@
 
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
+
+  <!-- NEW universal guides sidebar loader -->
   <script src="/assets/guides-nav.js" defer></script>
 </body>
 </html>
