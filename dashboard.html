@@ -24,166 +24,8 @@
   <meta property="og:site_name" content="InjectBuddy" />
   <link rel="icon" href="/assets/favicon.svg" />
 
-  <style>
-    :root{
-      --bg:#020617;
-      --card:#0b1224;
-      --ink:#e5e7eb;
-      --muted:#9ca3af;
-      --border:rgba(255,255,255,.10);
-      --shadow:0 16px 36px rgba(0,0,0,.65);
-      --cta:#00b2b5;
-      --cta-hover:#00c7ca;
-      --ring:rgba(0,199,202,.55);
-    }
-
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:0 24px}
-    @media (max-width:640px){.container{padding:0 20px}}
-
-    main.container{padding:22px 0}
-    @media (max-width:640px){main.container{padding:12px 0}}
-
-    /* Header row */
-    .hero{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      padding:16px;
-      background:linear-gradient(180deg, rgba(0,178,181,.14), rgba(2,6,23,0));
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-    }
-    .hero h1{margin:0;font-size:22px;letter-spacing:-.02em}
-    .hero p{margin:6px 0 0;color:var(--muted);line-height:1.4}
-    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    @media (max-width:720px){
-      .hero{flex-direction:column}
-      .hero-actions{justify-content:flex-start}
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      color:var(--ink);
-      font-weight:800;
-      font-size:14px;
-      cursor:pointer;
-      box-shadow:0 10px 22px rgba(0,0,0,.45);
-      transition:transform .12s ease, box-shadow .12s ease, background-color .12s ease;
-    }
-    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(0,0,0,.6)}
-    .btn:active{transform:translateY(0)}
-    .btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 14px 28px rgba(0,0,0,.6)}
-
-    .btn.primary{
-      border-color:rgba(0,199,202,.35);
-      background:linear-gradient(180deg, #37fbff 0%, var(--cta) 55%, #00a1a4 100%);
-      color:#061014;
-    }
-    .btn.primary:hover{background:linear-gradient(180deg, #55fcff 0%, var(--cta-hover) 60%, #00a1a4 100%)}
-
-    /* Grid */
-    .grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:16px;
-      margin-top:16px;
-    }
-    @media (max-width:980px){.grid{grid-template-columns:1fr}}
-
-    .panel{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .panel-hd{
-      padding:14px 14px 10px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .panel-hd h2{margin:0;font-size:15px;letter-spacing:-.01em}
-    .panel-hd .sub{color:var(--muted);font-size:13px}
-
-    .panel-bd{padding:14px}
-
-    /* Tool tiles */
-    .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media (max-width:640px){.tiles{grid-template-columns:1fr}}
-
-    .tile{
-      display:block;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.08);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow:0 10px 22px rgba(0,0,0,.35);
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-    }
-    .tile:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(0,0,0,.55);border-color:rgba(0,199,202,.18)}
-    .tile:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(2,6,23,.85), 0 0 0 6px var(--ring), 0 14px 28px rgba(0,0,0,.55)}
-    .tile .t{font-weight:900;font-size:14px;margin:0 0 4px}
-    .tile .d{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
-
-    /* Saved settings */
-    .kv{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-    .kv-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
-      background:rgba(255,255,255,.03);
-    }
-    .kv-row .k{color:var(--muted);font-size:13px}
-    .kv-row .v{font-weight:900;font-size:13px}
-
-    .note{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:12.5px;
-      line-height:1.45;
-    }
-
-    /* Small inline badge */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,199,202,.10);
-      color:#bffcff;
-      font-weight:900;
-      font-size:12px;
-      white-space:nowrap;
-    }
-
-    /* Footer spacing (footer.js renders content) */
-    #ib-footer{margin-top:16px}
-  </style>
+  <!-- MAIN SITE STYLES (same as index/calculator) -->
+  <link rel="stylesheet" href="/assets/style.css" />
 
   <!-- Clarity -->
   <script type="text/javascript">
@@ -193,27 +35,68 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
+
+  <!-- Dashboard-only layout glue (kept tiny, does not fight style.css) -->
+  <style>
+    main.container{padding:18px 0}
+    @media (max-width:640px){main.container{padding:12px 0}}
+
+    .dash-hero{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+      padding:16px;border-radius:16px;
+    }
+    .dash-hero h1{margin:0}
+    .dash-hero p{margin:6px 0 0}
+    .dash-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    @media (max-width:820px){
+      .dash-hero{flex-direction:column}
+      .dash-actions{justify-content:flex-start}
+    }
+
+    .dash-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (max-width:980px){.dash-grid{grid-template-columns:1fr}}
+
+    .dash-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media (max-width:640px){.dash-tiles{grid-template-columns:1fr}}
+
+    /* fallback only if your style.css doesn't define these */
+    .sub{opacity:.8;font-size:.92rem}
+    .note{opacity:.85;font-size:.92rem;line-height:1.45;margin-top:10px}
+
+    /* these are deliberately minimal; your style.css should own visual styling */
+    .kv{display:grid;gap:10px}
+    .kv-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px}
+    .kv-row .k{opacity:.8;font-size:.92rem}
+    .kv-row .v{font-weight:800}
+  </style>
 </head>
 
 <body>
-  <!-- Universal header inject -->
+  <!-- Universal header inject (nav.js should target #site-header) -->
   <div id="site-header"></div>
 
   <main class="container">
-    <section class="hero" aria-label="Dashboard overview">
+    <!-- HERO (uses main page styles via existing classes in style.css, plus layout glue above) -->
+    <section class="panel dash-hero" aria-label="Dashboard overview">
       <div>
         <h1>Dashboard</h1>
-        <p>Your shortcuts, saved calculator defaults, and quick actions.</p>
+        <p class="muted">Your shortcuts, saved calculator defaults, and quick actions.</p>
       </div>
-      <div class="hero-actions">
+
+      <div class="dash-actions">
         <a class="btn primary" href="/calculator.html">Open TRT Calculator</a>
         <a class="btn" href="/peptide-calculator.html">Open Peptide Calculator</a>
         <a class="btn" href="/guides.html">Guides</a>
       </div>
     </section>
 
-    <div class="grid">
-      <!-- LEFT: tools -->
+    <div class="dash-grid">
+      <!-- LEFT -->
       <section class="panel" aria-label="Tools">
         <div class="panel-hd">
           <div>
@@ -224,7 +107,7 @@
         </div>
 
         <div class="panel-bd">
-          <div class="tiles">
+          <div class="dash-tiles">
             <a class="tile" href="/calculator.html">
               <p class="t">Testosterone Dosage Calculator</p>
               <p class="d">Per-week, every-N-days, and mL → mg modes with syringe visual.</p>
@@ -252,7 +135,7 @@
         </div>
       </section>
 
-      <!-- RIGHT: saved defaults + quick actions -->
+      <!-- RIGHT -->
       <aside class="panel" aria-label="Saved settings">
         <div class="panel-hd">
           <div>
@@ -281,14 +164,14 @@
     </div>
   </main>
 
-  <!-- Universal footer inject -->
+  <!-- Universal footer inject (footer.js should target #ib-footer) -->
   <div id="ib-footer"></div>
 
   <!-- Universal header/footer scripts -->
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
 
-  <!-- Optional: if you already use Supabase on calculator, this will read the same app_state row -->
+  <!-- Supabase: reads the same app_state row as your calculator -->
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -313,18 +196,21 @@
       return "—";
     }
     function niceSyringe(s){
-      if (!s && s !== 0) return "—";
-      return Number(s).toFixed(1) + " mL";
+      if (s === null || s === undefined || s === "") return "—";
+      const n = Number(s);
+      return Number.isFinite(n) ? n.toFixed(1) + " mL" : "—";
     }
     function niceConc(c){
-      if (!c) return "—";
-      return Number(c).toFixed(0) + " mg/mL";
+      if (c === null || c === undefined || c === "") return "—";
+      const n = Number(c);
+      return Number.isFinite(n) ? n.toFixed(0) + " mg/mL" : "—";
     }
-    function niceWeeklyIdxOrMg(st){
-      // your calculator saves weeklyIdx; if present, we can't reconstruct mg without the same options array
-      // so we show what we have: weeklyIdx OR weeklyMg if you later store it.
-      if (st.weeklyMg) return Number(st.weeklyMg).toFixed(0) + " mg/week";
-      if (typeof st.weeklyIdx === "number") return "Index " + st.weeklyIdx + " (saved)";
+    function niceWeekly(st){
+      if (st && st.weeklyMg !== undefined && st.weeklyMg !== null && st.weeklyMg !== ""){
+        const n = Number(st.weeklyMg);
+        return Number.isFinite(n) ? n.toFixed(0) + " mg/week" : "—";
+      }
+      if (st && typeof st.weeklyIdx === "number") return "Index " + st.weeklyIdx + " (saved)";
       return "—";
     }
 
@@ -337,7 +223,6 @@
       setText(note, "Cleared.");
     }
 
-    // ====== Supabase client (same as calculator) ======
     const supabase = createClient(
       "https://psrtdoglooijxzeyhmpc.supabase.co",
       "sb_publishable_Ta_almUqr3QTPpWQA6Uicw_IYhwLY0S",
@@ -350,13 +235,14 @@
         const user = sess?.session?.user || null;
 
         if (!user){
-          authBadge.textContent = "Not logged in";
+          if (authBadge) authBadge.textContent = "Not logged in";
           clearView();
           setText(note, "Log in to see saved defaults.");
           return;
         }
 
-        authBadge.textContent = "Logged in";
+        if (authBadge) authBadge.textContent = "Logged in";
+
         const { data, error } = await supabase
           .from("app_state")
           .select("state, updated_at")
@@ -372,14 +258,14 @@
         const st = data.state;
 
         setText(vMode, niceMode(st.mode));
-        setText(vSyr, niceSyringe(st.syringe));
+        setText(vSyr,  niceSyringe(st.syringe));
         setText(vConc, niceConc(st.conc));
-        setText(vWeekly, niceWeeklyIdxOrMg(st));
+        setText(vWeekly, niceWeekly(st));
         setText(vNDays, (st.ndays ? String(st.ndays) + " days" : "—"));
 
         setText(note, "Loaded from your last saved calculator session.");
-      } catch(e){
-        authBadge.textContent = "Error";
+      } catch (e){
+        if (authBadge) authBadge.textContent = "Error";
         setText(note, "Could not load saved state.");
       }
     }
