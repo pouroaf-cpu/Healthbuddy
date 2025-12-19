@@ -10,7 +10,7 @@
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -22,24 +22,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>About InjectBuddy — Understanding TRT &amp; Testosterone Esters</title>
-  <meta name="description" content="Simple explanation of TRT, testosterone esters, and how InjectBuddy helps you calculate doses, schedules, and syringe volumes accurately." />
+  <title>About InjectBuddy — Understanding TRT & Testosterone Esters</title>
+  <meta name="description" content="Plain-language overview of TRT, testosterone esters, and how InjectBuddy calculators help with accurate dosing and planning." />
   <link rel="canonical" href="https://www.injectbuddy.com/about.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="About InjectBuddy — Understanding TRT &amp; Testosterone Esters" />
-  <meta property="og:description" content="Plain-language guide to TRT and testosterone esters — cypionate, enanthate, propionate — and how InjectBuddy supports accurate dosing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.injectbuddy.com/about.html" />
-  <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#00a3b0" />
 
-  <!-- Global (new dark) -->
+  <!-- Global dark theme -->
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Page-specific layout only (no old light tokens) -->
+  <!-- Page layout only -->
   <style>
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
@@ -50,36 +43,34 @@
       padding:0 16px;
     }
 
-    .ib-about-hero,
-    .ib-about-section{
+    .ib-card{
       border:1px solid var(--border);
       border-radius:18px;
-      box-shadow:var(--shadow-md);
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow:var(--shadow-md);
     }
 
-    .ib-about-hero{
+    .ib-hero{
       padding:28px 24px;
       background:
         radial-gradient(1100px 420px at 16% 0%, rgba(0,163,176,.20), transparent 60%),
-        radial-gradient(900px 380px at 88% 12%, rgba(3,105,114,.18), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+        radial-gradient(900px 380px at 88% 12%, rgba(3,105,114,.18), transparent 55%);
     }
 
-    .ib-about-hero h1{
+    .ib-hero h1{
       margin:0 0 10px;
       font-size:clamp(26px,3.8vw,40px);
       letter-spacing:-.02em;
       color:var(--ink-900);
     }
 
-    .ib-about-hero p{
+    .ib-hero p{
       margin:0;
       max-width:72ch;
       color:var(--ink-700);
     }
 
-    .ib-about-cta{
+    .ib-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
@@ -90,14 +81,14 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      border-radius:999px;
       padding:10px 14px;
+      border-radius:999px;
       border:1px solid var(--border);
-      text-decoration:none;
+      background:rgba(255,255,255,.02);
       font-weight:700;
       font-size:14px;
       color:var(--ink-900);
-      background:rgba(255,255,255,.02);
+      text-decoration:none;
     }
     .ib-btn:hover{border-color:rgba(25,198,212,.55)}
 
@@ -106,35 +97,28 @@
       border-color:rgba(0,163,176,.45);
       color:#06181a;
     }
-    .ib-btn.primary:hover{
-      filter:brightness(1.05);
-      border-color:rgba(25,198,212,.7);
-    }
 
-    .ib-about-section{
+    .ib-section{
       margin-top:18px;
-      padding:22px 22px;
+      padding:22px;
       box-shadow:var(--shadow-sm);
     }
 
-    .ib-about-section h2{
+    .ib-section h2{
       margin:0 0 10px;
       font-size:20px;
-      letter-spacing:-.01em;
       color:var(--ink-900);
     }
 
-    .ib-about-section h3{
+    .ib-section h3{
       margin:14px 0 6px;
       font-size:16px;
       color:var(--ink-900);
     }
 
-    .ib-about-section p{margin:0 0 10px;color:var(--ink-700)}
-    .ib-about-section p:last-child{margin-bottom:0}
-
-    ul{padding-left:18px;margin:8px 0 0}
-    ul li{margin:6px 0;color:var(--ink-700)}
+    .ib-section p{margin:0 0 10px;color:var(--ink-700)}
+    ul{padding-left:18px;margin:8px 0}
+    li{margin:6px 0;color:var(--ink-700)}
 
     .ib-note{
       margin-top:12px;
@@ -147,99 +131,97 @@
     }
 
     @media (max-width:640px){
-      main.ib-about-wrap{ margin-top:74px; padding:0 14px; }
-      .ib-about-hero{ padding:22px 16px; }
-      .ib-about-section{ padding:18px 16px; }
-      .ib-btn{ width:100%; }
+      main.ib-about-wrap{margin-top:74px;padding:0 14px}
+      .ib-hero,.ib-section{padding:18px 16px}
+      .ib-btn{width:100%}
     }
   </style>
 </head>
 
 <body>
+
   <!-- Universal header -->
   <div id="site-header"></div>
 
   <main class="ib-about-wrap">
 
-    <section class="ib-about-hero">
+    <!-- HERO -->
+    <section class="ib-card ib-hero">
       <h1>About InjectBuddy</h1>
       <p>
-        InjectBuddy exists to remove confusion around TRT and peptide dosing. Instead of guessing syringe volumes
-        or doing mg-to-mL math mid-injection, you get clear conversions, consistent schedules, and realistic visuals.
+        InjectBuddy removes the guesswork from TRT and peptide dosing. Instead of mental math,
+        inconsistent schedules, or unclear syringe volumes, you get clear conversions and realistic visuals.
       </p>
 
-      <!-- Links: tools + guides only -->
-      <div class="ib-about-cta">
-        <a class="ib-btn primary" href="/Tools/index.html">Tools</a>
+      <!-- Individual tool links only -->
+      <div class="ib-links">
+        <a class="ib-btn primary" href="/calculator.html">TRT Dosage Calculator</a>
+        <a class="ib-btn" href="/peptide.html">Peptide Reconstitution</a>
+        <a class="ib-btn" href="/free-testosterone-calculator">Free Testosterone Calculator</a>
+        <a class="ib-btn" href="/bmi.html">BMI Calculator</a>
         <a class="ib-btn" href="/guides/">Guides</a>
       </div>
     </section>
 
-    <section class="ib-about-section">
+    <section class="ib-card ib-section">
       <h2>What Is Testosterone Replacement Therapy (TRT)?</h2>
       <p>
-        TRT is a medically supervised treatment for clinically low testosterone. The goal is to restore normal function
-        (energy, mood, libido, sleep, recovery) — not to chase bodybuilding doses.
+        TRT is a medically supervised treatment for clinically low testosterone.
+        The goal is restoring normal physiological function — not chasing supraphysiologic levels.
       </p>
       <p>
-        Most TRT uses injectable testosterone attached to an ester. The testosterone is the hormone; the ester mainly controls
-        how quickly it releases.
+        Injectable testosterone is typically bound to an ester, which controls how quickly the hormone is released.
       </p>
       <div class="ib-note">
-        InjectBuddy helps you understand dosing math and planning. It does not replace clinical care.
+        InjectBuddy assists with dosing math and planning. It does not replace medical care.
       </div>
     </section>
 
-    <section class="ib-about-section">
-      <h2>Key Testosterone Esters Explained</h2>
-      <p>
-        Esters change the release speed. The hormone is the same — the ester changes how it absorbs, peaks, and tapers.
-      </p>
+    <section class="ib-card ib-section">
+      <h2>Key Testosterone Esters</h2>
 
       <h3>Testosterone Cypionate</h3>
-      <p>Long-acting, smooth, commonly used in TRT. Often split into 1–2 injections per week (or more for steadier levels).</p>
+      <p>Long-acting, stable, commonly used in TRT. Often split for smoother levels.</p>
 
       <h3>Testosterone Enanthate</h3>
-      <p>Very similar to cypionate. Slightly shorter release profile, often treated as interchangeable in practice.</p>
+      <p>Very similar to cypionate with a slightly shorter release curve.</p>
 
       <h3>Testosterone Propionate</h3>
-      <p>Short-acting, faster peaks and quicker clearance. Typically requires more frequent injections.</p>
+      <p>Short-acting with faster peaks, usually requiring more frequent injections.</p>
 
-      <h3>Blends &amp; Long-Acting Options</h3>
+      <h3>Blends & Long-Acting Options</h3>
       <p>
-        Blends combine esters for different release profiles. Undecanoate is extremely long-acting and is commonly administered
-        in a clinical setting.
+        Ester blends and undecanoate alter release timing but not the testosterone itself.
+        Very long-acting options are usually administered clinically.
       </p>
     </section>
 
-    <section class="ib-about-section">
-      <h2>Why Dosing and Frequency Matter</h2>
+    <section class="ib-card ib-section">
+      <h2>Why Dose Splitting Matters</h2>
       <p>
-        The same weekly dose behaves very differently depending on how it’s split. Large, infrequent injections tend to create
-        bigger swings; smaller, more frequent doses typically smooth things out.
+        Weekly dose alone doesn’t determine stability. Injection frequency dramatically affects peaks,
+        troughs, and symptom control.
       </p>
       <ul>
-        <li>Shorter esters generally benefit from more frequent injections.</li>
-        <li>Longer esters can allow less frequent dosing, but planning still matters.</li>
-        <li>Symptoms and lab work should guide decisions — not guesswork.</li>
+        <li>More frequent injections generally reduce hormonal swings</li>
+        <li>Short esters require tighter scheduling</li>
+        <li>Labs and symptoms should guide adjustments</li>
       </ul>
     </section>
 
-    <section class="ib-about-section">
-      <h2>Where InjectBuddy Helps</h2>
-      <p>
-        InjectBuddy converts mg → mL, breaks down schedules, and shows realistic syringe visuals for common planning needs.
-      </p>
+    <section class="ib-card ib-section">
+      <h2>What InjectBuddy Is Built For</h2>
       <ul>
-        <li>TRT dose planning</li>
-        <li>Peptide reconstitution</li>
+        <li>TRT dose planning and syringe volume clarity</li>
+        <li>Peptide reconstitution math</li>
         <li>Free testosterone estimation</li>
-        <li>Basic health tools (e.g., BMI)</li>
+        <li>Simple health reference tools</li>
       </ul>
 
-      <div class="ib-about-cta" style="margin-top:14px;">
-        <a class="ib-btn primary" href="/Tools/index.html">Browse tools</a>
-        <a class="ib-btn" href="/guides/">Browse guides</a>
+      <div class="ib-links" style="margin-top:14px">
+        <a class="ib-btn primary" href="/calculator.html">TRT Calculator</a>
+        <a class="ib-btn" href="/peptide.html">Peptide Tool</a>
+        <a class="ib-btn" href="/guides/">Guides</a>
       </div>
     </section>
 
@@ -251,30 +233,5 @@
   <script src="/assets/nav.js" defer></script>
   <script src="/assets/footer.js" defer></script>
 
-  <!-- Scroll to Top Button -->
-  <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("ib-scroll-top");
-
-      function toggleButton() {
-        if (window.innerWidth <= 980) {
-          if (window.scrollY > 180) btn.classList.add("visible");
-          else btn.classList.remove("visible");
-        } else {
-          btn.classList.remove("visible");
-        }
-      }
-
-      window.addEventListener("scroll", toggleButton, { passive: true });
-      window.addEventListener("resize", toggleButton);
-
-      btn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      toggleButton();
-    });
-  </script>
 </body>
 </html>
