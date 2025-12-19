@@ -8,6 +8,7 @@
 
     <!-- Desktop nav -->
     <div class="ib-nav-links">
+
       <!-- Tools dropdown -->
       <div class="ib-nav-item ib-has-dropdown">
         <button class="ib-nav-link ib-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
@@ -30,20 +31,41 @@
         </div>
       </div>
 
-      <!-- Bloodwork (only guides entry) -->
-      <a href="/guides/Bloodwork/basics.html"
-         class="ib-nav-link"
-         data-match="/guides/bloodwork/basics">
-        Bloodwork &amp; monitoring
-      </a>
+      <!-- Guides dropdown (INDEX ONLY) -->
+      <div class="ib-nav-item ib-has-dropdown">
+        <button class="ib-nav-link ib-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Guides
+          <span class="ib-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="ib-dropdown" role="menu">
+          <a href="/guides/Bloodwork/index.html" class="ib-dropdown-link" role="menuitem">
+            Bloodwork
+          </a>
+          <a href="/guides/HormonesHealthBasics/index.html" class="ib-dropdown-link" role="menuitem">
+            Hormones &amp; health basics
+          </a>
+          <a href="/guides/Testosterone/index.html" class="ib-dropdown-link" role="menuitem">
+            Testosterone
+          </a>
+          <a href="/guides/Peptides/index.html" class="ib-dropdown-link" role="menuitem">
+            Peptides
+          </a>
+          <a href="/guides/InjectionTechniqueSafety/index.html" class="ib-dropdown-link" role="menuitem">
+            Injection technique &amp; safety
+          </a>
+          <a href="/guides/Tools/index.html" class="ib-dropdown-link" role="menuitem">
+            Tools &amp; calculators
+          </a>
+        </div>
+      </div>
 
-      <!-- Top-level items -->
+      <!-- Top-level -->
       <a href="/embed.html" class="ib-nav-link" data-match="/embed">Embed</a>
       <a href="/contact.html" class="ib-nav-link" data-match="/contact">Contact</a>
       <a href="/about.html" class="ib-nav-link" data-match="/about">About</a>
     </div>
 
-    <!-- Burger (mobile) -->
+    <!-- Burger -->
     <button class="ib-burger" type="button" aria-label="Toggle navigation" aria-expanded="false">
       <span class="ib-burger-line"></span>
       <span class="ib-burger-line"></span>
@@ -54,30 +76,39 @@
   <!-- Mobile menu -->
   <div class="ib-mobile-menu" hidden>
     <nav class="ib-mobile-nav" aria-label="Mobile navigation">
-      
+
       <!-- Tools -->
       <details class="ib-mobile-section">
         <summary class="ib-mobile-summary">
-          Tools
-          <span class="ib-caret">▾</span>
+          Tools <span class="ib-caret">▾</span>
         </summary>
         <div class="ib-mobile-links">
-          <a href="/calculator.html" data-match="/calculator.html">Testosterone dosage calculator</a>
-          <a href="/peptide.html" data-match="/peptide.html">Peptide reconstitution / dosage</a>
-          <a href="/bmi.html" data-match="/bmi.html">BMI calculator</a>
-          <a href="/free-testosterone-calculator.html" data-match="/free-testosterone-calculator.html">Free testosterone calculator</a>
+          <a href="/calculator.html">Testosterone dosage calculator</a>
+          <a href="/peptide.html">Peptide reconstitution / dosage</a>
+          <a href="/bmi.html">BMI calculator</a>
+          <a href="/free-testosterone-calculator.html">Free testosterone calculator</a>
         </div>
       </details>
 
-      <!-- Bloodwork (only guides entry) -->
-      <a href="/guides/Bloodwork/basics.html" data-match="/guides/bloodwork/basics">
-        Bloodwork &amp; monitoring
-      </a>
+      <!-- Guides (INDEX ONLY) -->
+      <details class="ib-mobile-section">
+        <summary class="ib-mobile-summary">
+          Guides <span class="ib-caret">▾</span>
+        </summary>
+        <div class="ib-mobile-links">
+          <a href="/guides/Bloodwork/index.html">Bloodwork</a>
+          <a href="/guides/HormonesHealthBasics/index.html">Hormones &amp; health basics</a>
+          <a href="/guides/Testosterone/index.html">Testosterone</a>
+          <a href="/guides/Peptides/index.html">Peptides</a>
+          <a href="/guides/InjectionTechniqueSafety/index.html">Injection technique &amp; safety</a>
+          <a href="/guides/Tools/index.html">Tools &amp; calculators</a>
+        </div>
+      </details>
 
-      <!-- Other links -->
-      <a href="/embed.html" data-match="/embed">Embed</a>
-      <a href="/contact.html" data-match="/contact">Contact</a>
-      <a href="/about.html" data-match="/about">About</a>
+      <!-- Other -->
+      <a href="/embed.html">Embed</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
     </nav>
   </div>
 </header>
