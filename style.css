@@ -1352,6 +1352,20 @@ input[type="range"]:active::-moz-range-thumb{
   color: var(--teal-700);
   margin-right: 4px;
 }
+/* Force calculator pages to use global tokens (prevents page-local :root overrides) */
+html, body{
+  background: var(--bg) !important;
+  color: var(--ink-900) !important;
+}
+
+/* Standardize calculator shell */
+#calculator.form-container,
+.calc-card,
+.peptide-card{
+  background: radial-gradient(circle at top left, #020b1f 0%, #020617 55%, #000 100%) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+}
 
 
 
