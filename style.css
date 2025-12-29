@@ -1270,3 +1270,6 @@ input[type="range"]:active::-moz-range-thumb{
     padding: 9px 10px;
   }
 }
+.ib-guide-section { display: block; }
+.ib-guide-section ul { display: block; }
+.ib-guide-section li { display: list-item; }
