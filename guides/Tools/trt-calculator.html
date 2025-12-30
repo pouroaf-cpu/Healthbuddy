@@ -1,10 +1,10 @@
-e<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4EGGZW9P14"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];ee
+    window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-4EGGZW9P14');
@@ -14,202 +14,215 @@ e<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>How to Use the TRT Dosage Calculator | InjectBuddy</title>
-  <meta name="description" content="Step-by-step guide to using the InjectBuddy TRT dosage calculator correctly. Learn what each input means, how to avoid common mistakes, and how to trust the output." />
+  <meta name="description" content="Step-by-step guide to using the InjectBuddy TRT dosage calculator correctly. Understand each input, avoid common mistakes, and interpret the outputs with consistent bloodwork timing." />
   <link rel="canonical" href="https://www.injectbuddy.com/guides/tools/trt-calculator.html" />
 
   <meta property="og:title" content="How to Use the TRT Dosage Calculator" />
-  <meta property="og:description" content="Understand every input before you trust the dose." />
+  <meta property="og:description" content="A practical step-by-step guide to using the TRT dosage calculator correctly and avoiding the most common input mistakes." />
   <meta property="og:type" content="article" />
 
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
-
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
 </head>
 
-<body data-guides-cat="tools" data-guides-active="tools:trt">
-  <div id="site-header" data-nav-current="tools"></div>
+<body data-guides-cat="tools" data-guides-active="tools:trtcalc">
+  <div id="site-header" data-nav-current="guides"></div>
 
   <main>
     <section class="section">
       <div class="container">
         <header>
-          <span class="tag">Tools</span>
+          <span class="tag">Tools &amp; calculators</span>
           <h1>How to use the TRT dosage calculator</h1>
           <p class="muted">
-            A practical walkthrough of the TRT calculator—what each input means,
-            how the math works, and how to avoid the mistakes that cause bad dosing.
+            This guide shows you exactly how to enter values, choose frequency, and read the outputs
+            without creating timing noise or unit errors.
           </p>
         </header>
 
         <div class="ib-guides-layout">
-          <!-- LEFT NAV -->
+          <!-- LEFT NAV (UNIVERSAL) -->
           <div id="ib-guides-nav"></div>
 
           <!-- Main content -->
           <article class="ib-guides-content">
-
             <!-- Breadcrumb -->
             <nav class="ib-breadcrumbs ib-breadcrumbs--teal" aria-label="Breadcrumb">
               <ol>
                 <li><a href="/" class="ib-crumb-strong">InjectBuddy</a></li>
-                <li><a href="/guides/Tools/index.html" class="ib-crumb-strong">Tools</a></li>
-                <li aria-current="page" class="ib-crumb-current">TRT dosage calculator</li>
+                <li><a href="/guides/" class="ib-crumb-strong">Guides</a></li>
+                <li><a href="/guides/tools/" class="ib-crumb-strong">Tools &amp; calculators</a></li>
+                <li aria-current="page" class="ib-crumb-current">TRT calculator</li>
               </ol>
             </nav>
 
-            <p class="ib-guides-article-kicker">
-              Bad inputs create confident-looking wrong doses
-            </p>
+            <p class="ib-guides-article-kicker">Accurate inputs → predictable outputs → cleaner bloodwork decisions.</p>
 
-            <!-- META -->
             <div class="ib-guide-meta ib-guide-meta--teal">
-              <span><span class="meta-strong">Category:</span> Tools</span>
+              <span><span class="meta-strong">Category:</span> Tools &amp; calculators</span>
               <span><span class="meta-strong">Level:</span> Beginner</span>
-              <span><span class="meta-strong">Reading time:</span> ~6 minutes</span>
-              <span><span class="meta-strong">Last updated:</span> 19 Dec 2025</span>
+              <span><span class="meta-strong">Reading time:</span> ~7 minutes</span>
+              <span><span class="meta-strong">Last updated:</span> 31 Dec 2025</span>
             </div>
 
-            <!-- INTRO -->
-            <header class="ib-guides-article-header">
-              <h2>What this calculator actually does</h2>
-              <p>
-                The TRT dosage calculator converts a weekly testosterone dose into
-                per-injection volume based on concentration and injection frequency.
-              </p>
-              <p>
-                It does not decide what dose you should be on—it makes the math accurate
-                once a dose is chosen.
-              </p>
-            </header>
-
-            <!-- STEP 1 -->
-            <section class="ib-guide-section">
-              <h2>Step 1: Set your testosterone concentration</h2>
-              <p>
-                Enter the concentration printed on your vial (for example, 250&nbsp;mg/mL).
-              </p>
-              <ul>
-                <li>This value never changes unless you switch products</li>
-                <li>Do not enter total vial amount</li>
-              </ul>
-
+            <!-- QUICK ACTIONS -->
+            <section class="ib-guide-section" aria-label="Quick actions">
               <div class="ib-guide-callout">
-                <strong>Common error</strong>
-                <p class="muted">Entering total mg in the vial instead of mg per mL.</p>
+                <strong>Go straight to the tool</strong>
+                <p class="muted" style="margin-top:6px;">
+                  Use the calculator here: <a href="/calculator.html"><strong>Testosterone dosage calculator</strong></a>
+                </p>
               </div>
             </section>
 
-            <!-- STEP 2 -->
+            <!-- WHY THIS GUIDE EXISTS -->
             <section class="ib-guide-section">
-              <h2>Step 2: Enter your total weekly dose</h2>
-              <p>
-                This is the total amount of testosterone you intend to use per week,
-                regardless of how many injections you split it into.
-              </p>
-
+              <h2>What this calculator does (and does not do)</h2>
               <ul>
-                <li>Example: 150&nbsp;mg per week</li>
-                <li>The calculator divides this automatically</li>
-              </ul>
-            </section>
-
-            <!-- STEP 3 -->
-            <section class="ib-guide-section">
-              <h2>Step 3: Choose injection frequency</h2>
-              <p>
-                Select how often you inject: weekly, twice weekly, every N days, or daily.
-              </p>
-
-              <ul>
-                <li>More frequent injections = smaller per-injection volume</li>
-                <li>Frequency affects stability, not total weekly dose</li>
-              </ul>
-
-              <p class="muted">
-                For more detail, see
-                <a href="/guides/testosterone/frequency-options.html">
-                  weekly vs every-N-days dosing
-                </a>.
-              </p>
-            </section>
-
-            <!-- STEP 4 -->
-            <section class="ib-guide-section">
-              <h2>Step 4: Review per-injection volume</h2>
-              <p>
-                The calculator outputs how much liquid to inject each time,
-                shown in mL and syringe units.
-              </p>
-
-              <ul>
-                <li>Match this to your syringe type</li>
-                <li>Confirm markings visually before injecting</li>
+                <li><strong>It does:</strong> convert weekly dose + concentration + frequency into per-injection mg and mL, with schedule logic and syringe visuals.</li>
+                <li><strong>It does not:</strong> decide your protocol, interpret your labs, or tell you what dose you “should” be on.</li>
               </ul>
 
               <div class="ib-guide-callout">
                 <strong>Rule</strong>
-                <p class="muted">If the volume looks unusually large or small, recheck inputs.</p>
+                <p class="muted">If the inputs are wrong, the output is wrong. Slow down and confirm concentration + units.</p>
               </div>
             </section>
 
-            <!-- WHAT IT DOES NOT DO -->
+            <!-- BEFORE YOU CALCULATE -->
             <section class="ib-guide-section">
-              <h2>What the calculator does NOT do</h2>
+              <h2>Before you calculate (pre-flight checklist)</h2>
               <ul>
-                <li>It does not recommend a dose</li>
-                <li>It does not adjust for bloodwork</li>
-                <li>It does not account for absorption differences</li>
-                <li>It does not replace clinical guidance</li>
+                <li>Confirm your vial concentration (e.g. <strong>250 mg/mL</strong>, <strong>200 mg/mL</strong>).</li>
+                <li>Confirm your intended <strong>weekly total (mg/week)</strong>.</li>
+                <li>Choose a frequency you can follow consistently (weekly, every 3–4 days, every 2 days, daily).</li>
+                <li>If you’re using labs to guide changes, standardise timing (trough/pre-injection).</li>
               </ul>
+
+              <p class="muted" style="margin-top:10px;">
+                For lab timing rules: <a href="/guides/bloodwork/pre-injection.html"><strong>Pre-injection bloodwork checklist</strong></a> and
+                <a href="/guides/bloodwork/ongoing-monitoring.html"><strong>Ongoing monitoring &amp; follow-up labs</strong></a>.
+              </p>
+            </section>
+
+            <!-- STEP BY STEP -->
+            <section class="ib-guide-section">
+              <h2>Step-by-step: how to enter the inputs</h2>
+
+              <h3>1) Weekly dose (mg/week)</h3>
+              <ul>
+                <li>Enter your <strong>total weekly dose</strong>, not per-injection dose.</li>
+                <li>If your plan is “split dose”, you still enter the weekly total—frequency handles the split.</li>
+              </ul>
+
+              <h3>2) Concentration (mg/mL)</h3>
+              <ul>
+                <li>Use the number on the vial label (common: 200, 250, 300 mg/mL).</li>
+                <li>Do not enter “mL” here—this is concentration only.</li>
+              </ul>
+
+              <h3>3) Frequency (weekly vs every N days)</h3>
+              <ul>
+                <li><strong>Weekly</strong> = one injection every 7 days.</li>
+                <li><strong>Every N days</strong> = you pick a repeatable interval (2, 3, 4, etc.).</li>
+              </ul>
+
+              <p class="muted" style="margin-top:10px;">
+                If you’re choosing frequency based on stability: <a href="/guides/testosterone/frequency-options.html"><strong>Weekly vs every N days</strong></a>.
+              </p>
+
+              <h3>4) Syringe type (visual accuracy)</h3>
+              <ul>
+                <li>Select the syringe scale you’re actually using (1 mL insulin, 0.5 mL, etc.).</li>
+                <li>The visuals are only reliable if the syringe type matches reality.</li>
+              </ul>
+            </section>
+
+            <!-- OUTPUTS -->
+            <section class="ib-guide-section">
+              <h2>How to read the results</h2>
+              <ul>
+                <li><strong>mg per injection</strong> = weekly mg divided by number of injections in your schedule.</li>
+                <li><strong>mL per injection</strong> = mg per injection ÷ concentration (mg/mL).</li>
+                <li><strong>Schedule</strong> = the repeatable pattern your frequency creates.</li>
+              </ul>
+
+              <div class="ib-guide-callout">
+                <strong>Sanity check</strong>
+                <p class="muted">If mL looks unusually large or tiny, your concentration input is usually wrong.</p>
+              </div>
             </section>
 
             <!-- COMMON MISTAKES -->
             <section class="ib-guide-section">
-              <h2>Common TRT calculator mistakes</h2>
+              <h2>Common mistakes that create “bad outputs”</h2>
               <ul>
-                <li>Confusing mg with mL</li>
-                <li>Changing frequency but forgetting to recheck volume</li>
-                <li>Using the wrong syringe scale</li>
-                <li>Assuming higher dose equals better results</li>
+                <li><strong>Mixing mg and mL</strong> (entering volume where concentration is required)</li>
+                <li><strong>Entering per-shot dose as weekly dose</strong> (double-splitting the dose)</li>
+                <li><strong>Changing dose and frequency at the same time</strong> (you won’t know what caused what)</li>
+                <li><strong>Inconsistent injection timing</strong> (creates symptoms + lab noise)</li>
               </ul>
-
-              <div class="ib-guide-callout">
-                <strong>Pattern</strong>
-                <p class="muted">Most “bad TRT” outcomes start with bad math.</p>
-              </div>
             </section>
 
-            <!-- RELATED LINKS -->
+            <!-- LABS + CALCULATOR PATHWAY -->
             <section class="ib-guide-section">
-              <h2>Related tools & guides</h2>
+              <h2>Using bloodwork with the calculator (the clean pathway)</h2>
+              <ol class="ib-steps">
+                <li>Hold protocol stable for <strong>6–8 weeks</strong>.</li>
+                <li>Test consistently (prefer trough/pre-injection).</li>
+                <li>Use labs + symptoms to decide <strong>one change</strong> (dose or frequency).</li>
+                <li>Use the calculator to convert that change into an executable schedule.</li>
+                <li>Re-test 6–8 weeks later to confirm trend.</li>
+              </ol>
+
+              <p class="muted" style="margin-top:10px;">
+                Start at: <a href="/guides/bloodwork/"><strong>Bloodwork overview</strong></a>
+              </p>
+            </section>
+
+            <!-- NEXT STEPS / LINKS REQUIRED BY YOUR SPEC -->
+            <section class="ib-guide-section">
+              <h2>Where to go next</h2>
               <ul>
-                <li>
-                  <a href="/calculator.html">TRT dosage calculator</a>
-                </li>
-                <li>
-                  <a href="/guides/testosterone/dose-planning.html">Testosterone dose planning basics</a>
-                </li>
-                <li>
-                  <a href="/guides/injectionTechniquesafety/basics.html">Injection basics</a>
-                </li>
-                <li>
-                  <a href="/guides/injectiontechniquesafety/">Injection technique & safety</a>
-                </li>
+                <li><a href="/guides/testosterone/"><strong>Testosterone guides</strong></a> – dose planning and frequency fundamentals.</li>
+                <li><a href="/guides/testosterone/frequency-options.html"><strong>Weekly vs every N days</strong></a> – stability and symptom smoothing.</li>
+                <li><a href="/guides/bloodwork/"><strong>Bloodwork overview</strong></a> – labs-to-dose decision pathway.</li>
               </ul>
             </section>
 
-            <!-- TAKEAWAYS -->
+            <!-- FAQ -->
+            <section class="ib-guide-section">
+              <h2>Common questions</h2>
+
+              <h3>Should I change dose or frequency first?</h3>
+              <p>
+                If your issue looks like peaks/troughs (great then crash), change frequency first while keeping weekly mg the same.
+                If you’re stable but underpowered, dose may be the lever. One change at a time.
+              </p>
+
+              <h3>When should I re-test after a change?</h3>
+              <p>
+                Typically <strong>6–8 weeks</strong>. Testing early creates noise and overreactions.
+                See: <a href="/guides/bloodwork/ongoing-monitoring.html"><strong>Ongoing monitoring &amp; follow-up labs</strong></a>.
+              </p>
+
+              <h3>Why doesn’t the calculator tell me the “best dose”?</h3>
+              <p>
+                Because it can’t. Dose decisions require symptoms, safety markers, and consistent bloodwork timing.
+                The calculator makes execution accurate once the decision is made.
+              </p>
+            </section>
+
             <section class="ib-guide-section">
               <h2>Key takeaways</h2>
               <ul>
-                <li>The calculator converts dose—it doesn’t choose it.</li>
-                <li>Correct concentration input is critical.</li>
-                <li>Frequency changes volume, not weekly total.</li>
-                <li>If the output surprises you, your input is probably wrong.</li>
+                <li>Enter <strong>weekly mg</strong>, not per-shot mg.</li>
+                <li>Confirm <strong>concentration (mg/mL)</strong> from the vial label.</li>
+                <li>Choose the simplest frequency you can execute perfectly.</li>
+                <li>Use consistent bloodwork timing so comparisons are real.</li>
               </ul>
             </section>
-
           </article>
         </div>
       </div>
@@ -220,9 +233,7 @@ e<!DOCTYPE html>
       <div class="container">
         <div class="card" style="padding:18px;">
           <strong>General information only</strong>
-          <p class="muted">
-            This guide is educational and does not replace professional or medical advice.
-          </p>
+          <p class="muted">This guide is educational. It does not interpret your personal labs or replace medical care.</p>
         </div>
       </div>
     </section>
