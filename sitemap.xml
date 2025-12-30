@@ -35,9 +35,9 @@
     <priority>0.6</priority>
   </url>
 
-  <!-- Guides: Bloodwork -->
+  <!-- Guides: Bloodwork (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/bloodwork/</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -57,9 +57,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Hormones & Health Basics -->
+  <!-- Guides: Hormones & Health Basics (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -75,9 +75,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Testosterone -->
+  <!-- Guides: Testosterone (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/testosterone/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/testosterone/</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -89,9 +89,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Peptides -->
+  <!-- Guides: Peptides (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/peptides/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/peptides/</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -103,9 +103,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Injection Technique & Safety -->
+  <!-- Guides: Injection Technique & Safety (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/</loc>
     <priority>0.7</priority>
   </url>
   <url>
@@ -117,9 +117,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Tools & Calculators -->
+  <!-- Guides: Tools & Calculators (hub uses folder URL) -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/tools/index.html</loc>
+    <loc>https://www.injectbuddy.com/guides/tools/</loc>
     <priority>0.7</priority>
   </url>
   <url>
