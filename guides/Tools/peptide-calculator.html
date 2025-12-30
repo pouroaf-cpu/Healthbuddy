@@ -14,248 +14,254 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>How to Use the Peptide Calculator | InjectBuddy</title>
-  <meta name="description" content="Step-by-step guide to using the InjectBuddy peptide calculator correctly. Learn how reconstitution, dose size, syringe volume, and bloodwork context fit together—and how to avoid common mistakes." />
+  <meta name="description" content="Step-by-step guide to using the InjectBuddy peptide calculator correctly. Enter vial amount, dilution, and target dose to get accurate syringe units—and avoid the common mistakes that waste vials." />
   <link rel="canonical" href="https://www.injectbuddy.com/guides/tools/peptide-calculator.html" />
 
   <meta property="og:title" content="How to Use the Peptide Calculator" />
-  <meta property="og:description" content="Understand every input before you trust the dose." />
+  <meta property="og:description" content="A practical step-by-step guide to using the peptide calculator correctly—inputs, dilution logic, and the mistakes that cause dosing errors." />
   <meta property="og:type" content="article" />
 
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="GIzROBYpS6an8ywbxK7SWw" async></script>
 </head>
 
-<body data-guides-cat="tools" data-guides-active="tools:peptide">
-  <div id="site-header" data-nav-current="tools"></div>
+<body data-guides-cat="tools" data-guides-active="tools:peptidecalc">
+  <div id="site-header" data-nav-current="guides"></div>
 
   <main>
     <section class="section">
       <div class="container">
-
         <header>
-          <span class="tag">Tools</span>
+          <span class="tag">Tools &amp; calculators</span>
           <h1>How to use the peptide calculator</h1>
           <p class="muted">
-            A practical walkthrough of the peptide calculator—what each input means,
-            how reconstitution math works, and where bloodwork and lifestyle context
-            actually matter.
+            Peptide dosing errors are usually not “bad peptides.” They’re bad inputs: wrong vial amount,
+            wrong dilution, wrong units. This guide shows you how to set the calculator up properly so the
+            syringe units actually mean something.
           </p>
         </header>
 
         <div class="ib-guides-layout">
+          <!-- LEFT NAV (UNIVERSAL) -->
           <div id="ib-guides-nav"></div>
 
+          <!-- Main content -->
           <article class="ib-guides-content">
 
-            <!-- BREADCRUMB -->
+            <!-- Breadcrumb -->
             <nav class="ib-breadcrumbs ib-breadcrumbs--teal" aria-label="Breadcrumb">
               <ol>
                 <li><a href="/" class="ib-crumb-strong">InjectBuddy</a></li>
-                <li><a href="/guides/tools/index.html" class="ib-crumb-strong">Tools</a></li>
+                <li><a href="/guides/" class="ib-crumb-strong">Guides</a></li>
+                <li><a href="/guides/tools/" class="ib-crumb-strong">Tools &amp; calculators</a></li>
                 <li aria-current="page" class="ib-crumb-current">Peptide calculator</li>
               </ol>
             </nav>
 
-            <p class="ib-guides-article-kicker">
-              Most peptide mistakes are math mistakes — the rest are context mistakes
-            </p>
+            <p class="ib-guides-article-kicker">Correct dilution first. Then dosing. Then execution.</p>
 
-            <!-- META -->
+            <!-- META ROW -->
             <div class="ib-guide-meta ib-guide-meta--teal">
-              <span><span class="meta-strong">Category:</span> Tools</span>
+              <span><span class="meta-strong">Category:</span> Tools &amp; calculators</span>
               <span><span class="meta-strong">Level:</span> Beginner</span>
               <span><span class="meta-strong">Reading time:</span> ~7 minutes</span>
-              <span><span class="meta-strong">Last updated:</span> 29 Dec 2025</span>
+              <span><span class="meta-strong">Last updated:</span> 31 Dec 2025</span>
             </div>
 
-            <!-- INTRO -->
-            <header class="ib-guides-article-header">
-              <h2>What this calculator actually does</h2>
-              <p>
-                The peptide calculator converts a chosen dose (mcg or mg)
-                into a syringe volume based on vial strength and reconstitution volume.
-              </p>
-              <p>
-                It does <strong>not</strong> decide dosing, timing, or suitability.
-                Those decisions rely on bloodwork, goals, and overall hormone context.
-              </p>
-            </header>
-
-            <!-- CONTEXT -->
-            <section class="ib-guide-section">
-              <h2>Before you even touch a calculator</h2>
-              <p>
-                Dose math only makes sense when you understand your baseline.
-                That starts with bloodwork.
-              </p>
-              <ul>
-                <li>
-                  <a href="/guides/bloodwork/pre-injection.html">
-                    Pre-injection bloodwork checklist
-                  </a>
-                </li>
-                <li>
-                  <a href="/guides/bloodwork/basics.html">
-                    Bloodwork basics for TRT & peptides
-                  </a>
-                </li>
-                <li>
-                  <a href="/guides/bloodwork/interpreting-labs.html">
-                    How to read common lab markers
-                  </a>
-                </li>
-              </ul>
-
-              <p class="muted">
-                Ongoing use also requires
-                <a href="/guides/bloodwork/ongoing-monitoring.html">
-                  regular follow-up labs
-                </a>
-                to confirm stability.
-              </p>
-            </section>
-
-            <!-- STEP 1 -->
-            <section class="ib-guide-section">
-              <h2>Step 1: Enter peptide vial strength</h2>
-              <p>
-                Enter the total amount of peptide in the vial before reconstitution
-                (for example, 5&nbsp;mg or 10&nbsp;mg).
-              </p>
-              <ul>
-                <li>This value comes directly from the vial label</li>
-                <li>It is not your per-dose amount</li>
-              </ul>
-
+            <!-- QUICK ACTIONS -->
+            <section class="ib-guide-section" aria-label="Quick actions">
               <div class="ib-guide-callout">
-                <strong>Common error</strong>
-                <p class="muted">Confusing vial strength with dose size.</p>
+                <strong>Go straight to the tool</strong>
+                <p class="muted" style="margin-top:6px;">
+                  Use the calculator here: <a href="/peptide.html"><strong>Peptide calculator</strong></a>
+                </p>
               </div>
             </section>
 
-            <!-- STEP 2 -->
+            <!-- WHAT THIS TOOL DOES -->
             <section class="ib-guide-section">
-              <h2>Step 2: Set reconstitution volume</h2>
-              <p>
-                Enter how much bacteriostatic water you added to the vial.
-              </p>
-
+              <h2>What this calculator does (and what it does not)</h2>
               <ul>
-                <li>Example: 2&nbsp;mL or 3&nbsp;mL</li>
-                <li>This defines the final concentration</li>
-              </ul>
-
-              <p class="muted">
-                If you’re unsure, read
-                <a href="/guides/peptides/reconstitution.html">
-                  peptide reconstitution basics
-                </a>
-                before continuing.
-              </p>
-            </section>
-
-            <!-- STEP 3 -->
-            <section class="ib-guide-section">
-              <h2>Step 3: Enter your desired dose</h2>
-              <p>
-                Input the amount you intend to inject per dose.
-              </p>
-              <ul>
-                <li>Usually entered in micrograms (mcg)</li>
-                <li>The calculator converts this to liquid volume</li>
+                <li><strong>It does:</strong> convert peptide dose (mcg/mg) into mL / syringe units based on your vial amount and dilution.</li>
+                <li><strong>It does not:</strong> pick a protocol, decide a dose, or guarantee outcomes.</li>
               </ul>
 
               <div class="ib-guide-callout">
-                <strong>Rule</strong>
-                <p class="muted">mcg vs mg errors cause most overdoses.</p>
+                <strong>Non-negotiable</strong>
+                <p class="muted">If you don’t understand the dilution, don’t trust the output.</p>
               </div>
             </section>
 
-            <!-- STEP 4 -->
+            <!-- BEFORE YOU CALCULATE -->
             <section class="ib-guide-section">
-              <h2>Step 4: Review syringe volume</h2>
+              <h2>Before you calculate (pre-flight checklist)</h2>
+              <ul>
+                <li>Confirm the vial amount (e.g. <strong>5 mg</strong>, <strong>10 mg</strong>) from the label.</li>
+                <li>Confirm how much bacteriostatic water you added (e.g. <strong>1 mL</strong>, <strong>2 mL</strong>).</li>
+                <li>Know your target dose in <strong>mcg</strong> (most peptide protocols are expressed in mcg).</li>
+                <li>Pick the syringe scale you’re actually using (typically 1 mL insulin syringe = 100 units).</li>
+              </ul>
+
+              <p class="muted" style="margin-top:10px;">
+                If you haven’t mixed yet, start here:
+                <a href="/guides/peptides/reconstitution.html"><strong>Peptide reconstitution basics</strong></a>.
+              </p>
+            </section>
+
+            <!-- THE CORE LOGIC -->
+            <section class="ib-guide-section">
+              <h2>The core logic (so the numbers make sense)</h2>
               <p>
-                The output shows how much liquid to draw into the syringe
-                for each injection.
+                Your dilution creates a concentration. The calculator uses that concentration to convert a target dose
+                into a draw volume.
+              </p>
+              <ul>
+                <li><strong>Concentration:</strong> vial amount ÷ added water (e.g. 10 mg ÷ 2 mL = 5 mg/mL)</li>
+                <li><strong>Target dose:</strong> the amount you want per injection (often mcg)</li>
+                <li><strong>Draw volume:</strong> target dose ÷ concentration (converted into mL + syringe units)</li>
+              </ul>
+
+              <div class="ib-guide-callout">
+                <strong>Reality check</strong>
+                <p class="muted">More water doesn’t give you more peptide. It just spreads the peptide thinner.</p>
+              </div>
+            </section>
+
+            <!-- STEP BY STEP -->
+            <section class="ib-guide-section">
+              <h2>Step-by-step: how to enter the inputs</h2>
+
+              <h3>1) Enter vial amount (mg)</h3>
+              <ul>
+                <li>Use the number printed on the vial (commonly 5 mg or 10 mg).</li>
+                <li>If the vial label is unclear, stop. Guessing here makes every dose wrong.</li>
+              </ul>
+
+              <h3>2) Enter added water (mL)</h3>
+              <ul>
+                <li>Enter the exact volume of bacteriostatic water added to the vial.</li>
+                <li>If you changed dilution mid-vial, you must recalculate. (Better: don’t do that.)</li>
+              </ul>
+
+              <h3>3) Enter your target dose (mcg or mg)</h3>
+              <ul>
+                <li>If your protocol is in <strong>mcg</strong>, enter mcg.</li>
+                <li>If your protocol is in <strong>mg</strong>, enter mg.</li>
+                <li>Do not mix them. <strong>1 mg = 1000 mcg</strong>.</li>
+              </ul>
+
+              <h3>4) Choose syringe type / scale</h3>
+              <ul>
+                <li>Most insulin syringes: 1 mL = 100 units.</li>
+                <li>Your “units” output is only correct if the syringe scale matches your syringe.</li>
+              </ul>
+            </section>
+
+            <!-- HOW TO READ OUTPUTS -->
+            <section class="ib-guide-section">
+              <h2>How to read the outputs</h2>
+              <ul>
+                <li><strong>mL to draw</strong> = the true liquid volume you need.</li>
+                <li><strong>Syringe units</strong> = that mL translated onto your syringe markings.</li>
+                <li><strong>Concentration</strong> = what your dilution produced (useful for sanity checks).</li>
+              </ul>
+
+              <div class="ib-guide-callout">
+                <strong>Sanity check</strong>
+                <p class="muted">
+                  If the syringe units seem extreme (e.g. “2 units” or “80 units”), your inputs are usually wrong:
+                  vial amount, water added, or mg vs mcg.
+                </p>
+              </div>
+            </section>
+
+            <!-- COMMON FAILURE MODES -->
+            <section class="ib-guide-section">
+              <h2>Common mistakes that waste vials</h2>
+              <ul>
+                <li><strong>mg vs mcg confusion</strong> (the #1 error)</li>
+                <li><strong>Entering the wrong water volume</strong> (guessing or rounding)</li>
+                <li><strong>Using sterile water instead of bacteriostatic water</strong> (shorter usable life, higher risk)</li>
+                <li><strong>Poor storage</strong> (heat/light/handling degrade potency)</li>
+                <li><strong>Changing dilution mid-vial</strong> without recalculating</li>
+              </ul>
+
+              <p class="muted" style="margin-top:10px;">
+                Storage matters more than people admit:
+                <a href="/guides/peptides/storage.html"><strong>Peptide storage &amp; handling</strong></a>
+              </p>
+            </section>
+
+            <!-- EXECUTION / TECHNIQUE -->
+            <section class="ib-guide-section">
+              <h2>Execution: reduce errors when drawing</h2>
+              <ul>
+                <li>Swab the vial top every time and let it dry.</li>
+                <li>Draw slowly and avoid pushing air back into the vial aggressively.</li>
+                <li>Use a consistent routine to avoid “misread the syringe” mistakes.</li>
+              </ul>
+
+              <p class="muted" style="margin-top:10px;">
+                If you want the injection fundamentals:
+                <a href="/guides/injectiontechniquesafety/"><strong>Injection technique &amp; safety overview</strong></a>
+              </p>
+            </section>
+
+            <!-- LINK REQUIREMENTS -->
+            <section class="ib-guide-section">
+              <h2>Where to go next</h2>
+              <ul>
+                <li><a href="/peptide.html"><strong>Use the peptide calculator</strong></a> (top “How to use this” link should point here)</li>
+                <li><a href="/guides/peptides/"><strong>Peptides category overview</strong></a></li>
+                <li><a href="/guides/peptides/reconstitution.html"><strong>Peptide reconstitution basics</strong></a></li>
+                <li><a href="/guides/peptides/storage.html"><strong>Peptide storage &amp; handling</strong></a></li>
+              </ul>
+            </section>
+
+            <!-- FAQ -->
+            <section class="ib-guide-section">
+              <h2>Common questions</h2>
+
+              <h3>Can I “choose a dilution” based on what looks easiest on the syringe?</h3>
+              <p>
+                Yes, as long as it’s measured accurately and you stick to it. People get in trouble when they pick a dilution,
+                then guess the mL, or “top it up later” and forget they changed concentration.
               </p>
 
-              <ul>
-                <li>Match the result to your syringe markings</li>
-                <li>Visually confirm before injecting</li>
-              </ul>
-            </section>
+              <h3>Why do people say peptides “stopped working”?</h3>
+              <p>
+                Usually one of these: dilution math error, mg/mcg mistake, degraded peptide from storage/handling,
+                or inconsistent execution. Start by verifying inputs and storage before blaming the compound.
+              </p>
 
-            <!-- WHAT IT DOES NOT DO -->
-            <section class="ib-guide-section">
-              <h2>What the calculator does NOT do</h2>
-              <ul>
-                <li>Recommend peptide protocols</li>
-                <li>Adjust for peptide stability or degradation</li>
-                <li>Account for injection frequency strategies</li>
-              </ul>
-
-              <p class="muted">
-                Frequency considerations are covered separately in
-                <a href="/guides/testosterone/frequency-options.html">
-                  weekly vs every-N-days injection planning
-                </a>.
+              <h3>Should I recalc every injection?</h3>
+              <p>
+                Not if your dilution and dose stay the same. Lock your setup, record the syringe units, then execute consistently.
               </p>
             </section>
 
-            <!-- CONTEXT LINKS -->
-            <section class="ib-guide-section">
-              <h2>Context that still matters</h2>
-              <ul>
-                <li>
-                  <a href="/guides/testosterone/dose-planning.html">
-                    Dose planning basics
-                  </a>
-                </li>
-                <li>
-                  <a href="/guides/hormoneshealthbasics/lifestyle.html">
-                    Lifestyle factors that move the needle
-                  </a>
-                </li>
-                <li>
-                  <a href="/guides/bloodwork/index.html">
-                    Bloodwork hub
-                  </a>
-                </li>
-              </ul>
-            </section>
-
-            <!-- RELATED TOOLS -->
-            <section class="ib-guide-section">
-              <h2>Related tools</h2>
-              <ul>
-                <li>
-                  <a href="/peptide">Peptide dosage calculator</a>
-                </li>
-                <li>
-                  <a href="/guides/tools/trt-calculator.html">
-                    How to use the TRT dosage calculator
-                  </a>
-                </li>
-                <li>
-                  <a href="/guides/peptides/storage.html">
-                    Peptide storage & handling
-                  </a>
-                </li>
-              </ul>
-            </section>
-
-            <!-- TAKEAWAYS -->
             <section class="ib-guide-section">
               <h2>Key takeaways</h2>
               <ul>
-                <li>The calculator handles math, not decisions.</li>
-                <li>Bloodwork defines context.</li>
-                <li>Units and concentration cause most mistakes.</li>
-                <li>If the volume looks wrong, recheck inputs.</li>
+                <li>Correct dilution is the foundation. Everything else depends on it.</li>
+                <li>Most peptide errors are unit errors (mg vs mcg) or wrong water volume.</li>
+                <li>Match the calculator to your syringe scale or the “units” output is meaningless.</li>
+                <li>Storage and handling can quietly destroy potency even if the liquid looks normal.</li>
               </ul>
             </section>
 
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section class="section" aria-label="Guide disclaimer">
+      <div class="container">
+        <div class="card" style="padding:18px;">
+          <strong>General information only</strong>
+          <p class="muted">This guide is educational and does not replace professional or medical advice.</p>
         </div>
       </div>
     </section>
