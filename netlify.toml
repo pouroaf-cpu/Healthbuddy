@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/guides/InjectionTechniqueSafety/*"
+  to = "/guides/injectiontechniquesafety/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guides/HormonesHealthBasics/*"
+  to = "/guides/hormoneshealthbasics/:splat"
+  status = 301
+  force = true
