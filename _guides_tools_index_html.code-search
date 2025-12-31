@@ -1,0 +1,24 @@
+# Query: /guides/tools/index.html
+# ContextLines: 1
+
+5 results - 3 files
+
+header.html:
+   55            </a>
+   56:           <a href="/guides/Tools/" class="ib-dropdown-link" role="menuitem">
+   57              Tools &amp; calculators
+
+  103            <a href="/guides/InjectionTechniqueSafety/index.html">Injection technique &amp; safety</a>
+  104:           <a href="/guides/Tools/">Tools &amp; calculators</a>
+  105          </div>
+
+Assets/Guides-nav.html:
+  120        <div class="ib-guides-cat-panel" hidden>
+  121:         <a href="/guides/Tools/index" class="ib-guides-cat-link" data-guide="tools:overview">Tools &amp; calculators overview</a>
+  122          <a href="/guides/tools/trt-calculator" class="ib-guides-cat-link" data-guide="tools:trt">How to use the TRT dosage calculator</a>
+
+guides/tools/index.html:
+  18  
+  19:   <!-- IMPORTANT: match the real, final URL exactly. If your file is /guides/tools/index.html, use that. -->
+  20:   <link rel="canonical" href="https://www.injectbuddy.com/guides/tools/" />
+  21  
