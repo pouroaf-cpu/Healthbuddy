@@ -1,0 +1,51 @@
+# Query: /guides/bloodwork/index.html
+# ContextLines: 1
+
+10 results - 7 files
+
+header.html:
+  40          <div class="ib-dropdown" role="menu">
+  41:           <a href="/guides/Bloodwork/" class="ib-dropdown-link" role="menuitem">
+  42              Bloodwork
+
+  98          <div class="ib-mobile-links">
+  99:           <a href="/guides/Bloodwork/">Bloodwork</a>
+  100            <a href="/guides/HormonesHealthBasics/index.html">Hormones &amp; health basics</a>
+
+Assets/Guides-nav.html:
+  22        <div class="ib-guides-cat-panel" hidden>
+  23:         <a href="/guides/Bloodwork/" class="ib-guides-cat-link" data-guide="bloodwork:overview">Bloodwork category overview</a>
+  24          <a href="/guides/bloodwork/basics" class="ib-guides-cat-link" data-guide="bloodwork:basics">Bloodwork basics for TRT</a>
+
+guides/bloodwork/Basics.html:
+   75                  If you’re new, start with the
+   76:                 <a href="/guides/Bloodwork/">Bloodwork category overview</a>
+   77                  to see the full pathway (fundamentals → interpreting markers → ongoing monitoring).
+
+  210                  <p class="muted" style="margin-top:8px;">
+  211:                   Go back to the <a href="/guides/Bloodwork/">Bloodwork category overview</a>
+  212                    or jump straight into
+
+guides/bloodwork/index.html:
+  18    <meta name="description" content="Bloodwork basics for TRT and peptides: what to test, when to test, how to interpret key markers, and how to monitor trends without chasing noise." />
+  19:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/" />
+  20  
+
+  23    <meta property="og:type" content="website" />
+  24:   <meta property="og:url" content="https://www.injectbuddy.com/guides/bloodwork/" />
+  25    <meta property="og:site_name" content="InjectBuddy" />
+
+guides/bloodwork/interpreting-labs.html:
+  83                  If you want the full pathway (start → interpret → monitor), go back to the
+  84:                 <a href="/guides/Bloodwork/">Bloodwork category overview</a>.
+  85                </p>
+
+guides/bloodwork/pre-injection.html:
+  78                  Want the full pathway? Go back to the
+  79:                 <a href="/guides/Bloodwork/">Bloodwork category overview</a>
+  80                  (start → interpret markers → monitor trends).
+
+guides/hormoneshealthbasics/index.html:
+  79                <p class="muted" style="margin-top:10px;">
+  80:                 New to labs? Use the <a href="/guides/Bloodwork/">Bloodwork guide pathway</a>
+  81                  to understand what to test and how to interpret trends before you start “optimising.”

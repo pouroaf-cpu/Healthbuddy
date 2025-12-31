@@ -1,0 +1,101 @@
+# Query: /guides/bloodwork/interpreting-labs.html
+# ContextLines: 1
+
+22 results - 13 files
+
+sitemap.xml:
+  47    <url>
+  48:     <loc>https://www.injectbuddy.com/guides/bloodwork/interpreting-labs/</loc>
+  49      <priority>0.7</priority>
+
+Assets/Guides-nav.html:
+  24          <a href="/guides/bloodwork/basics/" class="ib-guides-cat-link" data-guide="bloodwork:basics">Bloodwork basics for TRT</a>
+  25:         <a href="/guides/bloodwork/interpreting-labs/" class="ib-guides-cat-link" data-guide="bloodwork:interpreting">How to read common lab markers</a>
+  26          <a href="/guides/bloodwork/pre-injection/" class="ib-guides-cat-link" data-guide="bloodwork:pre">Pre-injection bloodwork checklist</a>
+
+guides/bloodwork/Basics.html:
+  129                  Next step: use
+  130:                 <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  131                  so you understand what these numbers mean together (not in isolation).
+
+  192                <p>
+  193:                 If you’re still at fundamentals: <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>.<br />
+  194                  If you’re stable and want a schedule: <a href="/guides/bloodwork/ongoing-monitoring/">Ongoing monitoring &amp; follow-up labs</a>.<br />
+
+  212                    or jump straight into
+  213:                   <a href="/guides/bloodwork/interpreting-labs/">interpreting common lab markers</a>.
+  214                  </p>
+
+guides/bloodwork/index.html:
+  122                  <li>
+  123:                   <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  124                    — total T, free T, SHBG, E2, hematocrit, lipids, liver enzymes.
+
+  148                      <li>
+  149:                       <a href="/guides/bloodwork/interpreting-labs/">Total vs free testosterone</a>
+  150                        (use the <a href="https://www.injectbuddy.com/free-testosterone-calculator">free T calculator</a> when SHBG makes totals misleading)
+  151                      </li>
+  152:                     <li><a href="/guides/bloodwork/interpreting-labs/#shbg">SHBG &amp; binding effects</a></li>
+  153                    </ul>
+
+  159                    <ul>
+  160:                     <li><a href="/guides/bloodwork/interpreting-labs/#hematocrit">Hematocrit &amp; hemoglobin</a></li>
+  161:                     <li><a href="/guides/bloodwork/interpreting-labs/#lipids">Lipids &amp; cardiovascular risk</a></li>
+  162                    </ul>
+
+guides/bloodwork/interpreting-labs.html:
+  17    <meta name="description" content="A clear guide to interpreting common TRT blood markers—testosterone, estradiol, SHBG, hematocrit, lipids, and more. No panic, just context and practical next steps." />
+  18:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/interpreting-labs/" />
+  19  
+
+guides/bloodwork/ongoing-monitoring.html:
+   79                  If you’re still learning what the markers mean, read
+   80:                 <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+   81                  before acting on trends.
+
+  254                    If you haven’t already, read
+  255:                   <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>,
+  256                    then standardise timing with the
+
+guides/bloodwork/pre-injection.html:
+  168                  After the draw, use
+  169:                 <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  170                  to interpret the panel in context.
+
+  236                  <p class="muted" style="margin-top:8px;">
+  237:                   Read <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>,
+  238                    then set your monitoring cadence with
+
+guides/hormoneshealthbasics/index.html:
+  135                      <li><a href="/guides/hormoneshealthbasics/side-effects/">Common side effects &amp; monitoring</a></li>
+  136:                     <li><a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a></li>
+  137                      <li><a href="/guides/bloodwork/pre-injection/">Pre-injection bloodwork checklist</a></li>
+
+guides/hormoneshealthbasics/lifestyle.html:
+  138                  Sleep also shifts lab markers. If your bloodwork looks “off,” read
+  139:                 <a href="/guides/bloodwork/interpreting-labs/">how lifestyle impacts lab markers</a>
+  140                  before you treat it like a hormone problem.
+
+  219                  Use the sequence: interpret → standardise timing → monitor trends:
+  220:                 <a href="/guides/bloodwork/interpreting-labs/">lab markers</a>,
+  221                  <a href="/guides/bloodwork/pre-injection/">pre-injection checklist</a>,
+
+guides/hormoneshealthbasics/what-is-trt.html:
+  193                  Before changing anything, understand
+  194:                 <a href="/guides/bloodwork/interpreting-labs/">how to read common lab markers</a>
+  195                  and standardise timing with the
+
+guides/peptides/index.html:
+  187                  <li>
+  188:                   For lab context while experimenting: <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  189                  </li>
+
+guides/testosterone/dose-planning.html:
+  181                <p>
+  182:                 Related: <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  183                </p>
+
+guides/testosterone/index.html:
+  123                  If your bloods feel confusing, go back to the bloodwork lane:
+  124:                 <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  125                  and

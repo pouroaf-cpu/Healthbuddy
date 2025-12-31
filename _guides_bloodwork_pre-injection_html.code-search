@@ -1,0 +1,48 @@
+# Query: /guides/bloodwork/pre-injection.html
+# ContextLines: 1
+
+9 results - 8 files
+
+sitemap.xml:
+  51    <url>
+  52:     <loc>https://www.injectbuddy.com/guides/bloodwork/pre-injection/</loc>
+  53      <priority>0.7</priority>
+
+Assets/Guides-nav.html:
+  25          <a href="/guides/bloodwork/interpreting-labs/" class="ib-guides-cat-link" data-guide="bloodwork:interpreting">How to read common lab markers</a>
+  26:         <a href="/guides/bloodwork/pre-injection/" class="ib-guides-cat-link" data-guide="bloodwork:pre">Pre-injection bloodwork checklist</a>
+  27          <a href="/guides/bloodwork/ongoing-monitoring/" class="ib-guides-cat-link" data-guide="bloodwork:monitoring">Ongoing monitoring &amp; follow-up labs</a>
+
+guides/bloodwork/ongoing-monitoring.html:
+  124                    If you need help standardising timing, follow the
+  125:                   <a href="/guides/bloodwork/pre-injection/">pre-injection bloodwork checklist</a>.
+  126                  </li>
+
+  256                    then standardise timing with the
+  257:                   <a href="/guides/bloodwork/pre-injection/">pre-injection bloodwork checklist</a>.
+  258                  </p>
+
+guides/bloodwork/pre-injection.html:
+  17    <meta name="description" content="A pre-injection bloodwork checklist for TRT and peptides. What to test, when to test, and how to get clean trough labs before changing dose or frequency." />
+  18:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/pre-injection/" />
+  19  
+
+guides/hormoneshealthbasics/index.html:
+  136                      <li><a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a></li>
+  137:                     <li><a href="/guides/bloodwork/pre-injection/">Pre-injection bloodwork checklist</a></li>
+  138                    </ul>
+
+guides/hormoneshealthbasics/lifestyle.html:
+  220                  <a href="/guides/bloodwork/interpreting-labs/">lab markers</a>,
+  221:                 <a href="/guides/bloodwork/pre-injection/">pre-injection checklist</a>,
+  222                  <a href="/guides/bloodwork/ongoing-monitoring/">ongoing monitoring</a>.
+
+guides/hormoneshealthbasics/what-is-trt.html:
+  195                  and standardise timing with the
+  196:                 <a href="/guides/bloodwork/pre-injection/">pre-injection bloodwork checklist</a>.
+  197                </p>
+
+guides/tools/trt-calculator.html:
+  103                <p class="muted" style="margin-top:10px;">
+  104:                 For lab timing rules: <a href="/guides/bloodwork/pre-injection/"><strong>Pre-injection bloodwork checklist</strong></a> and
+  105                  <a href="/guides/bloodwork/ongoing-monitoring/"><strong>Ongoing monitoring &amp; follow-up labs</strong></a>.

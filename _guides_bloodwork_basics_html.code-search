@@ -1,0 +1,44 @@
+# Query: /guides/bloodwork/basics.html
+# ContextLines: 1
+
+8 results - 8 files
+
+sitemap.xml:
+  43    <url>
+  44:     <loc>https://www.injectbuddy.com/guides/bloodwork/basics/</loc>
+  45      <priority>0.7</priority>
+
+Assets/Guides-nav.html:
+  23          <a href="/guides/Bloodwork/index/" class="ib-guides-cat-link" data-guide="bloodwork:overview">Bloodwork category overview</a>
+  24:         <a href="/guides/bloodwork/basics/" class="ib-guides-cat-link" data-guide="bloodwork:basics">Bloodwork basics for TRT</a>
+  25          <a href="/guides/bloodwork/interpreting-labs/" class="ib-guides-cat-link" data-guide="bloodwork:interpreting">How to read common lab markers</a>
+
+guides/bloodwork/Basics.html:
+  17    <meta name="description" content="Bloodwork basics for TRT: which labs matter, when to test, and how to use results to stay inside the guardrails. Built to pair with InjectBuddy tools for dosing and free testosterone estimation." />
+  18:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics/" />
+  19  
+
+guides/bloodwork/index.html:
+  118                  <li>
+  119:                   <a href="/guides/bloodwork/basics/">Bloodwork basics for TRT</a>
+  120                    — what to test, timing, and why reference ranges often mislead TRT users.
+
+guides/bloodwork/interpreting-labs.html:
+  133                  If you’re still learning fundamentals (timing, baseline panels, and cadence), read
+  134:                 <a href="/guides/bloodwork/basics/">Bloodwork basics for TRT</a>.
+  135                </p>
+
+guides/hormoneshealthbasics/index.html:
+  122                      <li><a href="/guides/hormoneshealthbasics/what-is-trt/">What is TRT?</a></li>
+  123:                     <li><a href="/guides/bloodwork/basics/">Bloodwork basics for TRT</a></li>
+  124                      <li class="muted" style="margin-top:6px;">
+
+guides/hormoneshealthbasics/what-is-trt.html:
+  130                  This is why understanding
+  131:                 <a href="/guides/bloodwork/basics/">bloodwork basics for TRT</a>
+  132                  comes before dose decisions.
+
+guides/peptides/index.html:
+  184                    If you’re on TRT as well: <a href="/guides/HormonesHealthBasics/what-is-trt.html">What is TRT?</a> and
+  185:                   <a href="/guides/bloodwork/basics/">Bloodwork basics for TRT</a>
+  186                  </li>
