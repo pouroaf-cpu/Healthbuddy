@@ -22,94 +22,94 @@ about.html:
 
 BMI.html:
    24    <meta name="description" content="Simple BMI calculator using your weight and height. Uses the same clean InjectBuddy interface and gives an instant BMI estimate and category." />
-   25:   <link rel="canonical" href="https://www.injectbuddy.com/bmi/" />
+   25:   <link rel="canonical" href="https://www.injectbuddy.com/bmi.html" />
    26  
 
    29    <meta property="og:type" content="website" />
-   30:   <meta property="og:url" content="https://www.injectbuddy.com/bmi/" />
+   30:   <meta property="og:url" content="https://www.injectbuddy.com/bmi.html" />
    31    <meta property="og:site_name" content="InjectBuddy" />
 
   422        <nav class="tool-tabs" aria-label="InjectBuddy tools">
-  423:         <a href="/calculator/" class="tool-tab">TRT dose</a>
-  424:         <a href="/peptide/" class="tool-tab">Peptide tools</a>
+  423:         <a href="/calculator.html" class="tool-tab">TRT dose</a>
+  424:         <a href="/peptide.html" class="tool-tab">Peptide tools</a>
   425          <a href="/free-testosterone-calculator" class="tool-tab">Free T calc</a>
 
   632              </span>
-  633:             <a href="/calculator./" class="bmi-secondary-link">
+  633:             <a href="/calculator.html" class="bmi-secondary-link">
   634                Back to TRT dosage tools →
 
 calculator.html:
    18    <meta name="description" content="InjectBuddy testosterone dosage calculator." />
-   19:   <link rel="canonical" href="https://www.injectbuddy.com/calculator/" />
+   19:   <link rel="canonical" href="https://www.injectbuddy.com/calculator.html" />
    20    <meta property="og:title" content="InjectBuddy — Testosterone Dosage Calculator" />
 
    22    <meta property="og:type" content="website" />
-   23:   <meta property="og:url" content="https://www.injectbuddy.com/calculator/" />
+   23:   <meta property="og:url" content="https://www.injectbuddy.com/calculator.html" />
    24    <meta property="og:site_name" content="InjectBuddy" />
 
   635        <div>© 2025 InjectBuddy. For planning only — not medical advice.</div>
-  636:       <div><a href="/privacy/">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  636:       <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   637      </div>
 
 contact.html:
    26    <meta name="description" content="Contact InjectBuddy for support, feedback, and partnerships. Email us directly at support@injectbuddy.com." />
-   27:   <link rel="canonical" href="https://www.injectbuddy.com/contact/" />
+   27:   <link rel="canonical" href="https://www.injectbuddy.com/contact.html" />
    28  
 
    32    <meta property="og:type" content="website" />
-   33:   <meta property="og:url" content="https://www.injectbuddy.com/contact/" />
+   33:   <meta property="og:url" content="https://www.injectbuddy.com/contact.html" />
    34    <meta property="og:site_name" content="InjectBuddy" />
 
   228          <!-- Individual tool links only (no Tools index) -->
-  229:         <a class="ib-btn primary" href="/calculator/">TRT Calculator</a>
-  230:         <a class="ib-btn" href="/peptide/">Peptide Tool</a>
+  229:         <a class="ib-btn primary" href="/calculator.html">TRT Calculator</a>
+  230:         <a class="ib-btn" href="/peptide.html">Peptide Tool</a>
   231          <a class="ib-btn" href="/free-testosterone-calculator">Free T</a>
-  232:         <a class="ib-btn" href="/bmi/">BMI</a>
+  232:         <a class="ib-btn" href="/bmi.html">BMI</a>
   233          <a class="ib-btn" href="/guides/">Guides</a>
 
 dashboard.html:
    18    <meta name="description" content="Your InjectBuddy dashboard: quick access to tools, saved settings, and progress." />
-   19:   <link rel="canonical" href="https://www.injectbuddy.com/dashboard/" />
+   19:   <link rel="canonical" href="https://www.injectbuddy.com/dashboard.html" />
    20    <meta property="og:title" content="InjectBuddy — Dashboard" />
 
    22    <meta property="og:type" content="website" />
-   23:   <meta property="og:url" content="https://www.injectbuddy.com/dashboard/" />
+   23:   <meta property="og:url" content="https://www.injectbuddy.com/dashboard.html" />
    24    <meta property="og:site_name" content="InjectBuddy" />
 
    91        <div class="dash-actions">
-   92:         <a class="btn primary" href="/calculator/">Open TRT Calculator</a>
-   93:         <a class="btn" href="/peptide-calculator/">Open Peptide Calculator</a>
-   94:         <a class="btn" href="/guides/">Guides</a>
+   92:         <a class="btn primary" href="/calculator.html">Open TRT Calculator</a>
+   93:         <a class="btn" href="/peptide-calculator.html">Open Peptide Calculator</a>
+   94:         <a class="btn" href="/guides.html">Guides</a>
    95        </div>
 
   110            <div class="dash-tiles">
-  111:             <a class="tile" href="/calculator/">
+  111:             <a class="tile" href="/calculator.html">
   112                <p class="t">Testosterone Dosage Calculator</p>
 
   115  
-  116:             <a class="tile" href="/peptide-calculator/">
+  116:             <a class="tile" href="/peptide-calculator.html">
   117                <p class="t">Peptide Reconstitution Calculator</p>
 
   120  
-  121:             <a class="tile" href="/bmi/">
+  121:             <a class="tile" href="/bmi.html">
   122                <p class="t">BMI / Weight Tools</p>
 
   125  
-  126:             <a class="tile" href="/guides/">
+  126:             <a class="tile" href="/guides.html">
   127                <p class="t">Guides &amp; Learning Center</p>
 
 embed.html:
    24    <meta name="description" content="Add the InjectBuddy TRT dosage calculator to your own website with a simple iframe embed. Keep your visitors on-site while using our tools." />
-   25:   <link rel="canonical" href="https://www.injectbuddy.com/embed/" />
+   25:   <link rel="canonical" href="https://www.injectbuddy.com/embed.html" />
    26  
 
    29    <meta property="og:type" content="website" />
-   30:   <meta property="og:url" content="https://www.injectbuddy.com/embed/" />
+   30:   <meta property="og:url" content="https://www.injectbuddy.com/embed.html" />
    31    <meta property="og:site_name" content="InjectBuddy" />
 
   489              <p class="terms-small">
-  490:               These terms apply in addition to the InjectBuddy <a href="/privacy/">Privacy</a> 
-  491:               and <a href="/contact/">Contact</a> pages. If you do not agree, do not embed the tool.
+  490:               These terms apply in addition to the InjectBuddy <a href="/privacy.html">Privacy</a> 
+  491:               and <a href="/contact.html">Contact</a> pages. If you do not agree, do not embed the tool.
   492              </p>
 
   523              <code id="standard-embed-code">&lt;iframe
@@ -117,30 +117,30 @@ embed.html:
   525    width="100%"
 
   547              <li>Updates and improvements happen at <code>injectbuddy.com</code> and roll out automatically to your embed.</li>
-  548:             <li>We do not store or track individual dose inputs. See the <a href="/privacy/">privacy policy</a> for more detail.</li>
+  548:             <li>We do not store or track individual dose inputs. See the <a href="/privacy.html">privacy policy</a> for more detail.</li>
   549              <li>If your layout is very tall or narrow on mobile, increase the iframe height to avoid double-scrolling.</li>
 
   557              <a href="/">Home</a>
-  558:             <a href="/calculator/">TRT Calculator</a>
-  559:             <a href="/peptide/">Peptide</a>
-  560:             <a href="/free-testosterone-calculator/">Free T</a>
-  561:             <a href="/bmi/">BMI</a>
-  562:             <a href="/about/">About</a>
-  563:             <a href="/privacy/">Privacy</a>
-  564:             <a href="/contact/">Contact</a>
+  558:             <a href="/calculator.html">TRT Calculator</a>
+  559:             <a href="/peptide.html">Peptide</a>
+  560:             <a href="/free-testosterone-calculator.html">Free T</a>
+  561:             <a href="/bmi.html">BMI</a>
+  562:             <a href="/about.html">About</a>
+  563:             <a href="/privacy.html">Privacy</a>
+  564:             <a href="/contact.html">Contact</a>
   565            </div>
 
 Free-Testosterone-Calculator.html:
    24    <meta name="description" content="Estimate a simple Free Testosterone Index from your lab results using total testosterone and SHBG, with the same clean InjectBuddy interface." />
-   25:   <link rel="canonical" href="https://www.injectbuddy.com/free-testosterone-calculator/" />
+   25:   <link rel="canonical" href="https://www.injectbuddy.com/free-testosterone-calculator.html" />
    26  
 
    29    <meta property="og:type" content="website" />
-   30:   <meta property="og:url" content="https://www.injectbuddy.com/free-testosterone-calculator/" />
+   30:   <meta property="og:url" content="https://www.injectbuddy.com/free-testosterone-calculator.html" />
    31    <meta property="og:site_name" content="InjectBuddy" />
 
   385              </span>
-  386:             <a href="/calculator/" class="ft-secondary-link">
+  386:             <a href="/calculator.html" class="ft-secondary-link">
   387                Back to TRT dosage tools →
 
 header.html:
@@ -148,220 +148,220 @@ header.html:
     2  <header class="ib-header">
 
    18          <div class="ib-dropdown" role="menu">
-   19:           <a href="/calculator/" class="ib-dropdown-link" data-match="/calculator/" role="menuitem">
+   19:           <a href="/calculator.html" class="ib-dropdown-link" data-match="/calculator.html" role="menuitem">
    20              Testosterone dosage calculator
    21            </a>
-   22:           <a href="/peptide/" class="ib-dropdown-link" data-match="/peptide/" role="menuitem">
+   22:           <a href="/peptide.html" class="ib-dropdown-link" data-match="/peptide.html" role="menuitem">
    23              Peptide reconstitution / dosage
    24            </a>
-   25:           <a href="/bmi/" class="ib-dropdown-link" data-match="/bmi/" role="menuitem">
+   25:           <a href="/bmi.html" class="ib-dropdown-link" data-match="/bmi.html" role="menuitem">
    26              BMI calculator
    27            </a>
-   28:           <a href="/free-testosterone-calculator/" class="ib-dropdown-link" data-match="/free-testosterone-calculator/" role="menuitem">
+   28:           <a href="/free-testosterone-calculator.html" class="ib-dropdown-link" data-match="/free-testosterone-calculator.html" role="menuitem">
    29              Free testosterone calculator
 
    40          <div class="ib-dropdown" role="menu">
-   41:           <a href="/guides/Bloodwork/index/" class="ib-dropdown-link" role="menuitem">
+   41:           <a href="/guides/Bloodwork/index.html" class="ib-dropdown-link" role="menuitem">
    42              Bloodwork
    43            </a>
-   44:           <a href="/guides/HormonesHealthBasics/index/" class="ib-dropdown-link" role="menuitem">
+   44:           <a href="/guides/HormonesHealthBasics/index.html" class="ib-dropdown-link" role="menuitem">
    45              Hormones &amp; health basics
    46            </a>
-   47:           <a href="/guides/Testosterone/index/" class="ib-dropdown-link" role="menuitem">
+   47:           <a href="/guides/Testosterone/index.html" class="ib-dropdown-link" role="menuitem">
    48              Testosterone
 
    62        <!-- Top-level -->
-   63:       <a href="/embed/" class="ib-nav-link" data-match="/embed">Embed</a>
-   64:       <a href="/contact/" class="ib-nav-link" data-match="/contact">Contact</a>
-   65:       <a href="/about/" class="ib-nav-link" data-match="/about">About</a>
+   63:       <a href="/embed.html" class="ib-nav-link" data-match="/embed">Embed</a>
+   64:       <a href="/contact.html" class="ib-nav-link" data-match="/contact">Contact</a>
+   65:       <a href="/about.html" class="ib-nav-link" data-match="/about">About</a>
    66      </div>
 
    85          <div class="ib-mobile-links">
-   86:           <a href="/calculator/">Testosterone dosage calculator</a>
-   87:           <a href="/peptide/">Peptide reconstitution / dosage</a>
-   88:           <a href="/bmi/">BMI calculator</a>
-   89:           <a href="/free-testosterone-calculator/">Free testosterone calculator</a>
+   86:           <a href="/calculator.html">Testosterone dosage calculator</a>
+   87:           <a href="/peptide.html">Peptide reconstitution / dosage</a>
+   88:           <a href="/bmi.html">BMI calculator</a>
+   89:           <a href="/free-testosterone-calculator.html">Free testosterone calculator</a>
    90          </div>
 
    98          <div class="ib-mobile-links">
-   99:           <a href="/guides/Bloodwork/index/">Bloodwork</a>
-  100:           <a href="/guides/HormonesHealthBasics/index/">Hormones &amp; health basics</a>
-  101:           <a href="/guides/Testosterone/index/">Testosterone</a>
-  102:           <a href="/guides/Peptides/index/">Peptides</a>
-  103:           <a href="/guides/InjectionTechniqueSafety/index/">Injection technique &amp; safety</a>
-  104:           <a href="/guides/Tools/index/">Tools &amp; calculators</a>
+   99:           <a href="/guides/Bloodwork/index.html">Bloodwork</a>
+  100:           <a href="/guides/HormonesHealthBasics/index.html">Hormones &amp; health basics</a>
+  101:           <a href="/guides/Testosterone/index.html">Testosterone</a>
+  102:           <a href="/guides/Peptides/index.html">Peptides</a>
+  103:           <a href="/guides/InjectionTechniqueSafety/index.html">Injection technique &amp; safety</a>
+  104:           <a href="/guides/Tools/index.html">Tools &amp; calculators</a>
   105          </div>
 
   108        <!-- Other -->
-  109:       <a href="/embed/">Embed</a>
-  110:       <a href="/contact/">Contact</a>
-  111:       <a href="/about/">About</a>
+  109:       <a href="/embed.html">Embed</a>
+  110:       <a href="/contact.html">Contact</a>
+  111:       <a href="/about.html">About</a>
   112      </nav>
 
 index.html:
   451          <div class="cta-row">
-  452:           <a class="btn btn-primary" href="/calculator/">Testosterone Dosage Calculator</a>
-  453:           <a class="btn btn-secondary" href="/peptide/">Peptide Reconstitution Calculator</a>
+  452:           <a class="btn btn-primary" href="/calculator.html">Testosterone Dosage Calculator</a>
+  453:           <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution Calculator</a>
   454          </div>
 
   583          <p>
-  584:           The <a href="/calculator/">Testosterone Dosage Calculator</a> provides structured dosing maths and a realistic syringe visual so users can see exactly what they should be drawing. The <a href="/peptide.html">Peptide Calculator</a> handles reconstitution and injection volumes consistently, preventing common mistakes caused by incorrect dilution maths.
+  584:           The <a href="/calculator.html">Testosterone Dosage Calculator</a> provides structured dosing maths and a realistic syringe visual so users can see exactly what they should be drawing. The <a href="/peptide.html">Peptide Calculator</a> handles reconstitution and injection volumes consistently, preventing common mistakes caused by incorrect dilution maths.
   585          </p>
   586          <p>
-  587:           Supporting tools like the <a href="/bmi/">BMI Calculator</a> and the <a href="/free-testosterone-calculator.html">Free Testosterone Calculator</a> exist because hormones don’t operate in isolation. BMI influences metabolic health, and free testosterone gives a clearer picture of hormonal balance than total levels alone.
+  587:           Supporting tools like the <a href="/bmi.html">BMI Calculator</a> and the <a href="/free-testosterone-calculator.html">Free Testosterone Calculator</a> exist because hormones don’t operate in isolation. BMI influences metabolic health, and free testosterone gives a clearer picture of hormonal balance than total levels alone.
   588          </p>
 
   608            </div>
-  609:           <a class="tool-cta" href="/calculator/">TRT Dosage Calculator</a>
+  609:           <a class="tool-cta" href="/calculator.html">TRT Dosage Calculator</a>
   610          </div>
 
   614            </div>
-  615:           <a class="tool-cta" href="/peptide/">Peptide Calculator</a>
+  615:           <a class="tool-cta" href="/peptide.html">Peptide Calculator</a>
   616          </div>
 
   620            </div>
-  621:           <a class="tool-cta" href="/free-testosterone-calculator/">Free T Calculator</a>
+  621:           <a class="tool-cta" href="/free-testosterone-calculator.html">Free T Calculator</a>
   622          </div>
 
   626            </div>
-  627:           <a class="tool-cta" href="/bmi/">BMI Calculator</a>
+  627:           <a class="tool-cta" href="/bmi.html">BMI Calculator</a>
   628          </div>
 
   638          <div class="cta-actions">
-  639:           <a class="btn btn-primary" href="/calculator/">TRT Calculator</a>
-  640:           <a class="btn btn-secondary" href="/peptide/">Peptide Reconstitution</a>
+  639:           <a class="btn btn-primary" href="/calculator.html">TRT Calculator</a>
+  640:           <a class="btn btn-secondary" href="/peptide.html">Peptide Reconstitution</a>
   641          </div>
 
 login.html:
   153          By continuing, you agree to your account being created in Supabase Auth.
-  154:         <a class="link" href="/privacy/">Privacy</a>
+  154:         <a class="link" href="/privacy.html">Privacy</a>
   155        </div>
 
   178    const { data: existing } = await supabase.auth.getSession();
-  179:   if (existing.session) location.replace("/dashboard/");
+  179:   if (existing.session) location.replace("/dashboard.html");
   180  
 
   197        options: {
-  198:         redirectTo: "https://www.injectbuddy.com/auth/callback/",
+  198:         redirectTo: "https://www.injectbuddy.com/auth/callback.html",
   199          queryParams: { prompt: "select_account" }
 
 peptide.html:
    25    <meta name="description" content="Enter peptide amount (mg) and bacteriostatic water (mL) to get vial strength (mg/mL), then set a weekly peptide dose (mg/week) and schedule to see dose per injection, volume, and a visual syringe." />
-   26:   <link rel="canonical" href="https://www.injectbuddy.com/peptide/" />
+   26:   <link rel="canonical" href="https://www.injectbuddy.com/peptide.html" />
    27    <meta property="og:title" content="Peptide Dosage & Reconstitution Calculator" />
 
    29    <meta property="og:type" content="website" />
-   30:   <meta property="og:url" content="https://www.injectbuddy.com/peptide/" />
+   30:   <meta property="og:url" content="https://www.injectbuddy.com/peptide.html" />
    31    <meta property="og:site_name" content="InjectBuddy" />
 
   800        <div>© <span id="y"></span> InjectBuddy. For planning only — not medical advice.</div>
-  801:       <div><a href="/privacy/">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
+  801:       <div><a href="/privacy.html">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></div>
   802      </div>
 
 privacy.html:
    24    <meta name="description" content="InjectBuddy does not sell or share your personal data. Calculations run in your browser and we keep identifiable information to a minimum." />
-   25:   <link rel="canonical" href="https://www.injectbuddy.com/privacy/" />
+   25:   <link rel="canonical" href="https://www.injectbuddy.com/privacy.html" />
    26  
 
    30    <meta property="og:type" content="website" />
-   31:   <meta property="og:url" content="https://www.injectbuddy.com/privacy/" />
+   31:   <meta property="og:url" content="https://www.injectbuddy.com/privacy.html" />
    32    <meta property="og:site_name" content="InjectBuddy" />
 
   180          If you have questions about this policy you can contact the site owner
-  181:         via the <a href="/contact/" class="inline-link">Contact</a> page.
+  181:         via the <a href="/contact.html" class="inline-link">Contact</a> page.
   182        </p>
 
   196          <li>
-  197:           If you use the <a href="/contact/" class="inline-link">Contact</a> form or email us directly,
+  197:           If you use the <a href="/contact.html" class="inline-link">Contact</a> form or email us directly,
   198            we will see whatever you choose to send (for example, your name,
 
   338          <a href="/" class="inline-link">Homepage</a>
-  339:         <a href="/calculator/" class="inline-link">TRT dosage calculator</a>
-  340:         <a href="/peptide/" class="inline-link">Peptide reconstitution calculator</a>
-  341:         <a href="/bmi/" class="inline-link">BMI calculator</a>
-  342:         <a href="/about/" class="inline-link">About</a>
-  343:         <a href="/contact/" class="inline-link">Contact</a>
+  339:         <a href="/calculator.html" class="inline-link">TRT dosage calculator</a>
+  340:         <a href="/peptide.html" class="inline-link">Peptide reconstitution calculator</a>
+  341:         <a href="/bmi.html" class="inline-link">BMI calculator</a>
+  342:         <a href="/about.html" class="inline-link">About</a>
+  343:         <a href="/contact.html" class="inline-link">Contact</a>
   344  
 
 sitemap.xml:
    11    <url>
-   12:     <loc>https://www.injectbuddy.com/calculator/</loc>
+   12:     <loc>https://www.injectbuddy.com/calculator.html</loc>
    13      <priority>0.9</priority>
 
    15    <url>
-   16:     <loc>https://www.injectbuddy.com/peptide/</loc>
+   16:     <loc>https://www.injectbuddy.com/peptide.html</loc>
    17      <priority>0.9</priority>
 
    19    <url>
-   20:     <loc>https://www.injectbuddy.com/bmi/</loc>
+   20:     <loc>https://www.injectbuddy.com/bmi.html</loc>
    21      <priority>0.8</priority>
 
    29    <url>
-   30:     <loc>https://www.injectbuddy.com/about/</loc>
+   30:     <loc>https://www.injectbuddy.com/about.html</loc>
    31      <priority>0.6</priority>
 
    33    <url>
-   34:     <loc>https://www.injectbuddy.com/contact/</loc>
+   34:     <loc>https://www.injectbuddy.com/contact.html</loc>
    35      <priority>0.6</priority>
 
    43    <url>
-   44:     <loc>https://www.injectbuddy.com/guides/bloodwork/basics/</loc>
+   44:     <loc>https://www.injectbuddy.com/guides/bloodwork/basics.html</loc>
    45      <priority>0.7</priority>
 
    47    <url>
-   48:     <loc>https://www.injectbuddy.com/guides/bloodwork/interpreting-labs/</loc>
+   48:     <loc>https://www.injectbuddy.com/guides/bloodwork/interpreting-labs.html</loc>
    49      <priority>0.7</priority>
 
    51    <url>
-   52:     <loc>https://www.injectbuddy.com/guides/bloodwork/pre-injection/</loc>
+   52:     <loc>https://www.injectbuddy.com/guides/bloodwork/pre-injection.html</loc>
    53      <priority>0.7</priority>
 
    55    <url>
-   56:     <loc>https://www.injectbuddy.com/guides/bloodwork/ongoing-monitoring/</loc>
+   56:     <loc>https://www.injectbuddy.com/guides/bloodwork/ongoing-monitoring.html</loc>
    57      <priority>0.7</priority>
 
    65    <url>
-   66:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/what-is-trt/</loc>
+   66:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/what-is-trt.html</loc>
    67      <priority>0.7</priority>
 
    69    <url>
-   70:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/side-effects/</loc>
+   70:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/side-effects.html</loc>
    71      <priority>0.7</priority>
 
    73    <url>
-   74:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/lifestyle/</loc>
+   74:     <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/lifestyle.html</loc>
    75      <priority>0.7</priority>
 
    83    <url>
-   84:     <loc>https://www.injectbuddy.com/guides/testosterone/dose-planning/</loc>
+   84:     <loc>https://www.injectbuddy.com/guides/testosterone/dose-planning.html</loc>
    85      <priority>0.7</priority>
 
    87    <url>
-   88:     <loc>https://www.injectbuddy.com/guides/testosterone/frequency-options/</loc>
+   88:     <loc>https://www.injectbuddy.com/guides/testosterone/frequency-options.html</loc>
    89      <priority>0.7</priority>
 
    97    <url>
-   98:     <loc>https://www.injectbuddy.com/guides/peptides/reconstitution/</loc>
+   98:     <loc>https://www.injectbuddy.com/guides/peptides/reconstitution.html</loc>
    99      <priority>0.7</priority>
 
   101    <url>
-  102:     <loc>https://www.injectbuddy.com/guides/peptides/storage/</loc>
+  102:     <loc>https://www.injectbuddy.com/guides/peptides/storage.html</loc>
   103      <priority>0.7</priority>
 
   111    <url>
-  112:     <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/basics/</loc>
+  112:     <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/basics.html</loc>
   113      <priority>0.7</priority>
 
   115    <url>
-  116:     <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/site-rotation/</loc>
+  116:     <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/site-rotation.html</loc>
   117      <priority>0.7</priority>
 
   125    <url>
-  126:     <loc>https://www.injectbuddy.com/guides/tools/trt-calculator/</loc>
+  126:     <loc>https://www.injectbuddy.com/guides/tools/trt-calculator.html</loc>
   127      <priority>0.7</priority>
 
   129    <url>
-  130:     <loc>https://www.injectbuddy.com/guides/tools/peptide-calculator/</loc>
+  130:     <loc>https://www.injectbuddy.com/guides/tools/peptide-calculator.html</loc>
   131      <priority>0.7</priority>
 
 Assets/footer.js:
@@ -382,42 +382,42 @@ Assets/footer.js:
 
 Assets/Guides-nav.html:
    22        <div class="ib-guides-cat-panel" hidden>
-   23:         <a href="/guides/Bloodwork/index/" class="ib-guides-cat-link" data-guide="bloodwork:overview">Bloodwork category overview</a>
-   24:         <a href="/guides/bloodwork/basics/" class="ib-guides-cat-link" data-guide="bloodwork:basics">Bloodwork basics for TRT</a>
-   25:         <a href="/guides/bloodwork/interpreting-labs/" class="ib-guides-cat-link" data-guide="bloodwork:interpreting">How to read common lab markers</a>
-   26:         <a href="/guides/bloodwork/pre-injection/" class="ib-guides-cat-link" data-guide="bloodwork:pre">Pre-injection bloodwork checklist</a>
-   27:         <a href="/guides/bloodwork/ongoing-monitoring/" class="ib-guides-cat-link" data-guide="bloodwork:monitoring">Ongoing monitoring &amp; follow-up labs</a>
+   23:         <a href="/guides/Bloodwork/index.html" class="ib-guides-cat-link" data-guide="bloodwork:overview">Bloodwork category overview</a>
+   24:         <a href="/guides/bloodwork/basics.html" class="ib-guides-cat-link" data-guide="bloodwork:basics">Bloodwork basics for TRT</a>
+   25:         <a href="/guides/bloodwork/interpreting-labs.html" class="ib-guides-cat-link" data-guide="bloodwork:interpreting">How to read common lab markers</a>
+   26:         <a href="/guides/bloodwork/pre-injection.html" class="ib-guides-cat-link" data-guide="bloodwork:pre">Pre-injection bloodwork checklist</a>
+   27:         <a href="/guides/bloodwork/ongoing-monitoring.html" class="ib-guides-cat-link" data-guide="bloodwork:monitoring">Ongoing monitoring &amp; follow-up labs</a>
    28        </div>
 
    43        <div class="ib-guides-cat-panel" hidden>
-   44:         <a href="/guides/HormonesHealthBasics/index/" class="ib-guides-cat-link" data-guide="hormones:overview">Hormones &amp; health basics overview</a>
-   45:         <a href="/guides/HormonesHealthBasics/what-is-trt/" class="ib-guides-cat-link" data-guide="hormones:what">What is TRT?</a>
-   46:         <a href="/guides/HormonesHealthBasics/side-effects/" class="ib-guides-cat-link" data-guide="hormones:sides">Common side effects &amp; monitoring</a>
-   47:         <a href="/guides/HormonesHealthBasics/lifestyle/" class="ib-guides-cat-link" data-guide="hormones:lifestyle">Lifestyle factors that move the needle</a>
+   44:         <a href="/guides/HormonesHealthBasics/index.html" class="ib-guides-cat-link" data-guide="hormones:overview">Hormones &amp; health basics overview</a>
+   45:         <a href="/guides/HormonesHealthBasics/what-is-trt.html" class="ib-guides-cat-link" data-guide="hormones:what">What is TRT?</a>
+   46:         <a href="/guides/HormonesHealthBasics/side-effects.html" class="ib-guides-cat-link" data-guide="hormones:sides">Common side effects &amp; monitoring</a>
+   47:         <a href="/guides/HormonesHealthBasics/lifestyle.html" class="ib-guides-cat-link" data-guide="hormones:lifestyle">Lifestyle factors that move the needle</a>
    48        </div>
 
    63        <div class="ib-guides-cat-panel" hidden>
-   64:         <a href="/guides/Testosterone/index/" class="ib-guides-cat-link" data-guide="testosterone:overview">Testosterone category overview</a>
-   65:         <a href="/guides/testosterone/dose-planning/" class="ib-guides-cat-link" data-guide="testosterone:dose">Dose planning basics</a>
-   66:         <a href="/guides/testosterone/frequency-options/" class="ib-guides-cat-link" data-guide="testosterone:freq">Weekly vs every N days</a>
+   64:         <a href="/guides/Testosterone/index.html" class="ib-guides-cat-link" data-guide="testosterone:overview">Testosterone category overview</a>
+   65:         <a href="/guides/testosterone/dose-planning.html" class="ib-guides-cat-link" data-guide="testosterone:dose">Dose planning basics</a>
+   66:         <a href="/guides/testosterone/frequency-options.html" class="ib-guides-cat-link" data-guide="testosterone:freq">Weekly vs every N days</a>
    67        </div>
 
    82        <div class="ib-guides-cat-panel" hidden>
-   83:         <a href="/guides/Peptides/index/" class="ib-guides-cat-link" data-guide="peptides:overview">Peptides category overview</a>
-   84:         <a href="/guides/peptides/reconstitution/" class="ib-guides-cat-link" data-guide="peptides:recon">Peptide reconstitution basics</a>
-   85:         <a href="/guides/peptides/storage/" class="ib-guides-cat-link" data-guide="peptides:storage">Storage &amp; handling</a>
+   83:         <a href="/guides/Peptides/index.html" class="ib-guides-cat-link" data-guide="peptides:overview">Peptides category overview</a>
+   84:         <a href="/guides/peptides/reconstitution.html" class="ib-guides-cat-link" data-guide="peptides:recon">Peptide reconstitution basics</a>
+   85:         <a href="/guides/peptides/storage.html" class="ib-guides-cat-link" data-guide="peptides:storage">Storage &amp; handling</a>
    86        </div>
 
   101        <div class="ib-guides-cat-panel" hidden>
-  102:         <a href="/guides/InjectionTechniqueSafety/index/" class="ib-guides-cat-link" data-guide="injection:overview">Injection technique overview</a>
-  103:         <a href="/guides/InjectionTechniqueSafety/basics/" class="ib-guides-cat-link" data-guide="injection:basics">Injection basics</a>
-  104:         <a href="/guides/InjectionTechniqueSafety/site-rotation/" class="ib-guides-cat-link" data-guide="injection:rotation">Site rotation &amp; safety</a>
+  102:         <a href="/guides/InjectionTechniqueSafety/index.html" class="ib-guides-cat-link" data-guide="injection:overview">Injection technique overview</a>
+  103:         <a href="/guides/InjectionTechniqueSafety/basics.html" class="ib-guides-cat-link" data-guide="injection:basics">Injection basics</a>
+  104:         <a href="/guides/InjectionTechniqueSafety/site-rotation.html" class="ib-guides-cat-link" data-guide="injection:rotation">Site rotation &amp; safety</a>
   105        </div>
 
   120        <div class="ib-guides-cat-panel" hidden>
-  121:         <a href="/guides/Tools/index/" class="ib-guides-cat-link" data-guide="tools:overview">Tools &amp; calculators overview</a>
-  122:         <a href="/guides/tools/trt-calculator/" class="ib-guides-cat-link" data-guide="tools:trt">How to use the TRT dosage calculator</a>
-  123:         <a href="/guides/tools/peptide-calculator/" class="ib-guides-cat-link" data-guide="tools:peptide">How to use the peptide calculator</a>
+  121:         <a href="/guides/Tools/index.html" class="ib-guides-cat-link" data-guide="tools:overview">Tools &amp; calculators overview</a>
+  122:         <a href="/guides/tools/trt-calculator.html" class="ib-guides-cat-link" data-guide="tools:trt">How to use the TRT dosage calculator</a>
+  123:         <a href="/guides/tools/peptide-calculator.html" class="ib-guides-cat-link" data-guide="tools:peptide">How to use the peptide calculator</a>
   124        </div>
 
 Assets/guides-nav.js:
@@ -453,59 +453,59 @@ auth/callback.html:
 
 embed/calculator.html:
   17    <meta name="description" content="Embedded InjectBuddy TRT dosage calculator with weekly, every-N-days and mL→mg modes, plus a visual syringe." />
-  18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/calculator/" />
+  18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/calculator.html" />
   19  
 
   22    <meta property="og:type" content="website" />
-  23:   <meta property="og:url" content="https://www.injectbuddy.com/embed/calculator/" />
+  23:   <meta property="og:url" content="https://www.injectbuddy.com/embed/calculator.html" />
   24    <meta property="og:site_name" content="InjectBuddy" />
 
 embed/embed-calculator.html:
    17    <meta name="description" content="Embed-ready widget with both InjectBuddy TRT dosage calculator and peptide dosage & reconstitution calculator, switchable via a clean toggle." />
-   18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/embed-calculator/" />
+   18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/embed-calculator.html" />
    19    <meta property="og:title" content="InjectBuddy — TRT & Peptide Calculators (Embed Widget)" />
 
    21    <meta property="og:type" content="website" />
-   22:   <meta property="og:url" content="https://www.injectbuddy.com/embed/embed-calculator/" />
+   22:   <meta property="og:url" content="https://www.injectbuddy.com/embed/embed-calculator.html" />
    23    <meta property="og:site_name" content="InjectBuddy" />
 
   227          class="ib-frame active"
-  228:         src="https://www.injectbuddy.com/embed/calculator/"
+  228:         src="https://www.injectbuddy.com/embed/calculator.html"
   229          title="InjectBuddy TRT dosage calculator"
 
   236          class="ib-frame"
-  237:         src="https://www.injectbuddy.com/embed/peptide-calculator/"
+  237:         src="https://www.injectbuddy.com/embed/peptide-calculator.html"
   238          title="InjectBuddy peptide dosage & reconstitution calculator"
 
 embed/peptide-calculator.html:
   17    <meta name="description" content="Embed This Injectbuddy Widget into your website then Enter your peptide amount (mg) and bacteriostatic water (mL) to get vial strength (mg/mL), then set a weekly peptide dose (mg/week) and schedule to see dose per injection, volume, and a visual syringe." />
-  18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/peptide-calculator/" />
+  18:   <link rel="canonical" href="https://www.injectbuddy.com/embed/peptide-calculator.html" />
   19    <meta property="og:title" content="Peptide Dosage & Reconstitution Calculator" />
 
   21    <meta property="og:type" content="website" />
-  22:   <meta property="og:url" content="https://www.injectbuddy.com/embed/peptide-calculator/" />
+  22:   <meta property="og:url" content="https://www.injectbuddy.com/embed/peptide-calculator.html" />
   23    <meta property="og:site_name" content="InjectBuddy" />
 
 guides/bloodwork/Basics.html:
    17    <meta name="description" content="Bloodwork basics for TRT: which labs matter, when to test, and how to use results to stay inside the guardrails. Built to pair with InjectBuddy tools for dosing and free testosterone estimation." />
-   18:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics/" />
+   18:   <link rel="canonical" href="https://www.injectbuddy.com/guides/bloodwork/basics.html" />
    19  
 
    75                  If you’re new, start with the
-   76:                 <a href="/guides/Bloodwork/index/">Bloodwork category overview</a>
+   76:                 <a href="/guides/Bloodwork/index.html">Bloodwork category overview</a>
    77                  to see the full pathway (fundamentals → interpreting markers → ongoing monitoring).
 
   129                  Next step: use
-  130:                 <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>
+  130:                 <a href="/guides/bloodwork/interpreting-labs.html">How to read common lab markers</a>
   131                  so you understand what these numbers mean together (not in isolation).
 
   169                  For what trends to watch over time, go to
-  170:                 <a href="/guides/bloodwork/ongoing-monitoring/">Ongoing monitoring &amp; follow-up labs</a>.
+  170:                 <a href="/guides/bloodwork/ongoing-monitoring.html">Ongoing monitoring &amp; follow-up labs</a>.
   171                </p>
 
   192                <p>
-  193:                 If you’re still at fundamentals: <a href="/guides/bloodwork/interpreting-labs/">How to read common lab markers</a>.<br />
-  194:                 If you’re stable and want a schedule: <a href="/guides/bloodwork/ongoing-monitoring/">Ongoing monitoring &amp; follow-up labs</a>.<br />
+  193:                 If you’re still at fundamentals: <a href="/guides/bloodwork/interpreting-labs.html">How to read common lab markers</a>.<br />
+  194:                 If you’re stable and want a schedule: <a href="/guides/bloodwork/ongoing-monitoring.html">Ongoing monitoring &amp; follow-up labs</a>.<br />
   195:                 If you’re using tools day-to-day: <a href="/guides/tools/trt-calculator.html">How to use the TRT dosage calculator</a>.
   196                </p>
 
