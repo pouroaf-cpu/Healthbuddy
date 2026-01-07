@@ -9,3 +9,8 @@
   to = "/guides/hormoneshealthbasics/:splat"
   status = 301
   force = true
+[[redirects]]
+  from = "https://injectbuddy.com/*"
+  to = "https://www.injectbuddy.com/:splat"
+  status = 301
+  force = true
