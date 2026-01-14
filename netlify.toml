@@ -10,7 +10,8 @@
   status = 301
   force = true
 [[redirects]]
-  from = "https://injectbuddy.com/*"
-  to = "https://www.injectbuddy.com/:splat"
+  from = "https://www.injectbuddy.com/*"
+  to = "https://injectbuddy.com/:splat"
   status = 301
   force = true
+
