@@ -3,131 +3,131 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://www.injectbuddy.com/</loc>
+    <loc>https://injectbuddy.com/</loc>
     <priority>1.0</priority>
   </url>
 
   <!-- Core Tools -->
   <url>
-    <loc>https://www.injectbuddy.com/calculator.html</loc>
+    <loc>https://injectbuddy.com/calculator.html</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/peptide.html</loc>
+    <loc>https://injectbuddy.com/peptide.html</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/bmi.html</loc>
+    <loc>https://injectbuddy.com/bmi.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/free-testosterone-calculator</loc>
+    <loc>https://injectbuddy.com/free-testosterone-calculator</loc>
     <priority>0.8</priority>
   </url>
 
   <!-- Core Pages -->
   <url>
-    <loc>https://www.injectbuddy.com/about.html</loc>
+    <loc>https://injectbuddy.com/about.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/contact.html</loc>
+    <loc>https://injectbuddy.com/contact.html</loc>
     <priority>0.6</priority>
   </url>
 
-  <!-- Guides: Bloodwork (hub uses folder URL) -->
+  <!-- Guides: Bloodwork -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/</loc>
+    <loc>https://injectbuddy.com/guides/bloodwork/</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/basics.html</loc>
+    <loc>https://injectbuddy.com/guides/bloodwork/basics.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/interpreting-labs.html</loc>
+    <loc>https://injectbuddy.com/guides/bloodwork/interpreting-labs.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/pre-injection.html</loc>
+    <loc>https://injectbuddy.com/guides/bloodwork/pre-injection.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/bloodwork/ongoing-monitoring.html</loc>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Guides: Hormones & Health Basics (hub uses folder URL) -->
-  <url>
-    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/what-is-trt.html</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/side-effects.html</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/guides/hormoneshealthbasics/lifestyle.html</loc>
+    <loc>https://injectbuddy.com/guides/bloodwork/ongoing-monitoring.html</loc>
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Testosterone (hub uses folder URL) -->
+  <!-- Guides: Hormones & Health Basics -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/testosterone/</loc>
+    <loc>https://injectbuddy.com/guides/hormoneshealthbasics/</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/testosterone/dose-planning.html</loc>
+    <loc>https://injectbuddy.com/guides/hormoneshealthbasics/what-is-trt.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/testosterone/frequency-options.html</loc>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Guides: Peptides (hub uses folder URL) -->
-  <url>
-    <loc>https://www.injectbuddy.com/guides/peptides/</loc>
+    <loc>https://injectbuddy.com/guides/hormoneshealthbasics/side-effects.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/peptides/reconstitution.html</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.injectbuddy.com/guides/peptides/storage.html</loc>
+    <loc>https://injectbuddy.com/guides/hormoneshealthbasics/lifestyle.html</loc>
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Injection Technique & Safety (hub uses folder URL) -->
+  <!-- Guides: Testosterone -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/</loc>
+    <loc>https://injectbuddy.com/guides/testosterone/</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/basics.html</loc>
+    <loc>https://injectbuddy.com/guides/testosterone/dose-planning.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/injectiontechniquesafety/site-rotation.html</loc>
+    <loc>https://injectbuddy.com/guides/testosterone/frequency-options.html</loc>
     <priority>0.7</priority>
   </url>
 
-  <!-- Guides: Tools & Calculators (hub uses folder URL) -->
+  <!-- Guides: Peptides -->
   <url>
-    <loc>https://www.injectbuddy.com/guides/tools/</loc>
+    <loc>https://injectbuddy.com/guides/peptides/</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/tools/trt-calculator.html</loc>
+    <loc>https://injectbuddy.com/guides/peptides/reconstitution.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.injectbuddy.com/guides/tools/peptide-calculator.html</loc>
+    <loc>https://injectbuddy.com/guides/peptides/storage.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guides: Injection Technique & Safety -->
+  <url>
+    <loc>https://injectbuddy.com/guides/injectiontechniquesafety/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://injectbuddy.com/guides/injectiontechniquesafety/basics.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://injectbuddy.com/guides/injectiontechniquesafety/site-rotation.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guides: Tools & Calculators -->
+  <url>
+    <loc>https://injectbuddy.com/guides/tools/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://injectbuddy.com/guides/tools/trt-calculator.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://injectbuddy.com/guides/tools/peptide-calculator.html</loc>
     <priority>0.7</priority>
   </url>
 
