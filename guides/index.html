@@ -36,8 +36,9 @@
     })(window, document, "clarity", "script", "tlo6h3wt7s");
   </script>
 </head>
-<body>
-  <div id="site-header"></div>
+
+<body data-guides-cat="home" data-guides-active="home:guides">
+  <div id="site-header" data-nav-current="guides"></div>
 
   <main>
     <section class="section">
@@ -52,38 +53,123 @@
         </header>
 
         <div class="ib-guides-layout">
-          <!-- LEFT: icon rail + slide-out panel is injected here -->
-          <div id="ib-guides-shell"></div>
+          <!-- LEFT NAV (UNIVERSAL) -->
+          <div id="ib-guides-nav"></div>
 
           <!-- RIGHT: page content -->
           <article class="ib-guides-content">
+            <!-- Breadcrumb -->
+            <nav class="ib-breadcrumbs ib-breadcrumbs--teal" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="/" class="ib-crumb-strong">InjectBuddy</a></li>
+                <li aria-current="page" class="ib-crumb-current">Guides</li>
+              </ol>
+            </nav>
+
             <header class="ib-guides-article-header">
               <h2>How this guides section works</h2>
               <p class="ib-guides-article-subtitle">
                 Use the left-hand categories to drill down into specific topics, or use the search box below to
-                look across all guides.
+                look across all guides. If you want the fast path: start with Hormones &amp; Health Basics, then Testosterone,
+                then Bloodwork.
               </p>
             </header>
 
-            <form role="search">
-              <label for="guides-search-input">
-                Search all guides
-              </label>
-              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;max-width:520px;">
-                <input
-                  id="guides-search-input"
-                  type="search"
-                  name="q"
-                  placeholder="e.g. injection technique, peptides, bloodwork"
-                  autocomplete="off"
-                  style="flex:1 1 220px;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);"
-                />
-                <button type="submit" class="btn btn-secondary">Search</button>
-              </div>
-              <p class="muted" style="margin-top:6px;">
-                This search is intended to look across all guide categories.
+            <!-- CATEGORY HUB (matches sitemap + avoids reliance on JS UI) -->
+            <section class="ib-guide-section" aria-label="Browse guide categories">
+              <h2>Browse categories</h2>
+              <p class="muted">
+                Start with a category overview, then drill into the guides inside it.
               </p>
-            </form>
+
+              <div class="ib-guides-grid">
+                <div class="ib-guides-tile">
+                  <h3>Hormones &amp; health basics</h3>
+                  <p class="muted">Foundations: TRT basics, side effects, and lifestyle factors.</p>
+                  <ul>
+                    <li><a href="/guides/hormoneshealthbasics/">Overview</a></li>
+                    <li><a href="/guides/hormoneshealthbasics/what-is-trt.html">What is TRT?</a></li>
+                    <li><a href="/guides/hormoneshealthbasics/side-effects.html">Side effects &amp; monitoring</a></li>
+                    <li><a href="/guides/hormoneshealthbasics/lifestyle.html">Lifestyle factors</a></li>
+                  </ul>
+                </div>
+
+                <div class="ib-guides-tile">
+                  <h3>Testosterone</h3>
+                  <p class="muted">Dose planning, frequency, stability, expectations.</p>
+                  <ul>
+                    <li><a href="/guides/testosterone/">Overview</a></li>
+                    <li><a href="/guides/testosterone/dose-planning.html">Dose planning basics</a></li>
+                    <li><a href="/guides/testosterone/frequency-options.html">Weekly vs every N days</a></li>
+                  </ul>
+                </div>
+
+                <div class="ib-guides-tile">
+                  <h3>Bloodwork</h3>
+                  <p class="muted">How to time, interpret, and monitor labs properly.</p>
+                  <ul>
+                    <li><a href="/guides/bloodwork/">Overview</a></li>
+                    <li><a href="/guides/bloodwork/basics/">Bloodwork basics</a></li>
+                    <li><a href="/guides/bloodwork/interpreting-labs.html">Interpreting labs</a></li>
+                    <li><a href="/guides/bloodwork/pre-injection.html">Pre-injection checklist</a></li>
+                    <li><a href="/guides/bloodwork/ongoing-monitoring.html">Ongoing monitoring</a></li>
+                  </ul>
+                </div>
+
+                <div class="ib-guides-tile">
+                  <h3>Injection technique &amp; safety</h3>
+                  <p class="muted">Clean technique, site rotation, and practical workflow.</p>
+                  <ul>
+                    <li><a href="/guides/injectiontechniquesafety/">Overview</a></li>
+                    <li><a href="/guides/injectiontechniquesafety/basics.html">Injection basics</a></li>
+                    <li><a href="/guides/injectiontechniquesafety/site-rotation.html">Site rotation &amp; safety</a></li>
+                  </ul>
+                </div>
+
+                <div class="ib-guides-tile">
+                  <h3>Peptides</h3>
+                  <p class="muted">Reconstitution, storage, safe handling, and tool use.</p>
+                  <ul>
+                    <li><a href="/guides/peptides/">Overview</a></li>
+                    <li><a href="/guides/peptides/reconstitution.html">Reconstitution basics</a></li>
+                    <li><a href="/guides/peptides/storage.html">Storage &amp; handling</a></li>
+                  </ul>
+                </div>
+
+                <div class="ib-guides-tile">
+                  <h3>Tools &amp; calculators</h3>
+                  <p class="muted">How to use InjectBuddy calculators correctly (inputs first).</p>
+                  <ul>
+                    <li><a href="/guides/tools/">Overview</a></li>
+                    <li><a href="/guides/tools/trt-calculator.html">TRT calculator guide</a></li>
+                    <li><a href="/guides/tools/peptide-calculator.html">Peptide calculator guide</a></li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- SEARCH -->
+            <section class="ib-guide-section" aria-label="Search guides">
+              <h2>Search all guides</h2>
+
+              <form role="search" action="/guides/" method="get">
+                <label for="guides-search-input" class="muted">Search by keyword</label>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;max-width:520px;">
+                  <input
+                    id="guides-search-input"
+                    type="search"
+                    name="q"
+                    placeholder="e.g. injection technique, peptides, bloodwork"
+                    autocomplete="off"
+                    style="flex:1 1 220px;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);background:transparent;color:inherit;"
+                  />
+                  <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+                <p class="muted" style="margin-top:6px;">
+                  Tip: use category overview pages first, then drill into individual guides.
+                </p>
+              </form>
+            </section>
           </article>
         </div>
       </div>
@@ -92,7 +178,7 @@
     <!-- DISCLAIMER -->
     <section class="section" aria-label="Guides disclaimer">
       <div class="container">
-        <div style="border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff;box-shadow:var(--shadow);">
+        <div class="card" style="padding:18px;">
           <strong>General information only</strong>
           <p class="muted" style="margin:8px 0 0;">
             These guides are for general educational purposes only and are not personalised advice. Always follow
@@ -113,17 +199,13 @@
   <button id="ib-scroll-top" aria-label="Scroll to top">↑</button>
 
   <script>
-    // Scroll to top button behaviour (unchanged)
     document.addEventListener("DOMContentLoaded", () => {
       const btn = document.getElementById("ib-scroll-top");
 
       function toggleButton() {
         if (window.innerWidth <= 980) {
-          if (window.scrollY > 180) {
-            btn.classList.add("visible");
-          } else {
-            btn.classList.remove("visible");
-          }
+          if (window.scrollY > 180) btn.classList.add("visible");
+          else btn.classList.remove("visible");
         } else {
           btn.classList.remove("visible");
         }
