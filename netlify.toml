@@ -1,9 +1,2 @@
 [build]
 publish = "."
-
-[[redirects]]
-from = "/*"
-to = "https://injectbuddy.com/:splat"
-status = 301
-force = true
-conditions = { Host = ["www.injectbuddy.com", "injectbuddy.com"] }
