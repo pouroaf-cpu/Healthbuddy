@@ -1,33 +1,9 @@
-# 1) Force canonical host: www -> apex
-[[redirects]]
-  from = "/*"
-  to = "https://injectbuddy.com/:splat"
-  status = 301
-  force = true
-  conditions = { Host = ["www.injectbuddy.com"] }
-
-# 2) Legacy folder case fixes (both root + subpaths)
+[build]
+publish = "."
 
 [[redirects]]
-  from = "/guides/InjectionTechniqueSafety"
-  to = "/guides/injectiontechniquesafety"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/guides/InjectionTechniqueSafety/*"
-  to = "/guides/injectiontechniquesafety/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/guides/HormonesHealthBasics"
-  to = "/guides/hormoneshealthbasics"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/guides/HormonesHealthBasics/*"
-  to = "/guides/hormoneshealthbasics/:splat"
-  status = 301
-  force = true
+from = "/*"
+to = "https://injectbuddy.com/:splat"
+status = 301
+force = true
+conditions = { Host = ["www.injectbuddy.com", "injectbuddy.com"] }
