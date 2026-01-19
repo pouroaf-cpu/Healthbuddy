@@ -16,12 +16,14 @@
   <title>Tools &amp; Calculators | InjectBuddy</title>
   <meta name="description" content="InjectBuddy tools and calculators for TRT, peptides, injections, and dosing. Practical calculators designed to reduce errors and improve consistency." />
 
-  <!-- IMPORTANT: match the real, final URL exactly. If your file is /guides/tools/index.html, use that. -->
-  <link rel="canonical" href="https://injectbuddy.com/guides/tools/index.html" />
+  <!-- CANONICAL: use ONE standard (www + trailing slash, no index.html) -->
+  <link rel="canonical" href="https://www.injectbuddy.com/guides/tools/" />
 
   <meta property="og:title" content="Tools &amp; Calculators" />
   <meta property="og:description" content="Purpose-built calculators that remove guesswork from TRT and peptide dosing." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.injectbuddy.com/guides/tools/" />
+  <meta property="og:site_name" content="InjectBuddy" />
 
   <link rel="icon" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/style.css" />
@@ -41,16 +43,14 @@
           <h1>Tools &amp; calculators</h1>
           <p class="muted">
             Practical tools built to remove math errors, improve consistency,
-            and make dosing decisions clearer—not more complicated.
+            and make dosing clearer—not more complicated.
           </p>
         </header>
 
-        <!-- Guides layout with sidebar -->
         <div class="ib-guides-layout">
           <!-- LEFT NAV (Injected by guides-nav.js) -->
           <div id="ib-guides-nav"></div>
 
-          <!-- Main content -->
           <article class="ib-guides-content">
 
             <!-- Breadcrumb -->
@@ -65,12 +65,8 @@
             <section class="ib-guide-section">
               <h2>Why these tools exist</h2>
               <p>
-                Most dosing mistakes aren’t caused by bad intentions—they’re caused by
-                mental math, unit confusion, and inconsistent setups.
-              </p>
-              <p>
-                InjectBuddy tools are designed to standardise calculations so you can
-                focus on execution, not arithmetic.
+                Most dosing mistakes come from unit confusion and mental math.
+                These tools standardise the calculations so you can focus on execution.
               </p>
 
               <div class="ib-guide-callout">
@@ -85,60 +81,50 @@
               <ul>
                 <li>
                   <a href="/peptide.html"><strong>Peptide calculator</strong></a><br />
-                  Convert mg or mcg into syringe units based on vial strength and dilution.
+                  Convert mg/mcg into syringe units based on vial strength and dilution.
                 </li>
                 <li>
                   <a href="/calculator.html"><strong>Testosterone dosage calculator</strong></a><br />
                   Plan weekly dose, injection frequency, and per-injection volume.
                 </li>
-                <li>
-                  <a href="/peptide.html"><strong>Peptide reconstitution calculator</strong></a><br />
-                  Choose dilution volumes and see resulting concentration instantly.
+                <li class="muted">
+                  <strong>Note:</strong> The peptide calculator already covers reconstitution outcomes when you enter vial mg + water mL.
                 </li>
               </ul>
             </section>
 
-            <!-- SUPPORT TOOLS -->
+            <!-- GUIDES THAT EXPLAIN THE TOOLS -->
+            <section class="ib-guide-section">
+              <h2>How to use the calculators (recommended)</h2>
+              <ul>
+                <li>
+                  <a href="/guides/tools/trt-calculator/"><strong>How to use the TRT dosage calculator</strong></a><br />
+                  Avoid strength/schedule/unit mistakes.
+                </li>
+                <li>
+                  <a href="/guides/tools/peptide-calculator/"><strong>How to use the peptide calculator</strong></a><br />
+                  Reconstitution inputs, dilution logic, and common errors.
+                </li>
+              </ul>
+            </section>
+
+            <!-- SUPPORTING TOOLS -->
             <section class="ib-guide-section">
               <h2>Supporting tools</h2>
               <ul>
-                <li>
-                  <strong>Syringe visual guides</strong><br />
-                  Visualise insulin syringe markings to reduce draw errors.
-                </li>
-                <li>
-                  <strong>Injection frequency planners</strong><br />
-                  Compare weekly vs every-N-day injection schedules.
-                </li>
-                <li>
-                  <strong>Unit conversion helpers</strong><br />
-                  Reduce mg, mcg, mL, and IU confusion.
-                </li>
+                <li><strong>Syringe visual guides</strong><br />Visualise insulin syringe markings to reduce draw errors.</li>
+                <li><strong>Injection frequency planning</strong><br />Split weekly totals into repeatable schedules.</li>
+                <li><strong>Unit conversions</strong><br />Reduce mg/mcg/mL/IU confusion.</li>
               </ul>
-            </section>
-
-            <!-- HOW TO USE -->
-            <section class="ib-guide-section">
-              <h2>How to use these tools correctly</h2>
-              <ul>
-                <li>Confirm vial strength before entering values</li>
-                <li>Understand dilution before trusting outputs</li>
-                <li>Match syringe type to the calculator</li>
-                <li>Recheck numbers if anything looks unexpected</li>
-              </ul>
-
-              <div class="ib-guide-callout">
-                <strong>Rule</strong>
-                <p class="muted">Tools support understanding—they don’t replace it.</p>
-              </div>
             </section>
 
             <!-- COMMON ERRORS -->
             <section class="ib-guide-section">
               <h2>Common calculator mistakes</h2>
               <ul>
-                <li>Entering total vial amount instead of per-mL concentration</li>
                 <li>Confusing mg and mcg</li>
+                <li>Entering the wrong vial strength</li>
+                <li>Entering the wrong water amount (mL) after mixing</li>
                 <li>Using the wrong syringe scale</li>
                 <li>Changing dilution mid-vial without recalculating</li>
               </ul>
@@ -154,20 +140,20 @@
               <h2>Learn before you calculate</h2>
               <ul>
                 <li>
-                  <a href="/guides/peptides/reconstitution.html"><strong>Peptide reconstitution basics</strong></a><br />
-                  Understand dilution math before using any peptide dose tool.
+                  <a href="/guides/peptides/reconstitution/"><strong>Peptide reconstitution basics</strong></a><br />
+                  Understand dilution before using any peptide tool.
                 </li>
                 <li>
-                  <a href="/guides/peptides/storage.html"><strong>Peptide storage &amp; handling</strong></a><br />
-                  Storage mistakes ruin results and increase contamination risk.
+                  <a href="/guides/peptides/storage/"><strong>Peptide storage &amp; handling</strong></a><br />
+                  Stop silent potency loss and contamination risk.
                 </li>
                 <li>
-                  <a href="/guides/InjectionTechniqueSafety/basics.html"><strong>Injection basics</strong></a><br />
-                  Needle choice, prep, and technique fundamentals.
+                  <a href="/guides/injectiontechniquesafety/basics/"><strong>Injection basics</strong></a><br />
+                  Needle choice, prep, and fundamentals.
                 </li>
                 <li>
-                  <a href="/guides/InjectionTechniqueSafety/index.html"><strong>Injection technique &amp; safety</strong></a><br />
-                  Your full safety overview before starting.
+                  <a href="/guides/injectiontechniquesafety/"><strong>Injection technique &amp; safety</strong></a><br />
+                  The full safety overview before starting.
                 </li>
               </ul>
             </section>
@@ -177,9 +163,9 @@
               <h2>Key takeaways</h2>
               <ul>
                 <li>Calculators reduce math errors—not judgment errors.</li>
-                <li>Correct inputs are more important than fancy outputs.</li>
+                <li>Correct inputs matter more than fancy outputs.</li>
                 <li>Consistency beats recalculating every injection.</li>
-                <li>Understanding always comes first.</li>
+                <li>Understanding comes first.</li>
               </ul>
             </section>
 
